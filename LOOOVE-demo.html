@@ -39,6 +39,12 @@ body{font-family:var(--sans);
 .stage{display:flex;align-items:center;gap:clamp(24px,4vw,64px);z-index:1}
 .side{width:280px;display:flex;flex-direction:column;gap:22px}
 @media(max-width:1180px){.side{display:none}}
+/* 右侧 · 硬件展示 */
+.hw-showcase{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}
+.hw-tag{font-size:10px;letter-spacing:.32em;color:var(--text-muted);font-weight:600}
+.hw-img{width:100%;height:auto;filter:drop-shadow(0 20px 38px rgba(120,90,80,.24))}
+.hw-cap{font-family:var(--serif);font-size:19px;color:var(--text-primary);letter-spacing:.03em}
+.hw-sub{font-size:12px;color:var(--text-muted);line-height:1.85}
 .brand h1{font-family:var(--serif);font-weight:700;font-size:44px;letter-spacing:.12em;
   white-space:nowrap;
   background:linear-gradient(120deg,#ff7f63,#ffb84d 52%,#ff6b8a);
@@ -3536,8 +3542,15 @@ body{font-family:var(--sans);
     </div><!-- /phone-wrap -->
   </div><!-- /center-col -->
 
-  <!-- 右 · 留白保持手机居中 -->
-  <aside class="side" aria-hidden="true"></aside>
+  <!-- 右 · 硬件展示 -->
+  <aside class="side">
+    <div class="hw-showcase">
+      <div class="hw-tag">HARDWARE</div>
+      <img src="硬件图.png" alt="LOOOVE 智能戒指" class="hw-img">
+      <div class="hw-cap">LOOOVE 智能戒指</div>
+      <div class="hw-sub">钛合金多面切割 · 持续监测<br>心率 · HRV · 体温 · 睡眠</div>
+    </div>
+  </aside>
 
 </div><!-- /stage -->
 
