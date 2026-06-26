@@ -1015,7 +1015,7 @@ body{font-family:var(--sans);
 .mine-profile-top{display:flex;align-items:center;gap:16px}
 .mine-measure-divider{height:1px;background:rgba(0,0,0,.06);margin:16px 0 2px}
 /* 全局 · 连接状态 chip */
-.app-conn{position:absolute;top:94px;right:18px;z-index:60;display:flex;align-items:center;gap:5px;
+.app-conn{position:absolute;top:0;right:0;z-index:5;display:flex;align-items:center;gap:5px;
   padding:5px 13px;border-radius:100px;cursor:pointer;font-family:var(--sans);
   font-size:11px;letter-spacing:.06em;color:var(--text-secondary);
   background:rgba(255,255,255,.88);border:1px solid rgba(0,0,0,.07);
@@ -1791,8 +1791,7 @@ body{font-family:var(--sans);
             </div>
           </div>
 
-          <!-- 全局连接状态 chip -->
-          <button class="app-conn" onclick="openOverlay('ov-device')"><span class="app-conn-dot"></span>已连接</button>
+          <!-- 连接状态 chip：由 JS 注入到每个 tab 的标题栏（跟随页面滚动）-->
 
           <!-- ===== TAB 1 今日 ===== -->
           <div class="tabpage on" id="t-home">
@@ -5399,6 +5398,17 @@ renderIcons();
 renderHomeExtList('calm');
 renderDiary();
 try{drawChart();}catch(e){}
+/* 连接状态 chip 注入到每个 tab 的标题栏右上角（随页面滚动）*/
+['#home-morn .greet-row','#home-eve .greet-row','#t-diary .diary-hero','#t-care .prac-head','#t-wiki .wiki-head','#t-space .wiki-head'].forEach(sel=>{
+  const h=document.querySelector(sel);
+  if(!h||h.querySelector('.app-conn'))return;
+  h.style.position='relative';
+  const b=document.createElement('button');
+  b.className='app-conn';
+  b.onclick=()=>openOverlay('ov-device');
+  b.innerHTML='<span class="app-conn-dot"></span>已连接';
+  h.appendChild(b);
+});
 /* 打开页面即进入早安动线 */
 try{openMorning();}catch(e){}
 </script>
