@@ -38,7 +38,16 @@ body{font-family:var(--sans);
 /* ===== 外层布局 ===== */
 .stage{display:flex;align-items:center;gap:clamp(24px,4vw,64px);z-index:1}
 .side{width:280px;display:flex;flex-direction:column;gap:22px}
-@media(max-width:1180px){.side{display:none}}
+/* 小屏：竖向堆叠 —— 文字 → 硬件 → APP，可滚动 */
+@media(max-width:1180px){
+  body{overflow:auto;display:block}
+  .stage{flex-direction:column;gap:30px;padding:36px 16px 56px;align-items:center}
+  .side{width:auto;max-width:min(440px,92vw);align-items:center;text-align:center}
+  .principles div{text-align:left}
+  .stage>aside:first-of-type{order:1}   /* 文字 */
+  .stage>aside:last-of-type{order:2}    /* 硬件图 */
+  .center-col{order:3}                  /* APP */
+}
 /* 右侧 · 硬件展示 */
 .hw-showcase{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}
 .hw-tag{font-size:10px;letter-spacing:.32em;color:var(--text-muted);font-weight:600}
@@ -1718,7 +1727,6 @@ body{font-family:var(--sans);
 </head>
 <body>
 <div class="stars" id="stars"></div>
-<button class="mute-btn" id="muteBtn" title="静音">♪</button>
 
 <div class="stage">
 
@@ -3613,9 +3621,6 @@ const Audio$={
   breatheOut(){this.tone(220,1.3,.05,'sine');},
   night(){this.tone(659,.8,.08);this.tone(523,1.1,.06,'sine',.25);this.tone(392,1.6,.05,'sine',.5);}
 };
-document.getElementById('muteBtn').onclick=function(){
-  Audio$.muted=!Audio$.muted;this.textContent=Audio$.muted?'∅':'♪';
-};
 
 /* ============ Toast ============ */
 let toastTimer=null;
@@ -4189,7 +4194,7 @@ const PLANS={
   bright:[
     {ico:'leaf',cat:'饮 食',title:'早餐撒一把坚果，补优质脂肪',body:'这几天睡得不算沉——<em>早餐加一小把核桃或半个牛油果</em>，优质脂肪帮神经稳一点，也更扛饿到午餐。'},
     {ico:'walk',cat:'运 动',title:'9:45 出门走 45 分钟',body:'上海今天凉爽舒适，是难得的散步天。<em>趁 9:45 阳光正好，沿着河边慢走 45 分钟</em>，让晨光照到你和宝宝。'},
-    {ico:'sparkle',cat:'情 绪',title:'把刚抽到的那张牌发给自己',body:'好心情值得被留住——<em>把今早那张卡和一句话发到自己的微信</em>，今晚翻回忆时，会重新暖一次。'}
+    {ico:'sparkle',cat:'情 绪',title:'趁心里亮堂，记下一句',body:'好心情值得被留住——<em>在回忆里写下今天最期待的一件事</em>，今晚翻回来，会重新暖一次。'}
   ],
   calm:[
     {ico:'leaf',cat:'饮 食',title:'午餐一份瘦牛肉，配凉拌彩椒',body:'孕中期铁需求在涨——<em>中午来一份瘦牛肉配凉拌彩椒</em>，维 C 让铁吸收翻倍；胃口小就分两次慢慢吃。'},
