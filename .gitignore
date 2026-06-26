@@ -1,0 +1,15 @@
+# 仅发布 Demo —— 排除机密与无关文件
+.claude/
+assets/
+客户对接资料/
+研究/
+
+# 备份与文档（机密，不公开）
+LOOOVE-demo - 备份.html
+Looove Ring BP_202601_vF(1).pdf
+产品文档-拾光戒指App-PRD-v1.md
+育龄女性健康指南.docx
+
+# 系统文件
+.DS_Store
+Thumbs.db
