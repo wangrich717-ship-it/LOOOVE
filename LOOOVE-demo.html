@@ -40,13 +40,18 @@ body{font-family:var(--sans);
 .side{width:280px;display:flex;flex-direction:column;gap:22px}
 /* 小屏：竖向堆叠 —— 文字 → 硬件 → APP，可滚动 */
 @media(max-width:1180px){
-  body{overflow:auto;display:block}
+  body{overflow:auto;display:block;
+    background:linear-gradient(180deg,#fff3d2 0%,#ffe6d6 50%,#fff1e8 100%);
+    background-attachment:fixed}
   .stage{flex-direction:column;gap:30px;padding:36px 16px 56px;align-items:center}
   .side{width:auto;max-width:min(440px,92vw);align-items:center;text-align:center}
   .principles div{text-align:left}
   .stage>aside:first-of-type{order:1}   /* 文字 */
   .stage>aside:last-of-type{order:2}    /* 硬件图 */
   .center-col{order:3}                  /* APP */
+  /* 四个入口按钮：居中 + 自适应不被裁切 */
+  #flowPicker{width:auto!important;max-width:96vw;justify-content:center;flex-wrap:wrap;gap:8px}
+  #flowPicker .fp-btn{flex:0 0 auto}
 }
 /* 右侧 · 硬件展示 */
 .hw-showcase{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}
