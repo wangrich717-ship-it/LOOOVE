@@ -2655,7 +2655,7 @@ body{font-family:var(--sans);
                 <div class="dev-metric"><div class="dm-lbl">H R V</div><div class="dm-val"><span id="dmHrv">—</span><small>ms</small></div></div>
                 <div class="dev-metric"><div class="dm-lbl">血 氧</div><div class="dm-val"><span id="dmSpo2">—</span><small>%</small></div></div>
                 <div class="dev-metric"><div class="dm-lbl">体 温</div><div class="dm-val"><span id="dmTemp">—</span><small>℃</small></div></div>
-                <div class="dev-metric"><div class="dm-lbl">呼 吸</div><div class="dm-val"><span id="dmResp">—</span><small>/分</small></div></div>
+                <div class="dev-metric"><div class="dm-lbl">压 力</div><div class="dm-val"><span id="dmStress">—</span></div></div>
                 <div class="dev-metric"><div class="dm-lbl">步 数</div><div class="dm-val"><span id="dmStep">—</span></div></div>
               </div>
 
@@ -5506,7 +5506,7 @@ const RingBLE={
       ringLog('已连接 · 服务 BAE80001 ✓','sys');
       setConnState(true,this.device.name||'LOOOVE 智能戒指');
       $dev('devId').textContent=(this.device.id||'').slice(0,16)||'BraveChip BCL603';
-      await this.syncTime(); this.send(0x11,0x00); this.send(0x12,0x00); // 时间同步 + 版本 + 电量
+      await this.syncTime(); this.send(0x11,0x00); this.send(0x12,0x00); this.send(0x35,0x00); // 时间同步+版本+电量+步数
     }catch(err){ ringLog('连接失败/取消：'+err.message,'sys'); }
   },
   frame(cmd,sub,data){ const d=data||[]; const f=new Uint8Array(4+d.length); f[0]=0; f[1]=(this.fid++)&0xff; f[2]=cmd; f[3]=sub; f.set(d,4); return f; },
@@ -5519,19 +5519,46 @@ const RingBLE={
   },
   async syncTime(){ const d=new Uint8Array(9); new DataView(d.buffer).setBigUint64(0,BigInt(Date.now()),true); d[8]=8; await this.send(0x10,0x00,d); },
   onNotify(dv){ const b=new Uint8Array(dv.buffer); ringLog('RX cmd 0x'+(b[2]||0).toString(16).padStart(2,'0'),'rx',toHex(b)); this.parse(b); },
+  ackPush(b){ if(this.writeCh){ try{ this.writeCh.writeValue(new Uint8Array([0x00,b[1],b[2],0x03])); }catch(e){} } },
   parse(b){
     const cmd=b[2],sub=b[3],d=b.slice(4);
-    if(cmd===0x12){ const bat=d[0]; const v=bat>100?'充电中':bat+'%'; if($dev('devBat'))$dev('devBat').textContent=v; }
+    const i16=(lo,hi)=>{ let v=(d[lo]||0)|((d[hi]||0)<<8); return v>32767?v-65536:v; };
+    const okT=t=>t>20&&t<45;
+    if(cmd===0x12){ const bat=d[0]; if($dev('devBat'))$dev('devBat').textContent=bat>100?'充电中':bat+'%'; }
     else if(cmd===0x11){ const s=String.fromCharCode(...[...d].filter(x=>x>=32&&x<127)).trim(); if(s&&$dev('devId'))$dev('devId').textContent='固件 '+s; }
-    else if(cmd===0x31){ if(d[1])setMetric('dmHr',d[1],true); const hrv=((d[4]||0)|((d[5]||0)<<8))*0.01; if(hrv>5&&hrv<300)setMetric('dmHrv',Math.round(hrv),true); }
-    else if(cmd===0x32){ if(d[1])setMetric('dmSpo2',d[1]); if(d[2])setMetric('dmResp',d[2]); }
-    else if(cmd===0x34){ const t=((d[1]||0)|((d[2]||0)<<8))*0.01; if(t>20&&t<45)setMetric('dmTemp',t.toFixed(1)); }
-    else if(cmd===0x35){ const st=(d[0]||0)|((d[1]||0)<<8)|((d[2]||0)<<16); if(st)setMetric('dmStep',st); }
+    else if(cmd===0x31){          // 心率/HRV：协议 1.2.2.4
+      if(sub===0x00){             // 结果响应 [0]佩戴 [1]心率 [2]HRV [3]压力 [4:5]温度
+        if(d[1])setMetric('dmHr',d[1],true);
+        if(d[2])setMetric('dmHrv',d[2],true);
+        if(d[3])setMetric('dmStress',d[3]);
+        const t=i16(4,5)*0.01; if(okT(t))setMetric('dmTemp',t.toFixed(1));
+      } else if(sub===0x03){       // 心率推送 [0]心率 [1]HRV [2]压力 [3:4]温度
+        if(d[0])setMetric('dmHr',d[0],true);
+        if(d[1])setMetric('dmHrv',d[1],true);
+        if(d[2])setMetric('dmStress',d[2]);
+        const t=i16(3,4)*0.01; if(okT(t))setMetric('dmTemp',t.toFixed(1));
+        this.ackPush(b);
+      } else if(sub===0xFF){ ringLog('心率测量进度 '+d[0]+'%','sys'); }
+    }
+    else if(cmd===0x32){          // 血氧/心率：协议 1.2.2.5
+      if(sub===0x00){             // 结果响应 [0]佩戴 [1]心率 [2]血氧 [3:4]温度
+        if(d[1])setMetric('dmHr',d[1],true);
+        if(d[2])setMetric('dmSpo2',d[2],true);
+        const t=i16(3,4)*0.01; if(okT(t))setMetric('dmTemp',t.toFixed(1));
+      } else if(sub===0x03){       // 血氧推送 [0]心率 [1]血氧 [2:3]温度 [4]灌注
+        if(d[0])setMetric('dmHr',d[0],true);
+        if(d[1])setMetric('dmSpo2',d[1],true);
+        const t=i16(2,3)*0.01; if(okT(t))setMetric('dmTemp',t.toFixed(1));
+        this.ackPush(b);
+      } else if(sub===0xFF){ ringLog('血氧测量进度 '+d[0]+'%','sys'); }
+    }
+    else if(cmd===0x34){ const t=i16(1,2)*0.01; if(okT(t))setMetric('dmTemp',t.toFixed(1)); } // [0]状态 [1:2]温度
+    else if(cmd===0x35){ const st=(d[0]||0)|((d[1]||0)<<8); setMetric('dmStep',st); }          // [0:1]步数 uint16
   },
   measure(type){
     if(this.sim) return simMeasure(type);
-    if(type==='hr'){ ringLog('开始测量 心率/HRV','sys'); this.send(0x31,0x00,[30,25,1,1,0]); }
-    else if(type==='spo2'){ ringLog('开始测量 血氧','sys'); this.send(0x32,0x00,[30,25,1,0]); }
+    if(type==='hr'){ ringLog('开始测量 心率/HRV','sys'); this.send(0x31,0x00,[20,25,0,1,0]); }   // 20s,无波形,要进度,无间期
+    else if(type==='spo2'){ ringLog('开始测量 血氧','sys'); this.send(0x32,0x00,[20,25,0,1]); }
     else if(type==='temp'){ ringLog('开始测量 体温','sys'); this.send(0x34,0x00,[0]); }
   },
   onDisc(){ this.connected=false; ringLog('设备已断开','sys'); setConnState(false); },
@@ -5545,7 +5572,7 @@ function ringConnect(){
 function ringMeasure(type){ Audio$.soft(); RingBLE.measure(type); }
 
 /* —— 模拟模式（iOS / 无戒指 / 演示用）—— */
-let _sim={hr:74,hrv:42,spo2:98,temp:36.4,resp:15,step:2860};
+let _sim={hr:74,hrv:42,spo2:98,temp:36.4,stress:38,step:2860};
 function ringSimulate(){
   Audio$.pluck(); stopSim();
   RingBLE.sim=true; RingBLE.connected=true;
@@ -5558,11 +5585,11 @@ function ringSimulate(){
     _sim.hrv=Math.max(20,Math.min(80,_sim.hrv+(Math.random()*4-2)));
     _sim.spo2=Math.max(95,Math.min(99,_sim.spo2+(Math.random()<.5?-1:1)*(Math.random()<.3?1:0)));
     _sim.temp=Math.max(36,Math.min(37,_sim.temp+(Math.random()*.1-.05)));
-    _sim.resp=Math.max(12,Math.min(19,_sim.resp+(Math.random()<.5?-1:1)));
+    _sim.stress=Math.max(20,Math.min(70,_sim.stress+(Math.random()*6-3)));
     _sim.step+=Math.floor(Math.random()*6);
     setMetric('dmHr',Math.round(_sim.hr),true); setMetric('dmHrv',Math.round(_sim.hrv),true);
     setMetric('dmSpo2',Math.round(_sim.spo2)); setMetric('dmTemp',_sim.temp.toFixed(1));
-    setMetric('dmResp',Math.round(_sim.resp)); setMetric('dmStep',_sim.step);
+    setMetric('dmStress',Math.round(_sim.stress)); setMetric('dmStep',_sim.step);
   };
   tick(); RingBLE.simTimer=setInterval(tick,1500);
 }
