@@ -1022,6 +1022,8 @@ body{font-family:var(--sans);
   box-shadow:0 1px 6px rgba(0,0,0,.06);transition:transform .15s}
 .app-conn-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;
   background:#62d783;box-shadow:0 0 6px rgba(98,215,131,.55)}
+.app-conn.off{color:var(--text-muted)}
+.app-conn.off .app-conn-dot{background:rgba(0,0,0,.25);box-shadow:none}
 .app-conn:active{transform:scale(.95)}
 .mine-avatar{width:68px;height:68px;border-radius:50%;flex-shrink:0;
   background:linear-gradient(140deg,rgba(255,184,77,.3),rgba(255,127,99,.22));
@@ -1061,6 +1063,40 @@ body{font-family:var(--sans);
 .mine-device-bat{margin-left:auto;font-size:11px;font-weight:500;color:rgba(90,175,115,.9);
   background:rgba(90,175,115,.1);padding:4px 11px;border-radius:100px;
   border:1px solid rgba(90,175,115,.2);white-space:nowrap;flex-shrink:0}
+/* 设备未连接态 */
+.mine-device-ok.off{color:var(--text-muted)}
+.mine-device-ok.off::before{background:rgba(0,0,0,.2)}
+.mine-ring-wrap.live svg{opacity:1;animation:ringPulse 1.6s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{opacity:.6}50%{opacity:1}}
+/* 戒指连接 UI */
+.dev-btn-row{display:flex;gap:10px;margin-top:16px}
+.dev-btn-row .btn{flex:1;padding:13px 10px;font-size:13.5px}
+.dev-hint{font-size:10.5px;color:var(--text-muted);line-height:1.7;margin-top:10px;text-align:center}
+.dev-hint b{color:var(--text-secondary);font-weight:600}
+.dev-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px}
+.dev-metric{padding:12px 6px 11px;border-radius:14px;text-align:center;
+  background:rgba(255,252,248,.5);backdrop-filter:blur(16px) saturate(160%);
+  -webkit-backdrop-filter:blur(16px) saturate(160%);
+  border:1px solid rgba(255,255,255,.66);box-shadow:0 3px 12px rgba(180,135,115,.08)}
+.dm-lbl{font-size:9px;letter-spacing:.08em;color:var(--text-muted)}
+.dm-val{font-family:var(--serif);font-size:22px;color:var(--text-primary);line-height:1.1;margin-top:5px}
+.dm-val small{font-size:9.5px;font-family:var(--sans);color:var(--text-muted);margin-left:1px}
+.dm-val.hot{color:var(--primary)}
+.dev-measure-row{display:flex;gap:8px;margin-top:14px}
+.dev-mbtn{flex:1;padding:10px 4px;border-radius:100px;border:1px solid rgba(255,127,99,.3);
+  background:rgba(255,127,99,.08);color:var(--primary);font-size:11.5px;cursor:pointer;
+  font-family:var(--sans);transition:all .15s}
+.dev-mbtn:active{transform:scale(.96);background:rgba(255,127,99,.16)}
+.dev-log-wrap{margin-top:18px}
+.dev-log-hdr{font-size:9px;letter-spacing:.14em;color:var(--text-muted);margin-bottom:6px}
+.dev-log{height:120px;overflow-y:auto;border-radius:10px;padding:10px 12px;
+  background:rgba(40,32,30,.86);font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:9.5px;line-height:1.7;color:rgba(255,255,255,.7);scrollbar-width:thin}
+.dev-log-empty{color:rgba(255,255,255,.35)}
+.dev-log .lg-tx{color:#7fd8ff}
+.dev-log .lg-rx{color:#9bf0a8}
+.dev-log .lg-sys{color:rgba(255,200,150,.85)}
+.dev-log .lg-hex{color:rgba(255,255,255,.5)}
 .mine-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:6px 0 2px}
 .mine-act-btn{padding:13px 6px 11px;text-align:center;cursor:pointer;
   background:rgba(255,252,248,.62);
@@ -2596,18 +2632,43 @@ body{font-family:var(--sans);
             <div class="mind-content">
               <div class="card" style="padding:0;margin-top:2px">
                 <div class="mine-device">
-                  <div class="mine-ring-wrap">
+                  <div class="mine-ring-wrap" id="devRingIcon">
                     <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="4.5" ry="7.5" transform="rotate(-18 12 12)"/><ellipse cx="12" cy="12" rx="2.5" ry="4.5" transform="rotate(-18 12 12)"/></svg>
                   </div>
                   <div style="flex:1">
-                    <div class="mine-device-name">LOOOVE 智能戒指</div>
-                    <div class="mine-device-ok">已连接</div>
-                    <div class="mine-device-id">HR18 · B0:05:E1:00:00:16</div>
+                    <div class="mine-device-name" id="devName">LOOOVE 智能戒指</div>
+                    <div class="mine-device-ok off" id="devStatus">未连接</div>
+                    <div class="mine-device-id" id="devId">点击下方按钮连接戒指</div>
                   </div>
-                  <div class="mine-device-bat">84%</div>
+                  <div class="mine-device-bat" id="devBat">—</div>
                 </div>
               </div>
-              <div class="mind-desc" style="margin-top:14px">戒指正通过低功耗蓝牙与手机保持连接，全天为你记录心率、HRV、体温与睡眠。摘下充电时，这里会提示离线。</div>
+
+              <div class="dev-btn-row">
+                <button class="btn" id="devConnectBtn" onclick="ringConnect()">连接真实戒指（蓝牙）</button>
+                <button class="btn ghost" id="devSimBtn" onclick="ringSimulate()">用模拟数据演示</button>
+              </div>
+              <div class="dev-hint" id="devHint">真实蓝牙连接需用 <b>Android Chrome</b> 或 <b>电脑 Chrome / Edge</b>（iOS 网页暂不支持蓝牙，正式 App 用原生壳即可）。</div>
+
+              <div class="dev-metrics">
+                <div class="dev-metric"><div class="dm-lbl">心 率</div><div class="dm-val"><span id="dmHr">—</span><small>bpm</small></div></div>
+                <div class="dev-metric"><div class="dm-lbl">H R V</div><div class="dm-val"><span id="dmHrv">—</span><small>ms</small></div></div>
+                <div class="dev-metric"><div class="dm-lbl">血 氧</div><div class="dm-val"><span id="dmSpo2">—</span><small>%</small></div></div>
+                <div class="dev-metric"><div class="dm-lbl">体 温</div><div class="dm-val"><span id="dmTemp">—</span><small>℃</small></div></div>
+                <div class="dev-metric"><div class="dm-lbl">呼 吸</div><div class="dm-val"><span id="dmResp">—</span><small>/分</small></div></div>
+                <div class="dev-metric"><div class="dm-lbl">步 数</div><div class="dm-val"><span id="dmStep">—</span></div></div>
+              </div>
+
+              <div class="dev-measure-row" id="devMeasureRow" style="display:none">
+                <button class="dev-mbtn" onclick="ringMeasure('hr')">测心率 / HRV</button>
+                <button class="dev-mbtn" onclick="ringMeasure('spo2')">测血氧</button>
+                <button class="dev-mbtn" onclick="ringMeasure('temp')">测体温</button>
+              </div>
+
+              <div class="dev-log-wrap">
+                <div class="dev-log-hdr">蓝牙通信日志 · BraveChip BCL603 私有协议</div>
+                <div class="dev-log" id="devLog"><div class="dev-log-empty">等待连接……</div></div>
+              </div>
             </div>
           </div>
 
@@ -5393,6 +5454,124 @@ function fitPhone(){
   const fp=document.getElementById('flowPicker');
   if(fp)fp.style.width=(390*scale)+'px';
 }
+/* ============ 戒指蓝牙连接（真实 Web Bluetooth + 模拟回退）============ */
+/* 协议来自《AN6034 BCL603 蓝牙通信协议》：私有 GATT，帧格式 [Type=0x00][FrameID][Cmd][Subcmd][Data] */
+const RING_UUID={
+  service:'bae80001-4f05-4503-8e65-3af1f7329d1f',
+  write:  'bae80010-4f05-4503-8e65-3af1f7329d1f',
+  notify: 'bae80011-4f05-4503-8e65-3af1f7329d1f'
+};
+const toHex=u8=>[...u8].map(b=>b.toString(16).padStart(2,'0')).join(' ');
+const $dev=id=>document.getElementById(id);
+function ringLog(msg,cls,hex){
+  const box=$dev('devLog'); if(!box)return;
+  const e=box.querySelector('.dev-log-empty'); if(e)e.remove();
+  const t=new Date().toLocaleTimeString('zh-CN',{hour12:false});
+  const div=document.createElement('div');
+  div.innerHTML=`<span class="lg-${cls||'sys'}">${t} ${msg}</span>`+(hex?` <span class="lg-hex">${hex}</span>`:'');
+  box.appendChild(div); box.scrollTop=box.scrollHeight;
+  while(box.children.length>60) box.removeChild(box.firstChild);
+}
+function setMetric(id,val,hot){const el=$dev(id);if(!el)return;el.textContent=val;const p=el.closest('.dm-val');if(p&&hot)p.classList.add('hot');}
+function setConnState(connected,name){
+  const ok=$dev('devStatus'),idl=$dev('devId'),icon=$dev('devRingIcon');
+  if(ok){ok.textContent=connected?'已连接':'未连接';ok.classList.toggle('off',!connected);}
+  if(icon)icon.classList.toggle('live',connected);
+  if(name&&$dev('devName'))$dev('devName').textContent=name;
+  $dev('devMeasureRow').style.display=connected?'flex':'none';
+  $dev('devConnectBtn').textContent=connected?'断开连接':'连接真实戒指（蓝牙）';
+  // 全局 chip 状态
+  document.querySelectorAll('.app-conn').forEach(c=>{
+    c.classList.toggle('off',!connected);
+    c.lastChild&&(c.lastChild.textContent=connected?'已连接':'未连接');
+  });
+}
+
+const RingBLE={
+  device:null,server:null,writeCh:null,notifyCh:null,fid:0,connected:false,sim:false,simTimer:null,
+  async connect(){
+    if(!navigator.bluetooth){ringLog('本设备/浏览器不支持网页蓝牙 → 切换模拟','sys');return ringSimulate();}
+    try{
+      ringLog('请求蓝牙设备…','sys');
+      this.device=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[RING_UUID.service]});
+      this.device.addEventListener('gattserverdisconnected',()=>this.onDisc());
+      ringLog('连接 GATT：'+(this.device.name||'未命名'),'sys');
+      this.server=await this.device.gatt.connect();
+      const svc=await this.server.getPrimaryService(RING_UUID.service);
+      this.writeCh=await svc.getCharacteristic(RING_UUID.write);
+      this.notifyCh=await svc.getCharacteristic(RING_UUID.notify);
+      await this.notifyCh.startNotifications();
+      this.notifyCh.addEventListener('characteristicvaluechanged',e=>this.onNotify(e.target.value));
+      this.connected=true;this.sim=false;
+      ringLog('已连接 · 服务 BAE80001 ✓','sys');
+      setConnState(true,this.device.name||'LOOOVE 智能戒指');
+      $dev('devId').textContent=(this.device.id||'').slice(0,16)||'BraveChip BCL603';
+      await this.syncTime(); this.send(0x11,0x00); this.send(0x12,0x00); // 时间同步 + 版本 + 电量
+    }catch(err){ ringLog('连接失败/取消：'+err.message,'sys'); }
+  },
+  frame(cmd,sub,data){ const d=data||[]; const f=new Uint8Array(4+d.length); f[0]=0; f[1]=(this.fid++)&0xff; f[2]=cmd; f[3]=sub; f.set(d,4); return f; },
+  async send(cmd,sub,data){
+    if(this.sim) return;
+    if(!this.writeCh) return;
+    const f=this.frame(cmd,sub,data);
+    try{ await this.writeCh.writeValue(f); ringLog('TX cmd 0x'+cmd.toString(16).padStart(2,'0'),'tx',toHex(f)); }
+    catch(e){ ringLog('发送失败：'+e.message,'sys'); }
+  },
+  async syncTime(){ const d=new Uint8Array(9); new DataView(d.buffer).setBigUint64(0,BigInt(Date.now()),true); d[8]=8; await this.send(0x10,0x00,d); },
+  onNotify(dv){ const b=new Uint8Array(dv.buffer); ringLog('RX cmd 0x'+(b[2]||0).toString(16).padStart(2,'0'),'rx',toHex(b)); this.parse(b); },
+  parse(b){
+    const cmd=b[2],sub=b[3],d=b.slice(4);
+    if(cmd===0x12){ const bat=d[0]; const v=bat>100?'充电中':bat+'%'; if($dev('devBat'))$dev('devBat').textContent=v; }
+    else if(cmd===0x11){ const s=String.fromCharCode(...[...d].filter(x=>x>=32&&x<127)).trim(); if(s&&$dev('devId'))$dev('devId').textContent='固件 '+s; }
+    else if(cmd===0x31){ if(d[1])setMetric('dmHr',d[1],true); const hrv=((d[4]||0)|((d[5]||0)<<8))*0.01; if(hrv>5&&hrv<300)setMetric('dmHrv',Math.round(hrv),true); }
+    else if(cmd===0x32){ if(d[1])setMetric('dmSpo2',d[1]); if(d[2])setMetric('dmResp',d[2]); }
+    else if(cmd===0x34){ const t=((d[1]||0)|((d[2]||0)<<8))*0.01; if(t>20&&t<45)setMetric('dmTemp',t.toFixed(1)); }
+    else if(cmd===0x35){ const st=(d[0]||0)|((d[1]||0)<<8)|((d[2]||0)<<16); if(st)setMetric('dmStep',st); }
+  },
+  measure(type){
+    if(this.sim) return simMeasure(type);
+    if(type==='hr'){ ringLog('开始测量 心率/HRV','sys'); this.send(0x31,0x00,[30,25,1,1,0]); }
+    else if(type==='spo2'){ ringLog('开始测量 血氧','sys'); this.send(0x32,0x00,[30,25,1,0]); }
+    else if(type==='temp'){ ringLog('开始测量 体温','sys'); this.send(0x34,0x00,[0]); }
+  },
+  onDisc(){ this.connected=false; ringLog('设备已断开','sys'); setConnState(false); },
+  disconnect(){ if(this.device&&this.device.gatt.connected)this.device.gatt.disconnect(); this.connected=false; setConnState(false); }
+};
+
+function ringConnect(){
+  if(RingBLE.connected||RingBLE.sim){ stopSim(); RingBLE.disconnect(); return; }
+  Audio$.soft(); RingBLE.connect();
+}
+function ringMeasure(type){ Audio$.soft(); RingBLE.measure(type); }
+
+/* —— 模拟模式（iOS / 无戒指 / 演示用）—— */
+let _sim={hr:74,hrv:42,spo2:98,temp:36.4,resp:15,step:2860};
+function ringSimulate(){
+  Audio$.pluck(); stopSim();
+  RingBLE.sim=true; RingBLE.connected=true;
+  ringLog('进入模拟模式（演示数据）','sys');
+  setConnState(true,'LOOOVE 智能戒指（模拟）');
+  $dev('devId').textContent='演示模式 · 非真实戒指';
+  $dev('devBat').textContent='84%';
+  const tick=()=>{
+    _sim.hr=Math.max(58,Math.min(96,_sim.hr+(Math.random()*4-2)));
+    _sim.hrv=Math.max(20,Math.min(80,_sim.hrv+(Math.random()*4-2)));
+    _sim.spo2=Math.max(95,Math.min(99,_sim.spo2+(Math.random()<.5?-1:1)*(Math.random()<.3?1:0)));
+    _sim.temp=Math.max(36,Math.min(37,_sim.temp+(Math.random()*.1-.05)));
+    _sim.resp=Math.max(12,Math.min(19,_sim.resp+(Math.random()<.5?-1:1)));
+    _sim.step+=Math.floor(Math.random()*6);
+    setMetric('dmHr',Math.round(_sim.hr),true); setMetric('dmHrv',Math.round(_sim.hrv),true);
+    setMetric('dmSpo2',Math.round(_sim.spo2)); setMetric('dmTemp',_sim.temp.toFixed(1));
+    setMetric('dmResp',Math.round(_sim.resp)); setMetric('dmStep',_sim.step);
+  };
+  tick(); RingBLE.simTimer=setInterval(tick,1500);
+}
+function simMeasure(type){
+  const map={hr:'心率/HRV',spo2:'血氧',temp:'体温'};
+  ringLog('模拟测量 '+map[type]+' 完成','sys');
+}
+function stopSim(){ if(RingBLE.simTimer){clearInterval(RingBLE.simTimer);RingBLE.simTimer=null;} RingBLE.sim=false; }
+
 window.addEventListener('resize',fitPhone);fitPhone();
 renderIcons();
 renderHomeExtList('calm');
