@@ -142,12 +142,12 @@ body{font-family:var(--sans);
 .home-brand-sub{font-size:12.5px;color:var(--text-muted);letter-spacing:.1em;margin-bottom:4px}
 /* 今日建议 – 纵向计划列表 */
 .home-ext-list{display:flex;flex-direction:column;gap:8px;margin:10px 0 14px}
-.home-ext-item{padding:14px 16px 15px 16px;border-radius:12px;
-  background:rgba(255,252,248,.58);
-  backdrop-filter:blur(20px) saturate(160%);
-  -webkit-backdrop-filter:blur(20px) saturate(160%);
-  border:1px solid rgba(255,255,255,.78);
-  box-shadow:0 4px 18px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.88);
+.home-ext-item{padding:14px 16px 15px 16px;border-radius:14px;
+  background:linear-gradient(155deg,rgba(255,255,255,.55),rgba(255,248,242,.3));
+  backdrop-filter:blur(30px) saturate(195%);
+  -webkit-backdrop-filter:blur(30px) saturate(195%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 8px 24px rgba(180,135,115,.13),inset 0 1px 0 rgba(255,255,255,.92);
   position:relative}
 /* AI 报告子卡 (可点击进详情, 在 ai-section 内) */
 .ai-report-card{border-radius:12px;padding:14px 16px;
@@ -932,8 +932,37 @@ body{font-family:var(--sans);
   backdrop-filter:blur(22px) saturate(180%);
   -webkit-backdrop-filter:blur(22px) saturate(180%);
   border:1px solid rgba(255,255,255,.78);
-  box-shadow:0 4px 20px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.9)}
+  box-shadow:0 4px 20px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.9);position:relative}
 .care-hero .ch-week{font-size:11px;letter-spacing:.2em;color:var(--primary)}
+.care-cal-btn{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:5px;
+  padding:6px 12px;border-radius:100px;cursor:pointer;font-family:var(--sans);
+  font-size:11px;letter-spacing:.04em;color:var(--primary);
+  background:rgba(255,127,99,.1);border:1px solid rgba(255,127,99,.34)}
+.care-cal-btn svg{width:13px;height:13px;stroke:var(--primary);fill:none;stroke-width:1.7}
+.care-cal-btn:hover{background:rgba(255,127,99,.16)}
+/* 产检日历 */
+.ckp-intro{font-size:12.5px;color:var(--text-secondary);line-height:1.8;margin:2px 2px 4px}
+.ckp-list{display:flex;flex-direction:column;gap:10px}
+.ckp-item{display:flex;flex-direction:column;gap:7px;padding:14px 16px;border-radius:16px;
+  background:linear-gradient(155deg,rgba(255,255,255,.55),rgba(255,248,242,.3));
+  backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);
+  border:1px solid rgba(255,255,255,.88);
+  box-shadow:0 6px 20px rgba(180,135,115,.1),inset 0 1px 0 rgba(255,255,255,.9)}
+.ckp-item.current{border:1px solid rgba(255,127,99,.5);
+  background:linear-gradient(155deg,rgba(255,127,99,.13),rgba(255,184,77,.08))}
+.ckp-item.done{opacity:.72}
+.ckp-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ckp-wk{font-family:var(--serif);font-size:17px;color:var(--text-primary);line-height:1}
+.ckp-wk small{font-family:var(--sans);font-size:10px;color:var(--text-muted);letter-spacing:.06em;margin-left:3px}
+.ckp-item.current .ckp-wk{color:var(--primary)}
+.ckp-name{font-size:14px;font-weight:600;color:var(--text-primary)}
+.ckp-desc{font-size:12px;color:var(--text-secondary);line-height:1.7}
+.ckp-tag{flex-shrink:0;font-size:9.5px;letter-spacing:.06em;
+  padding:3px 10px;border-radius:100px;white-space:nowrap}
+.ckp-tag.done{color:#3a8a5a;background:rgba(90,175,115,.14)}
+.ckp-tag.current{color:#fff;background:var(--primary)}
+.ckp-tag.soon{color:#b9722e;background:rgba(255,184,77,.2)}
+.ckp-tag.todo{color:var(--text-muted);background:rgba(0,0,0,.05)}
 .care-hero h3{font-family:var(--serif);font-size:20px;font-weight:500;margin:6px 0 8px}
 .care-hero p{font-size:12.5px;color:var(--text-secondary);line-height:1.8}
 .care-bar{height:5px;border-radius:3px;background:rgba(255,255,255,.1);margin-top:14px;overflow:hidden}
@@ -969,7 +998,7 @@ body{font-family:var(--sans);
 .ci2-icon.emotion{color:#b85055}
 .ci2-icon.checkup{color:#3d8c92}
 
-/* 调养身体 / 修心练习 卡片 — 毛玻璃，无红框 */
+/* 调养身体 / 心理呵护 卡片 — 毛玻璃，无红框 */
 .card.ci2,.card.prac2{
   background:rgba(255,252,248,.55);
   backdrop-filter:blur(22px) saturate(180%);
@@ -978,6 +1007,7 @@ body{font-family:var(--sans);
   box-shadow:0 4px 20px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.85)}
 
 /* mind practice cards */
+.mind-module-list{display:block}
 .prac2{display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .18s}
 .prac2:active{transform:scale(.97);opacity:.8}
 .p2-ico{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;
@@ -1000,6 +1030,16 @@ body{font-family:var(--sans);
 .p2-ico.rose{color:#b04858}
 .p2-ico.purple{color:#8060a8}
 .p2-ico.teal{color:#388888}
+.mind-module{display:flex;flex-direction:column;cursor:pointer;transition:all .18s}
+.mind-module:active{transform:scale(.98);opacity:.86}
+.mind-module .ci2-icon{width:52px;height:52px}
+.mind-module .ci2-icon.support{color:#b85055}
+.mind-module .ci2-icon.story{color:#b87520}
+.mind-module .ci2-icon.practice{color:#4d9460}
+.mind-module .ci2-icon.sleep{color:#7060a8}
+.mind-module .ci2-head{margin-bottom:12px}
+.mind-module .ci2-title{font-size:17px;line-height:1.35}
+#ov-checkup .sr-scroll{padding:12px 0 40px}
 .disclaimer{font-size:10.5px;color:var(--text-muted);line-height:1.7;text-align:center;
   margin:6px 12px 10px;opacity:.8}
 
@@ -1150,7 +1190,7 @@ body{font-family:var(--sans);
 .ov-sub .badge{margin-right:6px}
 .ov-actions{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:14px}
 
-/* 修心练习 — 统一内容区 */
+/* 心理呵护 — 统一内容区 */
 .mind-content{margin-top:96px;padding:0 28px 36px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:16px;scrollbar-width:none}
 .mind-content::-webkit-scrollbar{display:none}
 .mind-badge{display:inline-flex;align-items:center;padding:2px 10px 3px;border-radius:100px;
@@ -1275,12 +1315,73 @@ body{font-family:var(--sans);
 
 /* ===== 睡眠完整报告 overlay ===== */
 #ov-sleep-report,#ov-activity,#ov-heartrate,#ov-stress,#ov-spo2,#ov-temp,#ov-chat,
-#ov-tgt,#ov-breathe,#ov-gratitude,#ov-rewrite,#ov-grounding,#ov-practice,#ov-device{padding:0;overflow:hidden}
+#ov-tgt,#ov-breathe,#ov-gratitude,#ov-rewrite,#ov-grounding,#ov-practice,#ov-mind-menu,#ov-panic-flow,#ov-device{padding:0;overflow:hidden}
 .prac-sec-label{font-size:9.5px;letter-spacing:.22em;color:var(--text-muted);margin:20px 2px 0}
 .prac-step-label{font-family:var(--serif);font-size:15.5px;color:var(--text-primary);margin-bottom:3px}
 .prac-step-sub{font-size:11.5px;color:var(--text-muted);line-height:1.6;margin-bottom:9px}
 .prac-input{min-height:60px!important}
-.sr-scroll{overflow-y:auto;flex:1;margin-top:96px;padding:12px 22px 40px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+.mind-choice-list{display:flex;flex-direction:column;gap:10px}
+.mind-choice{display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;
+  background:linear-gradient(155deg,rgba(255,255,255,.55),rgba(255,248,242,.3));
+  backdrop-filter:blur(30px) saturate(195%);-webkit-backdrop-filter:blur(30px) saturate(195%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 8px 24px rgba(180,135,115,.13),inset 0 1px 0 rgba(255,255,255,.92);
+  cursor:pointer;transition:all .16s;text-align:left}
+.mind-choice:active{transform:scale(.97);opacity:.85}
+.mind-choice-ico{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:var(--primary);background:rgba(255,252,248,.62);
+  border:1px solid rgba(255,255,255,.82);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.mind-choice-ico .icon{width:19px;height:19px}
+.mind-choice-copy{flex:1;min-width:0}
+.mind-choice-title{font-size:14px;color:var(--text-primary);font-weight:600;line-height:1.35}
+.mind-choice-sub{font-size:11.5px;color:var(--text-muted);line-height:1.55;margin-top:3px}
+.mind-choice-arr{font-size:18px;color:rgba(0,0,0,.16);flex-shrink:0}
+#ov-mind-menu .sr-scroll{padding:112px 22px 40px}
+#ov-panic-flow::before{content:'';position:absolute;left:0;right:0;top:0;height:112px;z-index:1;
+  background:linear-gradient(180deg,#fffdfb 0%,rgba(255,253,251,.96) 62%,rgba(255,253,251,0) 100%);
+  pointer-events:none}
+.panic-flow{padding:112px 24px 36px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+.panic-flow::-webkit-scrollbar{display:none}
+.panic-bubble{align-self:flex-start;max-width:92%;padding:14px 16px;border-radius:18px 18px 18px 6px;
+  background:rgba(255,252,248,.64);border:1px solid rgba(255,255,255,.86);
+  box-shadow:0 8px 24px rgba(180,135,115,.12),inset 0 1px 0 rgba(255,255,255,.92);
+  font-family:var(--serif);font-size:14px;color:var(--text-primary);line-height:1.85}
+.panic-bubble.muted{font-family:var(--serif);font-size:14px;color:var(--text-secondary)}
+.panic-bubble.hide{display:none}
+.panic-hidden{display:none!important}
+.panic-typing{display:inline-flex;gap:4px;align-items:center}
+.panic-typing i{width:5px;height:5px;border-radius:50%;background:rgba(255,127,99,.45);animation:typingDot 1s infinite ease-in-out}
+.panic-typing i:nth-child(2){animation-delay:.16s}.panic-typing i:nth-child(3){animation-delay:.32s}
+@keyframes typingDot{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-4px);opacity:1}}
+.panic-step{display:none;flex-direction:column;gap:14px}
+.panic-step.on{display:flex;animation:fadeIn .28s ease}
+.panic-actions{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.panic-actions.row{flex-direction:row}
+.panic-actions.row .btn{flex:1}
+.panic-chip-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.panic-chip{padding:13px 12px;border-radius:15px;border:1px solid rgba(255,255,255,.86);
+  background:rgba(255,252,248,.58);color:var(--text-secondary);font-size:14px;text-align:center;cursor:pointer;
+  box-shadow:0 4px 14px rgba(180,135,115,.08);transition:all .16s}
+.panic-chip:active{transform:scale(.96)}
+.panic-chip.sel{color:var(--primary);border-color:rgba(255,127,99,.42);background:rgba(255,127,99,.1)}
+.panic-breathe-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:22px 16px 18px;border-radius:20px;
+  background:rgba(255,252,248,.58);border:1px solid rgba(255,255,255,.86);
+  box-shadow:0 8px 24px rgba(180,135,115,.12),inset 0 1px 0 rgba(255,255,255,.92);overflow:hidden}
+.panic-orb{width:104px;height:104px;border-radius:50%;margin:4px auto 14px;
+  background:radial-gradient(circle at 38% 33%,rgba(255,255,255,.96),rgba(255,218,195,.62) 58%,rgba(255,180,148,.2));
+  border:1px solid rgba(255,180,140,.3);box-shadow:0 0 36px rgba(255,150,100,.16),inset 0 2px 12px rgba(255,255,255,.65);
+  transition:transform 4s cubic-bezier(.45,0,.55,1)}
+.panic-phase{font-family:var(--serif);font-size:14px;color:var(--text-primary);letter-spacing:.16em;min-height:24px}
+.panic-count{font-size:12px;color:var(--text-muted);letter-spacing:.04em;margin-top:4px;min-height:18px}
+.panic-feedback{display:none}
+.panic-feedback.show{display:block}
+.panic-safe-word{width:100%;min-height:62px;resize:none;padding:13px 15px;border-radius:15px;
+  background:rgba(255,252,248,.64);border:1px solid rgba(255,255,255,.86);outline:none;
+  color:var(--text-primary);font-family:var(--serif);font-size:14px;line-height:1.7}
+.panic-other-input{width:100%;min-height:58px;resize:none;padding:13px 15px;border-radius:15px;
+  background:rgba(255,252,248,.64);border:1px solid rgba(255,255,255,.86);outline:none;
+  color:var(--text-primary);font-family:var(--serif);font-size:14px;line-height:1.7}
+.sr-scroll{overflow-y:auto;flex:1;margin-top:0;padding:12px 22px 40px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
 .sr-scroll .card{margin-bottom:0;padding:16px!important;
   background:rgba(255,252,248,.58)!important;
   backdrop-filter:blur(22px) saturate(180%);
@@ -1417,12 +1518,17 @@ body{font-family:var(--sans);
 
 /* 早间:情绪选择 */
 .mm-opts{display:flex;flex-direction:column;gap:9px;margin-top:4px}
-.mm-opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--radius-md);
-  cursor:pointer;border:1px solid var(--glass-border);background:var(--glass-bg-2);
+.mm-opt{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;
+  cursor:pointer;border:1px solid rgba(255,255,255,.85);
+  background:linear-gradient(155deg,rgba(255,255,255,.5),rgba(255,248,242,.26));
+  backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);
+  box-shadow:0 6px 20px rgba(180,135,115,.1),inset 0 1px 0 rgba(255,255,255,.9);
   font-family:var(--sans);font-size:13.5px;color:var(--text-secondary);
   transition:all var(--transition-fast);text-align:left;width:100%}
-.mm-opt:hover{border-color:rgba(255,127,99,.34);color:var(--text-primary);transform:translateX(3px)}
-.mm-opt.sel{border-color:var(--primary);color:var(--primary);background:rgba(255,127,99,.1)}
+.mm-opt:hover{border-color:rgba(255,127,99,.4);color:var(--text-primary);transform:translateX(3px);
+  box-shadow:0 8px 26px rgba(180,135,115,.16),inset 0 1px 0 rgba(255,255,255,.95)}
+.mm-opt.sel{border-color:var(--primary);color:var(--primary);
+  background:linear-gradient(155deg,rgba(255,127,99,.16),rgba(255,127,99,.06))}
 .mm-opt .mm-ico{font-size:20px;width:28px;text-align:center;flex-shrink:0}
 
 /* 早间:梦境/互动 文本框 */
@@ -1510,20 +1616,20 @@ body{font-family:var(--sans);
 .greet-score-unit{font-size:13px;color:var(--text-secondary)}
 .greet-deep-row{text-align:center;font-size:13px;color:var(--text-secondary);line-height:1.5}
 .greet-deep-row small{font-size:11px;color:var(--text-muted)}
-.greet-insight-box{padding:14px 16px;border-radius:14px;
-  background:rgba(255,252,248,.5);
-  backdrop-filter:blur(18px) saturate(165%);-webkit-backdrop-filter:blur(18px) saturate(165%);
-  border:1px solid rgba(255,255,255,.7);
-  box-shadow:0 5px 18px rgba(180,135,115,.1);
+.greet-insight-box{padding:16px 18px;border-radius:16px;
+  background:linear-gradient(155deg,rgba(255,255,255,.55),rgba(255,248,242,.32));
+  backdrop-filter:blur(32px) saturate(200%);-webkit-backdrop-filter:blur(32px) saturate(200%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 10px 30px rgba(180,135,115,.16),inset 0 1px 0 rgba(255,255,255,.95);
   font-family:var(--serif);font-size:13px;color:var(--text-primary);line-height:1.95}
 .greet-insight-box em{font-style:normal;color:var(--primary);font-weight:500}
 /* 身体&情绪 数据卡 */
 .greet-stats{display:flex;gap:8px;width:100%}
-.gstat{flex:1;padding:12px 6px 11px;border-radius:14px;text-align:center;
-  background:rgba(255,252,248,.5);
-  backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
-  border:1px solid rgba(255,255,255,.66);
-  box-shadow:0 4px 14px rgba(180,135,115,.09)}
+.gstat{flex:1;padding:13px 6px 12px;border-radius:16px;text-align:center;
+  background:linear-gradient(155deg,rgba(255,255,255,.6),rgba(255,248,242,.3));
+  backdrop-filter:blur(30px) saturate(195%);-webkit-backdrop-filter:blur(30px) saturate(195%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 8px 24px rgba(180,135,115,.15),inset 0 1px 0 rgba(255,255,255,.95)}
 .gstat-lbl{font-size:9px;letter-spacing:.08em;color:var(--text-muted)}
 .gstat-val{font-family:var(--serif);font-size:25px;color:var(--text-primary);line-height:1.1;margin:6px 0 4px}
 .gstat-val small{font-size:10.5px;font-family:var(--sans);color:var(--text-muted)}
@@ -1640,7 +1746,11 @@ body{font-family:var(--sans);
 
 /* 早间:今日建议 */
 .plan-list{display:flex;flex-direction:column;gap:10px;margin:6px 0 10px}
-.plan-item{padding:14px 16px;border-radius:var(--radius-md);background:var(--glass-bg);border:1px solid var(--glass-border)}
+.plan-item{padding:15px 16px;border-radius:16px;
+  background:linear-gradient(155deg,rgba(255,255,255,.55),rgba(255,248,242,.3));
+  backdrop-filter:blur(30px) saturate(195%);-webkit-backdrop-filter:blur(30px) saturate(195%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 8px 24px rgba(180,135,115,.13),inset 0 1px 0 rgba(255,255,255,.92)}
 .plan-item .pi-top{display:flex;align-items:center;gap:9px;margin-bottom:6px}
 .plan-item .pi-ico{font-size:17px}
 .plan-item .pi-cat{display:inline-flex;align-items:center;
@@ -1659,26 +1769,29 @@ body{font-family:var(--sans);
 
 /* 晚间:今日统计 */
 .day-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-.day-stat{background:rgba(255,252,248,.5);
-  backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
-  border:1px solid rgba(255,255,255,.66);border-radius:var(--radius-md);padding:13px;
-  box-shadow:0 4px 14px rgba(180,135,115,.09)}
+.day-stat{background:linear-gradient(155deg,rgba(255,255,255,.6),rgba(255,248,242,.3));
+  backdrop-filter:blur(30px) saturate(195%);-webkit-backdrop-filter:blur(30px) saturate(195%);
+  border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:13px;
+  box-shadow:0 8px 24px rgba(180,135,115,.14),inset 0 1px 0 rgba(255,255,255,.92)}
 .day-stat .ds-label{font-size:10.5px;color:var(--text-muted);letter-spacing:.1em;margin-bottom:4px}
 .day-stat .ds-val{font-family:var(--serif);font-size:18px;color:var(--text-primary);margin-bottom:5px}
 .day-stat .ds-val small{font-size:11px;color:var(--text-muted)}
 .day-stat .ds-note{font-size:11px;color:var(--secondary);line-height:1.5}
-.day-insight-bar{padding:12px 14px;border-radius:var(--radius-md);
-  background:linear-gradient(120deg,rgba(255,127,99,.1),rgba(255,184,77,.08));
-  border:1px solid rgba(255,127,99,.2);font-size:13px;color:var(--text-secondary);
+.day-insight-bar{padding:14px 16px;border-radius:16px;
+  background:linear-gradient(120deg,rgba(255,127,99,.14),rgba(255,184,77,.1)),linear-gradient(155deg,rgba(255,255,255,.5),rgba(255,248,242,.28));
+  backdrop-filter:blur(30px) saturate(195%);-webkit-backdrop-filter:blur(30px) saturate(195%);
+  border:1px solid rgba(255,255,255,.85);font-size:13px;color:var(--text-secondary);
+  box-shadow:0 8px 24px rgba(180,135,115,.13),inset 0 1px 0 rgba(255,255,255,.9);
   font-family:var(--serif);line-height:1.85;margin-bottom:4px}
 .day-insight-bar b{color:var(--primary);font-weight:500}
 
 /* 晚间:专属冥想音乐 */
 .music-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;
   padding:26px 22px 22px;border-radius:20px;margin:16px 0 6px;
-  background:rgba(255,252,248,.5);backdrop-filter:blur(18px) saturate(165%);
-  -webkit-backdrop-filter:blur(18px) saturate(165%);
-  border:1px solid rgba(255,255,255,.7);box-shadow:0 8px 26px rgba(170,140,150,.14)}
+  background:linear-gradient(155deg,rgba(255,255,255,.55),rgba(255,248,242,.3));
+  backdrop-filter:blur(32px) saturate(200%);
+  -webkit-backdrop-filter:blur(32px) saturate(200%);
+  border:1px solid rgba(255,255,255,.9);box-shadow:0 12px 32px rgba(170,140,150,.18),inset 0 1px 0 rgba(255,255,255,.92)}
 .music-disc{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   background:conic-gradient(from 0deg,#ffd9c2,#f7c1d0,#d8c6ec,#c9e0e8,#ffe0c8,#ffd9c2);
   box-shadow:0 10px 26px rgba(200,150,160,.28),inset 0 1px 0 rgba(255,255,255,.5);
@@ -1758,8 +1871,11 @@ body{font-family:var(--sans);
 .gn-moon{font-size:58px;margin-bottom:18px;filter:drop-shadow(0 0 18px rgba(255,127,99,.38))}
 .gn-title{font-family:var(--serif);font-size:26px;font-weight:500;margin-bottom:12px}
 .gn-sub{font-size:13.5px;color:var(--text-secondary);line-height:2;max-width:272px}
-.gn-chip{margin-top:20px;padding:9px 20px;border-radius:var(--radius-full);background:var(--glass-bg);
-  border:1px solid var(--glass-border);font-size:11.5px;color:var(--text-muted);letter-spacing:.08em;display:inline-block}
+.gn-chip{margin-top:20px;padding:10px 22px;border-radius:var(--radius-full);
+  background:linear-gradient(155deg,rgba(255,255,255,.55),rgba(255,248,242,.3));
+  backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);
+  border:1px solid rgba(255,255,255,.9);box-shadow:0 6px 18px rgba(180,135,115,.12),inset 0 1px 0 rgba(255,255,255,.92);
+  font-size:11.5px;color:var(--text-secondary);letter-spacing:.08em;display:inline-block}
 
 /* 静音 */
 .mute-btn{position:fixed;top:26px;right:30px;z-index:99;width:44px;height:44px;border-radius:50%;
@@ -1784,8 +1900,8 @@ body{font-family:var(--sans);
     <div class="principles">
       <div><b>感知 → 洞察 → 陪伴</b>戒指持续监测睡眠、HRV、经期，AI 解读身心，每天封存成专属回忆录</div>
       <div><b>早安时光 · 从身体开始这一天</b>睡眠 & 身心数据 → 抽正念卡 + 写给自己 → 个性化身心建议</div>
-      <div><b>晚安时光 · 温柔地收尾一天</b>身体回顾 → 感恩日记 → HRV 专属冥想音乐 → 呼吸入睡</div>
-      <div><b>异常即时干预 · 多流派</b>指标异常主动提醒，融合 CBT、积极心理学、ACT 等精准干预</div>
+      <div><b>晚安时光 · 温柔地收尾一天</b>身体回顾 → 感恩日记 → 生理数据专属音乐 → 呼吸入睡</div>
+      <div><b>异常即时干预 · 多流派</b>指标异常主动提醒，融合正念、CBT、积极心理学等提供精准干预</div>
     </div>
   </aside>
 
@@ -1991,23 +2107,24 @@ body{font-family:var(--sans);
             <button class="diary-fab" onclick="openAddMemory()" title="记录" aria-label="新建记录"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
           </div>
 
-          <!-- ===== TAB 3 调养（含修心练习）===== -->
+          <!-- ===== TAB 3 调养（含心理呵护）===== -->
           <div class="tabpage" id="t-care">
-            <div class="prac-head"><h2>本周调养</h2><p>孕期专属 · 随孕周自动更新</p></div>
-            <div class="card care-hero">
-              <div class="ch-week">第 18 周 · 孕中期</div>
-              <h3>宝宝像一颗小石榴了</h3>
-              <p>约14cm · 190g。这周起，你可能感到第一次胎动——像气泡冒上来，或蝴蝶轻轻扇翅。错过也没关系，TA会再敲门的。</p>
-              <div class="care-bar"><i></i></div>
-              <div class="care-bar-lab"><span>第18周</span><span>预产期 11月2日</span></div>
-            </div>
-            <!-- tab switcher -->
+            <div class="prac-head"><h2>调养</h2></div>
+            <!-- tab switcher 置顶 -->
             <div class="care-tabs">
               <button class="care-tab on" onclick="switchCareTab('body',this)">调养身体</button>
-              <button class="care-tab" onclick="switchCareTab('mind',this)">修心练习</button>
+              <button class="care-tab" onclick="switchCareTab('mind',this)">心理呵护</button>
             </div>
             <!-- 调养身体 -->
             <div id="careBodyPanel">
+              <div class="card care-hero">
+                <button class="care-cal-btn" onclick="openOverlay('ov-checkup')"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>产检日历</button>
+                <div class="ch-week">第 18 周 · 孕中期</div>
+                <h3>宝宝像一颗小石榴了</h3>
+                <p>约14cm · 190g。这周起，你可能感到第一次胎动——像气泡冒上来，或蝴蝶轻轻扇翅。错过也没关系，TA会再敲门的。</p>
+                <div class="care-bar"><i></i></div>
+                <div class="care-bar-lab"><span>第18周</span><span>预产期 11月2日</span></div>
+              </div>
               <div class="card ci2">
                 <div class="ci2-head">
                   <div class="ci2-icon diet"><span class="icon" data-icon="leaf"></span></div>
@@ -2031,81 +2148,56 @@ body{font-family:var(--sans);
               </div>
               <div class="card ci2">
                 <div class="ci2-head">
-                  <div class="ci2-icon emotion"><span class="icon" data-icon="heart"></span></div>
-                  <div><span class="hei-cat cat-mood">情 绪</span><div class="ci2-title">这是属于你的黄金期</div></div>
+                  <div class="ci2-icon emotion"><span class="icon" data-icon="breath"></span></div>
+                  <div><span class="hei-cat cat-mood">呼 吸</span><div class="ci2-title">每天留 15 分钟给呼吸</div></div>
                 </div>
-                <div class="ci2-body">孕中期激素趋稳，是整个孕期心情最舒展的一段。很适合从现在起，每天留<em>15分钟只属于自己</em>——这也是这个App存在的原因。</div>
-              </div>
-              <div class="card ci2">
-                <div class="ci2-head">
-                  <div class="ci2-icon checkup"><span class="icon" data-icon="calendar"></span></div>
-                  <div><span class="hei-cat cat-trace">产 检</span><div class="ci2-title">下一站</div></div>
-                </div>
-                <div class="ci2-body">20-24周的<em>大排畸超声</em>建议提前预约，还有约2周。到时候，你会第一次这么清楚地看到TA。</div>
+                <div class="ci2-body">孕中期激素趋稳，身心最舒展——正适合从现在起，养成<em>每天一次呼吸练习</em>的习惯。试试 4-6 呼吸：吸气 4 秒、呼气 6 秒，戒指会陪你看心率一点点稳下来。</div>
               </div>
               <div class="disclaimer">以上建议来自公开孕期保健指南，仅供日常参考，不构成医疗意见；如有不适请及时咨询产科医生。</div>
             </div>
-            <!-- 修心练习 -->
+            <!-- 心理呵护 -->
             <div id="careMindPanel" style="display:none">
-              <div class="card prac2" onclick="openBreathe()">
-                <div class="p2-ico blue"><span class="icon" data-icon="breath"></span></div>
-                <div class="p2-tx"><b>4-6 安眠呼吸</b><span>呼吸练习 · 戒指实时陪伴，看身体松下来</span></div>
-                <div class="p2-right"><div class="p2-dur">1 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openPractice('mind')">
-                <div class="p2-ico teal"><span class="icon" data-icon="anchor"></span></div>
-                <div class="p2-tx"><b>此刻的呼吸</b><span>正念 · 把注意力，轻轻放回当下</span></div>
-                <div class="p2-right"><div class="p2-dur">2 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openOverlay('ov-grounding')">
-                <div class="p2-ico teal"><span class="icon" data-icon="leaf"></span></div>
-                <div class="p2-tx"><b>5-4-3-2-1 着陆</b><span>正念 · 焦虑上来时，用五感回到此刻</span></div>
-                <div class="p2-right"><div class="p2-dur">2 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openPractice('act')">
-                <div class="p2-ico teal"><span class="icon" data-icon="candle"></span></div>
-                <div class="p2-tx"><b>给情绪腾个位置</b><span>ACT · 不赶走它，只是接纳它的存在</span></div>
-                <div class="p2-right"><div class="p2-dur">3 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openPractice('dbt')">
-                <div class="p2-ico blue"><span class="icon" data-icon="wave"></span></div>
-                <div class="p2-tx"><b>情绪冲浪</b><span>DBT · 情绪会涨，也一定会退下去</span></div>
-                <div class="p2-right"><div class="p2-dur">3 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openPractice('psych')">
-                <div class="p2-ico purple"><span class="icon" data-icon="moon"></span></div>
-                <div class="p2-tx"><b>情绪的来处</b><span>心理动力 · 顺着情绪，往回看看</span></div>
-                <div class="p2-right"><div class="p2-dur">3 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openPractice('cbt')">
-                <div class="p2-ico blue"><span class="icon" data-icon="letter"></span></div>
-                <div class="p2-tx"><b>想法记录</b><span>CBT · 把打转的念头，一条条理清楚</span></div>
-                <div class="p2-right"><div class="p2-dur">4 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openOverlay('ov-rewrite')">
-                <div class="p2-ico purple"><span class="icon" data-icon="candle"></span></div>
-                <div class="p2-tx"><b>温柔重写</b><span>认知重构 · 把沉重的念头，温柔地说一遍</span></div>
-                <div class="p2-right"><div class="p2-dur">3 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openPractice('narrative')">
-                <div class="p2-ico rose"><span class="icon" data-icon="cards"></span></div>
-                <div class="p2-tx"><b>把烦恼外化</b><span>叙事 · 你不是问题本身，问题只是问题</span></div>
-                <div class="p2-right"><div class="p2-dur">4 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openOverlay('ov-gratitude')">
-                <div class="p2-ico rose"><span class="icon" data-icon="letter"></span></div>
-                <div class="p2-tx"><b>感恩一刻</b><span>积极心理学 · 想谢谢谁？哪怕只是今天的自己</span></div>
-                <div class="p2-right"><div class="p2-dur">2 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openTGT()">
-                <div class="p2-ico gold"><span class="icon" data-icon="sparkle"></span></div>
-                <div class="p2-tx"><b>三件好事</b><span>积极心理学 · 写下今天三件小确幸</span></div>
-                <div class="p2-right"><div class="p2-dur">3 分钟</div></div>
-              </div>
-              <div class="card prac2" onclick="openPractice('positive')">
-                <div class="p2-ico gold"><span class="icon" data-icon="sun"></span></div>
-                <div class="p2-tx"><b>我的高光时刻</b><span>积极心理学 · 找回你一直都在的力量</span></div>
-                <div class="p2-right"><div class="p2-dur">3 分钟</div></div>
+              <div class="mind-module-list">
+                <div class="card ci2 mind-module" onclick="openMindMenu('support')">
+                  <div class="ci2-head">
+                    <div class="ci2-icon support"><span class="icon" data-icon="anchor"></span></div>
+                    <div>
+                      <span class="hei-cat cat-mood">当下支持</span>
+                      <div class="ci2-title">先把这一刻稳住</div>
+                    </div>
+                  </div>
+                  <div class="ci2-body">突然心慌、委屈想哭，或脑子停不下来时，先用<em>呼吸、五感和身体触点</em>把自己带回安全一点的位置。</div>
+                </div>
+                <div class="card ci2 mind-module" onclick="openMindMenu('perinatal')">
+                  <div class="ci2-head">
+                    <div class="ci2-icon story"><span class="icon" data-icon="heart"></span></div>
+                    <div>
+                      <span class="hei-cat cat-food">孕产心事</span>
+                      <div class="ci2-title">把真正担心的事说清楚</div>
+                    </div>
+                  </div>
+                  <div class="ci2-body">围绕备孕、孕期到产后的真实处境，慢慢整理<em>担心、关系、身体变化和母职压力</em>，看见心里真正需要被照顾的地方。</div>
+                </div>
+                <div class="card ci2 mind-module" onclick="openMindMenu('sleep')">
+                  <div class="ci2-head">
+                    <div class="ci2-icon sleep"><span class="icon" data-icon="moon"></span></div>
+                    <div>
+                      <span class="hei-cat cat-wiki">睡前陪伴</span>
+                      <div class="ci2-title">今晚先好好睡一会儿</div>
+                    </div>
+                  </div>
+                  <div class="ci2-body">睡前、夜醒、担心宝宝或身体不舒服睡不着时，用<em>安眠呼吸和睡前正念</em>降低唤醒，不急着分析太多。</div>
+                </div>
+                <div class="card ci2 mind-module" onclick="openMindMenu('daily')">
+                  <div class="ci2-head">
+                    <div class="ci2-icon practice"><span class="icon" data-icon="sparkle"></span></div>
+                    <div>
+                      <span class="hei-cat cat-move">安心练习</span>
+                      <div class="ci2-title">每天留一点温柔给自己</div>
+                    </div>
+                  </div>
+                  <div class="ci2-body">状态还可以的时候，做一点<em>正念冥想、身体扫描、和宝宝连接</em>，把稳定感慢慢养出来。</div>
+                </div>
               </div>
             </div>
           </div>
@@ -2492,7 +2584,7 @@ body{font-family:var(--sans);
           <!-- ===== Overlay: 感恩一刻 ===== -->
           <div class="overlay" id="ov-gratitude">
             <div class="sr-topbar">
-              <button class="sr-back" onclick="closeOverlay('ov-gratitude')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="sr-back" onclick="closeMindChild('ov-gratitude')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="sr-toptitle-wrap"><div class="sr-toptitle">感恩一刻</div></div>
               <div style="width:28px;flex-shrink:0"></div>
             </div>
@@ -2520,7 +2612,7 @@ body{font-family:var(--sans);
           <!-- ===== Overlay: 温柔重写 ===== -->
           <div class="overlay" id="ov-rewrite">
             <div class="sr-topbar">
-              <button class="sr-back" onclick="closeOverlay('ov-rewrite')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="sr-back" onclick="closeMindChild('ov-rewrite')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="sr-toptitle-wrap"><div class="sr-toptitle">温柔重写</div></div>
               <div style="width:28px;flex-shrink:0"></div>
             </div>
@@ -2548,7 +2640,7 @@ body{font-family:var(--sans);
           <!-- ===== Overlay: 5-4-3-2-1 着陆 ===== -->
           <div class="overlay" id="ov-grounding">
             <div class="sr-topbar">
-              <button class="sr-back" onclick="closeOverlay('ov-grounding')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="sr-back" onclick="closeMindChild('ov-grounding')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="sr-toptitle-wrap"><div class="sr-toptitle">5-4-3-2-1 着陆</div></div>
               <div style="width:28px;flex-shrink:0"></div>
             </div>
@@ -2675,14 +2767,93 @@ body{font-family:var(--sans);
             </div>
           </div>
 
-          <!-- ===== Overlay: 修心练习 · 通用子页 ===== -->
+          <!-- ===== Overlay: 心理呵护 · 通用子页 ===== -->
           <div class="overlay" id="ov-practice">
             <div class="sr-topbar">
-              <button class="sr-back" onclick="closeOverlay('ov-practice')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="sr-back" onclick="closeMindChild('ov-practice')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="sr-toptitle-wrap"><div class="sr-toptitle" id="pracTitle"></div></div>
               <div style="width:28px;flex-shrink:0"></div>
             </div>
             <div class="mind-content" id="pracContent"></div>
+          </div>
+
+          <!-- ===== Overlay: 心理呵护 · 问题选择 ===== -->
+          <div class="overlay" id="ov-mind-menu">
+            <div class="sr-topbar">
+              <button class="sr-back" onclick="closeMindMenu()"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="sr-toptitle-wrap"><div class="sr-toptitle" id="mindMenuTitle"></div><div class="sr-topdate" id="mindMenuSub"></div></div>
+              <div style="width:28px;flex-shrink:0"></div>
+            </div>
+            <div class="sr-scroll">
+              <div class="mind-choice-list" id="mindMenuList"></div>
+            </div>
+          </div>
+
+          <!-- ===== Overlay: 我有点慌 · 分步干预 ===== -->
+          <div class="overlay" id="ov-panic-flow">
+            <div class="sr-topbar">
+              <button class="sr-back" onclick="closeMindChild('ov-panic-flow')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="sr-toptitle-wrap"><div class="sr-toptitle">我有点慌</div><div class="sr-topdate">先把身体稳住一点</div></div>
+              <div style="width:28px;flex-shrink:0"></div>
+            </div>
+            <div class="panic-flow" id="panicFlow">
+              <div class="panic-bubble" id="panicLine1"><span class="panic-typing"><i></i><i></i><i></i></span></div>
+              <div class="panic-bubble muted hide" id="panicLine2"></div>
+              <div class="panic-bubble muted hide" id="panicLine3"></div>
+
+              <div class="panic-step" id="panicStepBreath">
+                <div class="panic-breathe-card">
+                  <div class="panic-orb" id="panicOrb"></div>
+                  <div class="panic-phase" id="panicPhase">准备一下</div>
+                  <div class="panic-count" id="panicCount">我们只做 3 次慢呼气</div>
+                </div>
+                <div class="panic-actions">
+                  <button class="btn" id="panicBreathBtn" onclick="startPanicBreath()">开始跟着呼吸</button>
+                </div>
+                <div class="panic-bubble muted hide" id="panicBreathAfter"></div>
+              </div>
+
+              <div class="panic-step" id="panicStepBody">
+                <div class="panic-bubble muted hide" id="panicBodyPrompt"></div>
+                <div class="panic-chip-grid panic-hidden" id="panicBodyChips">
+                  <button class="panic-chip" onclick="selectPanicBody(this,'心跳很快')">心跳很快</button>
+                  <button class="panic-chip" onclick="selectPanicBody(this,'胸口发紧')">胸口发紧</button>
+                  <button class="panic-chip" onclick="selectPanicBody(this,'手脚发凉')">手脚发凉</button>
+                  <button class="panic-chip" onclick="selectPanicBody(this,'胃里发空')">胃里发空</button>
+                </div>
+                <textarea class="panic-other-input panic-hidden" id="panicBodyOther" placeholder="也可以写下身体正在发生什么……" oninput="panicBodyOtherInput()"></textarea>
+                <div class="panic-bubble panic-feedback" id="panicBodyFeedback"></div>
+                <div class="panic-actions panic-hidden" id="panicBodyActions">
+                  <button class="btn" id="panicBodySend" disabled onclick="submitPanicBody()">发送</button>
+                </div>
+              </div>
+
+              <div class="panic-step" id="panicStepAnchor">
+                <div class="panic-bubble muted hide" id="panicAnchorPrompt"></div>
+                <div class="panic-chip-grid panic-hidden" id="panicAnchorChips">
+                  <button class="panic-chip" onclick="selectPanicAnchor(this,'一盏灯')">一盏灯</button>
+                  <button class="panic-chip" onclick="selectPanicAnchor(this,'一面墙')">一面墙</button>
+                  <button class="panic-chip" onclick="selectPanicAnchor(this,'手边的物品')">手边的物品</button>
+                  <button class="panic-chip" onclick="selectPanicAnchor(this,'脚下的地面')">脚下的地面</button>
+                </div>
+                <div class="panic-actions panic-hidden" id="panicAnchorActions">
+                  <button class="btn" id="panicAnchorSend" disabled onclick="submitPanicAnchor()">发送</button>
+                </div>
+                <div class="panic-bubble panic-feedback" id="panicAnchorFeedback"></div>
+              </div>
+
+              <div class="panic-step" id="panicStepWord">
+                <div class="panic-bubble muted hide" id="panicWordPrompt"></div>
+                <textarea class="panic-safe-word panic-hidden" id="panicSafeWord" placeholder="如果愿意，写一句给现在的自己：我正在……" oninput="panicSafeWordCheck()"></textarea>
+                <div class="panic-actions panic-hidden" id="panicWordActions">
+                  <button class="btn" id="panicWordSend" disabled onclick="submitPanicWord()">发送这句话</button>
+                </div>
+                <div class="panic-bubble panic-feedback" id="panicWordFeedback"></div>
+                <div class="panic-actions panic-hidden" id="panicDoneActions">
+                  <button class="btn" id="panicDoneBtn" onclick="finishPanicFlow()">完成这次安顿</button>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- ===== Overlay: 回忆漫游 · 添加记录 ===== -->
@@ -2714,7 +2885,7 @@ body{font-family:var(--sans);
                 </div>
               </div>
               <div class="ov-actions">
-                <button class="btn" id="amsDreamSave" disabled onclick="saveMemEntry('dream')">收进漫游 →</button>
+                <button class="btn" id="amsDreamSave" disabled onclick="saveMemEntry('dream')">收进漫游</button>
               </div>
             </div>
 
@@ -2731,7 +2902,7 @@ body{font-family:var(--sans);
               </div>
               <textarea class="dw-box" id="amsAudioCaption" placeholder="这段声音记录的是……" style="min-height:68px"></textarea>
               <div class="ov-actions">
-                <button class="btn" onclick="saveMemEntry('audio')">收进漫游 →</button>
+                <button class="btn" onclick="saveMemEntry('audio')">收进漫游</button>
               </div>
             </div>
 
@@ -2743,7 +2914,7 @@ body{font-family:var(--sans);
               <input type="file" id="amsImgInput" accept="image/*" multiple style="display:none" onchange="amsImgAdd(this)">
               <textarea class="dw-box" id="amsImgCaption" placeholder="这些照片里……" style="min-height:60px;margin-top:10px"></textarea>
               <div class="ov-actions">
-                <button class="btn" onclick="saveMemEntry('image')">收进漫游 →</button>
+                <button class="btn" onclick="saveMemEntry('image')">收进漫游</button>
               </div>
             </div>
 
@@ -2758,7 +2929,7 @@ body{font-family:var(--sans);
               </div>
               <textarea class="dw-box" id="amsTextBox" placeholder="写给你，写给今天的自己……" style="min-height:130px" oninput="amsTextCheck()"></textarea>
               <div class="ov-actions">
-                <button class="btn" id="amsTextSave" disabled onclick="saveMemEntry('text')">收进漫游 →</button>
+                <button class="btn" id="amsTextSave" disabled onclick="saveMemEntry('text')">收进漫游</button>
               </div>
             </div>
             <!-- 卡牌 -->
@@ -2776,7 +2947,7 @@ body{font-family:var(--sans);
               </div>
               <textarea class="dw-box" id="amsCardNote" placeholder="翻开之后，你想到了什么……" style="min-height:80px" oninput="amsCardCheck()"></textarea>
               <div class="ov-actions">
-                <button class="btn" id="amsCardSave" disabled onclick="saveMemEntry('card')">收进漫游 →</button>
+                <button class="btn" id="amsCardSave" disabled onclick="saveMemEntry('card')">收进漫游</button>
               </div>
             </div>
           </div>
@@ -2802,7 +2973,7 @@ body{font-family:var(--sans);
           <!-- ===== Overlay: 呼吸 ===== -->
           <div class="overlay" id="ov-breathe">
             <div class="sr-topbar">
-              <button class="sr-back" onclick="closeOverlay('ov-breathe')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="sr-back" onclick="closeMindChild('ov-breathe')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="sr-toptitle-wrap"><div class="sr-toptitle">4-6 安眠呼吸</div></div>
               <div style="width:28px;flex-shrink:0"></div>
             </div>
@@ -2882,7 +3053,7 @@ body{font-family:var(--sans);
               <div class="greet-deep-row greet-item">深睡 1<small>h</small> 45<small>m</small>&ensp;·&ensp;中途醒了 2<small>次</small></div>
               <div class="greet-insight-box greet-item">昨夜你翻身比平时多一些，<em>HRV 也略低</em>——身体在适应孕中期的变化，也可能藏着<em>一点没说出口的情绪</em>。今天，记得<em>对自己温柔一点</em>。</div>
               <div class="ov-actions greet-item">
-                <button class="btn" onclick="showRS('rs-morn-mood','ov-morning')">好，知道了 →</button>
+                <button class="btn" onclick="showRS('rs-morn-mood','ov-morning')">好，知道了</button>
               </div>
             </div>
 
@@ -2917,7 +3088,7 @@ body{font-family:var(--sans);
                 <textarea class="intent-box" id="mornSelfNote" maxlength="60" style="min-height:70px" placeholder="一句就好，写给今天的自己…"></textarea>
               </div>
               <div class="ov-actions">
-                <button class="btn" onclick="finishMornCard()">去看今天的建议 →</button>
+                <button class="btn" onclick="finishMornCard()">去看今天的建议</button>
               </div>
             </div>
 
@@ -2927,7 +3098,7 @@ body{font-family:var(--sans);
               <div class="ov-sub">根据昨夜睡眠和今早的感觉</div>
               <div class="plan-list" id="planList"></div>
               <div class="ov-actions">
-                <button class="btn" onclick="finishMorning()">进入今天 →</button>
+                <button class="btn" onclick="finishMorning()">进入今天</button>
               </div>
             </div>
           </div><!-- /ov-morning -->
@@ -2993,7 +3164,7 @@ body{font-family:var(--sans);
               </div>
               <div class="day-insight-bar">散步那段时间，你的心律<b>最平稳</b>——身体在告诉你，走路真的有用。<br>上午那点<b>紧绷</b>，午后也慢慢化开了；今晚，也允许自己一样松下来。</div>
               <div class="ov-actions">
-                <button class="btn" onclick="startSense()">嗯，来感受今晚 →</button>
+                <button class="btn" onclick="startSense()">嗯，来感受今晚</button>
               </div>
             </div>
 
@@ -3022,26 +3193,27 @@ body{font-family:var(--sans);
                 <div class="tgt-row"><div class="n">三</div><textarea id="rtgt3" placeholder="第三件…（两件也很好）" oninput="rtgtCheck()"></textarea></div>
               </div>
               <div class="ov-actions">
-                <button class="btn" id="rtgtSave" onclick="saveRitualTGT()">写完了，去写一句 →</button>
+                <button class="btn" id="rtgtSave" onclick="saveRitualTGT()">写完了</button>
               </div>
             </div>
 
             <!-- 屏4: 专属冥想音乐 -->
             <div class="rs" id="rs-music">
               <div class="ov-title serif">为你生成的冥想音乐</div>
-              <div class="ov-sub">根据你今天的 HRV 曲线，专属定制</div>
+              <div class="ov-sub">根据你今天的身体状态，专属定制</div>
               <div class="music-card" id="musicCard">
                 <div class="music-disc"><div class="music-disc-core"></div></div>
-                <div class="music-title">今夜 · 你的心率之歌</div>
-                <div class="music-by">LOOOVE 读了你今天的 <b>HRV 曲线</b>，把它谱成了这 3 分钟——心率平稳的午后，成了最舒展的那一段旋律。</div>
+                <div class="music-title">今夜 · 身体安睡曲</div>
+                <div class="music-by">LOOOVE 读了你今天的 <b>生理数据</b>，把睡眠、心率、HRV 和压力变化合成这一段睡前陪伴。</div>
                 <div class="music-wave" id="musicWave"></div>
                 <div class="music-ctrls">
                   <button class="music-play" id="musicPlayBtn" onclick="toggleMusic()">▶</button>
-                  <div class="music-time" id="musicTime">0:00 / 3:00</div>
+                  <div class="music-time" id="musicTime">0:00 / --:--</div>
                 </div>
+                <audio id="sleepMusicAudio" src="音乐/睡眠不足.mp3" preload="metadata"></audio>
               </div>
               <div class="ov-actions">
-                <button class="btn" onclick="goSleep()">跟着它，呼吸入睡 →</button>
+                <button class="btn" onclick="goSleep()">跟着它，呼吸入睡</button>
                 <button class="btn ghost" onclick="goGoodnight()">先听一会儿 · 晚安</button>
               </div>
             </div>
@@ -3103,7 +3275,7 @@ body{font-family:var(--sans);
                 <div class="quiz-fb-body" id="quizFbBody"></div>
               </div>
             </div>
-            <button class="quiz-next" id="quizNextBtn" onclick="quizNext()">下一题 →</button>
+            <button class="quiz-next" id="quizNextBtn" onclick="quizNext()">下一题</button>
             <!-- end screen -->
             <div class="quiz-end" id="quizEnd">
               <div class="qe-stars" id="qeStars"></div>
@@ -3611,6 +3783,61 @@ body{font-family:var(--sans);
             </div>
           </div><!-- /ov-temp -->
 
+          <!-- ===== OVERLAY: 产检日历 ===== -->
+          <div class="overlay" id="ov-checkup">
+            <div class="sr-topbar">
+              <button class="sr-back" onclick="closeOverlay('ov-checkup')"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="sr-toptitle-wrap"><div class="sr-toptitle">产检日历</div><div class="sr-topdate">孕18周 · 预产期 11月2日</div></div>
+              <div style="width:28px;flex-shrink:0"></div>
+            </div>
+            <div class="sr-scroll">
+              <div class="ckp-intro">按孕周为你梳理每一次产检——做过的打勾，该约的提前提醒。</div>
+              <div class="ckp-list">
+                <div class="ckp-item done">
+                  <div class="ckp-top"><div class="ckp-wk">6–8<small>周</small></div><div class="ckp-tag done">已完成</div></div>
+                  <div class="ckp-name">建档 · 首次产检</div>
+                  <div class="ckp-desc">B超确认宫内孕与胎心，血常规、尿常规等基础检查。</div>
+                </div>
+                <div class="ckp-item done">
+                  <div class="ckp-top"><div class="ckp-wk">11–13<small>周</small></div><div class="ckp-tag done">已完成</div></div>
+                  <div class="ckp-name">NT 超声</div>
+                  <div class="ckp-desc">颈项透明层测量，早期评估染色体异常风险。</div>
+                </div>
+                <div class="ckp-item current">
+                  <div class="ckp-top"><div class="ckp-wk">15–20<small>周</small></div><div class="ckp-tag current">本周</div></div>
+                  <div class="ckp-name">唐筛 / 无创 DNA</div>
+                  <div class="ckp-desc">染色体异常筛查；无创 DNA(NIPT)可在 12–22 周做，准确度更高。</div>
+                </div>
+                <div class="ckp-item soon">
+                  <div class="ckp-top"><div class="ckp-wk">20–24<small>周</small></div><div class="ckp-tag soon">约 2 周后</div></div>
+                  <div class="ckp-name">大排畸超声</div>
+                  <div class="ckp-desc">系统/三维超声，全面排查胎儿结构畸形。建议提前预约。</div>
+                </div>
+                <div class="ckp-item">
+                  <div class="ckp-top"><div class="ckp-wk">24–28<small>周</small></div><div class="ckp-tag todo">待进行</div></div>
+                  <div class="ckp-name">糖耐量试验 OGTT</div>
+                  <div class="ckp-desc">妊娠期糖尿病筛查，需空腹，提前了解流程。</div>
+                </div>
+                <div class="ckp-item">
+                  <div class="ckp-top"><div class="ckp-wk">28–36<small>周</small></div><div class="ckp-tag todo">待进行</div></div>
+                  <div class="ckp-name">胎心监测 · 产检加密</div>
+                  <div class="ckp-desc">产检改为每 2 周一次，开始胎心监护，关注胎动。</div>
+                </div>
+                <div class="ckp-item">
+                  <div class="ckp-top"><div class="ckp-wk">35–37<small>周</small></div><div class="ckp-tag todo">待进行</div></div>
+                  <div class="ckp-name">B 族链球菌 GBS 筛查</div>
+                  <div class="ckp-desc">阴道/直肠拭子，阳性者分娩时需预防性用药。</div>
+                </div>
+                <div class="ckp-item">
+                  <div class="ckp-top"><div class="ckp-wk">37<small>周+</small></div><div class="ckp-tag todo">待进行</div></div>
+                  <div class="ckp-name">待产评估 · 胎心监护 NST</div>
+                  <div class="ckp-desc">每周产检，评估胎位与分娩时机，准备待产包。</div>
+                </div>
+              </div>
+              <div class="disclaimer">产检时间为公开孕期保健指南的一般参考，具体项目与时间请以产科医生安排为准。</div>
+            </div>
+          </div><!-- /ov-checkup -->
+
           <div class="toast" id="toast"></div>
         </div>
       </div>
@@ -3837,7 +4064,7 @@ function selectQuizOpt(idx){
   // next btn
   const isLast=quizQIdx>=chap.qs.length-1;
   const nb=document.getElementById('quizNextBtn');
-  nb.textContent=isLast?'查看结果 →':'下一题 →';
+  nb.textContent=isLast?'查看结果':'下一题';
   nb.classList.add('show');
 }
 
@@ -3901,6 +4128,16 @@ function openOverlay(id){
   const ov=document.getElementById(id);
   ov.style.display='flex';
   ov.style.animation='slideInRight .4s var(--ease-smooth)';
+}
+function showOverlayInstant(id){
+  const ov=document.getElementById(id);
+  ov.style.display='flex';
+  ov.style.animation='';
+}
+function hideOverlayInstant(id){
+  const ov=document.getElementById(id);
+  ov.style.display='none';
+  ov.style.animation='';
 }
 function closeOverlay(id){
   const ov=document.getElementById(id);
@@ -4323,7 +4560,7 @@ function showMornInteract(){
         <div class="mi-chip" onclick="selectMiChip(this)">${iconMarkup('pen','sm')} 今晚写一段回忆</div>
       </div>
       <p style="font-size:12px;color:var(--text-muted);line-height:1.8;margin-top:4px">期待，让今天变得有重量——选一个，出发。</p>`;
-    cta.textContent='带着期待，出发 →';
+    cta.textContent='带着期待，出发';
 
   }else if(mornMood==='calm'){
     c.innerHTML=`${badge}
@@ -4356,7 +4593,7 @@ function showMornInteract(){
         </div>
       </div>
       <div class="mi-calm-result" id="miCalmResult">你已经完全在今天了。<br>就从这里出发。</div>`;
-    cta.textContent='就这样，出发 →';
+    cta.textContent='就这样，出发';
 
   }else if(mornMood==='calm_OLD_PLACEHOLDER'){
     c.innerHTML=`${badge}
@@ -4374,7 +4611,7 @@ function showMornInteract(){
         </div>
       </div>
       <div class="mi-affirm" id="miAffirm"></div>`;
-    cta.textContent='就是这里，出发 →';
+    cta.textContent='就是这里，出发';
 
   }else if(mornMood==='tired'){
     c.innerHTML=`${badge}
@@ -4414,7 +4651,7 @@ function showMornInteract(){
           <div class="mi-energy-dot"></div>
         </div>
       </div>`;
-    cta.textContent='就这样，出发 →';
+    cta.textContent='就这样，出发';
 
   }else if(mornMood==='low'){
     c.innerHTML=`${badge}
@@ -4433,7 +4670,7 @@ function showMornInteract(){
           </div>
         </div>
       </div>`;
-    cta.textContent='带着这句话，轻轻出发 →';
+    cta.textContent='带着这句话，轻轻出发';
 
   }else{
     const card=CARD_DECK[Math.floor(Math.random()*CARD_DECK.length)];
@@ -4447,7 +4684,7 @@ function showMornInteract(){
           <div class="mdc-front has-img" style="background:url('${cimg}') center/cover"><div class="mdc-affirm">${card}</div></div>
         </div>
       </div>`;
-    cta.textContent='带着它，出发 →';
+    cta.textContent='带着它，出发';
   }
   renderIcons(c);
 }
@@ -4575,9 +4812,37 @@ function saveRitualTGT(){
   openMusic();
 }
 let musicPlaying=false;
+let sleepMusicBound=false;
+function fmtTime(sec){
+  if(!Number.isFinite(sec)||sec<0)return'--:--';
+  const m=Math.floor(sec/60),s=Math.floor(sec%60);
+  return m+':'+String(s).padStart(2,'0');
+}
+function bindSleepMusic(){
+  if(sleepMusicBound)return;
+  const audio=document.getElementById('sleepMusicAudio');
+  if(!audio)return;
+  sleepMusicBound=true;
+  audio.addEventListener('loadedmetadata',()=>updateMusicTime());
+  audio.addEventListener('timeupdate',()=>updateMusicTime());
+  audio.addEventListener('ended',()=>{
+    musicPlaying=false;
+    const card=document.getElementById('musicCard');if(card)card.classList.remove('playing');
+    const btn=document.getElementById('musicPlayBtn');if(btn)btn.textContent='▶';
+    updateMusicTime();
+  });
+}
+function updateMusicTime(){
+  const audio=document.getElementById('sleepMusicAudio');
+  const el=document.getElementById('musicTime');
+  if(audio&&el)el.textContent=fmtTime(audio.currentTime)+' / '+fmtTime(audio.duration);
+}
 function openMusic(){
   Audio$.soft();
   musicPlaying=false;
+  bindSleepMusic();
+  const audio=document.getElementById('sleepMusicAudio');
+  if(audio){audio.pause();audio.currentTime=0;updateMusicTime();}
   const wave=document.getElementById('musicWave');
   if(wave)wave.innerHTML=[...Array(22)].map((_,i)=>`<span style="animation-delay:${(i*0.06).toFixed(2)}s;height:${6+((i*53)%18)}px"></span>`).join('');
   const card=document.getElementById('musicCard');if(card)card.classList.remove('playing');
@@ -4585,12 +4850,21 @@ function openMusic(){
   showRS('rs-music');
 }
 function toggleMusic(){
-  musicPlaying=!musicPlaying;
+  bindSleepMusic();
+  const audio=document.getElementById('sleepMusicAudio');
+  if(!audio){Audio$.soft();return;}
+  musicPlaying=audio.paused;
   const card=document.getElementById('musicCard');
   const btn=document.getElementById('musicPlayBtn');
   if(card)card.classList.toggle('playing',musicPlaying);
   if(btn)btn.textContent=musicPlaying?'❚❚':'▶';
-  if(musicPlaying)Audio$.pluck();else Audio$.soft();
+  if(musicPlaying){
+    audio.play().catch(()=>toast('点击后即可播放音乐'));
+  }else{
+    audio.pause();
+    Audio$.soft();
+  }
+  updateMusicTime();
 }
 function goWrite(){
   Audio$.soft();
@@ -4735,6 +5009,310 @@ function completeGrounding(){
 }
 
 /* ===== 修心 · 循证心理练习（通用子页）===== */
+const MIND_MENUS={
+  support:{title:'当下支持',sub:'先选最像此刻的状态',items:[
+    {title:'我有点慌',sub:'先慢下来，再一步步稳住',icon:'anchor',action:'panic'},
+    {title:'我想哭 / 很委屈',sub:'给情绪一个位置，不急着把它赶走',icon:'heart',action:'soon'},
+    {title:'我脑子停不下来',sub:'把打转的念头写下来，再慢慢分清楚',icon:'letter',action:'soon'},
+    {title:'我身体很紧',sub:'跟着呼吸和身体触点，先松一点',icon:'breath',action:'soon'},
+    {title:'我需要先稳一下',sub:'做一个短正念，把注意力轻轻收回来',icon:'wave',action:'soon'}
+  ]},
+  perinatal:{title:'孕产心事',sub:'这些心事，都可以被认真对待',items:[
+    {title:'备孕焦虑',sub:'整理反复测、害怕失败和等待里的消耗',icon:'leaf',action:'soon'},
+    {title:'孕期担心',sub:'区分能行动的担心，和正在消耗你的担心',icon:'heart',action:'soon'},
+    {title:'生产害怕',sub:'把最怕的画面拆开，找到能准备的一步',icon:'wave',action:'soon'},
+    {title:'身体变化',sub:'和正在变化的身体重新建立连接',icon:'breath',action:'soon'},
+    {title:'关系压力',sub:'把需要的支持，整理成能说出口的话',icon:'letter',action:'soon'},
+    {title:'产后委屈',sub:'允许委屈存在，也看见你真正需要什么',icon:'heart',action:'soon'},
+    {title:'母职压力',sub:'把“应该”放一放，找回真实的自己',icon:'cards',action:'soon'},
+    {title:'自我感丢失',sub:'回到你的优势、愿望和一直都在的力量',icon:'sparkle',action:'soon'}
+  ]},
+  sleep:{title:'睡前陪伴',sub:'睡不着时，不急着分析人生',items:[
+    {title:'睡前放松',sub:'用 4-6 安眠呼吸，把身体带入夜晚',icon:'moon',action:'soon'},
+    {title:'夜醒后再入睡',sub:'从呼气开始，减少越想越清醒',icon:'breath',action:'soon'},
+    {title:'担心宝宝睡不着',sub:'把担心写下来，分清能做和明天再做',icon:'heart',action:'soon'},
+    {title:'身体不舒服睡不着',sub:'用身体扫描，和不适感保持一点距离',icon:'wave',action:'soon'},
+    {title:'产后碎片睡眠恢复',sub:'允许短睡眠也算休息，先做一个微恢复',icon:'cloud',action:'soon'}
+  ]},
+  daily:{title:'安心练习',sub:'状态还可以时，慢慢养出稳定感',items:[
+    {title:'每日正念',sub:'把注意力轻轻放回一次呼吸',icon:'anchor',action:'soon'},
+    {title:'身体扫描',sub:'从头到脚感受身体，重新建立连接',icon:'breath',action:'soon'},
+    {title:'和宝宝连接',sub:'给身体里的连接留一小段安静时间',icon:'baby',action:'soon'},
+    {title:'给自己的话',sub:'写一句今天真正需要听见的话',icon:'letter',action:'soon'},
+    {title:'温柔想象',sub:'在脑海里给自己一个安全的地方',icon:'candle',action:'soon'},
+    {title:'回忆小册',sub:'把这一段路，收进你的回忆漫游',icon:'book',action:'soon'},
+    {title:'感恩 / 资源练习',sub:'看见今天支撑过你的微小资源',icon:'sparkle',action:'soon'}
+  ]}
+};
+let activeMindMenuKey=null;
+let mindReturnKey=null;
+function openMindMenu(key){
+  const menu=MIND_MENUS[key];if(!menu)return;
+  activeMindMenuKey=key;
+  Audio$.soft();
+  document.getElementById('mindMenuTitle').textContent=menu.title;
+  document.getElementById('mindMenuSub').textContent=menu.sub;
+  document.getElementById('mindMenuList').innerHTML=menu.items.map((it,idx)=>`
+    <div class="mind-choice" onclick="startMindIntervention('${key}',${idx})">
+      <div class="mind-choice-ico">${iconMarkup(it.icon)}</div>
+      <div class="mind-choice-copy">
+        <div class="mind-choice-title">${it.title}</div>
+        <div class="mind-choice-sub">${it.sub}</div>
+      </div>
+      <div class="mind-choice-arr">›</div>
+    </div>`).join('');
+  openOverlay('ov-mind-menu');
+  renderIcons(document.getElementById('mindMenuList'));
+}
+function closeMindMenu(){
+  activeMindMenuKey=null;
+  mindReturnKey=null;
+  closeOverlay('ov-mind-menu');
+}
+function closeMindChild(id){
+  const key=mindReturnKey;
+  mindReturnKey=null;
+  if(id==='ov-panic-flow')clearPanicTimers();
+  if(key)showOverlayInstant('ov-mind-menu');
+  closeOverlay(id);
+}
+function startMindIntervention(key,idx){
+  const item=MIND_MENUS[key]?.items[idx];if(!item)return;
+  activeMindMenuKey=key;
+  mindReturnKey=key;
+  hideOverlayInstant('ov-mind-menu');
+  switch(item.action){
+    case 'panic': openPanicFlow(); break;
+    case 'soon':
+      showOverlayInstant('ov-mind-menu');
+      mindReturnKey=null;
+      toast('这个干预正在打磨中，很快上线');
+      break;
+    case 'grounding': openOverlay('ov-grounding'); break;
+    case 'breathe': openBreathe(); break;
+    case 'mind': openPractice('mind'); break;
+    case 'act': openPractice('act'); break;
+    case 'cbt': openPractice('cbt'); break;
+    case 'narrative': openPractice('narrative'); break;
+    case 'positive': openPractice('positive'); break;
+    case 'rewrite': openOverlay('ov-rewrite'); break;
+    case 'gratitude': openOverlay('ov-gratitude'); break;
+    case 'letter': openAddMemory('text'); break;
+    case 'memory': openAddMemory(); break;
+    default: openPractice('mind');
+  }
+}
+let panicState={body:'',anchor:'',word:'',timers:[]};
+const USER_CONTEXT={
+  name:'小余',
+  stage:'孕18周',
+  sleep:'6h42m',
+  sleepScore:'78',
+  hrv:'32ms',
+  heartRate:'70bpm',
+  stress:'3.3',
+  note:'昨夜翻身比平时多一些，HRV 也略低'
+};
+function clearPanicTimers(){
+  panicState.timers.forEach(t=>clearTimeout(t));
+  panicState.timers=[];
+}
+function panicDelay(fn,delay){
+  const timer=setTimeout(fn,delay);
+  panicState.timers.push(timer);
+}
+function panicTypeLine(id,text,delay=0,done){
+  const el=document.getElementById(id);
+  panicDelay(()=>{
+    el.classList.remove('hide');
+    el.innerHTML='<span class="panic-typing"><i></i><i></i><i></i></span>';
+    scrollPanicToEnd();
+    panicDelay(()=>{
+      el.textContent='';
+      [...text].forEach((ch,i)=>panicDelay(()=>{
+        el.textContent+=ch;
+        if(i===text.length-1&&done)done();
+        if(i%5===0)scrollPanicToEnd();
+      },i*58));
+    },520);
+  },delay);
+}
+function openPanicFlow(){
+  clearPanicTimers();
+  panicState={body:'',anchor:'',word:'',timers:[]};
+  document.getElementById('panicFlow').scrollTop=0;
+  document.getElementById('panicLine1').classList.remove('hide');
+  document.getElementById('panicLine1').innerHTML='';
+  document.getElementById('panicLine2').classList.add('hide');
+  document.getElementById('panicLine3').classList.add('hide');
+  document.querySelectorAll('#ov-panic-flow .panic-step').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('#ov-panic-flow .panic-chip').forEach(c=>c.classList.remove('sel'));
+  ['panicBodyPrompt','panicAnchorPrompt','panicWordPrompt'].forEach(id=>{
+    const el=document.getElementById(id);el.classList.add('hide');el.textContent='';
+  });
+  ['panicBodyFeedback','panicAnchorFeedback','panicWordFeedback'].forEach(id=>{
+    const el=document.getElementById(id);el.classList.remove('show');el.textContent='';
+  });
+  ['panicBodyChips','panicBodyOther','panicBodyActions','panicAnchorChips','panicAnchorActions'].forEach(id=>
+    document.getElementById(id).classList.add('panic-hidden'));
+  document.getElementById('panicBreathAfter').classList.add('hide');
+  document.getElementById('panicBreathAfter').textContent='';
+  document.getElementById('panicBodyOther').value='';
+  document.getElementById('panicSafeWord').classList.add('panic-hidden');
+  document.getElementById('panicWordActions').classList.add('panic-hidden');
+  document.getElementById('panicDoneActions').classList.add('panic-hidden');
+  document.getElementById('panicBodySend').disabled=true;
+  document.getElementById('panicBodySend').textContent='发送';
+  document.getElementById('panicAnchorSend').disabled=true;
+  document.getElementById('panicAnchorSend').textContent='发送';
+  document.getElementById('panicWordSend').disabled=true;
+  document.getElementById('panicWordSend').textContent='发送这句话';
+  document.getElementById('panicSafeWord').value='';
+  document.getElementById('panicBreathBtn').disabled=false;
+  document.getElementById('panicBreathBtn').textContent='开始跟着呼吸';
+  document.getElementById('panicBreathBtn').parentElement.classList.remove('panic-hidden');
+  document.getElementById('panicOrb').style.transform='scale(1)';
+  document.getElementById('panicPhase').textContent='准备一下';
+  document.getElementById('panicCount').textContent='我们只做 3 次慢呼气';
+  openOverlay('ov-panic-flow');
+  const c=USER_CONTEXT;
+  panicTypeLine('panicLine1',`${c.name}，我看到你点了「我有点慌」。`,650,()=>{
+    panicTypeLine('panicLine2',`你现在是${c.stage}，昨夜睡了 ${c.sleep}，评分 ${c.sleepScore}。戒指也记录到：${c.note}。这些都会让身体比平时更容易紧起来。`,900,()=>{
+      panicTypeLine('panicLine3',`接下来我们只做一件事：让呼气慢一点，让心率和注意力有机会一起降下来。`,900,()=>{
+      panicDelay(()=>showPanicStep('breath'),900);
+      });
+    });
+  });
+}
+function scrollPanicToEnd(){
+  const flow=document.getElementById('panicFlow');
+  if(flow)flow.scrollTo({top:flow.scrollHeight,behavior:'smooth'});
+}
+function showPanicStep(step){
+  const map={breath:'panicStepBreath',body:'panicStepBody',anchor:'panicStepAnchor',word:'panicStepWord'};
+  const el=document.getElementById(map[step]);
+  el.classList.add('on');
+  if(step==='body'){
+    panicTypeLine('panicBodyPrompt','选一个最接近身体的感觉，或者直接写下身体正在发生什么。',260,()=>{
+      document.getElementById('panicBodyChips').classList.remove('panic-hidden');
+      document.getElementById('panicBodyOther').classList.remove('panic-hidden');
+      document.getElementById('panicBodyActions').classList.remove('panic-hidden');
+      scrollPanicToEnd();
+    });
+  }else if(step==='anchor'){
+    panicTypeLine('panicAnchorPrompt','我们给注意力找一个落点。现在看一眼周围，选一个你能确定存在的东西。',260,()=>{
+      document.getElementById('panicAnchorChips').classList.remove('panic-hidden');
+      document.getElementById('panicAnchorActions').classList.remove('panic-hidden');
+      scrollPanicToEnd();
+    });
+  }else if(step==='word'){
+    panicTypeLine('panicWordPrompt','如果愿意，给现在的自己留一句很短的话。它不需要漂亮，只要真实。',260,()=>{
+      document.getElementById('panicSafeWord').classList.remove('panic-hidden');
+      document.getElementById('panicWordActions').classList.remove('panic-hidden');
+      scrollPanicToEnd();
+    });
+  }else{
+    panicDelay(scrollPanicToEnd,80);
+  }
+}
+function startPanicBreath(){
+  const btn=document.getElementById('panicBreathBtn');
+  const orb=document.getElementById('panicOrb');
+  const phase=document.getElementById('panicPhase');
+  const count=document.getElementById('panicCount');
+  btn.parentElement.classList.add('panic-hidden');
+  const seq=[
+    ['吸 气','1 / 3 · 让空气轻轻进来',1.22,0],
+    ['呼 气','1 / 3 · 慢慢吐出去',.82,4000],
+    ['吸 气','2 / 3 · 再吸一点点',1.22,10000],
+    ['呼 气','2 / 3 · 比刚才更慢一点',.82,14000],
+    ['吸 气','3 / 3 · 最后一轮',1.22,20000],
+    ['呼 气','3 / 3 · 放掉一点紧绷',.82,24000]
+  ];
+  seq.forEach(([p,c,scale,delay])=>{
+    panicDelay(()=>{
+      phase.textContent=p;count.textContent=c;orb.style.transitionDuration=p.includes('吸')?'4s':'6s';orb.style.transform=`scale(${scale})`;
+      if(p.includes('吸'))Audio$.breatheIn();else Audio$.breatheOut();
+    },delay);
+  });
+  panicDelay(()=>{
+    phase.textContent='很好';count.textContent='呼吸这一步完成了';orb.style.transitionDuration='1.6s';orb.style.transform='scale(1)';
+    panicTypeLine('panicBreathAfter','小余，你刚刚已经给身体留出了一点空间。接下来听一听身体里最明显的信号。',520,()=>{
+      panicDelay(()=>showPanicStep('body'),700);
+    });
+  },30500);
+}
+function selectPanicBody(btn,val){
+  panicState.body=val;
+  document.querySelectorAll('#panicBodyChips .panic-chip').forEach(c=>c.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('panicBodyOther').value='';
+  document.getElementById('panicBodySend').disabled=false;
+  scrollPanicToEnd();
+}
+function panicBodyOtherInput(){
+  const v=document.getElementById('panicBodyOther').value.trim();
+  panicState.body=v;
+  if(v)document.querySelectorAll('#panicBodyChips .panic-chip').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('panicBodySend').disabled=!v;
+}
+function submitPanicBody(){
+  const val=panicState.body;
+  if(!val)return;
+  document.getElementById('panicBodyActions').classList.add('panic-hidden');
+  const fb=document.getElementById('panicBodyFeedback');
+  fb.classList.add('show');fb.textContent='';
+  panicTypeLine('panicBodyFeedback',`我看见了：现在最明显的是「${val}」。小余，孕18周时身体本来就在承担更多循环和睡眠变化；再加上今天 HRV 只有 ${USER_CONTEXT.hrv}，身体会更敏感一些。我们先把它当作一个需要照顾的信号。`,180,()=>{
+    panicDelay(()=>showPanicStep('anchor'),850);
+  });
+}
+function selectPanicAnchor(btn,val){
+  panicState.anchor=val;
+  document.querySelectorAll('#panicAnchorChips .panic-chip').forEach(c=>c.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('panicAnchorSend').disabled=false;
+  scrollPanicToEnd();
+}
+function submitPanicAnchor(){
+  const val=panicState.anchor;
+  if(!val)return;
+  document.getElementById('panicAnchorActions').classList.add('panic-hidden');
+  const fb=document.getElementById('panicAnchorFeedback');
+  fb.classList.add('show');fb.textContent='';
+  panicTypeLine('panicAnchorFeedback',`好，就把「${val}」当作现在的锚点。戒指能记录心率和 HRV，但这一刻，是你自己把注意力带回来了。你可以在心里说：我在这里，我能看见它。`,180,()=>{
+    panicDelay(()=>showPanicStep('word'),850);
+  });
+}
+function panicSafeWordCheck(){
+  panicState.word=document.getElementById('panicSafeWord').value.trim();
+  document.getElementById('panicWordSend').disabled=!panicState.word;
+}
+function submitPanicWord(){
+  const word=panicState.word;
+  if(!word)return;
+  document.getElementById('panicWordActions').classList.add('panic-hidden');
+  const fb=document.getElementById('panicWordFeedback');
+  fb.classList.add('show');fb.textContent='';
+  panicTypeLine('panicWordFeedback',`收到这句话了。你没有把慌张立刻赶走，但你已经陪自己完成了呼吸、身体觉察和一个现实锚点。今天到这里，就已经很好。`,180,()=>{
+    document.getElementById('panicDoneActions').classList.remove('panic-hidden');
+    scrollPanicToEnd();
+  });
+}
+function finishPanicFlow(){
+  Audio$.pluck();
+  const note=document.getElementById('panicSafeWord').value.trim();
+  const lines=[
+    panicState.body?`<b>身体信号</b><br>${esc(panicState.body)}`:'',
+    panicState.anchor?`<b>此刻锚点</b><br>${esc(panicState.anchor)}`:'',
+    note?`<b>写给自己</b><br>${esc(note)}`:''
+  ].filter(Boolean);
+  if(lines.length){
+    addDiaryEntry('anchor','我有点慌',lines.join('<br><br>'),'心理呵护 · 当下支持');
+    bumpPages();
+  }
+  toast('这次安顿已完成');
+  closeMindChild('ov-panic-flow');
+}
 const PRACTICES={
   cbt:{title:'想法记录',badge:'CBT · 认知行为',desc:'把脑子里打转的念头，一条条理清楚。',saveBadge:'CBT 想法记录',steps:[
     {label:'发生了什么？',sub:'客观描述那件事，先不带评价',ph:'比如：产检时医生多看了我两眼…'},
@@ -4784,7 +5362,7 @@ function openPractice(id){
   p.steps.forEach(s=>{
     h+=`<div class="prac-step"><div class="prac-step-label">${s.label}</div>${s.sub?`<div class="prac-step-sub">${s.sub}</div>`:''}<textarea class="intent-box prac-input" placeholder="${s.ph||''}" oninput="pracCheck()"></textarea></div>`;
   });
-  h+=`<div class="ov-actions"><button class="btn" id="pracDone" disabled onclick="completePractice('${id}')">写完了，收进回忆 →</button></div>`;
+  h+=`<div class="ov-actions"><button class="btn" id="pracDone" disabled onclick="completePractice('${id}')">写完了，收进回忆</button></div>`;
   c.innerHTML=h;c.dataset.pid=id;
   openOverlay('ov-practice');
 }
@@ -4801,7 +5379,7 @@ function completePractice(id){
   const lines=[];
   p.steps.forEach((s,i)=>{const v=ins[i]?ins[i].value.trim():'';if(v)lines.push('<b>'+esc(s.label)+'</b><br>'+esc(v));});
   if(lines.length){
-    addDiaryEntry('sparkle',p.saveBadge,lines.join('<br><br>'),'修心练习 · 写给自己');
+    addDiaryEntry('sparkle',p.saveBadge,lines.join('<br><br>'),'心理呵护 · 写给自己');
     bumpPages();
     toast('这次练习已记入<b>回忆</b>');
   }
