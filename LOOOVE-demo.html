@@ -1082,13 +1082,14 @@ body{font-family:var(--sans);
 
 /* ===== 成长轨迹 ===== */
 .diary-hero{align-items:center}
-.growth-badge-float{position:absolute;right:8px;top:58%;bottom:auto;transform:translateY(-50%);z-index:36;width:52px;height:52px;border-radius:50%;
+.growth-badge-float,.growth-review-float{position:absolute;right:8px;top:52%;bottom:auto;transform:translateY(-50%);z-index:36;width:52px;height:52px;border-radius:50%;
   border:1px solid rgba(238,132,102,.22);background:rgba(255,255,255,.82);color:var(--primary);
   -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);
   box-shadow:0 16px 28px -22px rgba(125,91,74,.56),inset 0 1px 0 rgba(255,255,255,.9);
   display:flex;align-items:center;justify-content:center;cursor:pointer}
-.growth-badge-float:active{transform:translateY(-50%) scale(.96)}
-.growth-badge-float svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.growth-review-float{top:calc(52% + 66px);color:#be7654;background:rgba(255,251,246,.86)}
+.growth-badge-float:active,.growth-review-float:active{transform:translateY(-50%) scale(.96)}
+.growth-badge-float svg,.growth-review-float svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .growth-filter-row{display:flex;align-items:center;gap:9px;margin:0 0 18px}
 .growth-tabs{display:flex;gap:8px;overflow-x:auto;min-width:0;flex:1;padding:2px 0 4px;scrollbar-width:none}
 .growth-tabs::-webkit-scrollbar{display:none}
@@ -1165,6 +1166,13 @@ body{font-family:var(--sans);
 .growth-change-card p{margin:5px 0;font-size:12px;color:var(--text-secondary)}
 .growth-change-card em{font-style:normal;color:var(--primary);font-weight:800}
 .growth-change-arrow{align-self:center;color:var(--primary);font-size:16px}
+.growth-review-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.growth-review-stat{min-height:72px;border-radius:18px;padding:12px 8px;text-align:center;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.84)}
+.growth-review-stat b{display:block;font-family:var(--serif);font-size:19px;color:var(--text-primary);line-height:1.1}
+.growth-review-stat span{display:block;margin-top:5px;font-size:10px;line-height:1.4;color:var(--text-muted)}
+.growth-review-list{display:flex;flex-direction:column;gap:10px}
+.growth-review-item{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.7;color:var(--text-secondary)}
+.growth-review-item i{font-style:normal;flex:0 0 22px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(238,132,102,.1);color:var(--primary);font-weight:800;font-size:11px}
 
 /* 聊天输入行 */
 .chat-input-row{display:flex;align-items:center;gap:8px;padding:0;flex-shrink:0;margin-top:20px}
@@ -1654,41 +1662,59 @@ body{font-family:var(--sans);
 .ov-sub .badge{margin-right:6px}
 .ov-actions{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:14px}
 
-/* 情绪调频 · 3/4 面板 */
+/* 情绪调频 · 全屏面板 */
 @keyframes tuneSheetIn{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
 @keyframes tuneSheetOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(100%)}}
 @keyframes tuneWaveFlow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-#ov-emotion-tune{top:auto!important;right:0;bottom:0!important;left:0;height:76%;min-height:600px;max-height:640px;z-index:118;padding:0;overflow:hidden;
-  border-radius:34px 34px 0 0;background:linear-gradient(180deg,rgba(255,253,249,.98),rgba(255,247,239,.95));
+@keyframes tuneLineBreathe{0%,100%{transform:translateY(var(--lineLift,0)) scaleY(var(--lineScaleA,1));opacity:var(--lineOpacity,.5)}50%{transform:translateY(calc(var(--lineLift,0) * -1)) scaleY(var(--lineScaleB,1.08));opacity:calc(var(--lineOpacity,.5) + .12)}}
+@keyframes tuneDotDrift{0%{transform:translate3d(0,0,0) scale(.85);opacity:.22}45%{opacity:.52}100%{transform:translate3d(var(--dotDx,16px),var(--dotDy,-22px),0) scale(1.18);opacity:.12}}
+@keyframes tuneReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+#ov-emotion-tune{inset:0!important;height:auto;min-height:0;max-height:none;z-index:118;padding:0;overflow:hidden;
+  border-radius:0;background:
+    radial-gradient(360px 260px at 18% 18%,rgba(247,201,124,.12),transparent 70%),
+    radial-gradient(300px 220px at 88% 9%,rgba(238,132,102,.08),transparent 72%),
+    radial-gradient(340px 260px at 78% 76%,rgba(247,201,124,.1),transparent 74%),
+    linear-gradient(180deg,rgba(255,253,249,.98),rgba(255,247,239,.95));
   border:1px solid rgba(255,255,255,.92);
   -webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);
   box-shadow:0 -24px 58px -38px rgba(91,67,56,.56),inset 0 1px 0 rgba(255,255,255,.94);
   transform-origin:bottom center}
-.tune-panel{height:100%;display:flex;flex-direction:column;padding:20px 26px 24px;gap:20px;overflow-y:auto;scrollbar-width:none}
+.tune-panel{height:100%;display:flex;flex-direction:column;padding:58px 26px 24px;gap:20px;overflow-y:auto;scrollbar-width:none}
 .tune-panel::-webkit-scrollbar{display:none}
+.tune-panel.result-mode{overflow:hidden}
 .tune-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
 .tune-kicker{display:none}
-.tune-title{font-family:var(--serif);font-size:21px;color:var(--text-primary);font-weight:600;margin-top:2px;line-height:1.35}
+.tune-title{font-family:var(--serif);font-size:24px;color:var(--text-primary);font-weight:600;margin-top:2px;line-height:1.35}
 .tune-guide{margin-top:5px;font-size:12px;color:var(--text-muted);letter-spacing:.04em}
 .tune-close{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,127,99,.16);
   background:rgba(255,255,255,.58);color:var(--text-secondary);font-size:16px;cursor:pointer}
-.tune-visual{position:relative;height:236px;border-radius:24px;overflow:hidden;flex-shrink:0;
+.tune-visual{position:relative;height:288px;border-radius:26px;overflow:hidden;flex-shrink:0;
   background:
-    linear-gradient(115deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.58) 34%,rgba(255,248,226,.5) 63%,rgba(255,255,255,.82) 100%),
-    radial-gradient(300px 178px at 78% 18%,var(--tuneGlow,#ffe3ad),transparent 78%),
-    radial-gradient(220px 146px at 15% 70%,rgba(255,232,196,.24),transparent 78%);
+    linear-gradient(115deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.68) 31%,var(--tuneWash,rgba(255,246,212,.56)) 66%,rgba(255,255,255,.84) 100%),
+    radial-gradient(340px 210px at 78% 18%,var(--tuneGlow,#ffe3ad),transparent 78%),
+    radial-gradient(240px 160px at 15% 70%,rgba(255,235,202,.26),transparent 78%);
   border:1px solid rgba(255,255,255,.86);box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 18px 38px -30px rgba(105,76,62,.55)}
 .tune-visual::before{content:"";position:absolute;inset:0;background:
-  repeating-linear-gradient(90deg,transparent 0 74px,rgba(116,104,96,.13) 75px,transparent 76px);
-  opacity:.45}
-.tune-visual svg{position:absolute;inset:0;width:200%;height:100%;animation:tuneWaveFlow 14s linear infinite;will-change:transform;filter:drop-shadow(0 2px 5px rgba(142,103,80,.08))}
+  repeating-linear-gradient(90deg,transparent 0 74px,rgba(116,104,96,.09) 75px,transparent 76px),
+  radial-gradient(240px 140px at 18% 18%,rgba(255,255,255,.68),transparent 72%),
+  radial-gradient(260px 160px at 52% 56%,rgba(255,255,255,.44),transparent 78%),
+  radial-gradient(circle at 18% 24%,rgba(232,178,124,.2) 0 2.2px,transparent 3.6px),
+  radial-gradient(circle at 40% 68%,rgba(232,178,124,.13) 0 1.7px,transparent 3.2px),
+  radial-gradient(circle at 64% 34%,rgba(232,178,124,.17) 0 1.8px,transparent 3.4px),
+  radial-gradient(circle at 78% 72%,rgba(232,178,124,.16) 0 2.2px,transparent 3.6px),
+  linear-gradient(135deg,rgba(255,255,255,.22),transparent 42%,rgba(255,242,218,.18) 78%,transparent);
+  opacity:.7}
+.tune-visual::after{content:"";position:absolute;inset:auto 0 0 0;height:112px;background:linear-gradient(0deg,rgba(255,255,255,.86),transparent);pointer-events:none}
+.tune-visual svg{position:absolute;inset:0;width:200%;height:100%;animation:tuneWaveFlow var(--waveSpeed,18s) linear infinite;will-change:transform;filter:drop-shadow(0 2px 5px rgba(142,103,80,.06))}
+.tune-visual svg path{animation:tuneLineBreathe var(--lineDur,4.8s) ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .tune-particles{position:absolute;inset:0;pointer-events:none}
 .tune-particles i{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--tuneColor,#eaa46b);
-  opacity:.36;filter:blur(.2px)}
+  opacity:.36;filter:blur(.15px);box-shadow:0 0 8px color-mix(in srgb,var(--tuneColor,#eaa46b) 55%,transparent);
+  animation:tuneDotDrift var(--dotDur,4s) ease-in-out infinite alternate}
 .tune-readout{display:none}
 .tune-state-word{font-family:var(--serif);font-size:17px;color:var(--text-primary)}
 .tune-state-sub{font-size:10px;color:var(--text-muted);letter-spacing:.08em;margin-top:3px}
-.tune-controls{display:flex;flex-direction:column;gap:22px;margin-top:10px}
+.tune-controls{display:flex;flex-direction:column;gap:34px;margin-top:14px}
 .tune-row{display:grid;grid-template-columns:58px 1fr;align-items:center;gap:12px}
 .tune-ico{display:none}
 .tune-ico svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -1696,7 +1722,7 @@ body{font-family:var(--sans);
 .tune-slider{position:relative}
 .tune-slider input{width:100%;appearance:none;background:transparent;display:block}
 .tune-slider input::-webkit-slider-runnable-track{height:4px;border-radius:999px;
-  background:linear-gradient(90deg,rgba(232,213,196,.52),var(--tuneColor,#f0b46d))}
+  background:linear-gradient(90deg,rgba(232,213,196,.42),color-mix(in srgb,var(--tuneColor,#f0b46d) 72%,#fff 28%))}
 .tune-slider input::-webkit-slider-thumb{appearance:none;width:18px;height:18px;margin-top:-7px;border-radius:50%;
   background:rgba(255,255,255,.96);border:1px solid rgba(198,176,160,.55);
   box-shadow:0 4px 10px rgba(83,62,52,.18)}
@@ -1704,22 +1730,51 @@ body{font-family:var(--sans);
 .tune-confirm{width:100%;margin-top:auto;padding:15px;border-radius:999px;border:none;cursor:pointer;
   background:linear-gradient(120deg,#ff7f63,#f5bd58);color:white;font-size:14px;font-weight:700;letter-spacing:.1em;
   box-shadow:0 14px 30px -22px rgba(255,127,99,.65);flex-shrink:0}
-.tune-result{display:none;margin-top:2px;padding:20px 18px;border-radius:24px;
-  background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,248,235,.62));
-  border:1px solid rgba(255,255,255,.82);box-shadow:0 14px 34px -28px rgba(92,62,51,.5)}
-.tune-result.show{display:block;animation:fadeUp .32s var(--ease-smooth)}
+.tune-result{display:none;margin-top:2px;gap:15px}
+.tune-result.show{display:flex;flex-direction:column;animation:fadeUp .32s var(--ease-smooth)}
 .tune-panel.result-mode .tune-visual,.tune-panel.result-mode .tune-controls,.tune-panel.result-mode .tune-confirm{display:none}
-.tune-panel.result-mode .tune-result{display:flex;flex:1;min-height:0;flex-direction:column;justify-content:flex-start;margin-top:4px;padding:22px 18px 24px}
+.tune-panel.result-mode .tune-result{display:flex;flex:1;min-height:0;flex-direction:column;justify-content:flex-start;margin-top:4px;overflow:hidden}
+.tune-result-visual{position:relative;height:142px;border-radius:22px;overflow:hidden;flex-shrink:0;
+  background:
+    linear-gradient(115deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.7) 36%,var(--tuneWash,rgba(255,246,218,.5)) 72%,rgba(255,255,255,.86) 100%),
+    radial-gradient(260px 150px at 78% 22%,var(--tuneGlow,rgba(247,203,128,.22)),transparent 76%);
+  border:1px solid rgba(255,255,255,.88);box-shadow:inset 0 1px 0 rgba(255,255,255,.94),0 13px 28px -24px rgba(105,76,62,.38);
+  opacity:0;animation:tuneReveal .44s var(--ease-smooth) forwards}
+.tune-result-visual::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(90deg,transparent 0 74px,rgba(116,104,96,.055) 75px,transparent 76px),
+  radial-gradient(220px 130px at 18% 18%,rgba(255,255,255,.7),transparent 72%),
+  radial-gradient(circle at 22% 30%,rgba(232,178,124,.16) 0 2px,transparent 3.5px),
+  radial-gradient(circle at 62% 24%,rgba(232,178,124,.12) 0 1.7px,transparent 3.2px),
+  radial-gradient(circle at 78% 68%,rgba(232,178,124,.14) 0 2px,transparent 3.5px),
+  linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.76));
+  opacity:.78;pointer-events:none}
+.tune-result-visual svg{position:absolute;inset:0;width:200%;height:100%;animation:tuneWaveFlow var(--waveSpeed,18s) linear infinite;will-change:transform}
+.tune-result-visual svg path{animation:tuneLineBreathe var(--lineDur,5.4s) ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.tune-result-word{position:absolute;left:18px;bottom:16px;font-family:var(--serif);font-size:22px;font-weight:600;color:var(--text-primary);letter-spacing:.04em}
+.tune-result-word::after{content:"情绪状态";display:block;margin-top:2px;font-family:var(--sans);font-size:10px;color:rgba(238,132,102,.92);letter-spacing:.14em;font-weight:700}
+.tune-result-card{position:relative;padding:22px 18px 24px;border-radius:24px;
+  background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(255,249,238,.66));
+  border:1px solid rgba(255,255,255,.84);box-shadow:0 14px 34px -28px rgba(92,62,51,.48);
+  opacity:0;animation:tuneReveal .5s var(--ease-smooth) .64s forwards;
+  flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 28px),rgba(0,0,0,.18) 100%);
+  mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 28px),rgba(0,0,0,.18) 100%)}
+.tune-result-card::-webkit-scrollbar{display:none}
 .tune-result-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .tune-result-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--text-primary)}
 .tune-result-chip{font-size:10px;color:var(--primary);letter-spacing:.1em;padding:4px 9px;border-radius:999px;background:rgba(255,127,99,.09)}
-.tune-result p{font-family:var(--serif);font-size:15px;line-height:2;color:var(--text-primary);margin-top:8px}
+.tune-result p{font-family:var(--serif);font-size:14.5px;line-height:1.88;color:var(--text-primary);margin-top:8px;margin-bottom:0}
 .tune-result em{font-style:normal;color:var(--primary);font-weight:600}
-.tune-data-line{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:18px}
-.tune-data-line div{min-height:58px;padding:10px 6px;border-radius:16px;text-align:center;background:rgba(255,255,255,.74);border:1px solid rgba(255,255,255,.86);box-shadow:0 10px 22px -20px rgba(91,67,56,.34)}
-.tune-data-line b{display:block;font-family:var(--serif);font-size:16px;color:var(--text-primary)}
+.tune-result .tune-section-label{font-family:var(--sans);font-size:13px;font-weight:800;color:var(--primary);letter-spacing:.08em}
+.tune-data-line{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:4px}
+.tune-data-line div{min-height:72px;padding:13px 6px;border-radius:18px;text-align:center;background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.9);box-shadow:0 12px 24px -22px rgba(91,67,56,.34);
+  opacity:0;animation:tuneReveal .42s var(--ease-smooth) forwards}
+.tune-data-line div:nth-child(1){animation-delay:.08s}
+.tune-data-line div:nth-child(2){animation-delay:.24s}
+.tune-data-line div:nth-child(3){animation-delay:.4s}
+.tune-data-line b{display:block;font-family:var(--serif);font-size:18px;color:var(--text-primary)}
 .tune-data-line span{display:block;margin-top:2px;font-size:9px;color:var(--text-muted);letter-spacing:.08em}
-.tune-result-actions{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tune-result-actions{margin-top:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;flex-shrink:0;padding-top:6px}
 .tune-reset,.tune-mind-link{width:100%;padding:12px;border-radius:999px;border:1px solid rgba(186,170,158,.18);
   background:rgba(255,255,255,.52);color:var(--text-secondary);font-family:var(--sans);font-size:13px;letter-spacing:.08em;cursor:pointer}
 .tune-mind-link{border:none;background:linear-gradient(100deg,#ee8a67,#f4c158);color:white;font-weight:700;
@@ -3260,6 +3315,42 @@ body{font-family:var(--sans);
             </div>
             <div class="home-child-scroll" id="growthRecordContent"></div>
           </div>
+          <div class="home-child-screen" id="trajectoryReviewScreen">
+            <div class="sr-topbar">
+              <button class="sr-back" onclick="closeTrajectoryReview()" aria-label="返回">
+                <svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="sr-toptitle-wrap"><div class="sr-toptitle">AI 身心复盘</div></div>
+              <div style="width:28px;flex-shrink:0"></div>
+            </div>
+            <div class="home-child-scroll">
+              <section class="growth-record-block">
+                <div class="growth-record-kicker">LOOOVE AI 身心教练 · 近 7 天</div>
+                <div class="growth-record-title">你正在把“先稳住身体”，练成一种新的节奏。</div>
+                <div class="growth-record-sub">我把最近的身心觉察、情绪调节、思维罗盘和探索尝试放在一起看，发现你的变化不是突然变好，而是每次都多了一点可恢复的空间。</div>
+              </section>
+              <section class="growth-record-block">
+                <div class="growth-record-kicker">阶段变化</div>
+                <div class="growth-review-summary">
+                  <div class="growth-review-stat"><b>+6ms</b><span>平均 HRV 较上周提升</span></div>
+                  <div class="growth-review-stat"><b>-0.4</b><span>任务后压力指数下降</span></div>
+                  <div class="growth-review-stat"><b>4 次</b><span>完成小行动与调节</span></div>
+                </div>
+              </section>
+              <section class="growth-record-block">
+                <div class="growth-record-kicker">AI 观察</div>
+                <div class="growth-review-list">
+                  <div class="growth-review-item"><i>1</i><div>你最有效的调节不是“想通”，而是先做一个边界很清楚的小动作。整理桌面一角、喝水、出门走五分钟之后，压力更容易回落。</div></div>
+                  <div class="growth-review-item"><i>2</i><div>你的身体数据在任务完成后更容易进入恢复区间：HRV 有提升，心率和压力指数都有下降，说明行动带来了真实的稳定感。</div></div>
+                  <div class="growth-review-item"><i>3</i><div>这周继续优先选择低成本、可完成的小事，让身体积累“我能回来”的连续经验。</div></div>
+                </div>
+              </section>
+              <section class="growth-record-block">
+                <div class="growth-record-kicker">下周建议</div>
+                <div class="growth-record-sub">每天只保留一个 5 分钟复位动作。完成后不用评价自己做得好不好，只记录身体有没有松一点、呼吸有没有顺一点、注意力有没有回来一点。</div>
+              </section>
+            </div>
+          </div>
 
           <!-- ===== TAB 1 今日 ===== -->
           <div class="tabpage on" id="t-home">
@@ -3338,13 +3429,13 @@ body{font-family:var(--sans);
           <!-- ===== TAB 2 轨迹 ===== -->
           <div class="tabpage" id="t-diary">
             <div class="diary-hero">
-              <h2 class="serif">轨迹</h2>
+              <h2 class="serif">成长轨迹</h2>
             </div>
             <div class="growth-filter-row">
               <div class="growth-tabs">
                 <button class="growth-tab on" data-growth="all" onclick="filterGrowthTrail(this)">全部</button>
-                <button class="growth-tab" data-growth="tune" onclick="filterGrowthTrail(this)">情绪调节</button>
                 <button class="growth-tab" data-growth="body" onclick="filterGrowthTrail(this)">身心觉察</button>
+                <button class="growth-tab" data-growth="tune" onclick="filterGrowthTrail(this)">情绪调节</button>
                 <button class="growth-tab" data-growth="think" onclick="filterGrowthTrail(this)">思维罗盘</button>
                 <button class="growth-tab" data-growth="explore" onclick="filterGrowthTrail(this)">探索尝试</button>
               </div>
@@ -3355,17 +3446,17 @@ body{font-family:var(--sans);
             <div class="growth-line" id="growthTrail">
               <div class="growth-thread"></div>
               <div class="growth-day"><span>6月11日 · 今晨</span></div>
-              <article class="growth-card right" data-growth="tune" onclick="openGrowthRecord('tuneToday')">
-                <div class="growth-kind tune">情绪调节</div>
-                <div class="growth-title">用粉橙和绿调，画下今天的情绪。</div>
-                <div class="growth-body">练习前压力指数 3.6，完成呼吸画线后降到 3.3，心率也从 74 回到 70。</div>
-                <div class="growth-metrics"><span>压力 <em>-0.3</em></span><span>心率 <em>-4</em></span><span>HRV <em>下降 4ms</em></span></div>
-              </article>
               <article class="growth-card left" data-growth="body" onclick="openGrowthRecord('bodyToday')">
                 <div class="growth-kind body">身心觉察</div>
                 <div class="growth-title">身体慢慢稳下来，心也轻了一点。</div>
                 <div class="growth-body">完成早间身心觉察后，系统把睡眠、HRV 和主观感受一起记录下来，作为今天的起点。</div>
                 <div class="growth-metrics"><span>睡眠 <em>6h42m</em></span><span>HRV <em>32ms</em></span><span>晨间觉察完成</span></div>
+              </article>
+              <article class="growth-card right" data-growth="tune" onclick="openGrowthRecord('tuneToday')">
+                <div class="growth-kind tune">情绪调节</div>
+                <div class="growth-title">用粉橙和绿调，画下今天的情绪。</div>
+                <div class="growth-body">完成整理桌面一角后，压力指数从 3.6 降到 3.2，HRV 从 32ms 提升到 38ms。</div>
+                <div class="growth-metrics"><span>压力 <em>-0.4</em></span><span>心率 <em>-4</em></span><span>HRV <em>+6ms</em></span></div>
               </article>
               <div class="growth-day"><span>6月10日 · 昨夜</span></div>
               <article class="growth-card left" data-growth="think" onclick="openGrowthRecord('thinkYesterday')">
@@ -3384,7 +3475,7 @@ body{font-family:var(--sans);
               <article class="growth-card left" data-growth="tune" onclick="openGrowthRecord('tunePast')">
                 <div class="growth-kind tune">情绪调节</div>
                 <div class="growth-title">做完 3 分钟呼吸后，脑子没那么挤了。</div>
-                <div class="growth-body">练习后心率下降 5 次/分，主观波动感从“翻涌”回到“有些起伏”。</div>
+                <div class="growth-body">练习后心率下降 5 次/分，主观波动感从“翻涌”回到“缓和”。</div>
                 <div class="growth-metrics"><span>心率 <em>-5</em></span><span>波动感下降</span><span>平静感提升</span></div>
               </article>
             </div>
@@ -3393,6 +3484,12 @@ body{font-family:var(--sans);
                 <path d="M8.4 13.8 7.5 21l4.5-2.3 4.5 2.3-.9-7.2"/>
                 <circle cx="12" cy="8.2" r="5.2"/>
                 <path d="M10.2 8.2 11.4 9.4 14 6.8"/>
+              </svg>
+            </button>
+            <button class="growth-review-float" onclick="openTrajectoryReview()" aria-label="AI 身心复盘" title="AI 身心复盘">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 5.5A2.5 2.5 0 0 1 7.5 3h9A2.5 2.5 0 0 1 19 5.5v10A2.5 2.5 0 0 1 16.5 18H10l-4 3v-3.4A2.5 2.5 0 0 1 5 15.5z"/>
+                <path d="M8.5 8.2h7M8.5 11.3h4.8M15.5 13.7l.8 1.5 1.5.8-1.5.8-.8 1.5-.8-1.5-1.5-.8 1.5-.8z"/>
               </svg>
             </button>
           </div>
@@ -3845,7 +3942,7 @@ body{font-family:var(--sans);
             <div class="tune-panel">
               <div class="tune-head">
                 <div>
-                  <div class="tune-title">你今天的情绪如何？</div>
+                  <div class="tune-title">你现在的情绪如何？</div>
                 </div>
                 <button class="tune-close" onclick="closeEmotionTune()" aria-label="关闭">×</button>
               </div>
@@ -3895,15 +3992,22 @@ body{font-family:var(--sans);
               </div>
               <button class="tune-confirm" onclick="confirmEmotionTune()">确定调频</button>
               <div class="tune-result" id="tuneResult">
-                <div class="tune-result-head">
-                  <div class="tune-result-title">此刻身心状态</div>
-                  <div class="tune-result-chip" id="tuneResultChip">AI 解读</div>
+                <div class="tune-result-visual" id="tuneResultVisual">
+                  <svg id="tuneResultWaveSvg" viewBox="0 0 704 202" preserveAspectRatio="none" aria-hidden="true"></svg>
+                  <div class="tune-particles" id="tuneResultParticles"></div>
+                  <div class="tune-result-word" id="tuneResultWord">平衡</div>
                 </div>
-                <p id="tuneResultText"></p>
                 <div class="tune-data-line">
                   <div><b>32ms</b><span>HRV</span></div>
                   <div><b>3.3</b><span>压力指数</span></div>
-                  <div><b id="tuneResultScore">平衡</b><span>情绪词</span></div>
+                  <div><b>6h42m</b><span>昨夜睡眠</span></div>
+                </div>
+                <div class="tune-result-card">
+                  <div class="tune-result-head">
+                    <div class="tune-result-title">此刻身心状态</div>
+                    <div class="tune-result-chip" id="tuneResultChip">AI 解读</div>
+                  </div>
+                  <p id="tuneResultText"></p>
                 </div>
                 <div class="tune-result-actions">
                   <button class="tune-reset" onclick="resetEmotionTune()">重新调频</button>
@@ -5420,6 +5524,18 @@ function closeTrajectoryBadges(){
   Audio$.soft();
   document.getElementById('trajectoryBadgeWall')?.classList.remove('on');
 }
+function openTrajectoryReview(){
+  Audio$.soft();
+  const screen=document.getElementById('trajectoryReviewScreen');
+  if(screen){
+    screen.classList.add('on');
+    renderIcons(screen);
+  }
+}
+function closeTrajectoryReview(){
+  Audio$.soft();
+  document.getElementById('trajectoryReviewScreen')?.classList.remove('on');
+}
 function filterGrowthTrail(btn){
   Audio$.soft();
   document.querySelectorAll('.growth-tab').forEach(b=>b.classList.toggle('on',b===btn));
@@ -5434,11 +5550,11 @@ const GROWTH_RECORDS={
     date:'6月11日 · 今晨',
     kind:'情绪调节',
     headline:'用粉橙和绿调，画下今天的情绪。',
-    user:'我画了一条呼吸线，前面有点紧，后面慢慢松开了。',
-    ai:'这条线有几个明显的转折，但整体没有断掉，说明你不是完全乱掉，而是在一边调整、一边往前走。今天先选一件边界很清楚的小事，让身体找回一点连续感。',
-    before:[['压力指数','3.6'],['心率','74'],['HRV','36ms']],
-    after:[['压力指数','3.3'],['心率','70'],['HRV','32ms']],
-    note:'完成情绪调节后，压力指数下降 0.3，心率回落 4 次/分；HRV 下降 4ms，提示练习后身体进入了更低唤醒的状态，适合继续用轻量行动收尾。'
+    user:'我画了一条呼吸线，前面有点紧，后面慢慢松开了，然后整理了桌面一角。',
+    ai:'我看到画面里有几处明显转折，但线条没有断掉，像是你一边调整、一边继续往前走。完成这个边界很清楚的小任务后，HRV 从 32ms 提升到 38ms，压力指数从 3.6 降到 3.2，说明身体真的收到了“我可以完成并回来”的信号。',
+    before:[['压力指数','3.6'],['心率','74'],['HRV','32ms']],
+    after:[['压力指数','3.2'],['心率','70'],['HRV','38ms']],
+    note:'这次调节不是靠硬想明白，而是把情绪放进一个可完成的小动作里。任务完成后 HRV 提升、压力下降，身体获得了一次通过调节得到改善的经验。'
   },
   bodyToday:{
     title:'身心觉察',
@@ -5481,7 +5597,7 @@ const GROWTH_RECORDS={
     user:'我跟着呼吸画线，画到后面线条变慢了。',
     ai:'线条从紧到松，说明身体在练习里找到了一点节奏。今天不需要马上解释所有情绪，先把一个动作做完，就是一次有效的调节。',
     before:[['心率','75'],['波动感','翻涌'],['压力','3.7']],
-    after:[['心率','70'],['波动感','有起伏'],['压力','3.4']],
+    after:[['心率','70'],['波动感','缓和'],['压力','3.4']],
     note:'练习后心率下降 5 次/分，主观波动感也降低。这个变化不大，但足够说明身体能被温和地带回来。'
   }
 };
@@ -5573,7 +5689,7 @@ function setupFixedTabContent(){
   };
   wrapAfterHeader('#home-morn','.greet-row','home-scroll-area');
   wrapAfterHeader('#home-eve','.greet-row','home-scroll-area');
-  wrapAfterHeader('#t-diary','.diary-hero','tab-scroll-area','.growth-badge-float');
+  wrapAfterHeader('#t-diary','.diary-hero','tab-scroll-area','.growth-badge-float,.growth-review-float');
   wrapAfterHeader('#t-wiki','.wiki-head','tab-scroll-area');
   wrapAfterHeader('#t-space','.wiki-head','tab-scroll-area');
 }
@@ -5837,6 +5953,8 @@ function openEmotionTune(){
   if(panel)panel.classList.remove('result-mode');
   const result=document.getElementById('tuneResult');
   if(result)result.classList.remove('show');
+  const title=document.querySelector('#ov-emotion-tune .tune-title');
+  if(title)title.textContent='你现在的情绪如何？';
   updateEmotionTune();
 }
 function closeEmotionTune(){
@@ -5876,10 +5994,11 @@ function _tuneEmotion(v){
   if(v.energy<44&&v.warmth>=58)return ['悠闲','能量不高，但底色是暖的，适合慢慢恢复、轻轻推进'];
   if(v.open>68&&v.flux<42)return ['安稳','空间感打开，波动不大，身体和情绪都在回到较稳的位置'];
   if(v.open<38&&v.flux>58)return ['不安','空间有点收紧，波动也偏明显，先别急着逼自己做决定'];
-  if(v.flux>66)return ['起伏','情绪信号比较密集，但不是失控，只是需要被整理一下'];
+  if(v.flux>70&&v.warmth<52)return ['烦躁','情绪信号很密，身体像被催着往前，但心里并不真的松开'];
+  if(v.flux>68&&v.warmth>=52)return ['期待','波动变多，但底色偏暖，像是有事情正在被你放在心上'];
   if(v.warmth>64)return ['轻快','底色偏暖，能量在可用区间，可以稳稳开始'];
   if(v.warmth<40)return ['低落','情绪底色偏冷，先给自己一点停顿和照顾'];
-  return ['平衡','能量、空间和波动都在中间区间，适合小步推进'];
+  return ['平静','能量、空间和波动都在中间区间，适合小步推进'];
 }
 function _tuneGuidance(v, emotion){
   if(emotion==='紧绷')return '先别急着继续推进，把接下来 20 分钟只留给一件事。做 3 次慢呼气，再开始最小的一步；如果肩颈或胸口发紧，先站起来活动一下。';
@@ -5888,55 +6007,92 @@ function _tuneGuidance(v, emotion){
   if(emotion==='悠闲')return '这是适合恢复和整理的状态。可以做一件低阻力的小事，比如收拾桌面、慢走 10 分钟，或把脑子里悬着的一件事写下来。';
   if(emotion==='安稳')return '现在适合处理需要耐心的事。把手机通知关一会儿，给自己一段完整时间，慢慢推进一个需要专注但不太刺激的任务。';
   if(emotion==='不安')return '先不要做重要决定。把担心写成一句具体问题，再写一个“我现在能做的小动作”；身体收紧时，先让呼吸和脚底回到地面。';
-  if(emotion==='起伏')return '先给情绪一个出口，不急着判断对错。可以写下三个词描述现在的感受，再选一个最容易执行的动作，让状态慢慢落下来。';
+  if(emotion==='烦躁')return '先把刺激源降一点：关掉一个通知、离开当前屏幕两分钟，或把桌面最碍眼的一处收掉。不要急着处理全部，只处理一个边界清楚的小点。';
+  if(emotion==='期待')return '把这份期待落到一个很小的安排里。写下“我接下来最想推进的一步”，再给它一个开始时间，让兴奋感有地方安放。';
   if(emotion==='轻快')return '适合稳稳启动。先完成一个小而确定的任务，把这份轻快落到现实里；中途记得留一点空隙，不要把日程排满。';
   if(emotion==='低落')return '先降低要求，不要把低落解释成失败。去做一件能让身体感到被照顾的小事：喝水、洗脸、晒一会儿光，或联系一个安全的人。';
   return '适合把节奏放得清楚一点。先选一件小事完成，再安排一个短暂停顿；不需要把今天过成满分，只要让身体和情绪保持可持续。';
 }
-function updateEmotionTune(){
-  const svg=document.getElementById('tuneWaveSvg');
-  const visual=document.getElementById('tuneVisual');
+function _tuneColorStop(warmth){
+  const stops=[
+    {p:0,h:212,s:24,l:76,wash:'rgba(229,236,246,.42)'},
+    {p:22,h:190,s:23,l:76,wash:'rgba(229,241,238,.4)'},
+    {p:45,h:92,s:20,l:78,wash:'rgba(238,243,224,.38)'},
+    {p:62,h:45,s:40,l:77,wash:'rgba(255,247,221,.5)'},
+    {p:82,h:36,s:50,l:74,wash:'rgba(255,236,209,.52)'},
+    {p:100,h:31,s:54,l:72,wash:'rgba(255,228,204,.54)'}
+  ];
+  let a=stops[0],b=stops[stops.length-1];
+  for(let i=0;i<stops.length-1;i++){
+    if(warmth>=stops[i].p&&warmth<=stops[i+1].p){a=stops[i];b=stops[i+1];break;}
+  }
+  const t=(warmth-a.p)/Math.max(1,b.p-a.p);
+  const mix=(x,y)=>x+(y-x)*t;
+  return {h:mix(a.h,b.h),s:mix(a.s,b.s),l:mix(a.l,b.l),wash:t<.5?a.wash:b.wash};
+}
+function _renderTuneWave(svg, visual, particles, v, compact=false){
   if(!svg||!visual)return;
-  const v=_tuneVals();
-  const hue=v.warmth<50 ? 218-(v.warmth*.65) : 48-((v.warmth-50)*.18);
-  const sat=v.warmth<50 ? 30+(v.warmth*.18) : 58+(v.warmth*.16);
-  const light=v.warmth<50 ? 64+(v.open*.04) : 70+(v.open*.06);
-  const color=`hsl(${hue} ${sat}% ${light}%)`;
-  const lineColor=`hsl(${hue} ${Math.min(90,sat+8)}% ${Math.max(54,light-12)}%)`;
-  const glow=`hsla(${hue} ${Math.min(88,sat+16)}% 78% / ${.28+v.warmth/360})`;
+  const cs=_tuneColorStop(v.warmth);
+  const hue=cs.h;
+  const sat=cs.s+v.energy*.035;
+  const light=cs.l+v.open*.018;
+  const color=`hsl(${hue.toFixed(1)} ${sat.toFixed(1)}% ${light.toFixed(1)}%)`;
+  const lineColor=`hsl(${hue.toFixed(1)} ${Math.min(62,sat+8).toFixed(1)}% ${Math.max(56,light-11).toFixed(1)}%)`;
+  const glow=`hsla(${hue.toFixed(1)} ${Math.min(64,sat+10).toFixed(1)}% 76% / ${(.16+v.energy/700+v.warmth/840).toFixed(2)})`;
   visual.style.setProperty('--tuneColor',color);
   visual.style.setProperty('--tuneGlow',glow);
-  const amp=12+v.energy*.36;
-  const spread=2+v.open*.11;
-  const noise=v.flux/100;
+  visual.style.setProperty('--tuneWash',cs.wash);
+  visual.style.setProperty('--waveSpeed',`${(21-v.energy*.035).toFixed(1)}s`);
+  visual.style.setProperty('--lineScaleA',`${(.94+v.open/900).toFixed(2)}`);
+  visual.style.setProperty('--lineScaleB',`${(1.02+v.energy/520).toFixed(2)}`);
+  visual.style.setProperty('--lineDur',`${(5.9-v.energy*.012).toFixed(2)}s`);
+  const amp=(compact?10:18)+v.energy*(compact ? .18 : .3);
+  const spread=(compact?4.2:5.2)+v.open*(compact ? .055 : .085);
+  const phaseSpread=.05+v.open*.00035;
+  const lineCount=compact?9:12;
+  const centerIndex=(lineCount-1)/2;
   const paths=[];
-  for(let l=0;l<13;l++){
-    const offset=(l-6)*spread;
-    const phase=l*.44+v.warmth*.018;
-    const opacity=(.15+l*.024)*(1+v.open/240);
+  for(let l=0;l<lineCount;l++){
+    const offset=(l-centerIndex)*spread;
+    const phase=v.energy*.012+(l-centerIndex)*phaseSpread+v.warmth*.004;
+    const opacity=.2+(l/lineCount)*.18+(v.open/100)*.08;
     let d='';
-    for(let x=0;x<=708;x+=7){
-      const base=Math.sin(x/(34-noise*10)+phase)*amp;
-      const ripple=Math.sin(x/(13+v.open*.03)+phase*2.1)*(noise*15);
-      const drift=Math.cos(x/71+phase)*(v.open-50)*.07;
-      const y=101+offset+base+ripple+drift;
+    for(let x=0;x<=708;x+=8){
+      const base=Math.sin(x/58+phase)*amp;
+      const undertone=Math.sin(x/126+phase*.72)*(amp*.22);
+      const breath=Math.cos(x/210+phase*1.2)*(v.open-50)*.045;
+      const y=101+offset+base+undertone+breath;
       d+=(x===0?'M':'L')+x.toFixed(1)+' '+y.toFixed(1)+' ';
     }
-    paths.push(`<path d="${d}" fill="none" stroke="${lineColor}" stroke-width="${l===6?2.05:1}" opacity="${Math.min(.58,opacity).toFixed(2)}"/>`);
+    const lift=((l-centerIndex)*.22).toFixed(2)+'px';
+    const isCore=Math.abs(l-centerIndex)<.6;
+    paths.push(`<path d="${d}" fill="none" stroke="${lineColor}" stroke-width="${isCore?2.05:1.05}" opacity="${Math.min(.58,opacity).toFixed(2)}" style="--lineLift:${lift};--lineOpacity:${Math.min(.58,opacity).toFixed(2)};animation-delay:${(-l*.2).toFixed(2)}s"/>`);
   }
   svg.innerHTML=paths.join('');
-  const particles=document.getElementById('tuneParticles');
   if(particles){
-    const count=18+Math.round(v.flux*.38)+Math.round(v.energy*.1);
+    const count=(compact?10:18)+Math.round(v.flux*(compact ? .28 : .48));
+    const dotOpacity=.12+v.flux*.004;
     particles.innerHTML=Array.from({length:count},(_,i)=>{
-      const rightBias=i%3===0?62:12;
-      const x=(rightBias+(i*37)%88);
-      const y=(16+(i*29+v.flux)%74);
-      const s=(1.4+((i+v.energy)%5)*.35).toFixed(1);
-      const op=(.15+noise*.46+((i%5)*.025)).toFixed(2);
-      return `<i style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;opacity:${op}"></i>`;
+      const x=8+((i*31+Math.round(v.warmth))%86);
+      const y=14+((i*23+Math.round(v.flux))%70);
+      const s=(1.3+((i+Math.round(v.energy))%4)*.3).toFixed(1);
+      const op=(dotOpacity+((i%5)*.018)).toFixed(2);
+      const dx=((i%2?1:-1)*(6+v.open*.1+((i*5)%9))).toFixed(1)+'px';
+      const dy=(-(8+v.energy*.08+((i*7)%12))).toFixed(1)+'px';
+      const dur=(4.4+((i*13)%24)/10-v.flux*.012).toFixed(1)+'s';
+      return `<i style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;opacity:${op};--dotDx:${dx};--dotDy:${dy};--dotDur:${dur};animation-delay:${(-i*.11).toFixed(2)}s"></i>`;
     }).join('');
   }
+}
+function updateEmotionTune(){
+  const v=_tuneVals();
+  _renderTuneWave(
+    document.getElementById('tuneWaveSvg'),
+    document.getElementById('tuneVisual'),
+    document.getElementById('tuneParticles'),
+    v,
+    false
+  );
   const [word,sub]=_tuneWord(v);
   const wordEl=document.getElementById('tuneStateWord');
   const subEl=document.getElementById('tuneStateSub');
@@ -5945,22 +6101,42 @@ function updateEmotionTune(){
 }
 function confirmEmotionTune(){
   const v=_tuneVals();
-  const [state]=_tuneWord(v);
   const [emotion,emotionDesc]=_tuneEmotion(v);
   const result=document.getElementById('tuneResult');
   const panel=document.querySelector('#ov-emotion-tune .tune-panel');
   const text=document.getElementById('tuneResultText');
-  const score=document.getElementById('tuneResultScore');
   const chip=document.getElementById('tuneResultChip');
+  const word=document.getElementById('tuneResultWord');
+  const title=document.querySelector('#ov-emotion-tune .tune-title');
+  if(title)title.textContent='身心觉察';
+  _renderTuneWave(
+    document.getElementById('tuneResultWaveSvg'),
+    document.getElementById('tuneResultVisual'),
+    document.getElementById('tuneResultParticles'),
+    v,
+    true
+  );
+  if(word)word.textContent=emotion;
   if(text){
     const guidance=_tuneGuidance(v, emotion);
-    text.innerHTML=`你此刻更接近<em>${emotion}</em>。${emotionDesc}。结合戒指记录的 <em>HRV 32ms</em> 和压力指数 <em>3.3</em>，身体还有恢复空间，但不适合被强行拉到高强度。<br><br><em>现在可以这样做：</em>${guidance}`;
+    const sleep='昨夜睡了 6h42m，中途醒了 2 次，基础恢复够用，但深度稳定感还可以再多一点。';
+    const body=v.energy<42
+      ? `<span class="tune-section-label">身体：</span><em>HRV 32ms</em> 加上压力指数 <em>3.3</em>，说明身体没有明显拉警报，但能量储备偏低。${sleep}`
+      : v.energy>68
+        ? `<span class="tune-section-label">身体：</span><em>HRV 32ms</em>、压力指数 <em>3.3</em> 处在可恢复区间，身体有可用的能量，但昨夜醒了 2 次，今天不适合连续高强度输出。`
+        : `<span class="tune-section-label">身体：</span><em>HRV 32ms</em> 和压力指数 <em>3.3</em> 都还算稳定，${sleep}`;
+    const feeling=v.flux>64
+      ? `<span class="tune-section-label">情绪：</span>你调出的频率更接近<em>${emotion}</em>，${emotionDesc}。它不是“太多了”，而是需要一个出口，把信号从脑子里放到具体动作里。`
+      : v.open<40
+        ? `<span class="tune-section-label">情绪：</span>你调出的频率更接近<em>${emotion}</em>，空间有点收紧。现在最重要的不是立刻想明白，而是先让身体知道：这件事可以慢一点处理。`
+        : `<span class="tune-section-label">情绪：</span>你调出的频率更接近<em>${emotion}</em>，${emotionDesc}。这是一种可以被照顾、也可以被轻轻推进的状态。`;
+    text.innerHTML=`${body}<br><br>${feeling}<br><br><span class="tune-section-label">现在可以这样做：</span>${guidance}`;
   }
-  if(score)score.textContent=emotion;
   if(chip)chip.textContent='AI 解读';
   if(result){
+    result.classList.remove('show');
     if(panel)panel.classList.add('result-mode');
-    result.classList.add('show');
+    requestAnimationFrame(()=>result.classList.add('show'));
   }
   Audio$.pluck();
 }
@@ -5969,6 +6145,8 @@ function resetEmotionTune(){
   const result=document.getElementById('tuneResult');
   if(panel)panel.classList.remove('result-mode');
   if(result)result.classList.remove('show');
+  const title=document.querySelector('#ov-emotion-tune .tune-title');
+  if(title)title.textContent='你现在的情绪如何？';
   updateEmotionTune();
   Audio$.soft();
 }
