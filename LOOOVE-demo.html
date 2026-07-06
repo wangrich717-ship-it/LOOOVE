@@ -522,14 +522,16 @@ body{font-family:var(--sans);
   border:1px solid rgba(255,255,255,.88);
   -webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);
   box-shadow:0 18px 42px -32px rgba(125,91,74,.6),inset 0 1px 0 rgba(255,255,255,.86)}
-.mind-reco-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.mind-reco-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
 .mind-reco-kicker{font-size:10px;letter-spacing:.18em;color:var(--primary);font-weight:800;margin-bottom:5px}
-.mind-reco-title{font-family:var(--serif);font-size:21px;font-weight:700;color:#3f3632;line-height:1.25}
+.mind-reco-title{font-family:var(--serif);font-size:14px;font-weight:600;letter-spacing:.05em;color:var(--text-primary);line-height:1.2}
 .mind-reco-actions{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex-shrink:0}
 .mind-reco-chip{margin-top:3px;padding:6px 11px;border-radius:999px;
   background:rgba(255,127,99,.08);color:var(--primary);font-size:10.5px;letter-spacing:.08em;font-weight:700}
-.mind-swap-btn{border:none;background:transparent;color:rgba(120,106,99,.48);font-size:10.5px;letter-spacing:.08em;
-  padding:0 2px;cursor:pointer}
+.mind-swap-btn{width:32px;height:32px;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:var(--primary);background:rgba(255,255,255,.56);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.86),0 8px 22px -20px rgba(125,91,74,.5);cursor:pointer}
+.mind-swap-btn svg{width:15px;height:15px;stroke:currentColor}
 .mind-reco-img{width:100%;aspect-ratio:1/1;height:auto;border-radius:18px;overflow:hidden;margin:12px 0 14px;
   background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.76)}
 .mind-reco-img img{width:100%;height:100%;object-fit:cover;object-position:center 47%;display:block;opacity:.92}
@@ -639,6 +641,8 @@ body{font-family:var(--sans);
 .mind-tool-item:active{transform:scale(.98);background:rgba(255,245,239,.72)}
 .mind-tool-empty{height:360px;border-radius:24px;background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.8);
   box-shadow:0 16px 34px -30px rgba(125,91,74,.5),inset 0 1px 0 rgba(255,255,255,.86)}
+.mind-tool-detail-note{margin:14px auto 0;text-align:center;font-size:11.5px;line-height:1.7;color:var(--text-muted);
+  letter-spacing:.04em}
 
 /* ===== 百科手风琴 ===== */
 .wiki-head{margin:8px 2px 14px}
@@ -1111,7 +1115,7 @@ body{font-family:var(--sans);
 .growth-day span{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;
   color:var(--primary);font-size:10px;letter-spacing:.06em;background:rgba(255,251,247,.72);
   border:1px solid rgba(238,132,102,.15)}
-.growth-card{position:relative;z-index:2;width:auto;min-height:156px;margin:0 0 18px 42px;padding:14px 14px 13px;border-radius:20px;
+.growth-card{position:relative;z-index:2;width:auto;min-height:148px;margin:0 0 18px 42px;padding:14px 14px 13px;border-radius:20px;
   background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(255,248,242,.42));
   border:1px solid rgba(255,255,255,.86);
   -webkit-backdrop-filter:blur(18px) saturate(148%);backdrop-filter:blur(18px) saturate(148%);
@@ -1130,12 +1134,15 @@ body{font-family:var(--sans);
 .growth-kind.think{background:rgba(255,222,205,.46);color:#c46d55}
 .growth-kind.explore{background:rgba(255,238,215,.62);color:#bd7656}
 .growth-title{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.45;color:var(--text-primary)}
-.growth-body{margin-top:8px;font-size:12px;line-height:1.72;color:var(--text-secondary)}
-.growth-metrics{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.growth-body{margin-top:7px;font-size:12px;line-height:1.66;color:var(--text-secondary)}
+.growth-metrics{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .growth-metrics span{display:inline-flex;border-radius:999px;padding:4px 8px;background:rgba(255,255,255,.62);
   border:1px solid rgba(255,255,255,.84);font-size:9.5px;color:var(--text-muted)}
 .growth-metrics em{font-style:normal;color:var(--primary);font-weight:700}
 .growth-card.hide{display:none}
+.growth-frequency-word{position:absolute;left:12px;bottom:9px;font-family:var(--serif);font-size:17px;font-weight:700;color:#5f7456;line-height:1;
+  text-shadow:0 1px 10px rgba(255,255,255,.95)}
+.growth-frequency-word span{display:block;margin-top:3px;font-family:var(--sans);font-size:9px;letter-spacing:.16em;color:rgba(238,132,102,.88);font-weight:800}
 .badge-wall-section{margin-bottom:22px}
 .badge-wall-section-title{font-family:var(--serif);font-size:17px;color:var(--text-primary);font-weight:700;margin:0 0 11px}
 .badge-wall-section-sub,.badge-wall-sub{display:none}
@@ -1153,9 +1160,42 @@ body{font-family:var(--sans);
 .growth-record-block{border-radius:22px;padding:17px 16px;margin-bottom:14px;
   background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(255,248,242,.46));
   border:1px solid rgba(255,255,255,.86);box-shadow:0 16px 34px -32px rgba(125,91,74,.52)}
+.growth-frequency-section{margin-bottom:14px;padding:0;background:none;border:0;box-shadow:none}
 .growth-record-kicker{font-size:10px;letter-spacing:.14em;color:var(--primary);font-weight:800;margin-bottom:8px}
 .growth-record-title{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--text-primary);font-weight:600}
 .growth-record-sub{font-size:12px;line-height:1.7;color:var(--text-secondary);margin-top:7px}
+.growth-frequency-detail{position:relative;height:150px;border-radius:24px;overflow:hidden;margin-bottom:12px;
+  background:
+    linear-gradient(115deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.7) 34%,rgba(236,245,229,.58) 70%,rgba(255,249,242,.88) 100%),
+    radial-gradient(260px 150px at 78% 22%,rgba(150,191,140,.22),transparent 76%),
+    radial-gradient(180px 108px at 18% 78%,rgba(255,226,198,.24),transparent 78%);
+  border:1px solid rgba(255,255,255,.88);box-shadow:0 14px 30px -28px rgba(125,91,74,.5),inset 0 1px 0 rgba(255,255,255,.94)}
+.growth-frequency-detail::before{content:'';position:absolute;inset:0;background:
+  repeating-linear-gradient(90deg,transparent 0 54px,rgba(116,104,96,.052) 55px,transparent 56px),
+  radial-gradient(220px 130px at 18% 18%,rgba(255,255,255,.7),transparent 72%),
+  radial-gradient(circle at 22% 30%,rgba(232,178,124,.16) 0 2px,transparent 3.5px),
+  radial-gradient(circle at 62% 24%,rgba(151,191,140,.13) 0 1.7px,transparent 3.2px),
+  radial-gradient(circle at 78% 68%,rgba(232,178,124,.14) 0 2px,transparent 3.5px),
+  linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.7));pointer-events:none}
+.growth-frequency-detail svg{position:absolute;inset:-2px 0 0;width:145%;height:100%;filter:drop-shadow(0 2px 6px rgba(106,139,94,.07))}
+.growth-frequency-detail path{fill:none;stroke:#90bd88;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;opacity:.25}
+.growth-frequency-detail path:nth-child(4),.growth-frequency-detail path:nth-child(5){opacity:.5;stroke-width:2}
+.growth-frequency-detail path:nth-child(even){stroke:#e8a889;opacity:.22}
+.growth-frequency-detail .growth-frequency-word{left:18px;bottom:18px;font-size:24px}
+.growth-record-data-line{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 0 13px}
+.growth-record-data-line div{min-height:70px;padding:13px 6px;border-radius:18px;text-align:center;background:rgba(255,255,255,.76);
+  border:1px solid rgba(255,255,255,.9);box-shadow:0 12px 24px -22px rgba(91,67,56,.34)}
+.growth-record-data-line b{display:block;font-family:var(--serif);font-size:18px;color:var(--text-primary)}
+.growth-record-data-line span{display:block;margin-top:2px;font-size:9px;color:var(--text-muted);letter-spacing:.08em}
+.growth-state-result-card{padding:20px 18px 22px;border-radius:24px;margin-bottom:14px;
+  background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(255,249,238,.66));
+  border:1px solid rgba(255,255,255,.84);box-shadow:0 14px 34px -28px rgba(92,62,51,.48)}
+.growth-state-result-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.growth-state-result-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--text-primary)}
+.growth-state-result-chip{font-size:10px;color:var(--primary);letter-spacing:.1em;padding:4px 9px;border-radius:999px;background:rgba(255,127,99,.09)}
+.growth-state-result-card p{font-family:var(--serif);font-size:14.5px;line-height:1.9;color:var(--text-primary);margin:8px 0 0}
+.growth-state-result-card em{font-style:normal;color:var(--primary);font-weight:600}
+.growth-state-result-card .tune-section-label{font-family:var(--sans);font-size:13px;font-weight:800;color:var(--primary);letter-spacing:.08em}
 .growth-dialog{display:flex;flex-direction:column;gap:10px}
 .growth-bubble{max-width:88%;border-radius:18px;padding:12px 14px;font-size:13px;line-height:1.75;color:var(--text-primary)}
 .growth-bubble.user{align-self:flex-end;background:rgba(255,232,222,.72)}
@@ -1709,7 +1749,8 @@ body{font-family:var(--sans);
 .tune-visual svg path{animation:tuneLineBreathe var(--lineDur,4.8s) ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .tune-particles{position:absolute;inset:0;pointer-events:none}
 .tune-particles i{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--tuneColor,#eaa46b);
-  opacity:.36;filter:blur(.15px);box-shadow:0 0 8px color-mix(in srgb,var(--tuneColor,#eaa46b) 55%,transparent);
+  opacity:.36;filter:blur(.1px);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--tuneColor,#eaa46b) 34%,transparent),0 0 10px color-mix(in srgb,var(--tuneColor,#eaa46b) 58%,transparent);
   animation:tuneDotDrift var(--dotDur,4s) ease-in-out infinite alternate}
 .tune-readout{display:none}
 .tune-state-word{font-family:var(--serif);font-size:17px;color:var(--text-primary)}
@@ -2988,7 +3029,9 @@ body{font-family:var(--sans);
                       <div class="mind-reco-title">跟着呼吸画线</div>
                     </div>
                     <div class="mind-reco-actions">
-                      <button class="mind-swap-btn" onclick="toast('已为你准备其他练习，稍后上线')">换一换</button>
+                      <button class="mind-swap-btn" onclick="toast('已为你准备其他练习，稍后上线')" aria-label="换一换">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7.5h-4.5V3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.8 9.8A7 7 0 0 1 15.5 5L20 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16.5h4.5V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.2 14.2A7 7 0 0 1 8.5 19L4 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </button>
                     </div>
                   </div>
                   <div class="mind-reco-img"><img src="assets/004_breath_line.jpg" alt="跟着呼吸画线"></div>
@@ -3128,6 +3171,7 @@ body{font-family:var(--sans);
                     </details>
                   </div>
               </div>
+              <div class="mind-tool-detail-note">你可以自由探索，我们也会为你智能推荐~</div>
             </div>
           </div>
           <div class="home-child-screen mind-tool-detail-screen" id="homeMindToolDetail">
@@ -3140,6 +3184,7 @@ body{font-family:var(--sans);
             </div>
             <div class="home-child-scroll">
               <div class="mind-tool-empty"></div>
+              <div class="mind-tool-detail-note">你可以自由探索，我们也会为你智能推荐~</div>
             </div>
           </div>
           <div class="home-child-screen" id="homeExploreState">
@@ -3450,7 +3495,7 @@ body{font-family:var(--sans);
                 <div class="growth-kind body">身心觉察</div>
                 <div class="growth-title">身体慢慢稳下来，心也轻了一点。</div>
                 <div class="growth-body">完成早间身心觉察后，系统把睡眠、HRV 和主观感受一起记录下来，作为今天的起点。</div>
-                <div class="growth-metrics"><span>睡眠 <em>6h42m</em></span><span>HRV <em>32ms</em></span><span>晨间觉察完成</span></div>
+                <div class="growth-metrics"><span>睡眠 <em>6h42m</em></span><span>HRV <em>32ms</em></span><span>情绪：<em>安稳</em></span></div>
               </article>
               <article class="growth-card right" data-growth="tune" onclick="openGrowthRecord('tuneToday')">
                 <div class="growth-kind tune">情绪调节</div>
@@ -4606,6 +4651,7 @@ body{font-family:var(--sans);
                 <div class="mind-toolbox-panel">
                   <div class="mind-tool-groups" id="breakToolGroups"></div>
                 </div>
+                <div class="mind-tool-detail-note">你可以自由探索，我们也会为你智能推荐~</div>
               </div>
             </div>
             <div class="home-child-screen mind-tool-detail-screen" id="breakToolDetailScreen">
@@ -4618,6 +4664,7 @@ body{font-family:var(--sans);
               </div>
               <div class="home-child-scroll">
                 <div class="mind-tool-empty"></div>
+                <div class="mind-tool-detail-note">你可以自由探索，我们也会为你智能推荐~</div>
               </div>
             </div>
           </div><!-- /ov-chat -->
@@ -5561,11 +5608,17 @@ const GROWTH_RECORDS={
     date:'6月11日 · 今晨',
     kind:'身心觉察',
     headline:'身体慢慢稳下来，心也轻了一点。',
+    emotion:'安稳',
+    frequency:{
+      word:'安稳',
+      sub:'情绪状态'
+    },
+    vitals:[['32ms','HRV'],['3.3','压力指数'],['6h42m','昨夜睡眠']],
     user:'早上先看了睡眠、HRV 和身体状态，感觉今天可以不用一开始就很赶。',
-    ai:'你的心率、血氧和体温目前比较平稳。不过 HRV 32 提醒我们，身体可能还需要多一点恢复空间。',
+    ai:'这次身心觉察记录显示，你更接近“安稳”：HRV 32ms 和压力指数 3.3 都还算稳定，昨夜睡了 6h42m，中途醒了 2 次，基础恢复够用，但深度稳定感还可以再多一点。今天适合稳稳启动，把第一件事做小一点。',
     before:[['睡眠','6h42m'],['夜醒','2次'],['压力','3.3']],
-    after:[['状态','良好'],['体温','36.5°'],['血氧','97%']],
-    note:'这次觉察把睡眠和身体指标放在同一个画面里：恢复基础够用，但深度修复还可以更稳。今天更适合稳稳启动，而不是把任务排满。'
+    after:[['情绪','安稳'],['HRV','32ms'],['身心觉察','完成']],
+    note:'身体：HRV 32ms 和压力指数 3.3 都还算稳定，昨夜睡了 6h42m，中途醒了 2 次，基础恢复够用，但深度稳定感还可以再多一点。<br><br>情绪：你调出的频率更接近<em>安稳</em>，能量、空间和波动都在中间区间。这是一种可以被照顾、也可以被轻轻推进的状态。<br><br>现在可以这样做：先选一件小事完成，再安排一个短暂停顿；不需要把今天过成满分，只要让身体和情绪保持可持续。'
   },
   thinkYesterday:{
     title:'思维罗盘',
@@ -5601,6 +5654,35 @@ const GROWTH_RECORDS={
     note:'练习后心率下降 5 次/分，主观波动感也降低。这个变化不大，但足够说明身体能被温和地带回来。'
   }
 };
+function growthFrequencyMarkup(record){
+  if(!record.frequency)return '';
+  const freq=record.frequency;
+  const vitals=(record.vitals||[]).map(([v,k])=>`<div><b>${esc(v)}</b><span>${esc(k)}</span></div>`).join('');
+  return `
+    <section class="growth-frequency-section">
+      <div class="growth-record-kicker">情绪频率</div>
+      <div class="growth-frequency-detail" aria-label="${esc(freq.word)}情绪频率图">
+        <svg viewBox="0 0 320 128" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 48 C42 36 78 38 116 50 S186 76 226 54 278 34 320 44"/>
+          <path d="M0 56 C42 44 78 46 116 58 S186 84 226 62 278 42 320 52"/>
+          <path d="M0 64 C42 52 78 54 116 66 S186 92 226 70 278 50 320 60"/>
+          <path d="M0 72 C42 60 78 62 116 74 S186 100 226 78 278 58 320 68"/>
+          <path d="M0 80 C42 68 78 70 116 82 S186 108 226 86 278 66 320 76"/>
+          <path d="M0 88 C42 76 78 78 116 90 S186 116 226 94 278 74 320 84"/>
+          <path d="M0 96 C42 84 78 86 116 98 S186 124 226 102 278 82 320 92"/>
+        </svg>
+        <div class="growth-frequency-word">${esc(freq.word)}<span>${esc(freq.sub||'情绪频率')}</span></div>
+      </div>
+      <div class="growth-record-data-line">${vitals}</div>
+      <div class="growth-state-result-card">
+        <div class="growth-state-result-head">
+          <div class="growth-state-result-title">此刻身心状态</div>
+          <div class="growth-state-result-chip">AI 解读</div>
+        </div>
+        <p>${record.note}</p>
+      </div>
+    </section>`;
+}
 function openGrowthRecord(key){
   Audio$.soft();
   const record=GROWTH_RECORDS[key];
@@ -5611,12 +5693,21 @@ function openGrowthRecord(key){
   title.textContent=record.title;
   const before=record.before.map(([k,v])=>`<p>${esc(k)} <em>${esc(v)}</em></p>`).join('');
   const after=record.after.map(([k,v])=>`<p>${esc(k)} <em>${esc(v)}</em></p>`).join('');
-  content.innerHTML=`
+  if(record.frequency){
+    content.innerHTML=`
+    <section class="growth-record-block">
+      <div class="growth-record-kicker">${esc(record.date)} · ${esc(record.kind)}</div>
+      <div class="growth-record-title">${esc(record.headline)}</div>
+    </section>
+    ${growthFrequencyMarkup(record)}`;
+  }else{
+    content.innerHTML=`
     <section class="growth-record-block">
       <div class="growth-record-kicker">${esc(record.date)} · ${esc(record.kind)}</div>
       <div class="growth-record-title">${esc(record.headline)}</div>
       <div class="growth-record-sub">这条记录把当时的行动、AI 回应和同一时间段里的身体变化放在一起看。</div>
     </section>
+    ${growthFrequencyMarkup(record)}
     <section class="growth-record-block">
       <div class="growth-record-kicker">互动记录</div>
       <div class="growth-dialog">
@@ -5632,10 +5723,11 @@ function openGrowthRecord(key){
         <div class="growth-change-card"><h4>练习后</h4>${after}</div>
       </div>
     </section>
-    <section class="growth-record-block">
+    ${record.frequency ? '' : `<section class="growth-record-block">
       <div class="growth-record-kicker">AI 解读</div>
       <div class="growth-record-sub">${esc(record.note)}</div>
-    </section>`;
+    </section>`}`;
+  }
   screen.classList.add('on');
   renderIcons(screen);
 }
@@ -6015,12 +6107,12 @@ function _tuneGuidance(v, emotion){
 }
 function _tuneColorStop(warmth){
   const stops=[
-    {p:0,h:212,s:24,l:76,wash:'rgba(229,236,246,.42)'},
-    {p:22,h:190,s:23,l:76,wash:'rgba(229,241,238,.4)'},
-    {p:45,h:92,s:20,l:78,wash:'rgba(238,243,224,.38)'},
-    {p:62,h:45,s:40,l:77,wash:'rgba(255,247,221,.5)'},
-    {p:82,h:36,s:50,l:74,wash:'rgba(255,236,209,.52)'},
-    {p:100,h:31,s:54,l:72,wash:'rgba(255,228,204,.54)'}
+    {p:0,h:214,s:32,l:75,wash:'rgba(226,236,249,.46)'},
+    {p:22,h:190,s:34,l:75,wash:'rgba(225,243,240,.44)'},
+    {p:45,h:94,s:32,l:77,wash:'rgba(238,246,224,.44)'},
+    {p:62,h:48,s:58,l:76,wash:'rgba(255,246,204,.62)'},
+    {p:82,h:36,s:70,l:72,wash:'rgba(255,230,196,.68)'},
+    {p:100,h:28,s:76,l:70,wash:'rgba(255,218,190,.72)'}
   ];
   let a=stops[0],b=stops[stops.length-1];
   for(let i=0;i<stops.length-1;i++){
@@ -6034,11 +6126,11 @@ function _renderTuneWave(svg, visual, particles, v, compact=false){
   if(!svg||!visual)return;
   const cs=_tuneColorStop(v.warmth);
   const hue=cs.h;
-  const sat=cs.s+v.energy*.035;
-  const light=cs.l+v.open*.018;
+  const sat=cs.s+v.energy*.05+(v.warmth>62?8:0);
+  const light=cs.l+v.open*.02+(v.warmth>62?2.5:0);
   const color=`hsl(${hue.toFixed(1)} ${sat.toFixed(1)}% ${light.toFixed(1)}%)`;
-  const lineColor=`hsl(${hue.toFixed(1)} ${Math.min(62,sat+8).toFixed(1)}% ${Math.max(56,light-11).toFixed(1)}%)`;
-  const glow=`hsla(${hue.toFixed(1)} ${Math.min(64,sat+10).toFixed(1)}% 76% / ${(.16+v.energy/700+v.warmth/840).toFixed(2)})`;
+  const lineColor=`hsl(${hue.toFixed(1)} ${Math.min(86,sat+10).toFixed(1)}% ${Math.max(54,light-12).toFixed(1)}%)`;
+  const glow=`hsla(${hue.toFixed(1)} ${Math.min(88,sat+14).toFixed(1)}% 76% / ${(.2+v.energy/620+v.warmth/680).toFixed(2)})`;
   visual.style.setProperty('--tuneColor',color);
   visual.style.setProperty('--tuneGlow',glow);
   visual.style.setProperty('--tuneWash',cs.wash);
@@ -6070,16 +6162,17 @@ function _renderTuneWave(svg, visual, particles, v, compact=false){
   }
   svg.innerHTML=paths.join('');
   if(particles){
-    const count=(compact?10:18)+Math.round(v.flux*(compact ? .28 : .48));
-    const dotOpacity=.12+v.flux*.004;
+    const count=(compact?10:18)+Math.round(v.flux*(compact ? .34 : .58));
+    const dotOpacity=.16+v.flux*.005;
     particles.innerHTML=Array.from({length:count},(_,i)=>{
       const x=8+((i*31+Math.round(v.warmth))%86);
       const y=14+((i*23+Math.round(v.flux))%70);
-      const s=(1.3+((i+Math.round(v.energy))%4)*.3).toFixed(1);
+      const bubbleBoost=v.flux>62 ? 1.15 : 0;
+      const s=(1.9+bubbleBoost+((i+Math.round(v.energy))%5)*.42).toFixed(1);
       const op=(dotOpacity+((i%5)*.018)).toFixed(2);
-      const dx=((i%2?1:-1)*(6+v.open*.1+((i*5)%9))).toFixed(1)+'px';
-      const dy=(-(8+v.energy*.08+((i*7)%12))).toFixed(1)+'px';
-      const dur=(4.4+((i*13)%24)/10-v.flux*.012).toFixed(1)+'s';
+      const dx=((i%2?1:-1)*(8+v.open*.12+v.flux*.06+((i*5)%11))).toFixed(1)+'px';
+      const dy=(-(10+v.energy*.08+v.flux*.06+((i*7)%14))).toFixed(1)+'px';
+      const dur=(4.2+((i*13)%24)/10-v.flux*.014).toFixed(1)+'s';
       return `<i style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;opacity:${op};--dotDx:${dx};--dotDy:${dy};--dotDur:${dur};animation-delay:${(-i*.11).toFixed(2)}s"></i>`;
     }).join('');
   }
