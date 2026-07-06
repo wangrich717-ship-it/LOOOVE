@@ -2699,8 +2699,8 @@ body{font-family:var(--sans);
     <!-- 手机外的入口 -->
     <div class="flow-picker" id="flowPicker">
       <button class="fp-btn on" data-mode="onboarding" onclick="onbShow()"><span class="icon sm" data-icon="sparkle"></span>Onboarding</button>
+      <button class="fp-btn fp-mode-btn" data-mode="emotion-tune" onclick="openEmotionTune()">每日情绪调频</button>
       <button class="fp-btn fp-mode-btn" data-m="morning" onclick="setAppMode('morning')">日常</button>
-      <button class="fp-btn fp-mode-btn" data-mode="emotion-tune" onclick="openEmotionTune()">情绪调频</button>
       <!--
       <button class="fp-btn" data-mode="morning" onclick="launchFlow('morning')"><span class="icon sm" data-icon="sun"></span>早安</button>
       <button class="fp-btn" data-mode="evening" onclick="launchFlow('evening')"><span class="icon sm" data-icon="moon"></span>晚安</button>
@@ -6075,7 +6075,7 @@ function onbCommit(){
   }
   Audio$.soft();
   onbHide();
-  toast(name?`${name}，我们明天也在这里见。`:'我们明天也在这里见。');
+  setTimeout(()=>openEmotionTune(),180);
 }
 function onbHide(){
   document.getElementById('onb')?.classList.remove('on');
