@@ -1702,6 +1702,54 @@ body{font-family:var(--sans);
 .ov-sub .badge{margin-right:6px}
 .ov-actions{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:14px}
 
+/* 每日身心觉察 · 水彩入口 */
+@keyframes awarenessIn{from{opacity:0;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+@keyframes awarenessCopyIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes awarenessPageOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-18px)}}
+@keyframes tunePageIn{from{opacity:.35;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes tunePageOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(18px)}}
+@keyframes awarenessPageBackIn{from{transform:translateX(-18px)}to{transform:translateX(0)}}
+#ov-body-awareness{inset:0!important;height:auto;min-height:0;max-height:none;z-index:119;padding:0;overflow:hidden;
+  border-radius:0;background:#f7fafb;animation:awarenessIn .85s ease both}
+.awareness-scene{position:relative;width:100%;height:100%;overflow:hidden;color:#224f74;
+  --awareness-score:#9db8d1;--awareness-primary:#6f95b8;--awareness-secondary:#adc4da;
+  --awareness-ink:#315f86;--awareness-body:#527a9b;
+  font-family:var(--serif);isolation:isolate}
+.awareness-bg{position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;
+  transition:opacity .65s ease,transform 6s ease;transform:scale(1.015)}
+.awareness-scene::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 54%,rgba(232,242,248,.12))}
+.awareness-close{position:absolute;top:62px;right:20px;width:34px;height:34px;border-radius:50%;z-index:3;
+  border:1px solid color-mix(in srgb,var(--awareness-body) 28%,rgba(255,255,255,.72));background:rgba(255,255,255,.42);color:var(--awareness-ink);font-size:16px;
+  -webkit-backdrop-filter:blur(14px) saturate(130%);backdrop-filter:blur(14px) saturate(130%);cursor:pointer}
+.awareness-content{height:100%;display:flex;flex-direction:column;padding:76px 30px 26px}
+.awareness-mark{display:flex;align-items:center;justify-content:center;gap:12px;font-size:15px;letter-spacing:.22em;
+  color:var(--awareness-body);font-weight:500;animation:awarenessCopyIn .65s ease .08s both}
+.awareness-mark::before,.awareness-mark::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,var(--awareness-body))}
+.awareness-mark::after{transform:scaleX(-1)}
+.awareness-leaf{font-size:16px;letter-spacing:0;color:var(--awareness-body)}
+.awareness-copy{margin-top:56px;animation:awarenessCopyIn .72s ease .18s both}
+.awareness-title{font-size:clamp(34px,10vw,46px);font-weight:400;letter-spacing:.08em;line-height:1.2;color:var(--awareness-ink);
+  text-shadow:0 1px 0 rgba(255,255,255,.8)}
+.awareness-score{display:inline-flex;margin-top:15px;padding:5px 15px 6px;border-radius:999px;
+  background:color-mix(in srgb,var(--awareness-score) 76%,rgba(255,255,255,.25));color:rgba(255,255,255,.96);font-family:var(--sans);font-size:12px;
+  letter-spacing:.16em;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.awareness-poem{margin-top:24px;font-size:15px;line-height:1.9;letter-spacing:.055em;color:var(--awareness-body);white-space:pre-line;
+  text-shadow:0 1px 1px rgba(255,255,255,.92)}
+.awareness-poem::before{content:"";display:block;width:90px;height:1px;margin-bottom:18px;
+  background:linear-gradient(90deg,var(--awareness-body),transparent)}
+.awareness-actions{margin-top:auto;display:flex;flex-direction:column;gap:11px;animation:awarenessCopyIn .7s ease .3s both}
+.awareness-question{font-size:15px;line-height:1.35;letter-spacing:.08em;color:var(--awareness-ink);text-align:center;margin-bottom:1px}
+.awareness-buttons{display:grid;grid-template-columns:1fr 1.12fr;gap:9px}
+.awareness-btn{position:relative;overflow:hidden;min-height:56px;padding:10px 9px;border-radius:999px;cursor:pointer;font-family:var(--serif);
+  font-size:13.5px;font-weight:500;letter-spacing:.04em;color:var(--awareness-ink);border:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.8),color-mix(in srgb,var(--awareness-secondary) 20%,rgba(255,255,255,.66)));
+  box-shadow:0 11px 28px color-mix(in srgb,var(--awareness-primary) 18%,transparent),inset 0 1px 0 rgba(255,255,255,.98);
+  -webkit-backdrop-filter:blur(24px) saturate(155%);backdrop-filter:blur(24px) saturate(155%);
+  transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+.awareness-btn:hover{transform:translateY(-2px)}
+.awareness-btn:active{transform:translateY(0) scale(.98)}
+
 /* 情绪调频 · 全屏面板 */
 @keyframes tuneSheetIn{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
 @keyframes tuneSheetOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(100%)}}
@@ -1771,9 +1819,15 @@ body{font-family:var(--sans);
 .tune-confirm{width:100%;margin-top:auto;padding:15px;border-radius:999px;border:none;cursor:pointer;
   background:linear-gradient(120deg,#ff7f63,#f5bd58);color:white;font-size:14px;font-weight:700;letter-spacing:.1em;
   box-shadow:0 14px 30px -22px rgba(255,127,99,.65);flex-shrink:0}
+.tune-entry-actions{display:grid;grid-template-columns:minmax(92px,.72fr) minmax(0,1.6fr);gap:10px;margin-top:auto;flex-shrink:0}
+.tune-entry-actions .tune-confirm{margin-top:0}
+.tune-back{padding:15px 12px;border-radius:999px;cursor:pointer;font-family:var(--sans);font-size:14px;font-weight:600;
+  letter-spacing:.08em;color:var(--text-secondary);border:1px solid rgba(213,184,165,.42);
+  background:rgba(255,255,255,.66);box-shadow:0 12px 28px -24px rgba(91,67,56,.42);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
 .tune-result{display:none;margin-top:2px;gap:15px}
 .tune-result.show{display:flex;flex-direction:column;animation:fadeUp .32s var(--ease-smooth)}
-.tune-panel.result-mode .tune-visual,.tune-panel.result-mode .tune-controls,.tune-panel.result-mode .tune-confirm{display:none}
+.tune-panel.result-mode .tune-visual,.tune-panel.result-mode .tune-controls,.tune-panel.result-mode .tune-entry-actions{display:none}
 .tune-panel.result-mode .tune-result{display:flex;flex:1;min-height:0;flex-direction:column;justify-content:flex-start;margin-top:4px;overflow:hidden}
 .tune-result-visual{position:relative;height:142px;border-radius:22px;overflow:hidden;flex-shrink:0;
   background:
@@ -2794,8 +2848,10 @@ body{font-family:var(--sans);
 
     <!-- 手机外的入口 -->
     <div class="flow-picker" id="flowPicker">
-      <button class="fp-btn on" data-mode="onboarding" onclick="onbShow()"><span class="icon sm" data-icon="sparkle"></span>Onboarding</button>
-      <button class="fp-btn fp-mode-btn" data-mode="emotion-tune" onclick="openEmotionTune()">每日情绪调频</button>
+      <!--
+      <button class="fp-btn" data-mode="onboarding" onclick="onbShow()"><span class="icon sm" data-icon="sparkle"></span>Onboarding</button>
+      -->
+      <button class="fp-btn fp-mode-btn on" data-mode="emotion-tune" onclick="openEmotionTune()">每日身心觉察</button>
       <button class="fp-btn fp-mode-btn" data-m="morning" onclick="setAppMode('morning')">日常</button>
       <!--
       <button class="fp-btn" data-mode="morning" onclick="launchFlow('morning')"><span class="icon sm" data-icon="sun"></span>早安</button>
@@ -3982,6 +4038,29 @@ body{font-family:var(--sans);
               <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>我的</button>
           </nav>
 
+          <!-- ===== Overlay: 每日身心觉察 ===== -->
+          <div class="overlay" id="ov-body-awareness">
+            <div class="awareness-scene">
+              <div class="awareness-bg" id="awarenessBg"></div>
+              <button class="awareness-close" onclick="closeBodyAwareness()" aria-label="关闭">×</button>
+              <div class="awareness-content">
+                <div class="awareness-mark"><span class="awareness-leaf">♧</span>身心觉察</div>
+                <div class="awareness-copy">
+                  <h2 class="awareness-title" id="awarenessTitle">心弦微紧</h2>
+                  <div class="awareness-score" id="awarenessScore">Loooveness 42</div>
+                  <div class="awareness-poem" id="awarenessPoem"></div>
+                </div>
+                <div class="awareness-actions">
+                  <div class="awareness-question">这像此刻的你吗？</div>
+                  <div class="awareness-buttons">
+                    <button class="awareness-btn" id="awarenessAdjust" onclick="adjustAwarenessFeeling()">不太像，调整感受</button>
+                    <button class="awareness-btn primary" id="awarenessCare" onclick="startAwarenessCare()">很接近，开始照顾</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- ===== Overlay: 情绪调频 ===== -->
           <div class="overlay" id="ov-emotion-tune">
             <div class="tune-panel">
@@ -4035,7 +4114,10 @@ body{font-family:var(--sans);
                   </div>
                 </div>
               </div>
-              <button class="tune-confirm" onclick="confirmEmotionTune()">确定调频</button>
+              <div class="tune-entry-actions">
+                <button class="tune-back" onclick="returnEmotionTuneToAwareness()">返回</button>
+                <button class="tune-confirm" onclick="confirmEmotionTune()">确定调频</button>
+              </div>
               <div class="tune-result" id="tuneResult">
                 <div class="tune-result-visual" id="tuneResultVisual">
                   <svg id="tuneResultWaveSvg" viewBox="0 0 704 202" preserveAspectRatio="none" aria-hidden="true"></svg>
@@ -6033,14 +6115,64 @@ function setAppMode(mode){
 }
 
 /* ============ 情绪调频 ============ */
-function openEmotionTune(){
+const BODY_AWARENESS_STATES = [
+  {image:'assets/身心觉察/1.png',title:'心弦微紧',score:42,palette:{score:'#9db8d1',primary:'#6f95b8',secondary:'#adc4da',ink:'#315f86',body:'#527a9b'},poem:'身体的基础状态依然平稳，只是恢复感稍弱，心里容易有些绷紧。\n注意力来回跳动并不代表你做不好，只是需要一个更清晰的节奏。\n今天把需要判断的事情集中在一个时段，专注一轮后起身舒展几分钟。'},
+  {image:'assets/身心觉察/2.png',title:'恢复未满',score:48,palette:{score:'#a8b6c9',primary:'#728aa6',secondary:'#aebdcb',ink:'#4f627c',body:'#6f8197'},poem:'昨夜的睡眠有些零碎，但身体仍维持着稳定的日常节奏。\n今天的专注力可能来得慢一些，给自己一点进入状态的时间就好。\n上午接触十五分钟自然光，把最重要的任务放在光线充足的时段完成。'},
+  {image:'assets/身心觉察/3.png',title:'渐入平衡',score:56,palette:{score:'#93c8c2',primary:'#5fa99e',secondary:'#a8d3c8',ink:'#2f716d',body:'#538b86'},poem:'身体已经得到基本恢复，紧张感也在慢慢回落。\n你正处在由静到动的过渡里，状态会随着活动逐渐打开。\n午饭后快走二十分钟，再把下午第一段完整时间留给重要任务。'},
+  {image:'assets/身心觉察/4.png',title:'稳中有余',score:64,palette:{score:'#e8b89d',primary:'#d98e6d',secondary:'#efc7a5',ink:'#9a5d4a',body:'#b47661'},poem:'身体的基础状态平稳，今天有足够的底气应对日常。\n恢复与活力都在中间位置，适合一边行动，一边把能量带起来。\n午后快走二十分钟，再用一段完整时间专心处理需要思考的事。'},
+  {image:'assets/身心觉察/5.png',title:'身心舒展',score:71,palette:{score:'#9fcbd4',primary:'#69aebc',secondary:'#b4d7dc',ink:'#357783',body:'#5e929b'},poem:'昨夜休息较为完整，身体和呼吸都显得舒展。\n心里有余地时，耐心与表达也会自然回来。\n今天把这份稳定留给一项深度工作，或一次值得认真进行的沟通。'},
+  {image:'assets/身心觉察/6.png',title:'神清气定',score:76,palette:{score:'#efa08b',primary:'#df755f',secondary:'#f2b28c',ink:'#a64f43',body:'#c16f60'},poem:'身体恢复得很好，清醒与精力都处在充足的位置。\n此刻的心思清楚而稳定，适合主动推动重要进展。\n把最需要创造力或决断力的事情放在上午，中间记得起身活动和补水。'},
+  {image:'assets/身心觉察/7.png',title:'倦意偏重',score:37,palette:{score:'#b8b68c',primary:'#8e9565',secondary:'#c8c59a',ink:'#687047',body:'#858b65'},poem:'昨夜的休息比较零碎，身体今天会更珍惜稳定和规律。\n思路偶尔变慢很正常，这是恢复过程的一部分，不需要急着评判自己。\n上午先吃好早餐并处理熟悉的事务，把重要决定留到精神更清楚的时候。'},
+  {image:'assets/身心觉察/8.png',title:'张弛有度',score:59,palette:{score:'#e5b491',primary:'#d88767',secondary:'#edc39a',ink:'#9b614c',body:'#b77a62'},poem:'睡眠与恢复保持着连贯的节奏，身体正处在可进可收的位置。\n你既有投入的余力，也能在需要时把自己带回平稳。\n今天让工作与走动交替出现，晚饭后再安排一段舒缓活动。'}
+];
+let lastAwarenessIndex=-1;
+function openBodyAwareness(){
   Audio$.soft();
   _applyMode('morning');
   _highlightPicker('[data-mode="emotion-tune"]');
+  let index=Math.floor(Math.random()*BODY_AWARENESS_STATES.length);
+  if(BODY_AWARENESS_STATES.length>1&&index===lastAwarenessIndex)index=(index+1)%BODY_AWARENESS_STATES.length;
+  lastAwarenessIndex=index;
+  const state=BODY_AWARENESS_STATES[index];
+  const scene=document.querySelector('#ov-body-awareness .awareness-scene');
+  if(scene){
+    scene.style.setProperty('--awareness-score',state.palette.score);
+    scene.style.setProperty('--awareness-primary',state.palette.primary);
+    scene.style.setProperty('--awareness-secondary',state.palette.secondary);
+    scene.style.setProperty('--awareness-ink',state.palette.ink);
+    scene.style.setProperty('--awareness-body',state.palette.body);
+  }
+  const bg=document.getElementById('awarenessBg');
+  if(bg)bg.style.backgroundImage=`url('${state.image}')`;
+  const title=document.getElementById('awarenessTitle');
+  const score=document.getElementById('awarenessScore');
+  const poem=document.getElementById('awarenessPoem');
+  if(title)title.textContent=state.title;
+  if(score)score.textContent=`Loooveness ${state.score}`;
+  if(poem)poem.textContent=state.poem;
+  const ov=document.getElementById('ov-body-awareness');
+  if(ov){ov.style.display='flex';ov.style.animation='awarenessIn .72s ease both';}
+}
+function closeBodyAwareness(playSound=true){
+  const ov=document.getElementById('ov-body-awareness');
+  if(ov){ov.style.display='none';ov.style.animation='';}
+  if(playSound)Audio$.soft();
+}
+function adjustAwarenessFeeling(){
+  switchAwarenessToTune();
+}
+function startAwarenessCare(){
+  closeBodyAwareness(false);
+  Audio$.soft();
+  openHomeMindState();
+}
+function _showEmotionTune(animation){
+  _applyMode('morning');
+  _highlightPicker('[data-mode="emotion-tune"]');
   const ov=document.getElementById('ov-emotion-tune');
-  if(!ov)return;
+  if(!ov)return null;
   ov.style.display='flex';
-  ov.style.animation='tuneSheetIn .38s var(--ease-smooth)';
+  ov.style.animation=animation;
   const panel=ov.querySelector('.tune-panel');
   if(panel)panel.classList.remove('result-mode');
   const result=document.getElementById('tuneResult');
@@ -6048,6 +6180,34 @@ function openEmotionTune(){
   const title=document.querySelector('#ov-emotion-tune .tune-title');
   if(title)title.textContent='你现在的情绪如何？';
   updateEmotionTune();
+  return ov;
+}
+function switchAwarenessToTune(){
+  Audio$.soft();
+  const awareness=document.getElementById('ov-body-awareness');
+  _showEmotionTune('tunePageIn .34s var(--ease-smooth) both');
+  if(awareness){
+    awareness.style.animation='awarenessPageOut .24s var(--ease-smooth) forwards';
+    setTimeout(()=>{awareness.style.display='none';awareness.style.animation='';},240);
+  }
+}
+function returnEmotionTuneToAwareness(){
+  Audio$.soft();
+  const awareness=document.getElementById('ov-body-awareness');
+  const tune=document.getElementById('ov-emotion-tune');
+  if(awareness){
+    awareness.style.display='flex';
+    awareness.style.animation='awarenessPageBackIn .34s var(--ease-smooth) both';
+  }
+  if(tune){
+    tune.style.animation='tunePageOut .24s var(--ease-smooth) forwards';
+    setTimeout(()=>{tune.style.display='none';tune.style.animation='';},360);
+  }
+}
+function openEmotionTune(skipAwareness=false){
+  if(!skipAwareness){openBodyAwareness();return;}
+  Audio$.soft();
+  _showEmotionTune('tuneSheetIn .38s var(--ease-smooth)');
 }
 function closeEmotionTune(){
   const ov=document.getElementById('ov-emotion-tune');
@@ -9096,8 +9256,8 @@ requestAnimationFrame(updateHomeOrbitGather);
   b.innerHTML='<span class="app-conn-dot"></span>已连接';
   h.appendChild(b);
 });
-/* 打开页面即进入 onboarding */
-try{onbShow();}catch(e){}
+/* 打开页面即进入每日身心觉察 */
+try{openBodyAwareness();}catch(e){}
 </script>
 </body>
 </html>
