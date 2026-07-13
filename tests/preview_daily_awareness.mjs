@@ -24,10 +24,22 @@ const overlayDebug = await page.locator('#ov-body-awareness').evaluate(el => ({
   z: getComputedStyle(el).zIndex,
   parents: [...function*(){ let p=el.parentElement; while(p){ yield `${p.tagName}.${p.className}#${p.id}:${getComputedStyle(p).zIndex}/${getComputedStyle(p).display}`; p=p.parentElement; } }()]
 }));
+const assertSheetGeometry = async (selector, phase) => {
+  const geometry = await page.locator(selector).evaluate(el => {
+    const rect = el.getBoundingClientRect();
+    const phone = el.closest('.phone').getBoundingClientRect();
+    return { top: rect.top - phone.top, heightRatio: rect.height / phone.height, radius: getComputedStyle(el).borderTopLeftRadius };
+  });
+  if (geometry.top < 190 || geometry.heightRatio < .73 || geometry.heightRatio > .77) {
+    throw new Error(`${phase} 不是约四分之三高度的底部抽屉：${JSON.stringify(geometry)}`);
+  }
+  if (parseFloat(geometry.radius) < 24) throw new Error(`${phase} 顶部圆角不明显：${geometry.radius}`);
+};
+await assertSheetGeometry('#ov-body-awareness', '初始身心觉察');
 const firstTitle = await page.locator('#awarenessTitle').innerText();
 const firstBg = await page.locator('#awarenessBg').evaluate(el => getComputedStyle(el).backgroundImage);
 const firstPalette = await page.locator('.awareness-scene').evaluate(el => ({
-  score: getComputedStyle(el.querySelector('.awareness-score')).backgroundColor,
+  score: getComputedStyle(el.querySelector('.awareness-score-link')).backgroundColor,
   primary: getComputedStyle(el.querySelector('.awareness-btn.primary')).backgroundImage,
   secondary: getComputedStyle(el.querySelector('.awareness-btn:not(.primary)')).borderColor,
   title: getComputedStyle(el.querySelector('.awareness-title')).color,
@@ -84,6 +96,7 @@ const awarenessTypeSizes = await page.locator('.awareness-scene').evaluate(el =>
 if (awarenessTypeSizes.copy !== '15px' || awarenessTypeSizes.question !== '15px') throw new Error(`觉察字号未统一：${JSON.stringify(awarenessTypeSizes)}`);
 await page.locator('#awarenessAdjust').click();
 await page.locator('#ov-emotion-tune').waitFor({ state: 'visible' });
+await assertSheetGeometry('#ov-emotion-tune', '情绪调频');
 const tuneEntryAnimation = await page.locator('#ov-emotion-tune').evaluate(el => getComputedStyle(el).animationName);
 if (tuneEntryAnimation !== 'tunePageIn') throw new Error(`调整感受仍触发弹窗上拉：${tuneEntryAnimation}`);
 await page.locator('#ov-body-awareness').waitFor({ state: 'hidden' });
@@ -107,14 +120,15 @@ await page.waitForTimeout(360);
 await page.locator('.phone').screenshot({ path: path.join(root, 'tune-return-preview.png') });
 await page.locator('.tune-confirm').click();
 await page.locator('#tuneResult.show').waitFor({ state: 'visible' });
+await assertSheetGeometry('#ov-emotion-tune', '调频后的身心觉察');
 if (await page.locator('#tuneResultChip').innerText() !== 'AI 解读') throw new Error('AI 反馈未显示');
 await page.locator('.tune-close').click();
 
-await page.getByRole('button', { name: '每日身心觉察' }).click();
+await page.evaluate(() => openBodyAwareness());
 const secondTitle = await page.locator('#awarenessTitle').innerText();
 const secondBg = await page.locator('#awarenessBg').evaluate(el => getComputedStyle(el).backgroundImage);
 const secondPalette = await page.locator('.awareness-scene').evaluate(el => ({
-  score: getComputedStyle(el.querySelector('.awareness-score')).backgroundColor,
+  score: getComputedStyle(el.querySelector('.awareness-score-link')).backgroundColor,
   primary: getComputedStyle(el.querySelector('.awareness-btn.primary')).backgroundImage,
   secondary: getComputedStyle(el.querySelector('.awareness-btn:not(.primary)')).borderColor,
   title: getComputedStyle(el.querySelector('.awareness-title')).color,
@@ -128,6 +142,37 @@ if (firstPalette.title === secondPalette.title || firstPalette.body === secondPa
 if (!firstPalette.blur.includes('blur(24px)') || firstPalette.shadow === 'none') throw new Error('主按钮没有形成清晰毛玻璃表面');
 await page.locator('#awarenessCare').click();
 if (!await page.locator('#homeMindState').evaluate(el => el.classList.contains('on'))) throw new Error('未进入情绪调节详情');
+
+const assertSecondaryPagesClosed = async phase => {
+  const state = await page.evaluate(() => ({
+    mind: document.getElementById('homeMindState').classList.contains('on'),
+    explore: document.getElementById('homeExploreState').classList.contains('on'),
+    compass: getComputedStyle(document.getElementById('ov-chat')).display
+  }));
+  if (state.mind || state.explore || state.compass !== 'none') throw new Error(`${phase} 返回后没有回首页：${JSON.stringify(state)}`);
+};
+
+await page.evaluate(() => openAIChat());
+await page.locator('#ov-chat').waitFor({ state: 'visible' });
+await page.locator('#ov-chat > .sr-topbar .sr-back').click();
+await page.locator('#ov-chat').waitFor({ state: 'hidden' });
+await assertSecondaryPagesClosed('情绪调节→思维罗盘');
+
+await page.evaluate(() => { openHomeMindState(); openHomeExploreState(); });
+await page.locator('#homeExploreState').waitFor({ state: 'visible' });
+await page.locator('#homeExploreState .sr-back').click();
+await assertSecondaryPagesClosed('情绪调节→探索尝试');
+
+await page.evaluate(() => { openAIChat(); openExploreFromBreakthrough(); });
+await page.locator('#homeExploreState').waitFor({ state: 'visible' });
+await page.locator('#homeExploreState .sr-back').click();
+await assertSecondaryPagesClosed('思维罗盘→探索尝试');
+
+await page.evaluate(() => openBodyAwareness());
+await page.locator('.awareness-score-link').click();
+await page.locator('#ov-body-awareness').waitFor({ state: 'hidden' });
+if (!await page.locator('#homeBodyState').evaluate(el => el.classList.contains('on'))) throw new Error('Loooveness 分值未跳转身体状态');
+await page.evaluate(() => closeHomeBodyState());
 
 if (actions.bottom > actions.sceneBottom) throw new Error(`操作区溢出：${actions.bottom}/${actions.sceneBottom}`);
 if (actions.buttons - actions.question > 14) throw new Error('问题与按钮距离过远');

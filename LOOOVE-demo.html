@@ -17,6 +17,7 @@
   --transition-fast:.2s var(--ease-smooth);--transition-base:.4s var(--ease-smooth);
   --transition-slow:.7s var(--ease-smooth);
   --serif:'Noto Serif SC',serif;--sans:'Noto Sans SC',sans-serif;
+  --wellbeing-sheet-top:25%;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -1703,14 +1704,16 @@ body{font-family:var(--sans);
 .ov-actions{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:14px}
 
 /* 每日身心觉察 · 水彩入口 */
-@keyframes awarenessIn{from{opacity:0;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+@keyframes awarenessIn{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
 @keyframes awarenessCopyIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes awarenessPageOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-18px)}}
 @keyframes tunePageIn{from{opacity:.35;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
 @keyframes tunePageOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(18px)}}
 @keyframes awarenessPageBackIn{from{transform:translateX(-18px)}to{transform:translateX(0)}}
-#ov-body-awareness{inset:0!important;height:auto;min-height:0;max-height:none;z-index:119;padding:0;overflow:hidden;
-  border-radius:0;background:#f7fafb;animation:awarenessIn .85s ease both}
+#ov-body-awareness,#ov-emotion-tune{left:0!important;right:0!important;top:var(--wellbeing-sheet-top)!important;bottom:0!important;
+  height:auto;min-height:0;max-height:none;border-radius:30px 30px 0 0;overflow:hidden;
+  box-shadow:0 -18px 52px -28px rgba(74,57,49,.42),inset 0 1px 0 rgba(255,255,255,.94)}
+#ov-body-awareness{z-index:119;padding:0;background:#f7fafb;animation:awarenessIn .62s var(--ease-smooth) both}
 .awareness-scene{position:relative;width:100%;height:100%;overflow:hidden;color:#224f74;
   --awareness-score:#9db8d1;--awareness-primary:#6f95b8;--awareness-secondary:#adc4da;
   --awareness-ink:#315f86;--awareness-body:#527a9b;
@@ -1719,21 +1722,29 @@ body{font-family:var(--sans);
   transition:opacity .65s ease,transform 6s ease;transform:scale(1.015)}
 .awareness-scene::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 54%,rgba(232,242,248,.12))}
-.awareness-close{position:absolute;top:62px;right:20px;width:34px;height:34px;border-radius:50%;z-index:3;
+.awareness-close{position:absolute;top:18px;right:20px;width:34px;height:34px;border-radius:50%;z-index:3;
   border:1px solid color-mix(in srgb,var(--awareness-body) 28%,rgba(255,255,255,.72));background:rgba(255,255,255,.42);color:var(--awareness-ink);font-size:16px;
   -webkit-backdrop-filter:blur(14px) saturate(130%);backdrop-filter:blur(14px) saturate(130%);cursor:pointer}
-.awareness-content{height:100%;display:flex;flex-direction:column;padding:76px 30px 26px}
+.awareness-content{height:100%;display:flex;flex-direction:column;padding:24px 30px 22px}
 .awareness-mark{display:flex;align-items:center;justify-content:center;gap:12px;font-size:15px;letter-spacing:.22em;
   color:var(--awareness-body);font-weight:500;animation:awarenessCopyIn .65s ease .08s both}
 .awareness-mark::before,.awareness-mark::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,var(--awareness-body))}
 .awareness-mark::after{transform:scaleX(-1)}
 .awareness-leaf{font-size:16px;letter-spacing:0;color:var(--awareness-body)}
-.awareness-copy{margin-top:56px;animation:awarenessCopyIn .72s ease .18s both}
-.awareness-title{font-size:clamp(34px,10vw,46px);font-weight:400;letter-spacing:.08em;line-height:1.2;color:var(--awareness-ink);
+.awareness-copy{margin-top:34px;animation:awarenessCopyIn .72s ease .18s both}
+.awareness-title{font-size:clamp(28.9px,8.5vw,39.1px);font-weight:400;letter-spacing:.08em;line-height:1.2;color:var(--awareness-ink);
   text-shadow:0 1px 0 rgba(255,255,255,.8)}
-.awareness-score{display:inline-flex;margin-top:15px;padding:5px 15px 6px;border-radius:999px;
-  background:color-mix(in srgb,var(--awareness-score) 76%,rgba(255,255,255,.25));color:rgba(255,255,255,.96);font-family:var(--sans);font-size:12px;
-  letter-spacing:.16em;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.awareness-score-link{display:inline-flex;align-items:center;gap:9px;margin-top:15px;padding:6px 12px 7px 15px;border:0;border-radius:999px;
+  background:color-mix(in srgb,var(--awareness-score) 76%,rgba(255,255,255,.25));color:rgba(255,255,255,.96);
+  cursor:pointer;vertical-align:middle;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:0 7px 18px color-mix(in srgb,var(--awareness-primary) 18%,transparent),inset 0 1px 0 rgba(255,255,255,.72);
+  transition:transform .2s ease,box-shadow .2s ease}
+.awareness-score{font-family:var(--sans);font-size:12px;letter-spacing:.16em}
+.awareness-score-arrow{width:13px;height:13px;flex:0 0 13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+  transform:translateY(1px);transition:transform .2s ease}
+.awareness-score-link:hover{transform:translateY(-1px);box-shadow:0 9px 20px color-mix(in srgb,var(--awareness-primary) 24%,transparent),inset 0 1px 0 rgba(255,255,255,.78)}
+.awareness-score-link:hover .awareness-score-arrow{transform:translate(1px,0)}
+.awareness-score-link:active{transform:scale(.97)}
 .awareness-poem{margin-top:24px;font-size:15px;line-height:1.9;letter-spacing:.055em;color:var(--awareness-body);white-space:pre-line;
   text-shadow:0 1px 1px rgba(255,255,255,.92)}
 .awareness-poem::before{content:"";display:block;width:90px;height:1px;margin-bottom:18px;
@@ -1750,33 +1761,32 @@ body{font-family:var(--sans);
 .awareness-btn:hover{transform:translateY(-2px)}
 .awareness-btn:active{transform:translateY(0) scale(.98)}
 
-/* 情绪调频 · 全屏面板 */
+/* 情绪调频 · 与身心觉察共用底部抽屉 */
 @keyframes tuneSheetIn{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
 @keyframes tuneSheetOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(100%)}}
 @keyframes tuneWaveFlow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes tuneLineBreathe{0%,100%{transform:translateY(var(--lineLift,0)) scaleY(var(--lineScaleA,1));opacity:var(--lineOpacity,.5)}50%{transform:translateY(calc(var(--lineLift,0) * -1)) scaleY(var(--lineScaleB,1.08));opacity:calc(var(--lineOpacity,.5) + .12)}}
 @keyframes tuneDotDrift{0%{transform:translate3d(0,0,0) scale(.85);opacity:.22}45%{opacity:.52}100%{transform:translate3d(var(--dotDx,16px),var(--dotDy,-22px),0) scale(1.18);opacity:.12}}
 @keyframes tuneReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-#ov-emotion-tune{inset:0!important;height:auto;min-height:0;max-height:none;z-index:118;padding:0;overflow:hidden;
-  border-radius:0;background:
+#ov-emotion-tune{z-index:118;padding:0;
+  background:
     radial-gradient(360px 260px at 18% 18%,rgba(247,201,124,.12),transparent 70%),
     radial-gradient(300px 220px at 88% 9%,rgba(238,132,102,.08),transparent 72%),
     radial-gradient(340px 260px at 78% 76%,rgba(247,201,124,.1),transparent 74%),
     linear-gradient(180deg,rgba(255,253,249,.98),rgba(255,247,239,.95));
   border:1px solid rgba(255,255,255,.92);
   -webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);
-  box-shadow:0 -24px 58px -38px rgba(91,67,56,.56),inset 0 1px 0 rgba(255,255,255,.94);
   transform-origin:bottom center}
-.tune-panel{height:100%;display:flex;flex-direction:column;padding:58px 26px 24px;gap:20px;overflow-y:auto;scrollbar-width:none}
+.tune-panel{height:100%;display:flex;flex-direction:column;padding:24px 26px 20px;gap:18px;overflow-y:auto;scrollbar-width:none}
 .tune-panel::-webkit-scrollbar{display:none}
-.tune-panel.result-mode{overflow:hidden}
+.tune-panel.result-mode{overflow-y:auto}
 .tune-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
 .tune-kicker{display:none}
 .tune-title{font-family:var(--serif);font-size:24px;color:var(--text-primary);font-weight:600;margin-top:2px;line-height:1.35}
 .tune-guide{margin-top:5px;font-size:12px;color:var(--text-muted);letter-spacing:.04em}
 .tune-close{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,127,99,.16);
   background:rgba(255,255,255,.58);color:var(--text-secondary);font-size:16px;cursor:pointer}
-.tune-visual{position:relative;height:288px;border-radius:26px;overflow:hidden;flex-shrink:0;
+.tune-visual{position:relative;height:220px;border-radius:26px;overflow:hidden;flex-shrink:0;
   background:
     linear-gradient(115deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.68) 31%,var(--tuneWash,rgba(255,246,212,.56)) 66%,rgba(255,255,255,.84) 100%),
     radial-gradient(340px 210px at 78% 18%,var(--tuneGlow,#ffe3ad),transparent 78%),
@@ -2846,19 +2856,6 @@ body{font-family:var(--sans);
   <!-- 中：流程选择器 + 手机 -->
   <div class="center-col">
 
-    <!-- 手机外的入口 -->
-    <div class="flow-picker" id="flowPicker">
-      <!--
-      <button class="fp-btn" data-mode="onboarding" onclick="onbShow()"><span class="icon sm" data-icon="sparkle"></span>Onboarding</button>
-      -->
-      <button class="fp-btn fp-mode-btn on" data-mode="emotion-tune" onclick="openEmotionTune()">每日身心觉察</button>
-      <button class="fp-btn fp-mode-btn" data-m="morning" onclick="setAppMode('morning')">日常</button>
-      <!--
-      <button class="fp-btn" data-mode="morning" onclick="launchFlow('morning')"><span class="icon sm" data-icon="sun"></span>早安</button>
-      <button class="fp-btn" data-mode="evening" onclick="launchFlow('evening')"><span class="icon sm" data-icon="moon"></span>晚安</button>
-      -->
-    </div>
-
     <div class="phone-wrap">
       <div class="phone" id="phone">
         <div class="island"></div>
@@ -3016,8 +3013,8 @@ body{font-family:var(--sans);
             <div class="health-sphere-wrap">
               <div class="health-sphere">
                 <div class="hs-center">
-                  <div class="hsc-status">良好</div>
-                  <div class="hsc-sub">综合状态</div>
+                  <div class="hsc-status">身心安适</div>
+                  <div class="hsc-sub">Loooveness: 44</div>
                 </div>
                 <div class="hs-ring"></div>
                 <div class="hs-ring2"></div>
@@ -3556,7 +3553,7 @@ body{font-family:var(--sans);
               <article class="growth-card right" data-growth="tune" onclick="openGrowthRecord('tuneToday')">
                 <div class="growth-kind tune">情绪调节</div>
                 <div class="growth-title">用粉橙和绿调，画下今天的情绪。</div>
-                <div class="growth-body">完成整理桌面一角后，压力指数从 3.6 降到 3.2，HRV 从 32ms 提升到 38ms。</div>
+                <div class="growth-body">完成情绪绘画后，线条从紧促渐渐变得舒展，绘画前后的记录也显示压力有所回落。</div>
                 <div class="growth-metrics"><span>压力 <em>-0.4</em></span><span>心率 <em>-4</em></span><span>HRV <em>+6ms</em></span></div>
               </article>
               <div class="growth-day"><span>6月10日 · 昨夜</span></div>
@@ -4047,7 +4044,10 @@ body{font-family:var(--sans);
                 <div class="awareness-mark"><span class="awareness-leaf">♧</span>身心觉察</div>
                 <div class="awareness-copy">
                   <h2 class="awareness-title" id="awarenessTitle">心弦微紧</h2>
-                  <div class="awareness-score" id="awarenessScore">Loooveness 42</div>
+                  <button type="button" class="awareness-score-link" onclick="openAwarenessBodyState()" aria-label="查看身体状态">
+                    <span class="awareness-score" id="awarenessScore">Loooveness 42</span>
+                    <svg class="awareness-score-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>
+                  </button>
                   <div class="awareness-poem" id="awarenessPoem"></div>
                 </div>
                 <div class="awareness-actions">
@@ -5679,11 +5679,11 @@ const GROWTH_RECORDS={
     date:'6月11日 · 今晨',
     kind:'情绪调节',
     headline:'用粉橙和绿调，画下今天的情绪。',
-    user:'我画了一条呼吸线，前面有点紧，后面慢慢松开了，然后整理了桌面一角。',
-    ai:'我看到画面里有几处明显转折，但线条没有断掉，像是你一边调整、一边继续往前走。完成这个边界很清楚的小任务后，HRV 从 32ms 提升到 38ms，压力指数从 3.6 降到 3.2，说明身体真的收到了“我可以完成并回来”的信号。',
+    user:'我用粉橙和绿色画了一条呼吸线，前面有点紧，后面的颜色和线条都慢慢舒展开了。',
+    ai:'我看到粉橙和绿色在几处转折后逐渐融合，线条虽然有起伏，但一直保持连续。绘画结束后的记录里，HRV 从 32ms 升到 38ms，压力指数从 3.6 回落到 3.2；这些变化与你在线条后半段呈现出的放松感是一致的。',
     before:[['压力指数','3.6'],['心率','74'],['HRV','32ms']],
     after:[['压力指数','3.2'],['心率','70'],['HRV','38ms']],
-    note:'这次调节不是靠硬想明白，而是把情绪放进一个可完成的小动作里。任务完成后 HRV 提升、压力下降，身体获得了一次通过调节得到改善的经验。'
+    note:'这次调节把难以描述的情绪放进了颜色和线条里。绘画前后的记录显示 HRV 上升、压力回落，而画面也从紧促转向舒展，说明你在创作过程中逐渐找回了呼吸节奏。'
   },
   bodyToday:{
     title:'身心觉察',
@@ -6129,7 +6129,7 @@ let lastAwarenessIndex=-1;
 function openBodyAwareness(){
   Audio$.soft();
   _applyMode('morning');
-  _highlightPicker('[data-mode="emotion-tune"]');
+  _highlightPicker('[data-m="morning"]');
   let index=Math.floor(Math.random()*BODY_AWARENESS_STATES.length);
   if(BODY_AWARENESS_STATES.length>1&&index===lastAwarenessIndex)index=(index+1)%BODY_AWARENESS_STATES.length;
   lastAwarenessIndex=index;
@@ -6166,9 +6166,13 @@ function startAwarenessCare(){
   Audio$.soft();
   openHomeMindState();
 }
+function openAwarenessBodyState(){
+  closeBodyAwareness(false);
+  toggleHomeBodyState();
+}
 function _showEmotionTune(animation){
   _applyMode('morning');
-  _highlightPicker('[data-mode="emotion-tune"]');
+  _highlightPicker('[data-m="morning"]');
   const ov=document.getElementById('ov-emotion-tune');
   if(!ov)return null;
   ov.style.display='flex';
@@ -6462,6 +6466,7 @@ function openDayReview(){
 }
 function openAIChat(){
   Audio$.soft();
+  replaceSecondaryPage('compass');
   openOverlay('ov-chat');
   resetBreakthroughFlow();
 }
@@ -6536,6 +6541,7 @@ function closeHomeDeepExplore(){
 }
 function openHomeMindState(){
   Audio$.soft();
+  replaceSecondaryPage('mind');
   const screen=document.getElementById('homeMindState');
   resetMindConversation();
   if(screen){screen.classList.add('on');renderIcons(screen);startMindAiStream();}
@@ -6547,6 +6553,19 @@ function closeHomeMindState(){
   closeMindToolbox(false);
   closeMindDrawing(false);
   resetMindConversation();
+}
+function replaceSecondaryPage(target){
+  if(target!=='mind'){
+    document.getElementById('homeMindState')?.classList.remove('on');
+    closeMindToolbox(false);
+    closeMindDrawing(false);
+    resetMindConversation();
+  }
+  if(target!=='explore'){
+    document.getElementById('homeExploreState')?.classList.remove('on');
+    document.getElementById('homeExploreCheckin')?.classList.remove('on');
+  }
+  if(target!=='compass')hideOverlayInstant('ov-chat');
 }
 let mindAiStreamTimer=null;
 let bodyAiStreamTimer=null;
@@ -6782,8 +6801,8 @@ function finishMindDrawing(){
         </div>`);
     scrollStreamToBottom(thread);
     appendMindAiReply(
-      '这条线有几个明显的转折，但整体没有断掉，说明你在一边调整、一边往前走。今天先选一件边界很清楚的小事，比如整理桌面一角、喝水，或出门走五分钟，让身体找回一点连续感。',
-      '<b>LOOOVE AI 身心教练</b>这条线有几个明显的转折，但整体没有断掉，说明你在一边调整、一边往前走。今天先选一件<em>边界很清楚的小事</em>，比如整理桌面一角、喝水，或出门走五分钟，让身体找回一点连续感。',
+      '这幅画里的颜色经历了几次转折，线条却始终没有断开。前半段更紧，后半段逐渐舒展，像是呼吸慢慢找回了空间。先不用解释它，让这幅画替你保存此刻的感受。',
+      '<b>LOOOVE AI 身心教练</b>这幅画里的<em>颜色</em>经历了几次转折，线条却始终没有断开。前半段更紧，后半段逐渐舒展，像是<em>呼吸慢慢找回了空间</em>。先不用解释它，让这幅画替你保存此刻的感受。',
       650,
       appendMindFollowActions
     );
@@ -6805,6 +6824,7 @@ function handleMindUpload(input){
 }
 function openHomeExploreState(){
   Audio$.soft();
+  replaceSecondaryPage('explore');
   const screen=document.getElementById('homeExploreState');
   if(screen)screen.classList.add('on');
   const scroll=screen&&screen.querySelector('.home-child-scroll');
