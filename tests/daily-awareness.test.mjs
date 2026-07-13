@@ -19,6 +19,31 @@ test('closing realtime awareness selects the daily tab', () => {
   assert.match(closeBody, /if\(playSound\)\{_setHomeFlowActive\('daily'\);Audio\$\.soft\(\);\}/);
 });
 
+test('the canvas outside the phone uses a barely warm yellow-white base', () => {
+  assert.match(html, /body\{font-family:var\(--sans\);\s*background-color:#fffdf6;\s*background-image:\s*radial-gradient\(circle at 18% 16%,rgba\(255,238,203,\.16\),transparent 36%\),\s*radial-gradient\(circle at 84% 20%,rgba\(255,226,211,\.12\),transparent 34%\);/);
+  assert.doesNotMatch(html, /body::before\{/);
+  assert.doesNotMatch(html, /feTurbulence|rgba\(183,157,124,\.045\)|mix-blend-mode:multiply/);
+  assert.match(html, /\.stars\{[^}]*display:none/);
+  assert.match(html, /@media\(max-width:1180px\)\{\s*body\{[^}]*background-attachment:fixed/);
+  assert.doesNotMatch(html, /background:#f6efe5/);
+  assert.doesNotMatch(html, /body\{[^}]*#fff4c8/);
+  assert.doesNotMatch(html, /body\{[^}]*#f3f4f1/);
+  assert.doesNotMatch(html, /@media\(max-width:1180px\)\{\s*body\{[^}]*#ffe6d6/);
+});
+
+test('the outer brand title is pure black while the flow buttons stay pure white with dark text', () => {
+  assert.match(html, /\.brand h1\{[^}]*color:#000/);
+  assert.doesNotMatch(html, /\.brand h1\{[^}]*(linear-gradient|background-clip|color:transparent)/);
+  assert.doesNotMatch(html, /brand-tag|帮你系统性看见、理解、接纳、探索自己/);
+  assert.match(html, /\.fp-btn\{[^}]*border:none[^}]*color:#3d3936[^}]*background:#fff[^}]*rgba\(118,90,65,\.08\)/);
+  assert.match(html, /\.fp-btn\.on\{[^}]*background:#fff[^}]*color:#1f1d1b[^}]*rgba\(171,126,84,\.16\)/);
+  assert.doesNotMatch(html, /\.fp-btn(?:\.on)?\{[^}]*(linear-gradient|border-color)/);
+});
+
+test('the hardware ring image scales to eighty percent on small screens', () => {
+  assert.match(html, /\.hw-img\{width:100%;[^}]*\}\s*@media\(max-width:1180px\)\{\.hw-img\{width:80%\}\}/);
+});
+
 test('body status uses the Loooveness language system', () => {
   const sphere = html.match(/<div class="hs-center">([\s\S]*?)<\/div>\s*<div class="hs-ring">/)?.[1] ?? '';
   assert.match(sphere, /<div class="hsc-status">身心安适<\/div>/);
@@ -41,14 +66,15 @@ test('demo starts in realtime awareness with onboarding disabled', () => {
   assert.doesNotMatch(html, /\/\* 打开页面即进入 onboarding \*\/[\s\S]*?try\{onbShow\(\);\}catch\(e\)\{\}/);
 });
 
-test('daily tune opens an eight-state awareness scene', () => {
+test('daily tune opens the five retained awareness states', () => {
   assert.match(html, /id="ov-body-awareness"/);
-  assert.match(html, /const BODY_AWARENESS_STATES\s*=\s*\[/);
-  const paths = [...html.matchAll(/assets\/身心觉察\/(\d+)\.png/g)].map(([, n]) => n);
-  assert.deepEqual([...new Set(paths)].sort(), ['1','2','3','4','5','6','7','8']);
-  for (let i = 1; i <= 8; i++) {
+  const stateBlock = html.match(/const BODY_AWARENESS_STATES\s*=\s*\[([\s\S]*?)\n\];/)?.[1] ?? '';
+  const paths = [...stateBlock.matchAll(/assets\/身心觉察\/(\d+)\.png/g)].map(([, n]) => n);
+  assert.deepEqual(paths, ['1','2','3','5','7']);
+  for (const i of [1,2,3,5,7]) {
     assert.ok(existsSync(new URL(`../assets/身心觉察/${i}.png`, import.meta.url)));
   }
+  assert.doesNotMatch(stateBlock, /稳中有余|神清气定|张弛有度/);
 });
 
 test('awareness copy omits the discarded AI drawing sentence', () => {
@@ -70,9 +96,9 @@ test('all awareness titles are short and the copy uses plain language', () => {
   const stateBlock = html.match(/const BODY_AWARENESS_STATES\s*=\s*\[([\s\S]*?)\n\];/)?.[1] ?? '';
   const titles = [...stateBlock.matchAll(/title:'([^']+)'/g)].map(([, title]) => title);
   const poems = [...stateBlock.matchAll(/poem:'([^']+)'/g)].map(([, poem]) => poem);
-  assert.equal(titles.length, 8);
+  assert.equal(titles.length, 5);
   assert.ok(titles.every(title => [...title].length <= 4), titles.join('、'));
-  assert.equal(poems.length, 8);
+  assert.equal(poems.length, 5);
   assert.doesNotMatch(stateBlock, /没睡够|做一件简单的小事|今天少安排一件事/);
   assert.ok(poems.every(poem => (poem.match(/。/g) || []).length === 3));
   assert.ok(poems.every(poem => (poem.match(/\\n/g) || []).length === 2));
@@ -83,8 +109,8 @@ test('all awareness titles are short and the copy uses plain language', () => {
 test('each awareness image has its own score and button palette', () => {
   const stateBlock = html.match(/const BODY_AWARENESS_STATES\s*=\s*\[([\s\S]*?)\n\];/)?.[1] ?? '';
   const palettes = [...stateBlock.matchAll(/palette:\{score:'(#[0-9a-fA-F]{6})',primary:'(#[0-9a-fA-F]{6})',secondary:'(#[0-9a-fA-F]{6})'/g)];
-  assert.equal(palettes.length, 8);
-  assert.equal(new Set(palettes.map(match => match[2])).size, 8);
+  assert.equal(palettes.length, 5);
+  assert.equal(new Set(palettes.map(match => match[2])).size, 5);
   assert.match(html, /style\.setProperty\('--awareness-score',state\.palette\.score\)/);
   assert.match(html, /style\.setProperty\('--awareness-primary',state\.palette\.primary\)/);
   assert.match(html, /style\.setProperty\('--awareness-secondary',state\.palette\.secondary\)/);
@@ -107,8 +133,8 @@ test('Loooveness arrow is optically centered with its label', () => {
 test('each image also changes the full text palette', () => {
   const stateBlock = html.match(/const BODY_AWARENESS_STATES\s*=\s*\[([\s\S]*?)\n\];/)?.[1] ?? '';
   const textPalettes = [...stateBlock.matchAll(/ink:'(#[0-9a-fA-F]{6})',body:'(#[0-9a-fA-F]{6})'/g)];
-  assert.equal(textPalettes.length, 8);
-  assert.equal(new Set(textPalettes.map(match => match[1])).size, 8);
+  assert.equal(textPalettes.length, 5);
+  assert.equal(new Set(textPalettes.map(match => match[1])).size, 5);
   assert.match(html, /style\.setProperty\('--awareness-ink',state\.palette\.ink\)/);
   assert.match(html, /style\.setProperty\('--awareness-body',state\.palette\.body\)/);
   assert.match(html, /\.awareness-title\{[^}]*var\(--awareness-ink\)/);

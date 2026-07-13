@@ -22,11 +22,12 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:var(--sans);
-  background:radial-gradient(1200px 700px at 70% -10%,#fff4c8 0%,transparent 54%),
-    radial-gradient(900px 600px at 12% 110%,#ffd9cd 0%,transparent 55%),
-    linear-gradient(160deg,var(--bg-deep),var(--bg-mid) 58%,#fffefd);
+  background-color:#fffdf6;
+  background-image:
+    radial-gradient(circle at 18% 16%,rgba(255,238,203,.16),transparent 36%),
+    radial-gradient(circle at 84% 20%,rgba(255,226,211,.12),transparent 34%);
   color:var(--text-primary);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.stars{display:none;position:fixed;inset:0;pointer-events:none;z-index:0}
 .stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--secondary);
   opacity:.22;animation:twinkle 4s ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.08;transform:scale(.8)}50%{opacity:.5;transform:scale(1.2)}}
@@ -42,7 +43,6 @@ body{font-family:var(--sans);
 /* 小屏：竖向堆叠 —— 文字 → 硬件 → APP，可滚动 */
 @media(max-width:1180px){
   body{overflow:auto;display:block;
-    background:linear-gradient(180deg,#fff3d2 0%,#ffe6d6 50%,#fff1e8 100%);
     background-attachment:fixed}
   .stage{flex-direction:column;gap:30px;padding:36px 16px 56px;align-items:center}
   .side{width:auto;max-width:min(440px,92vw);align-items:center;text-align:center}
@@ -58,18 +58,12 @@ body{font-family:var(--sans);
 .hw-showcase{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}
 .hw-tag{font-size:10px;letter-spacing:.32em;color:var(--text-muted);font-weight:600}
 .hw-img{width:100%;height:auto;filter:drop-shadow(0 20px 38px rgba(120,90,80,.24))}
+@media(max-width:1180px){.hw-img{width:80%}}
 .hw-cap{font-family:var(--serif);font-size:19px;color:var(--text-primary);letter-spacing:.03em}
 .hw-sub{font-size:12px;color:var(--text-muted);line-height:1.85}
 .brand h1{font-family:var(--serif);font-weight:700;font-size:44px;letter-spacing:.12em;
-  white-space:nowrap;
-  background:linear-gradient(120deg,#ff7f63,#ffb84d 52%,#ff6b8a);
-  -webkit-background-clip:text;background-clip:text;color:transparent}
+  white-space:nowrap;color:#000}
 .brand p{margin-top:8px;color:var(--text-secondary);font-size:11.5px;letter-spacing:.18em;white-space:nowrap}
-.brand-tag{display:inline-flex;align-items:center;gap:8px;margin-top:18px;
-  padding:7px 14px;border-radius:var(--radius-full);font-size:11.5px;white-space:nowrap;
-  background:var(--glass-bg);border:1px solid var(--glass-border);color:var(--primary)}
-.brand-tag::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--primary);
-  box-shadow:0 0 10px var(--primary);animation:twinkle 2.5s infinite}
 .principles{display:flex;flex-direction:column;gap:12px}
 .principles div{font-size:13px;color:var(--text-muted);line-height:1.7;padding-left:14px;
   border-left:2px solid rgba(255,127,99,.24)}
@@ -97,12 +91,13 @@ body{font-family:var(--sans);
 /* 动线入口 */
 .flow-picker{display:flex;gap:10px;width:390px;max-width:96vw}
 .fp-btn{flex:1;padding:11px 20px;border-radius:var(--radius-full);font-size:12.5px;letter-spacing:.05em;
-  border:1px solid var(--glass-border);cursor:pointer;font-family:var(--sans);
-  transition:all var(--transition-base);color:var(--text-muted);background:var(--glass-bg-2);
+  border:none;cursor:pointer;font-family:var(--sans);
+  transition:all var(--transition-base);color:#3d3936;background:#fff;
+  box-shadow:0 2px 14px rgba(118,90,65,.08);
   white-space:nowrap}
-.fp-btn.on{background:rgba(255,127,99,.12);border-color:rgba(255,127,99,.42);
-  color:var(--primary);box-shadow:0 6px 20px rgba(255,127,99,.12)}
-.fp-btn:hover:not(.on){border-color:rgba(255,127,99,.24);color:var(--text-secondary)}
+.fp-btn.on{background:#fff;color:#1f1d1b;
+  box-shadow:0 8px 24px rgba(171,126,84,.16);transform:translateY(-1px)}
+.fp-btn:hover:not(.on){color:#211f1d;box-shadow:0 5px 18px rgba(143,105,73,.12)}
 .fp-label{font-size:9.5px;letter-spacing:.1em;color:var(--text-muted);margin-top:-2px}
 
 /* ===== 手机 ===== */
@@ -2852,7 +2847,6 @@ body{font-family:var(--sans);
     <div class="brand">
       <h1>LOOOVE</h1>
       <p>基于生理和情绪信号的AI身心成长教练</p>
-      <div class="brand-tag">帮你系统性看见、理解、接纳、探索自己</div>
     </div>
     <div class="principles">
       <div><b>觉察与理解</b>让身体数据与情绪感受被持续记录，帮助你看见自己的身心状态如何变化。</div>
@@ -6147,11 +6141,8 @@ const BODY_AWARENESS_STATES = [
   {image:'assets/身心觉察/1.png',title:'心弦微紧',score:42,palette:{score:'#9db8d1',primary:'#6f95b8',secondary:'#adc4da',ink:'#315f86',body:'#527a9b'},poem:'身体的基础状态依然平稳，只是恢复感稍弱，心里容易有些绷紧。\n注意力来回跳动并不代表你做不好，只是需要一个更清晰的节奏。\n今天把需要判断的事情集中在一个时段，专注一轮后起身舒展几分钟。'},
   {image:'assets/身心觉察/2.png',title:'恢复未满',score:48,palette:{score:'#a8b6c9',primary:'#728aa6',secondary:'#aebdcb',ink:'#4f627c',body:'#6f8197'},poem:'昨夜的睡眠有些零碎，但身体仍维持着稳定的日常节奏。\n今天的专注力可能来得慢一些，给自己一点进入状态的时间就好。\n上午接触十五分钟自然光，把最重要的任务放在光线充足的时段完成。'},
   {image:'assets/身心觉察/3.png',title:'渐入平衡',score:56,palette:{score:'#93c8c2',primary:'#5fa99e',secondary:'#a8d3c8',ink:'#2f716d',body:'#538b86'},poem:'身体已经得到基本恢复，紧张感也在慢慢回落。\n你正处在由静到动的过渡里，状态会随着活动逐渐打开。\n午饭后快走二十分钟，再把下午第一段完整时间留给重要任务。'},
-  {image:'assets/身心觉察/4.png',title:'稳中有余',score:64,palette:{score:'#e8b89d',primary:'#d98e6d',secondary:'#efc7a5',ink:'#9a5d4a',body:'#b47661'},poem:'身体的基础状态平稳，今天有足够的底气应对日常。\n恢复与活力都在中间位置，适合一边行动，一边把能量带起来。\n午后快走二十分钟，再用一段完整时间专心处理需要思考的事。'},
   {image:'assets/身心觉察/5.png',title:'身心舒展',score:71,palette:{score:'#9fcbd4',primary:'#69aebc',secondary:'#b4d7dc',ink:'#357783',body:'#5e929b'},poem:'昨夜休息较为完整，身体和呼吸都显得舒展。\n心里有余地时，耐心与表达也会自然回来。\n今天把这份稳定留给一项深度工作，或一次值得认真进行的沟通。'},
-  {image:'assets/身心觉察/6.png',title:'神清气定',score:76,palette:{score:'#efa08b',primary:'#df755f',secondary:'#f2b28c',ink:'#a64f43',body:'#c16f60'},poem:'身体恢复得很好，清醒与精力都处在充足的位置。\n此刻的心思清楚而稳定，适合主动推动重要进展。\n把最需要创造力或决断力的事情放在上午，中间记得起身活动和补水。'},
-  {image:'assets/身心觉察/7.png',title:'倦意偏重',score:37,palette:{score:'#b8b68c',primary:'#8e9565',secondary:'#c8c59a',ink:'#687047',body:'#858b65'},poem:'昨夜的休息比较零碎，身体今天会更珍惜稳定和规律。\n思路偶尔变慢很正常，这是恢复过程的一部分，不需要急着评判自己。\n上午先吃好早餐并处理熟悉的事务，把重要决定留到精神更清楚的时候。'},
-  {image:'assets/身心觉察/8.png',title:'张弛有度',score:59,palette:{score:'#e5b491',primary:'#d88767',secondary:'#edc39a',ink:'#9b614c',body:'#b77a62'},poem:'睡眠与恢复保持着连贯的节奏，身体正处在可进可收的位置。\n你既有投入的余力，也能在需要时把自己带回平稳。\n今天让工作与走动交替出现，晚饭后再安排一段舒缓活动。'}
+  {image:'assets/身心觉察/7.png',title:'倦意偏重',score:37,palette:{score:'#b8b68c',primary:'#8e9565',secondary:'#c8c59a',ink:'#687047',body:'#858b65'},poem:'昨夜的休息比较零碎，身体今天会更珍惜稳定和规律。\n思路偶尔变慢很正常，这是恢复过程的一部分，不需要急着评判自己。\n上午先吃好早餐并处理熟悉的事务，把重要决定留到精神更清楚的时候。'}
 ];
 let lastAwarenessIndex=-1;
 function openBodyAwareness(){

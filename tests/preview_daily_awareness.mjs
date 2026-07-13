@@ -91,9 +91,9 @@ const actions = await page.locator('.awareness-actions').evaluate(el => ({
 await page.locator('.phone').screenshot({ path: path.join(root, 'daily-awareness-preview.png') });
 
 const stateLayouts = [];
-for (let i = 0; i < 8; i += 1) {
+for (let i = 0; i < 5; i += 1) {
   await page.evaluate(index => {
-    Math.random = () => (index + 0.01) / 8;
+    Math.random = () => (index + 0.01) / 5;
     lastAwarenessIndex = -1;
     closeBodyAwareness(false);
     openBodyAwareness();
