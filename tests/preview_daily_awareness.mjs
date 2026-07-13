@@ -18,6 +18,26 @@ await page.waitForLoadState('networkidle');
 
 await page.locator('#ov-body-awareness').waitFor({ state: 'visible' });
 if (await page.getByRole('button', { name: 'Onboarding' }).count()) throw new Error('Onboarding 入口仍然显示');
+if (!await page.locator('#flowPicker [data-flow="awareness"]').evaluate(el => el.classList.contains('on'))) {
+  throw new Error('实时身心觉察未默认选中');
+}
+await page.locator('#flowPicker [data-flow="daily"]').click();
+await page.locator('#ov-body-awareness').waitFor({ state: 'hidden' });
+if (!await page.locator('#flowPicker [data-flow="daily"]').evaluate(el => el.classList.contains('on'))) {
+  throw new Error('日常 Tab 未切换为选中状态');
+}
+await page.locator('#flowPicker [data-flow="awareness"]').click();
+await page.locator('#ov-body-awareness').waitFor({ state: 'visible' });
+await page.locator('.awareness-close').click();
+await page.locator('#ov-body-awareness').waitFor({ state: 'hidden' });
+if (!await page.locator('#flowPicker [data-flow="daily"]').evaluate(el => el.classList.contains('on') && el.getAttribute('aria-selected') === 'true')) {
+  throw new Error('关闭实时身心觉察后未自动切换到日常');
+}
+if (await page.locator('#flowPicker [data-flow="awareness"]').evaluate(el => el.classList.contains('on') || el.getAttribute('aria-selected') !== 'false')) {
+  throw new Error('关闭实时身心觉察后实时 Tab 仍保持选中');
+}
+await page.locator('#flowPicker [data-flow="awareness"]').click();
+await page.locator('#ov-body-awareness').waitFor({ state: 'visible' });
 await page.waitForTimeout(900);
 const overlayDebug = await page.locator('#ov-body-awareness').evaluate(el => ({
   rect: el.getBoundingClientRect().toJSON(), display: getComputedStyle(el).display,

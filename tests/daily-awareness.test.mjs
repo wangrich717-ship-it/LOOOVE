@@ -4,11 +4,19 @@ import { readFileSync, existsSync } from 'node:fs';
 
 const html = readFileSync(new URL('../LOOOVE-demo.html', import.meta.url), 'utf8');
 
-test('daily awareness opens without a redundant outer tab', () => {
-  assert.doesNotMatch(html, /<div class="flow-picker" id="flowPicker">/);
-  assert.doesNotMatch(html, /<button[^>]*>日常<\/button>/);
-  assert.doesNotMatch(html, />每日身心觉察<\/button>/);
-  assert.doesNotMatch(html, />每日情绪调频<\/button>/);
+test('realtime awareness and daily tabs control the popup', () => {
+  assert.match(html, /<div class="flow-picker" id="flowPicker"[^>]*role="tablist"/);
+  assert.match(html, /<button[^>]+class="fp-btn on"[^>]+data-flow="awareness"[^>]+onclick="selectHomeFlow\('awareness'\)"[^>]*>实时身心觉察<\/button>/);
+  assert.match(html, /<button[^>]+class="fp-btn"[^>]+data-flow="daily"[^>]+onclick="selectHomeFlow\('daily'\)"[^>]*>日常<\/button>/);
+  const flow = html.match(/function selectHomeFlow\(flow\)\{([\s\S]*?)\n\}/)?.[1] ?? '';
+  assert.match(flow, /if\(flow==='awareness'\)\{openBodyAwareness\(\);return;\}/);
+  assert.match(flow, /closeBodyAwareness\(false\)/);
+  assert.match(flow, /tune\.style\.display='none'/);
+});
+
+test('closing realtime awareness selects the daily tab', () => {
+  const closeBody = html.match(/function closeBodyAwareness\(playSound=true\)\{([\s\S]*?)\n\}/)?.[1] ?? '';
+  assert.match(closeBody, /if\(playSound\)\{_setHomeFlowActive\('daily'\);Audio\$\.soft\(\);\}/);
 });
 
 test('body status uses the Loooveness language system', () => {
@@ -27,9 +35,9 @@ test('emotion drawing record stays focused on the drawing task', () => {
   assert.doesNotMatch(drawingReply, /整理桌面|出门走五分钟/);
 });
 
-test('demo starts directly in daily awareness with onboarding disabled', () => {
+test('demo starts in realtime awareness with onboarding disabled', () => {
   assert.doesNotMatch(html, /<button[^>]+data-mode="onboarding"/);
-  assert.match(html, /\/\* 打开页面即进入每日身心觉察 \*\/[\s\S]*?try\{openBodyAwareness\(\);\}catch\(e\)\{\}/);
+  assert.match(html, /\/\* 打开页面即进入实时身心觉察 \*\/[\s\S]*?try\{selectHomeFlow\('awareness'\);\}catch\(e\)\{\}/);
   assert.doesNotMatch(html, /\/\* 打开页面即进入 onboarding \*\/[\s\S]*?try\{onbShow\(\);\}catch\(e\)\{\}/);
 });
 
@@ -128,4 +136,18 @@ test('awareness and emotion tuning share a closable three-quarters-height sheet'
   assert.match(html, /#ov-body-awareness,#ov-emotion-tune\{[^}]*top:var\(--wellbeing-sheet-top\)!important[^}]*bottom:0!important/);
   assert.match(html, /#ov-body-awareness,#ov-emotion-tune\{[^}]*border-radius:30px 30px 0 0/);
   assert.match(html, /\.tune-panel\.result-mode\{[^}]*overflow-y:auto/);
+});
+
+test('each body metric section shares the AI insight glass material', () => {
+  const rule = html.match(/:is\(#ov-activity,#ov-heartrate,#ov-stress,#ov-spo2,#ov-temp\) \.sr-scroll > :is\(\.card,\.sr-ai-insight\)\{([^}]*)\}/)?.[1] ?? '';
+  assert.match(rule, /background:linear-gradient\(145deg,rgba\(255,248,243,\.76\),rgba\(255,235,228,\.54\)\)!important/);
+  assert.match(rule, /border:0!important/);
+  assert.match(rule, /box-shadow:0 5px 12px rgba\(142,102,82,\.1\),0 1px 3px rgba\(142,102,82,\.05\),inset 0 1px 0 rgba\(255,255,255,\.88\)!important/);
+  assert.match(rule, /backdrop-filter:blur\(26px\) saturate\(155%\) brightness\(1\.03\)/);
+  assert.match(html, /:is\(#ov-activity,#ov-heartrate,#ov-stress,#ov-spo2,#ov-temp\) \.sr-scroll\{gap:20px\}/);
+  assert.doesNotMatch(html, /:is\(#ov-activity,#ov-heartrate,#ov-stress,#ov-spo2,#ov-temp\) \.sr-scroll > \.sr-ai-insight\{/);
+});
+
+test('body metric detail structures never collapse into a white strip', () => {
+  assert.match(html, /:is\(#ov-activity,#ov-heartrate,#ov-stress,#ov-spo2,#ov-temp\) \.sr-scroll > \*\{flex-shrink:0\}/);
 });

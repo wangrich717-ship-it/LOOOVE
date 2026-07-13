@@ -50,9 +50,9 @@ body{font-family:var(--sans);
   .stage>aside:first-of-type{order:1}   /* 文字 */
   .stage>aside:last-of-type{order:2}    /* 硬件图 */
   .center-col{order:3}                  /* APP */
-  /* 四个入口按钮：居中 + 自适应不被裁切 */
+  /* 双入口按钮：与手机同宽并保持等分 */
   #flowPicker{width:auto!important;max-width:96vw;justify-content:center;flex-wrap:wrap;gap:8px}
-  #flowPicker .fp-btn{flex:0 0 auto}
+  #flowPicker .fp-btn{flex:1 1 0}
 }
 /* 右侧 · 硬件展示 */
 .hw-showcase{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}
@@ -95,7 +95,7 @@ body{font-family:var(--sans);
 .fp-mode-btn.on{background:white;color:var(--text-primary);
   box-shadow:0 1px 6px rgba(0,0,0,.1)}
 /* 动线入口 */
-.flow-picker{display:flex;gap:10px}
+.flow-picker{display:flex;gap:10px;width:390px;max-width:96vw}
 .fp-btn{flex:1;padding:11px 20px;border-radius:var(--radius-full);font-size:12.5px;letter-spacing:.05em;
   border:1px solid var(--glass-border);cursor:pointer;font-family:var(--sans);
   transition:all var(--transition-base);color:var(--text-muted);background:var(--glass-bg-2);
@@ -2485,6 +2485,14 @@ body{font-family:var(--sans);
   border:1px solid rgba(255,255,255,.78);
   box-shadow:0 4px 20px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.9);
   display:flex;flex-direction:column;gap:9px}
+:is(#ov-activity,#ov-heartrate,#ov-stress,#ov-spo2,#ov-temp) .sr-scroll{gap:20px}
+:is(#ov-activity,#ov-heartrate,#ov-stress,#ov-spo2,#ov-temp) .sr-scroll > *{flex-shrink:0}
+:is(#ov-activity,#ov-heartrate,#ov-stress,#ov-spo2,#ov-temp) .sr-scroll > :is(.card,.sr-ai-insight){
+  background:linear-gradient(145deg,rgba(255,248,243,.76),rgba(255,235,228,.54))!important;
+  border:0!important;
+  box-shadow:0 5px 12px rgba(142,102,82,.1),0 1px 3px rgba(142,102,82,.05),inset 0 1px 0 rgba(255,255,255,.88)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(155%) brightness(1.03);
+  backdrop-filter:blur(26px) saturate(155%) brightness(1.03)}
 .sr-ai-label{font-size:9px;letter-spacing:.26em;color:var(--primary);font-weight:600;
   display:flex;align-items:center;gap:7px}
 .sr-ai-label::before{content:'';display:block;width:16px;height:1.5px;
@@ -2855,6 +2863,11 @@ body{font-family:var(--sans);
 
   <!-- 中：流程选择器 + 手机 -->
   <div class="center-col">
+
+    <div class="flow-picker" id="flowPicker" role="tablist" aria-label="首页模式">
+      <button class="fp-btn on" type="button" data-flow="awareness" role="tab" aria-selected="true" onclick="selectHomeFlow('awareness')">实时身心觉察</button>
+      <button class="fp-btn" type="button" data-flow="daily" role="tab" aria-selected="false" onclick="selectHomeFlow('daily')">日常</button>
+    </div>
 
     <div class="phone-wrap">
       <div class="phone" id="phone">
@@ -6089,9 +6102,24 @@ function showRS(screenId,overlayId='ov-ritual'){
 /* ============ 四按钮单选组 ============ */
 let currentMode='morning';
 function _highlightPicker(selector){
-  document.querySelectorAll('#flowPicker button').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('#flowPicker button[data-m],#flowPicker button[data-mode]').forEach(b=>b.classList.remove('on'));
   const el=document.querySelector('#flowPicker '+selector);
   if(el) el.classList.add('on');
+}
+function _setHomeFlowActive(flow){
+  document.querySelectorAll('#flowPicker [data-flow]').forEach(button=>{
+    const active=button.dataset.flow===flow;
+    button.classList.toggle('on',active);
+    button.setAttribute('aria-selected',String(active));
+  });
+}
+function selectHomeFlow(flow){
+  _setHomeFlowActive(flow);
+  if(flow==='awareness'){openBodyAwareness();return;}
+  closeBodyAwareness(false);
+  const tune=document.getElementById('ov-emotion-tune');
+  if(tune){tune.style.display='none';tune.style.animation='';}
+  Audio$.soft();
 }
 function _applyMode(mode){
   currentMode=mode;
@@ -6156,7 +6184,7 @@ function openBodyAwareness(){
 function closeBodyAwareness(playSound=true){
   const ov=document.getElementById('ov-body-awareness');
   if(ov){ov.style.display='none';ov.style.animation='';}
-  if(playSound)Audio$.soft();
+  if(playSound){_setHomeFlowActive('daily');Audio$.soft();}
 }
 function adjustAwarenessFeeling(){
   switchAwarenessToTune();
@@ -9276,8 +9304,8 @@ requestAnimationFrame(updateHomeOrbitGather);
   b.innerHTML='<span class="app-conn-dot"></span>已连接';
   h.appendChild(b);
 });
-/* 打开页面即进入每日身心觉察 */
-try{openBodyAwareness();}catch(e){}
+/* 打开页面即进入实时身心觉察 */
+try{selectHomeFlow('awareness');}catch(e){}
 </script>
 </body>
 </html>
