@@ -17,6 +17,11 @@
   --transition-fast:.2s var(--ease-smooth);--transition-base:.4s var(--ease-smooth);
   --transition-slow:.7s var(--ease-smooth);
   --serif:'Noto Serif SC',serif;--sans:'Noto Sans SC',sans-serif;
+  --soft-page-bg:
+    radial-gradient(circle at 86% 16%,rgba(238,188,174,.12),transparent 34%),
+    radial-gradient(circle at 16% 72%,rgba(183,207,195,.09),transparent 36%),
+    radial-gradient(circle at 28% 10%,rgba(226,205,171,.08),transparent 30%),
+    linear-gradient(160deg,#fff,#fffdfb 58%,#fffaf7);
   --wellbeing-sheet-top:25%;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -32,6 +37,7 @@ body{font-family:var(--sans);
   opacity:.22;animation:twinkle 4s ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.08;transform:scale(.8)}50%{opacity:.5;transform:scale(1.2)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pageEnterStable{from{transform:translateY(10px)}to{transform:translateY(0)}}
 @keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slideOutRight{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(40px)}}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 24px rgba(255,127,99,.22)}50%{box-shadow:0 0 44px rgba(255,127,99,.42)}}
@@ -113,22 +119,17 @@ body{font-family:var(--sans);
 .app{position:absolute;inset:0;overflow:hidden;border-radius:54px;font-size:15px;--homeVisual:0;--homeBg:1}
 .app::before{content:'';position:absolute;inset:0;z-index:1;opacity:0;pointer-events:none;
   background:
-    linear-gradient(180deg,rgba(255,250,246,.16),rgba(255,250,246,0) 24%,rgba(255,247,241,.38) 100%),
-    url('assets/首页.png') center -16px/cover no-repeat;
+    linear-gradient(180deg,rgba(255,252,249,.08),rgba(255,250,246,0) 28%,rgba(255,247,241,.16) 100%),
+    url('./背景图.png') center 42%/cover no-repeat;
   transition:opacity .35s var(--ease-smooth)}
-.app.home-visual::before{opacity:var(--homeVisual)}
+.app.home-visual::before{opacity:calc(var(--homeVisual) * .64)}
 .app.home-visual .app-bg{opacity:var(--homeBg)}
+.app:not(.home-visual)::before{opacity:0;transition:none}
+.app:not(.home-visual) .app-bg{opacity:1;transition:none}
 .app-bg{position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(230px 170px at 12% 18%,rgba(255,232,195,.65),transparent 74%),
-    radial-gradient(260px 210px at 92% 24%,rgba(255,207,214,.48),transparent 72%),
-    radial-gradient(260px 230px at 52% 58%,rgba(255,255,255,.92),transparent 66%),
-    linear-gradient(180deg,#fffdfb 0%,#fff5ef 56%,#fffdfb 100%);
+  background:var(--soft-page-bg);
   transition:opacity .35s var(--ease-smooth)}
-.app-bg::after{content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(circle at 50% 28%,rgba(255,127,99,.14),transparent 34%),
-    linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,238,228,.12) 48%,rgba(255,255,255,.5))}
+.app-bg::after{display:none}
 .statusbar{position:absolute;top:0;left:0;right:0;height:56px;z-index:180;
   display:flex;align-items:flex-end;justify-content:space-between;
   padding:0 26px 8px;font-size:13.5px;font-weight:600;letter-spacing:.01em;
@@ -197,7 +198,7 @@ body{font-family:var(--sans);
   display:none;flex-direction:column;overflow:hidden;padding:14px 22px 30px;scrollbar-width:none}
 .tabpage::-webkit-scrollbar{display:none}
 .tabpage>*{flex-shrink:0}
-.tabpage.on{display:flex;animation:fadeUp .45s var(--ease-smooth)}
+.tabpage.on{display:flex;animation:pageEnterStable .28s var(--ease-smooth)}
 .tabpage>.diary-hero,.tabpage>.prac-head,.tabpage>.wiki-head{position:absolute;top:14px;left:22px;right:22px;z-index:55;margin:0;padding:4px 0 12px}
 .tab-scroll-area{position:absolute;left:22px;right:22px;top:74px;bottom:0;overflow-y:auto;overflow-x:hidden;padding-bottom:30px;scrollbar-width:none}
 .tab-scroll-area::-webkit-scrollbar{display:none}
@@ -306,9 +307,10 @@ body{font-family:var(--sans);
 #home-morn>.greet-row,#home-eve>.greet-row{position:absolute!important;top:24px;left:22px;right:22px;z-index:55;margin:0}
 #home-morn>.greet-row .app-conn,#home-eve>.greet-row .app-conn{top:2px}
 .diary-hero .app-conn,.wiki-head .app-conn,.prac-head .app-conn{top:2px}
-.home-scroll-area{position:absolute;left:0;right:0;top:104px;bottom:0;overflow-y:auto;overflow-x:hidden;padding:0 22px 30px;scrollbar-width:none}
+.home-scroll-area{position:absolute;left:0;right:0;top:104px;bottom:0;overflow-y:hidden;overflow-x:hidden;
+  padding:0 22px 30px;scrollbar-width:none;overscroll-behavior:none;touch-action:none}
 .home-scroll-area::-webkit-scrollbar{display:none}
-.home-orbit-wrap{position:relative;height:500px;margin:-120px 0 8px;display:flex;flex-direction:column;align-items:stretch;--homeGather:0}
+.home-orbit-wrap{position:relative;height:600px;margin:0;display:flex;flex-direction:column;align-items:stretch;--homeGather:0}
 .home-orbit-scene{position:relative;width:100%;height:100%;margin:0;overflow:hidden;border-radius:0}
 .home-figure{display:none;position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .home-figure img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;
@@ -332,31 +334,289 @@ body{font-family:var(--sans);
 .home-orbit-btn.xiaoha{left:48%;top:280px;transform:translateX(-50%);
   animation:homeOrbFloatX 7.2s ease-in-out infinite .35s}
 .home-orbit-wrap.gathering .home-orbit-btn{animation:none}
+.home-awareness-card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;
+  padding:36px 4px 26px;color:#5a5a5a;font-family:var(--serif)}
+.home-awareness-status{margin-top:42px;display:flex;flex-direction:column;align-items:flex-start}
+.home-awareness-title{border:0;background:transparent;padding:0;color:#5a5a5a;font-family:var(--serif);
+  font-size:clamp(31px,9vw,40px);font-weight:400;letter-spacing:.09em;line-height:1.2;cursor:pointer;
+  text-shadow:0 1px 0 rgba(255,255,255,.86);transition:transform .22s var(--ease-smooth),color .22s var(--ease-smooth)}
+.home-awareness-title:hover{color:#3f3f3f;transform:translateY(-1px)}
+.home-awareness-title:active{transform:scale(.98)}
+.home-awareness-score{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:8px 14px 9px;
+  border:1px solid rgba(76,68,64,.12);border-radius:var(--radius-full);background:#fff;
+  color:var(--primary);font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.12em;cursor:pointer;
+  box-shadow:0 6px 18px rgba(79,68,63,.14),inset 0 1px 0 rgba(255,255,255,.96);
+  transition:transform .2s ease,background .2s ease,color .2s ease,box-shadow .2s ease}
+.home-awareness-score:hover{background:#fff;color:#ee6f55;transform:translateY(-1px);box-shadow:0 9px 22px rgba(79,68,63,.18),inset 0 1px 0 rgba(255,255,255,.96)}
+.home-awareness-score:active{transform:scale(.97)}
+.home-awareness-score svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.home-consultant{margin-top:100px;width:100%;padding:18px 18px 24px;display:flex;flex-direction:column;
+  align-items:stretch;background:rgba(255,255,255,.30);border:1px solid rgba(255,255,255,.56);border-radius:24px;
+  box-shadow:0 16px 38px -28px rgba(86,72,66,.42),inset 0 1px 0 rgba(255,255,255,.9);
+  -webkit-backdrop-filter:blur(22px) saturate(140%);backdrop-filter:blur(22px) saturate(140%)}
+.home-consultant-label{margin-bottom:11px;color:#5c5c5c;font-family:var(--sans);
+  font-size:13px;font-weight:400;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+.home-consultant-label::before{content:"";width:7px;height:7px;flex:0 0 7px;border-radius:50%;
+  background:#62b887;box-shadow:0 0 0 3px rgba(98,184,135,.12)}
+.home-consultant-copy{color:#5f5f5f;font-size:clamp(15px,4.1vw,17px);line-height:1.85;letter-spacing:.035em}
+.home-consultant-next{align-self:center;width:72%;min-width:0;height:42px;margin-top:14px;padding:0 15px;border:1px solid rgba(76,68,64,.12);
+  border-radius:999px;background:#fff;color:var(--primary);display:inline-flex;align-items:center;
+  justify-content:center;gap:0;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.08em;cursor:pointer;
+  box-shadow:0 6px 18px rgba(79,68,63,.14),inset 0 1px 0 rgba(255,255,255,.96);
+  transition:transform .2s var(--ease-smooth),background .2s ease,color .2s ease,box-shadow .2s ease}
+.home-consultant-next:hover{background:#fff;color:#ee6f55;transform:translateY(-1px);box-shadow:0 9px 22px rgba(79,68,63,.18),inset 0 1px 0 rgba(255,255,255,.96)}
+.home-consultant-next:active{transform:scale(.96)}
+.home-consultant-next svg{width:13px;height:13px;flex:0 0 13px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.home-awareness-placeholder-body{position:absolute;inset:118px 24px 30px}
+
+/* ===== 互动 · Personalized Life Consultant ===== */
+#homeAwarenessPlaceholder{padding:0;--consultant-ink:#5f5f5f;--consultant-muted:#9a918d;--consultant-accent:var(--primary);background:
+  radial-gradient(circle at 92% 8%,rgba(244,190,174,.15),transparent 31%),
+  radial-gradient(circle at 4% 58%,rgba(181,207,194,.1),transparent 34%),
+  linear-gradient(168deg,#fff 0%,#fffdfb 58%,#fff8f4 100%)}
+#homeAwarenessPlaceholder .sr-topbar{height:62px;background:transparent;
+  border-bottom:0}
+#homeAwarenessPlaceholder .sr-toptitle{font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:.12em}
+.consultant-agent-presence{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:4px;
+  color:var(--consultant-muted);font-size:8.5px;font-weight:500;letter-spacing:.08em}
+.consultant-agent-presence i{width:5px;height:5px;border-radius:50%;background:#63bd86;
+  box-shadow:0 0 0 3px rgba(99,189,134,.11)}
+.home-awareness-placeholder-body.consultant-agent-body{inset:120px 0 0;overflow:hidden}
+.consultant-agent-feed{position:absolute;inset:0 0 78px;overflow-y:auto;overflow-x:hidden;
+  padding:14px 20px 34px;scrollbar-width:none;overscroll-behavior:contain;
+  color:var(--consultant-ink);font-family:var(--serif)}
+.consultant-agent-feed::-webkit-scrollbar{display:none}
+.consultant-day-marker{display:flex;justify-content:center;margin:2px 0 18px}
+.consultant-day-marker span{padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.56);color:var(--consultant-muted);
+  font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:.08em;box-shadow:0 6px 18px rgba(110,88,78,.06)}
+.consultant-agent-message{margin-bottom:18px;animation:consultantMessageIn .38s var(--ease-smooth) both}
+.consultant-agent-meta{display:flex;align-items:center;gap:8px;margin:0 2px 8px;color:var(--consultant-muted);font-family:var(--sans);font-size:10px;letter-spacing:.06em}
+.consultant-agent-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.46);border:1px solid rgba(255,255,255,.82);color:var(--consultant-accent)}
+.consultant-agent-avatar svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.consultant-agent-meta b{font-weight:700;color:var(--consultant-ink)}
+.consultant-agent-meta time{margin-left:auto;color:var(--consultant-muted);font-size:8.5px}
+.consultant-dispatch-card,.consultant-analysis-card{position:relative;overflow:hidden;padding:18px 16px;border-radius:24px;background:rgba(255,255,255,.68);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.94);
+  box-shadow:0 14px 34px rgba(110,88,78,.11),inset 0 1px 0 rgba(255,255,255,.96)}
+.consultant-report-kicker{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;
+  color:var(--consultant-accent);font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.14em}
+.consultant-report-kicker span{color:var(--consultant-muted);font-size:8px;font-weight:500;letter-spacing:.06em}
+.consultant-report-title{font-family:var(--serif);font-size:14px;font-weight:600;line-height:1.45;color:var(--consultant-ink);white-space:nowrap;letter-spacing:0}
+.consultant-report-dashboard{display:flex;flex-direction:column;gap:8px;margin-top:15px}
+.consultant-primary-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.consultant-primary-metric{min-width:0;min-height:68px;padding:10px 14px;background:transparent;display:flex;flex-direction:column;justify-content:center}
+.consultant-primary-metric+ .consultant-primary-metric{border-left:1px solid rgba(95,95,95,.10)}
+.consultant-data-label{color:var(--consultant-muted);font-family:var(--sans);font-size:10.5px;font-weight:500;letter-spacing:.02em;white-space:nowrap}
+.consultant-primary-value{margin-top:6px;color:var(--consultant-ink);font-family:var(--sans);font-size:22px;line-height:1;font-weight:600;letter-spacing:-.03em;white-space:nowrap}
+.consultant-primary-value small{margin-left:2px;color:var(--consultant-muted);font-size:10px;font-weight:500;letter-spacing:0}
+.consultant-secondary-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;padding:13px 0 4px;border-top:1px solid rgba(95,95,95,.10);background:transparent}
+.consultant-secondary-metric{min-width:0;padding:0 6px;text-align:center;border-left:1px solid rgba(95,95,95,.10)}
+.consultant-secondary-metric:first-child{border-left:0}
+.consultant-secondary-value{margin-top:6px;color:var(--consultant-ink);font-family:var(--sans);font-size:16px;line-height:1;font-weight:600;white-space:nowrap}
+.consultant-secondary-value small{margin-left:2px;color:var(--consultant-muted);font-size:9px;font-weight:500}
+.consultant-report-insight{margin-top:12px;padding-top:11px;border-top:1px solid rgba(95,95,95,.10)}
+.consultant-user-row{display:flex;justify-content:flex-end;margin:20px 0 17px;animation:consultantMessageIn .34s var(--ease-smooth) both}
+.consultant-user-wrap{max-width:80%}
+.consultant-user-name{text-align:right;margin:0 5px 6px;color:var(--consultant-muted);font-family:var(--sans);font-size:8.5px;letter-spacing:.08em}
+.consultant-user-bubble{padding:12px 15px;border-radius:20px 20px 5px 20px;background:rgba(255,127,99,.12);color:var(--consultant-accent);
+  border:1px solid rgba(255,127,99,.08);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  font-family:var(--serif);font-size:13px;font-weight:600;line-height:1.55;box-shadow:0 10px 24px rgba(139,91,75,.10)}
+.consultant-evidence{display:grid;gap:0;margin:0}
+.consultant-evidence-item{display:block;padding:13px 0;background:transparent;border-top:1px solid rgba(95,95,95,.10)}
+.consultant-evidence-item:first-child{border-top:0;padding-top:0}
+.consultant-section-label{color:var(--consultant-accent);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.08em}
+.consultant-evidence-item span{display:block;margin-top:7px;}
+.consultant-evidence-item span,.consultant-hypothesis p,.consultant-report-insight,.consultant-proactive-copy,.consultant-mantra-card footer{color:var(--consultant-ink);font-family:var(--sans);font-size:13px;font-weight:400;line-height:1.7}
+.consultant-hypothesis{margin-top:0;padding:13px 0 0;border-radius:0;background:transparent;
+  border-left:0;border-top:1px solid rgba(95,95,95,.10)}
+.consultant-hypothesis p{margin-top:7px}
+.consultant-intervention-board{margin-top:13px;padding-top:13px;border-top:1px solid rgba(95,95,95,.10)}
+.consultant-mantra-card{position:relative;overflow:hidden;margin-top:10px;padding:18px 17px 17px;border-radius:18px;border:1px solid rgba(255,255,255,.96);
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,244,239,.68));
+  box-shadow:0 12px 30px rgba(139,91,75,.10),inset 0 1px 0 rgba(255,255,255,.98)}
+.consultant-mantra-card::before{content:"“";position:absolute;right:13px;top:-10px;color:rgba(255,127,99,.10);font-family:var(--serif);font-size:72px;line-height:1}
+.consultant-mantra-kicker{position:relative;color:var(--consultant-muted);font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:.12em}
+.consultant-mantra-card p{position:relative;margin-top:8px;color:var(--consultant-ink);font-family:var(--serif);font-size:18px;font-weight:500;line-height:1.65;letter-spacing:.03em;white-space:nowrap}
+.consultant-mantra-card footer{position:relative;margin-top:10px;padding-top:0;border-top:0}
+.consultant-proactive-message{margin-top:34px}
+.consultant-proactive-card{position:relative;overflow:hidden;padding:21px 18px 18px;border-radius:26px;
+  background:linear-gradient(145deg,rgba(255,250,247,.92),rgba(247,232,225,.72));
+  border:1px solid rgba(255,255,255,.94);box-shadow:0 16px 38px rgba(110,88,78,.13),inset 0 1px 0 rgba(255,255,255,.98)}
+.consultant-proactive-card::after{content:"";position:absolute;width:116px;height:116px;right:-49px;top:-56px;border-radius:50%;
+  border:22px solid rgba(255,255,255,.25);pointer-events:none}
+.consultant-proactive-kicker{position:relative;z-index:1;display:flex;align-items:center;gap:7px;margin-bottom:10px;
+  color:var(--consultant-muted);font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:.12em}
+.consultant-proactive-kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--consultant-accent);
+  box-shadow:0 0 0 4px rgba(255,127,99,.09)}
+.consultant-proactive-title{position:relative;z-index:1;margin:0;color:var(--consultant-ink);font-family:var(--serif);
+  font-size:18px;font-weight:500;line-height:1.55;letter-spacing:.02em}
+.consultant-proactive-copy{position:relative;z-index:1;margin-top:7px}
+.consultant-taste-message{margin-top:28px}
+.consultant-taste-card{position:relative;overflow:hidden;padding:19px 17px 18px;border-radius:24px;
+  background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.94);
+  box-shadow:0 14px 34px rgba(110,88,78,.11),inset 0 1px 0 rgba(255,255,255,.96)}
+.consultant-taste-kicker{color:var(--consultant-accent);font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.14em}
+.consultant-taste-signal,.consultant-taste-practice p{color:var(--consultant-ink);font-family:var(--sans);font-size:13px;font-weight:400;line-height:1.7}
+.consultant-taste-signal{margin:0}
+.consultant-taste-practice{margin-top:13px;padding-top:13px;border-top:1px solid rgba(95,95,95,.10)}
+.consultant-taste-recommendation{margin-top:10px;padding:15px 14px 14px;border-radius:18px;background:rgba(255,255,255,.82);box-shadow:0 9px 24px rgba(110,88,78,.10),inset 0 1px 0 rgba(255,255,255,.98)}
+.consultant-taste-recommendation h3{margin:0;color:var(--consultant-ink);font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.5;letter-spacing:.02em}
+.consultant-taste-recommendation p{margin-top:7px}
+.consultant-sleep-music-button{position:relative;z-index:1;width:100%;margin-top:17px;padding:13px 13px;border:0;border-radius:19px;
+  display:grid;grid-template-columns:42px 1fr;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--consultant-ink);
+  background:rgba(255,255,255,.82);box-shadow:0 9px 24px rgba(110,88,78,.10),inset 0 1px 0 rgba(255,255,255,.98);
+  transition:transform .2s var(--ease-smooth),box-shadow .2s ease,background .2s ease}
+.consultant-sleep-music-button:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(110,88,78,.13),inset 0 1px 0 rgba(255,255,255,.98)}
+.consultant-sleep-music-button:active{transform:scale(.985)}
+.consultant-sleep-play{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--consultant-accent);color:#fff;box-shadow:0 7px 16px rgba(255,127,99,.22)}
+.consultant-sleep-play::before{content:"";width:0;height:0;margin-left:3px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid currentColor}
+.consultant-sleep-wave{display:none;height:16px;align-items:center;gap:2px}
+.consultant-sleep-wave i{display:block;width:2px;height:6px;border-radius:999px;background:currentColor}
+.consultant-sleep-music-button.playing .consultant-sleep-play::before{display:none}
+.consultant-sleep-music-button.playing .consultant-sleep-wave{display:flex}
+.consultant-sleep-music-button.playing .consultant-sleep-wave i{animation:consultantSleepWave .9s ease-in-out infinite}
+.consultant-sleep-music-button.playing .consultant-sleep-wave i:nth-child(2){animation-delay:.12s}
+.consultant-sleep-music-button.playing .consultant-sleep-wave i:nth-child(3){animation-delay:.24s}
+.consultant-sleep-music-button.playing .consultant-sleep-wave i:nth-child(4){animation-delay:.36s}
+.consultant-sleep-music-button.playing .consultant-sleep-wave i:nth-child(5){animation-delay:.48s}
+.consultant-sleep-music-copy{min-width:0;font-family:var(--sans)}
+.consultant-sleep-music-label,.consultant-sleep-music-name{display:block}
+.consultant-sleep-music-label{color:var(--consultant-accent);font-size:8.5px;font-weight:700;letter-spacing:.12em}
+.consultant-sleep-music-name{margin-top:4px;font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.25}
+.consultant-breath-line-preview{width:100%;margin-top:10px;padding:10px;border:0;border-radius:20px;display:grid;grid-template-columns:58px 1fr;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--consultant-ink);background:rgba(255,255,255,.88);box-shadow:0 10px 27px rgba(110,88,78,.10),inset 0 1px 0 rgba(255,255,255,.98);transition:transform .2s var(--ease-smooth),box-shadow .2s ease}
+.consultant-breath-line-preview:hover{transform:translateY(-1px);box-shadow:0 13px 30px rgba(110,88,78,.14),inset 0 1px 0 rgba(255,255,255,.98)}
+.consultant-breath-line-preview:active{transform:scale(.985)}
+.consultant-breath-line-thumb{width:58px;height:76px;overflow:hidden;border-radius:14px;background:#f7f4ef;box-shadow:0 8px 20px rgba(90,72,64,.10)}
+.consultant-breath-line-thumb img{width:100%;height:100%;display:block;object-fit:cover}
+.consultant-breath-line-copy{min-width:0;font-family:var(--sans)}
+.consultant-breath-line-label{display:block;color:var(--consultant-accent);font-size:8.5px;font-weight:700;letter-spacing:.12em}
+.consultant-breath-line-title{display:block;margin-top:5px;font-family:var(--serif);font-size:14px;font-weight:600;line-height:1.45}
+.consultant-card-draw-preview{width:100%;margin-top:10px;padding:12px;border:0;border-radius:20px;display:grid;grid-template-columns:54px 1fr;
+  align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--consultant-ink);background:rgba(255,255,255,.88);
+  box-shadow:0 10px 27px rgba(110,88,78,.10),inset 0 1px 0 rgba(255,255,255,.98);transition:transform .2s var(--ease-smooth),box-shadow .2s ease}
+.consultant-card-draw-preview:hover{transform:translateY(-1px);box-shadow:0 13px 30px rgba(110,88,78,.14),inset 0 1px 0 rgba(255,255,255,.98)}
+.consultant-card-draw-preview:active{transform:scale(.985)}
+.consultant-card-draw-mini{position:relative;width:48px;height:62px;border-radius:10px;overflow:hidden;background:linear-gradient(155deg,#fffaf6,#f5ddd1);
+  box-shadow:3px 4px 0 rgba(222,194,181,.52),6px 7px 0 rgba(255,255,255,.76)}
+.consultant-card-draw-mini img{width:100%;height:100%;display:block;object-fit:cover}
+.consultant-card-draw-copy{min-width:0;font-family:var(--sans)}
+.consultant-card-draw-label{display:block;color:var(--consultant-accent);font-size:8.5px;font-weight:700;letter-spacing:.12em}
+.consultant-card-draw-title{display:block;margin-top:5px;font-family:var(--serif);font-size:14px;font-weight:600;line-height:1.45}
+.consultant-reflection-modal{position:absolute;inset:0;z-index:260;display:flex;align-items:flex-end;justify-content:center;padding:62px 10px 10px;
+  background:rgba(247,241,237,.58);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .32s var(--ease-smooth),visibility .32s}
+.consultant-reflection-modal.on{opacity:1;visibility:visible;pointer-events:auto}
+.consultant-reflection-sheet{position:relative;width:100%;max-height:100%;overflow-y:auto;padding:17px 17px 20px;border-radius:30px 30px 43px 43px;
+  color:var(--consultant-ink);background:linear-gradient(165deg,rgba(255,255,255,.98),rgba(255,247,242,.96));
+  border:1px solid rgba(255,255,255,.98);box-shadow:0 22px 54px rgba(90,72,64,.18),inset 0 1px 0 #fff;scrollbar-width:none}
+.consultant-reflection-sheet::-webkit-scrollbar{display:none}
+.consultant-reflection-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.consultant-reflection-header span{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.14em;color:var(--consultant-muted)}
+.consultant-reflection-close{width:34px;height:34px;border:0;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--consultant-ink);background:#fff;box-shadow:0 5px 15px rgba(90,72,64,.09);font-size:18px;font-weight:300}
+.consultant-reflection-progress{display:flex;gap:5px;margin-bottom:14px}
+.consultant-reflection-progress i{height:3px;flex:1;border-radius:99px;background:rgba(95,95,95,.10);transition:background .3s ease}
+.consultant-reflection-progress i.on{background:var(--consultant-accent)}
+.consultant-reflection-stage{display:none;flex-direction:column;align-items:center;text-align:center}
+.consultant-reflection-stage.on{display:flex}
+.consultant-reflection-eyebrow{color:var(--consultant-accent);font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.14em}
+.consultant-reflection-stage h2{max-width:280px;margin-top:8px;color:var(--consultant-ink);font-family:var(--serif);font-size:19px;font-weight:500;line-height:1.55}
+.consultant-reflection-stage>p{max-width:270px;margin-top:7px;color:var(--consultant-muted);font-family:var(--serif);font-size:11.5px;line-height:1.75}
+.consultant-reflection-instruction{margin:14px 0 4px!important;font-size:19px!important;line-height:1.55!important}
+.consultant-deck{position:relative;width:142px;height:190px;margin:22px auto 20px;border:0;background:transparent;cursor:pointer;perspective:700px}
+.consultant-deck::before,.consultant-deck::after{content:"";position:absolute;inset:7px;border-radius:20px;background:#f3dfd5;border:1px solid rgba(255,255,255,.88);box-shadow:0 13px 24px rgba(110,88,78,.12)}
+.consultant-deck::before{transform:rotate(-6deg) translate(-7px,2px)}.consultant-deck::after{transform:rotate(5deg) translate(7px,4px)}
+.consultant-deck-face{position:absolute;inset:0;z-index:2;border-radius:20px;display:flex;align-items:center;justify-content:center;
+  color:var(--consultant-accent);background:linear-gradient(145deg,#fffdfb,#f7e7df);border:1px solid rgba(255,255,255,.98);
+  box-shadow:0 16px 34px rgba(110,88,78,.15),inset 0 0 0 7px rgba(255,255,255,.44);font-family:var(--serif);font-size:25px}
+.consultant-deck-face img{width:100%;height:100%;border-radius:20px;object-fit:cover}
+.consultant-reflection-primary{min-width:70%;min-height:46px;padding:0 20px;border:0;border-radius:999px;cursor:pointer;background:var(--consultant-accent);color:#fff;
+  font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;box-shadow:0 10px 24px rgba(255,127,99,.20);transition:transform .2s var(--ease-smooth)}
+.consultant-reflection-primary:hover{transform:translateY(-1px)}.consultant-reflection-primary:active{transform:scale(.98)}
+.consultant-reflection-primary:disabled{opacity:.58;cursor:wait}
+.consultant-reflection-art{position:relative;width:142px;height:182px;margin:3px auto 13px;overflow:hidden;border-radius:18px;
+  background:linear-gradient(160deg,#fdf9f5 0%,#f5dfd5 54%,#e6eee8 100%);box-shadow:0 15px 32px rgba(110,88,78,.14);transform-style:preserve-3d}
+.consultant-reflection-art.revealed{animation:consultantCardReveal .6s var(--ease-smooth) both}
+.consultant-reflection-art::before{content:"";position:absolute;width:102px;height:102px;right:-29px;top:-22px;border-radius:50%;background:rgba(241,146,116,.48)}
+.consultant-reflection-art::after{content:"";position:absolute;width:104px;height:142px;left:-46px;bottom:-53px;border:24px solid rgba(114,156,136,.28);border-radius:54% 46% 0 0}
+.consultant-reflection-path{position:absolute;z-index:2;width:34px;height:128px;left:56px;bottom:-26px;border-radius:50% 50% 0 0;background:rgba(255,255,255,.70);transform:rotate(7deg)}
+.consultant-reflection-door{position:absolute;z-index:3;width:42px;height:66px;left:51px;top:55px;border:1px solid rgba(95,95,95,.34);border-bottom:0;border-radius:25px 25px 0 0}
+.consultant-reflection-dot{position:absolute;z-index:4;width:8px;height:8px;left:69px;top:84px;border-radius:50%;background:var(--consultant-accent);box-shadow:0 0 0 7px rgba(255,255,255,.30)}
+.consultant-reflection-cards{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:5px auto 11px;perspective:800px}
+.consultant-reflection-card{position:relative;overflow:hidden;aspect-ratio:3/4;border-radius:13px;background:#f5eee9;
+  box-shadow:0 10px 24px rgba(90,72,64,.13);transform-origin:center}
+.consultant-reflection-card img{width:100%;height:100%;display:block;object-fit:cover}
+.consultant-reflection-card.revealed{animation:consultantCardReveal .62s var(--ease-smooth) both}
+.consultant-reflection-card.revealed:nth-child(2){animation-delay:.12s}.consultant-reflection-card.revealed:nth-child(3){animation-delay:.24s}
+.consultant-reflection-form{width:100%;text-align:left}
+.consultant-reflection-question{display:block;margin-top:10px;color:var(--consultant-ink);font-family:var(--serif);font-size:12.5px;line-height:1.55}
+.consultant-reflection-question textarea{display:block;width:100%;height:61px;margin-top:7px;padding:11px 12px;resize:none;outline:0;border-radius:15px;
+  border:1px solid rgba(95,95,95,.10);background:rgba(255,255,255,.76);color:var(--consultant-ink);font-family:var(--serif);font-size:12px;line-height:1.55;
+  transition:border-color .2s ease,box-shadow .2s ease}
+.consultant-reflection-question textarea:focus{border-color:rgba(255,127,99,.42);box-shadow:0 0 0 4px rgba(255,127,99,.08)}
+.consultant-reflection-question textarea.invalid{border-color:rgba(255,127,99,.68);box-shadow:0 0 0 4px rgba(255,127,99,.08)}
+.consultant-reflection-error{min-height:16px;margin:6px 0 4px;color:var(--consultant-accent);font-family:var(--sans);font-size:9px;text-align:center}
+.consultant-reflection-form .consultant-reflection-primary{display:block;margin:10px auto 0}
+.consultant-reflection-result{margin-top:18px}
+.consultant-reflection-result-card{padding:19px 17px;border-radius:24px;background:rgba(255,255,255,.74);border:1px solid rgba(255,255,255,.96);
+  box-shadow:0 14px 34px rgba(110,88,78,.11),inset 0 1px 0 rgba(255,255,255,.98)}
+.consultant-reflection-result-card h3{margin-top:9px;color:var(--consultant-ink);font-family:var(--serif);font-size:18px;font-weight:500;line-height:1.6}
+.consultant-reflection-result-card p,.consultant-reflection-result-card footer{color:var(--consultant-ink);font-family:var(--serif);font-size:13px;line-height:1.78}
+.consultant-reflection-result-card p{margin-top:10px}
+.consultant-reflection-result-card footer{margin-top:10px;padding-top:0;border-top:0}
+.consultant-agent-composer{position:absolute;left:0;right:0;bottom:0;height:78px;padding:10px 16px 16px;
+  display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.94);border-top:1px solid rgba(85,72,66,.07)}
+.consultant-agent-input-wrap{flex:1;height:44px;display:flex;align-items:center;padding:0 7px 0 14px;border-radius:999px;
+  background:#fff8f5;border:1px solid rgba(84,72,66,.08)}
+.consultant-agent-input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:#514944;
+  font-family:var(--sans);font-size:10.5px}
+.consultant-agent-input::placeholder{color:#afa5a1}
+.consultant-voice-btn,.consultant-send-btn{width:34px;height:34px;flex:0 0 34px;border:0;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;cursor:pointer;transition:transform .2s ease,background .2s ease}
+.consultant-voice-btn{background:#fff;color:#887c77}
+.consultant-send-btn{background:var(--primary);color:#fff}
+.consultant-voice-btn:hover,.consultant-send-btn:hover{transform:translateY(-1px)}
+.consultant-voice-btn.recording{color:var(--primary);animation:consultantRecordPulse 1.1s ease-in-out infinite}
+.consultant-voice-btn svg,.consultant-send-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.consultant-inline-agent{margin:10px 0 16px;padding:11px 13px;border-radius:17px 17px 17px 5px;background:rgba(255,255,255,.68);
+  border:1px solid rgba(255,255,255,.94);color:var(--consultant-ink);font-family:var(--serif);font-size:10.5px;line-height:1.7;
+  box-shadow:0 10px 26px rgba(110,88,78,.09),inset 0 1px 0 rgba(255,255,255,.96);
+  animation:consultantMessageIn .32s var(--ease-smooth) both}
+.consultant-thinking{display:inline-flex;gap:3px;align-items:center;height:12px}
+.consultant-thinking i{width:4px;height:4px;border-radius:50%;background:#d8a595;animation:consultantDot 1s ease-in-out infinite}
+.consultant-thinking i:nth-child(2){animation-delay:.14s}.consultant-thinking i:nth-child(3){animation-delay:.28s}
+@keyframes consultantMessageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes consultantRecordPulse{50%{box-shadow:0 0 0 7px rgba(255,127,99,.1)}}
+@keyframes consultantDot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-2px)}}
+@keyframes consultantSleepWave{0%,100%{height:5px;opacity:.62}50%{height:16px;opacity:1}}
+@keyframes consultantCardReveal{from{opacity:0;transform:rotateY(90deg) scale(.94)}to{opacity:1;transform:rotateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.consultant-agent-message,.consultant-user-row,.consultant-inline-agent,.consultant-reflection-art.revealed{animation:none}.consultant-voice-btn.recording,.consultant-sleep-music-button.playing .consultant-sleep-wave i{animation:none}}
 @keyframes homeOrbFloatA{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(6px,-10px,0)}}
 @keyframes homeOrbFloatB{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-7px,8px,0)}}
 @keyframes homeOrbFloatC{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(8px,9px,0)}}
 @keyframes homeOrbFloatD{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-6px,-11px,0)}}
 @keyframes homeOrbFloatX{0%,100%{transform:translateX(-50%) translate3d(0,0,0)}50%{transform:translateX(-50%) translate3d(0,-8px,0)}}
 #home-morn>.ai-report,#home-eve>.ai-report{position:relative;z-index:6;margin:-230px 22px 14px;
+  display:none;
   background:linear-gradient(155deg,rgba(255,255,255,.7),rgba(255,248,244,.5));
   -webkit-backdrop-filter:blur(22px) saturate(145%);backdrop-filter:blur(22px) saturate(145%);
   border-color:rgba(255,255,255,.82);
   box-shadow:0 18px 44px -30px rgba(125,91,74,.58),inset 0 1px 0 rgba(255,255,255,.86)}
 .home-state-screen{display:none;position:absolute;inset:0;z-index:80;padding:0 24px 34px;
-  background:
-    radial-gradient(330px 250px at 24% 38%,rgba(255,230,178,.18),transparent 68%),
-    radial-gradient(340px 260px at 58% 42%,rgba(255,188,178,.13),transparent 72%),
-    radial-gradient(260px 220px at 78% 30%,rgba(255,214,222,.08),transparent 70%),
-    linear-gradient(160deg,#fffdf9,#fff7f1 58%,#fffdfb);
   overflow-y:auto;overflow-x:hidden}
 .home-state-screen::-webkit-scrollbar{display:none}
-.home-state-screen.on{display:block;animation:fadeUp .35s var(--ease-smooth)}
+.home-state-screen.on{display:block;animation:pageEnterStable .28s var(--ease-smooth)}
+.home-state-screen,#t-diary,#t-space{background:var(--soft-page-bg)}
 .home-state-screen .health-sphere-wrap{margin-top:104px;margin-bottom:2px}
 .home-state-screen .health-sphere{height:332px}
 .body-sleep-report{position:relative;z-index:1;margin:0 4px 18px}
 .body-sleep-report .ai-report-card{background:rgba(255,252,249,.66);border-color:rgba(255,255,255,.86)}
-.body-sleep-report .ai-report-card{min-height:116px;padding:20px 20px 18px}
-.body-sleep-report .arc-main{margin-bottom:18px}
+.body-sleep-report .ai-report-card{min-height:156px;padding:26px 20px 24px}
+.body-sleep-report .arc-main{margin-bottom:28px}
 .body-sleep-report .arc-label{font-family:var(--serif);font-size:14px;color:var(--text-primary);font-weight:600;letter-spacing:.05em;line-height:1.2}
 .body-ai-coach{position:relative;z-index:1;margin:0 4px 18px;padding:16px 18px 17px;border-radius:22px;
   background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(255,248,243,.44));
@@ -376,7 +636,7 @@ body{font-family:var(--sans);
   font-size:12px;font-weight:700;letter-spacing:.06em;white-space:nowrap;padding:0;cursor:pointer}
 .home-deep-screen,.home-child-screen{display:none;position:absolute;inset:0;z-index:90;padding:0 24px 34px;
   background:linear-gradient(160deg,#fffdf9,#fff7f1 58%,#fffdfb);overflow:hidden}
-.home-deep-screen.on,.home-child-screen.on{display:block;animation:fadeUp .35s var(--ease-smooth)}
+.home-deep-screen.on,.home-child-screen.on{display:block;animation:pageEnterStable .28s var(--ease-smooth)}
 #homeMindState,#homeMindToolbox,#homeMindDrawing,#homeMindToolDetail,#breakToolboxScreen,#breakToolDetailScreen{
   background:
     radial-gradient(260px 180px at 16% 12%,rgba(255,232,195,.5),transparent 72%),
@@ -1102,8 +1362,7 @@ body{font-family:var(--sans);
   box-shadow:0 10px 24px -22px rgba(125,91,74,.45);cursor:pointer}
 .growth-date-filter svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .growth-line{position:relative;padding:2px 0 28px}
-.growth-line::before{content:'';position:absolute;left:18px;top:12px;bottom:8px;width:2px;border-radius:999px;
-  background:linear-gradient(180deg,rgba(238,132,102,.16),rgba(238,132,102,.46),rgba(238,132,102,.12))}
+.growth-line::before{content:'';position:absolute;left:18px;top:12px;bottom:8px;width:1px;background:rgba(238,132,102,.34);border-radius:999px;box-shadow:0 0 4px rgba(238,132,102,.12);pointer-events:none;z-index:1}
 .growth-thread{display:none;position:absolute;left:7px;top:24px;width:28px;height:78%;
   background:linear-gradient(180deg,transparent,rgba(238,132,102,.18),transparent);
   filter:blur(.2px);border-radius:50%;opacity:.8;pointer-events:none}
@@ -1116,6 +1375,7 @@ body{font-family:var(--sans);
   border:1px solid rgba(255,255,255,.86);
   -webkit-backdrop-filter:blur(18px) saturate(148%);backdrop-filter:blur(18px) saturate(148%);
   box-shadow:0 15px 34px -30px rgba(125,91,74,.56),inset 0 1px 0 rgba(255,255,255,.86);cursor:pointer}
+.growth-card.compact{min-height:0;padding-top:12px;padding-bottom:16px}
 .growth-card:active{transform:translateY(1px)}
 .growth-card.left,.growth-card.right{margin-left:42px;margin-right:0}
 .growth-card::before{content:'';position:absolute;top:26px;left:-24px;width:24px;border-top:1px dashed rgba(238,132,102,.3)}
@@ -1129,13 +1389,32 @@ body{font-family:var(--sans);
 .growth-kind.tune{background:rgba(255,127,99,.09);color:var(--primary)}
 .growth-kind.think{background:rgba(255,222,205,.46);color:#c46d55}
 .growth-kind.explore{background:rgba(255,238,215,.62);color:#bd7656}
+.growth-kind.kind-highlight{background:#fff0c7;color:#c67800;border-color:#ffd77d}
+.growth-kind.kind-low{background:#ffe8ed;color:#c64d66;border-color:#ffc0cc}
+.growth-kind.kind-interaction{background:#ffe9df;color:#df6649;border-color:#ffc6b5}
+.growth-kind.kind-report{background:rgba(255,255,255,.74);color:#c46d55;border-color:#efc0b0}
 .growth-title{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.45;color:var(--text-primary)}
 .growth-body{margin-top:7px;font-size:12px;line-height:1.66;color:var(--text-secondary)}
 .growth-metrics{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .growth-metrics span{display:inline-flex;border-radius:999px;padding:4px 8px;background:rgba(255,255,255,.62);
   border:1px solid rgba(255,255,255,.84);font-size:9.5px;color:var(--text-muted)}
 .growth-metrics em{font-style:normal;color:var(--primary);font-weight:700}
+.growth-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.growth-card-top .growth-kind{margin-bottom:0}
+.growth-card-top time{font-size:9.5px;color:var(--text-muted);letter-spacing:.05em}
+.growth-signal-preview{display:flex;flex-direction:column;margin-top:11px;border-top:1px solid rgba(95,95,95,.08)}
+.growth-signal-preview p{display:grid;grid-template-columns:38px 1fr;gap:8px;margin:0;padding:8px 0;border-bottom:1px solid rgba(95,95,95,.08);font-size:11px;line-height:1.5}
+.growth-signal-preview b{color:var(--text-muted);font-weight:600}
+.growth-signal-preview span{color:var(--text-secondary)}
+.growth-summary-line{margin-top:10px;font-family:var(--serif);font-size:12.5px;line-height:1.65;color:var(--text-primary)}
+.growth-interaction-brief{margin-top:10px;padding-top:9px;border-top:1px solid rgba(95,95,95,.08);font-size:11px;color:var(--text-secondary)}
+.growth-interaction-brief b{display:block;margin-bottom:3px;color:var(--primary);font-size:10px;letter-spacing:.08em}
+.growth-interaction-brief span{display:block;line-height:1.55}
+.growth-report-brief{display:flex;gap:8px;margin-top:11px}
+.growth-report-brief span{flex:1;padding:9px 8px;border-radius:14px;background:rgba(255,255,255,.58);font-size:9.5px;line-height:1.45;color:var(--text-muted)}
+.growth-report-brief b{display:block;margin-top:2px;font-family:var(--serif);font-size:14px;color:var(--text-primary)}
 .growth-card.hide{display:none}
+.growth-day.hide{display:none}
 .growth-frequency-word{position:absolute;left:12px;bottom:9px;font-family:var(--serif);font-size:17px;font-weight:700;color:#5f7456;line-height:1;
   text-shadow:0 1px 10px rgba(255,255,255,.95)}
 .growth-frequency-word span{display:block;margin-top:3px;font-family:var(--sans);font-size:9px;letter-spacing:.16em;color:rgba(238,132,102,.88);font-weight:800}
@@ -1196,6 +1475,32 @@ body{font-family:var(--sans);
 .growth-bubble{max-width:88%;border-radius:18px;padding:12px 14px;font-size:13px;line-height:1.75;color:var(--text-primary)}
 .growth-bubble.user{align-self:flex-end;background:rgba(255,232,222,.72)}
 .growth-bubble.ai{align-self:flex-start;background:rgba(255,255,255,.78);box-shadow:0 12px 28px -28px rgba(125,91,74,.55)}
+.growth-detail-section-title{margin-bottom:11px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--primary)}
+.growth-detail-copy{font-family:var(--serif);font-size:14px;line-height:1.85;color:var(--text-primary)}
+.growth-voice-quote{padding:14px 15px;border-radius:18px;background:rgba(255,250,247,.72);border:1px solid rgba(238,132,102,.12)}
+.growth-voice-quote p{font-family:var(--serif);font-size:14px;line-height:1.8;color:var(--text-primary)}
+.growth-voice-quote footer{margin-top:9px;font-size:10.5px;line-height:1.6;color:var(--text-muted)}
+.growth-body-data{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.growth-body-data div{min-height:72px;padding:13px 6px;border-radius:17px;text-align:center;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.86)}
+.growth-body-data b{display:block;font-family:var(--serif);font-size:18px;color:var(--text-primary)}
+.growth-body-data span{display:block;margin-top:3px;font-size:9px;color:var(--text-muted);letter-spacing:.05em}
+.growth-ai-record{padding:15px 16px;border-radius:19px;background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,244,239,.58));font-family:var(--serif);font-size:14px;line-height:1.85;color:var(--text-primary)}
+.growth-interaction-piece{padding:16px;border-radius:20px;background:rgba(255,250,247,.72);border:1px solid rgba(238,132,102,.12)}
+.growth-interaction-piece strong{display:block;font-family:var(--serif);font-size:18px;line-height:1.55;color:var(--text-primary)}
+.growth-interaction-piece p{margin-top:8px;font-size:12.5px;line-height:1.75;color:var(--text-secondary)}
+.growth-card-result-row{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.growth-card-result-item{width:100%;padding:12px 14px;border-radius:14px;text-align:left;background:rgba(255,255,255,.78)}
+.growth-card-result-item b{display:block;font-size:10.5px;line-height:1.5;color:var(--text-muted);font-weight:600}
+.growth-card-result-item p{margin-top:5px;font-family:var(--serif);font-size:12px;line-height:1.65;color:var(--text-primary)}
+.growth-report-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.growth-report-metrics div{padding:13px;border-radius:17px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.88)}
+.growth-report-metrics span{display:block;font-size:9.5px;color:var(--text-muted)}
+.growth-report-metrics b{display:block;margin-top:4px;font-family:var(--serif);font-size:18px;color:var(--text-primary)}
+.growth-report-detail-list{display:flex;flex-direction:column;gap:13px}
+.growth-report-detail-list article{padding-bottom:13px;border-bottom:1px solid rgba(95,95,95,.08)}
+.growth-report-detail-list article:last-child{padding-bottom:0;border-bottom:0}
+.growth-report-detail-list h4{font-size:11px;color:var(--text-muted);letter-spacing:.08em}
+.growth-report-detail-list p{margin-top:6px;font-family:var(--serif);font-size:13.5px;line-height:1.8;color:var(--text-primary)}
 .growth-change-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:stretch}
 .growth-change-card{border-radius:18px;padding:12px;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.84)}
 .growth-change-card h4{margin:0 0 8px;font-size:11px;color:var(--text-muted);letter-spacing:.12em}
@@ -1559,6 +1864,14 @@ body{font-family:var(--sans);
   border:1px solid rgba(255,255,255,.78);
   box-shadow:0 4px 20px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.9)}
 .mine-profile-top{display:flex;align-items:center;gap:16px}
+.mine-profile-entry{display:grid;grid-template-columns:34px 1fr 18px;align-items:center;gap:10px;width:100%;margin:14px 0 8px;padding:10px 12px;border-radius:16px;font-family:var(--sans);text-align:left;color:var(--text-primary);cursor:pointer;transition:transform .15s,background .15s}
+.mine-profile-entry,.mine-act-btn{background:rgba(255,252,248,.62);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(255,255,255,.82);box-shadow:0 2px 10px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.88)}
+.mine-profile-entry:active{transform:scale(.98);background:rgba(255,255,255,.76)}
+.mine-profile-entry-icon{width:34px;height:34px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(255,127,99,.09);color:var(--primary)}
+.mine-profile-entry-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.mine-profile-entry-copy b{display:block;font-size:12px;font-weight:600;letter-spacing:.04em}
+.mine-profile-entry-copy small{display:block;margin-top:2px;font-size:9.5px;color:var(--text-muted);letter-spacing:.03em}
+.mine-profile-entry-arr{font-size:18px;line-height:1;color:rgba(0,0,0,.2);text-align:right}
 .mine-measure-divider{height:1px;background:rgba(0,0,0,.06);margin:16px 0 2px}
 /* 全局 · 连接状态 chip */
 .app-conn{position:absolute;top:0;right:0;z-index:5;display:flex;align-items:center;gap:5px;
@@ -1645,12 +1958,7 @@ body{font-family:var(--sans);
 .dev-log .lg-hex{color:rgba(255,255,255,.5)}
 .mine-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:6px 0 2px}
 .mine-act-btn{padding:13px 6px 11px;text-align:center;cursor:pointer;
-  background:rgba(255,252,248,.62);
-  backdrop-filter:blur(16px) saturate(160%);
-  -webkit-backdrop-filter:blur(16px) saturate(160%);
-  border:1px solid rgba(255,255,255,.82);
   border-radius:16px;
-  box-shadow:0 2px 10px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.88);
   transition:transform .15s}
 .mine-act-btn:active{transform:scale(.94);opacity:.85}
 .mine-act-btn svg{width:20px;height:20px;stroke:var(--primary);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block;margin:0 auto 6px}
@@ -2846,22 +3154,16 @@ body{font-family:var(--sans);
   <aside class="side">
     <div class="brand">
       <h1>LOOOVE</h1>
-      <p>基于生理和情绪信号的AI身心成长教练</p>
+      <p>最懂你的私人顾问</p>
     </div>
     <div class="principles">
-      <div><b>觉察与理解</b>让身体数据与情绪感受被持续记录，帮助你看见自己的身心状态如何变化。</div>
-      <div><b>稳定与接纳</b>在波动中先稳定下来，再理解情绪背后的原因、需要与未被照顾的部分。</div>
-      <div><b>突破与成长</b>通过对话与互动，完成一次次小尝试与思维升级，拥有更健康的身心状态。</div>
+      <div><b>感知与见证</b>戒指持续记录身体信号，无感采集语音线索，结合用户主观感受与互动，共同识别真实发生的身心变化；</div>
+      <div><b>陪伴与行动</b>通过触觉提醒、对话、调息、音乐与绘画等方式，提供适合当下的个性化支持。</div>
     </div>
   </aside>
 
   <!-- 中：流程选择器 + 手机 -->
   <div class="center-col">
-
-    <div class="flow-picker" id="flowPicker" role="tablist" aria-label="首页模式">
-      <button class="fp-btn on" type="button" data-flow="awareness" role="tab" aria-selected="true" onclick="selectHomeFlow('awareness')">实时身心觉察</button>
-      <button class="fp-btn" type="button" data-flow="daily" role="tab" aria-selected="false" onclick="selectHomeFlow('daily')">日常</button>
-    </div>
 
     <div class="phone-wrap">
       <div class="phone" id="phone">
@@ -3009,19 +3311,264 @@ body{font-family:var(--sans);
 
           <!-- 连接状态 chip：由 JS 注入到每个 tab 的标题栏（跟随页面滚动）-->
 
+          <div class="home-child-screen" id="homeAwarenessPlaceholder">
+            <div class="sr-topbar">
+              <button class="sr-back" onclick="closeHomeAwarenessPlaceholder()" aria-label="返回">
+                <svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="sr-toptitle-wrap">
+                <div class="sr-toptitle">互动</div>
+                <div class="consultant-agent-presence"><i></i>LOOOVE 在线 · 戒指数据已同步</div>
+              </div>
+              <div style="width:28px;flex-shrink:0"></div>
+            </div>
+            <div class="home-awareness-placeholder-body consultant-agent-body" aria-label="LOOOVE 互动区">
+              <main class="consultant-agent-feed" id="consultantAgentFeed" aria-live="polite">
+                <div class="consultant-day-marker"><span>6月11日 · 星期四</span></div>
+                <article class="consultant-agent-message">
+                  <div class="consultant-agent-meta">
+                    <span class="consultant-agent-avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
+                    </span>
+                    <b>LOOOVE</b><time>07:30</time>
+                  </div>
+                  <section class="consultant-dispatch-card consultant-morning-report">
+                    <div class="consultant-report-kicker">早间报告 <span>基于昨夜戒指数据</span></div>
+                    <h2 class="consultant-report-title">今晨恢复偏慢，适合从容启动。</h2>
+
+                    <div class="consultant-report-dashboard" aria-label="今晨身体状态仪表盘">
+                      <div class="consultant-primary-metrics">
+                        <div class="consultant-primary-metric"><div class="consultant-data-label">Loooveness</div><div class="consultant-primary-value">56</div></div>
+                        <div class="consultant-primary-metric"><div class="consultant-data-label">睡眠</div><div class="consultant-primary-value">6小时42分</div></div>
+                      </div>
+                      <div class="consultant-secondary-metrics">
+                        <div class="consultant-secondary-metric"><div class="consultant-data-label">HRV</div><div class="consultant-secondary-value">32<small>ms</small></div></div>
+                        <div class="consultant-secondary-metric"><div class="consultant-data-label">静息心率</div><div class="consultant-secondary-value">70<small>bpm</small></div></div>
+                        <div class="consultant-secondary-metric"><div class="consultant-data-label">压力</div><div class="consultant-secondary-value">3.3<small>/ 5</small></div></div>
+                      </div>
+                    </div>
+
+                    <p class="consultant-report-insight">昨夜恢复低于近期水平。上午先做熟悉的事，把需要判断的任务留到状态打开之后。</p>
+                  </section>
+                </article>
+
+                <div class="consultant-user-row">
+                  <div class="consultant-user-wrap">
+                    <div class="consultant-user-name">我 · 10:18</div>
+                    <div class="consultant-user-bubble">我最近压力好大</div>
+                  </div>
+                </div>
+
+                <article class="consultant-agent-message">
+                  <div class="consultant-agent-meta">
+                    <span class="consultant-agent-avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
+                    </span>
+                    <b>LOOOVE</b><time>10:19</time>
+                  </div>
+                  <section class="consultant-analysis-card">
+                    <div class="consultant-evidence">
+                      <div class="consultant-evidence-item"><b class="consultant-section-label">声音线索</b><span>最近的录音中，你们围绕需求排期与实现边界产生了争辩；过程中，你的语速明显加快，语气里也流露出被压抑的愤怒。</span></div>
+                      <div class="consultant-evidence-item"><b class="consultant-section-label">身体数据</b><span>会议后紧张感持续，HRV 低于个人基线，情绪压力保持在高位。</span></div>
+                    </div>
+                    <div class="consultant-hypothesis">
+                      <div class="consultant-hypothesis-label consultant-section-label">推测</div>
+                      <p>你在会议中提出需求后，被开发直接反驳，双方争辩了几句。虽然会议已经结束，但那股被顶回来的恼火，还是继续留在身体里。</p>
+                    </div>
+                    <div class="consultant-intervention-board">
+                      <div class="consultant-intervention-title consultant-section-label">推荐</div>
+                      <blockquote class="consultant-mantra-card">
+                        <div class="consultant-mantra-kicker">今日心法</div>
+                        <p>方案被反对，不等于能力被否定。</p>
+                        <footer>带走有用的信息，允许自己有情绪；<br>等愤怒过去，再决定什么值得回应。</footer>
+                      </blockquote>
+                    </div>
+                  </section>
+                </article>
+
+                <article class="consultant-agent-message consultant-proactive-message">
+                  <div class="consultant-agent-meta">
+                    <span class="consultant-agent-avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
+                    </span>
+                    <b>LOOOVE</b><time>23:47</time>
+                  </div>
+                  <section class="consultant-proactive-card" aria-label="LOOOVE 深夜主动关心">
+                    <div class="consultant-proactive-kicker">深夜关心</div>
+                    <h2 class="consultant-proactive-title">身体还没有进入休息。</h2>
+                    <p class="consultant-proactive-copy">已经很晚了，你还没有入睡，Loooveness 降至 41。我为你生成了一段音乐，陪你度过这段仍然清醒的时间。</p>
+                    <button class="consultant-sleep-music-button" id="consultantSleepMusicButton" onclick="toggleConsultantSleepMusic(this)" aria-pressed="false" aria-label="播放专属助眠音乐《慢慢落下来》">
+                      <span class="consultant-sleep-play" aria-hidden="true">
+                        <span class="consultant-sleep-wave"><i></i><i></i><i></i><i></i><i></i></span>
+                      </span>
+                      <span class="consultant-sleep-music-copy">
+                        <span class="consultant-sleep-music-label">专属助眠音乐</span>
+                        <span class="consultant-sleep-music-name">慢慢落下来</span>
+                      </span>
+                    </button>
+                  </section>
+                </article>
+
+                <div class="consultant-day-marker"><span>6月12日 · 星期五</span></div>
+                <div class="consultant-user-row consultant-restless-user">
+                  <div class="consultant-user-wrap">
+                    <div class="consultant-user-name">我 · 14:08</div>
+                    <div class="consultant-user-bubble">我有点烦躁</div>
+                  </div>
+                </div>
+
+                <article class="consultant-agent-message consultant-restless-message">
+                  <div class="consultant-agent-meta">
+                    <span class="consultant-agent-avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
+                    </span>
+                    <b>LOOOVE</b><time>14:09</time>
+                  </div>
+                  <section class="consultant-analysis-card consultant-restless-card">
+                    <div class="consultant-evidence">
+                      <div class="consultant-evidence-item"><b class="consultant-section-label">声音线索</b><span>最近的录音里没有出现明显冲突或反复提及的困扰，语速、语气都接近平时。</span></div>
+                      <div class="consultant-evidence-item"><b class="consultant-section-label">身体数据</b><span>HRV 39ms、静息心率 68bpm，压力曲线处在个人正常范围，身体没有明显负荷升高。</span></div>
+                    </div>
+                    <div class="consultant-hypothesis">
+                      <div class="consultant-hypothesis-label consultant-section-label">推测</div>
+                      <p>这次烦躁更像是注意力积累了一点噪音，不一定对应某件具体的事。</p>
+                    </div>
+                    <div class="consultant-intervention-board">
+                      <div class="consultant-intervention-title consultant-section-label">推荐</div>
+                      <button class="consultant-breath-line-preview" onclick="openMindDrawing('consultant')" aria-label="开始跟着呼吸画线">
+                        <span class="consultant-breath-line-thumb" aria-hidden="true"><img src="./呼吸画线.jpg" alt="跟着呼吸画线"></span>
+                        <span class="consultant-breath-line-copy">
+                          <span class="consultant-breath-line-label" id="consultantBreathLineLabel">绘画疗愈</span>
+                          <span class="consultant-breath-line-title">跟着呼吸画线</span>
+                        </span>
+                      </button>
+                    </div>
+                  </section>
+                </article>
+
+                <article class="consultant-agent-message consultant-taste-message">
+                  <div class="consultant-agent-meta">
+                    <span class="consultant-agent-avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
+                    </span>
+                    <b>LOOOVE</b><time>16:40</time>
+                  </div>
+                  <section class="consultant-taste-card" aria-label="LOOOVE 主动探索尝试">
+                    <p class="consultant-taste-signal">刚才的声音与身体数据都没有明显异常，但体表温度已连续 40 分钟高于个人午后基线 0.4°C。此刻的烦躁更像轻微燥热与感官疲劳。</p>
+                    <div class="consultant-taste-practice">
+                      <div class="consultant-taste-kicker">探索尝试</div>
+                      <div class="consultant-taste-recommendation">
+                        <h3>舌尖上的正念</h3>
+                        <p>慢煮一壶绿豆汤、酸梅汤，或自制水果冰棒、冰冻葡萄，专注感受冰凉在口腔化开的清甜，用味觉的“微凉”抵消体感的燥热。</p>
+                      </div>
+                    </div>
+                  </section>
+                </article>
+
+                <div class="consultant-user-row consultant-clarity-user">
+                  <div class="consultant-user-wrap">
+                    <div class="consultant-user-name">我 · 21:16</div>
+                    <div class="consultant-user-bubble">我最近有点迷茫</div>
+                  </div>
+                </div>
+
+                <article class="consultant-agent-message consultant-clarity-message">
+                  <div class="consultant-agent-meta">
+                    <span class="consultant-agent-avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
+                    </span>
+                    <b>LOOOVE</b><time>21:17</time>
+                  </div>
+                  <section class="consultant-analysis-card consultant-clarity-card">
+                    <div class="consultant-evidence">
+                      <div class="consultant-evidence-item"><b class="consultant-section-label">声音线索</b><span>最近的录音里，你反复提到“换个环境”“看看新的机会”，已经开始认真考虑跳槽；与对象的几段对话里也出现了争执和长时间停顿。</span></div>
+                      <div class="consultant-evidence-item"><b class="consultant-section-label">身体数据</b><span>过去 7 天，HRV 连续低于个人基线，压力高位持续时间变长，睡眠恢复也在下降。</span></div>
+                    </div>
+                    <div class="consultant-hypothesis">
+                      <div class="consultant-hypothesis-label consultant-section-label">推测</div>
+                      <p>工作去留和亲密关系同时需要你做判断，迷茫更像是选择力被多重压力占满了。</p>
+                    </div>
+                    <div class="consultant-intervention-board">
+                      <div class="consultant-intervention-title consultant-section-label">推荐</div>
+                      <button class="consultant-card-draw-preview" onclick="openReflectionDeck()" aria-label="打开潜意识探索">
+                        <span class="consultant-card-draw-mini" aria-hidden="true"><img src="./抽卡/背面.png" alt=""></span>
+                        <span class="consultant-card-draw-copy">
+                          <span class="consultant-card-draw-label">潜意识探索</span>
+                          <span class="consultant-card-draw-title">抽取卡牌，探索内心</span>
+                        </span>
+                      </button>
+                    </div>
+                  </section>
+                </article>
+
+              </main>
+
+              <div class="consultant-agent-composer">
+                <button class="consultant-voice-btn" id="consultantVoiceBtn" onclick="consultantVoiceCheckin()" aria-label="开始声音记录">
+                  <svg viewBox="0 0 20 20"><rect x="7" y="2" width="6" height="10" rx="3"/><path d="M4 9a6 6 0 0 0 12 0M10 15v3M7 18h6"/></svg>
+                </button>
+                <div class="consultant-agent-input-wrap">
+                  <input class="consultant-agent-input" id="consultantAgentInput" placeholder="来和LOOOVE分享此刻的心事吧~" onkeydown="if(event.key==='Enter')sendConsultantMessage()">
+                  <button class="consultant-send-btn" onclick="sendConsultantMessage()" aria-label="发送消息">
+                    <svg viewBox="0 0 20 20"><path d="m4 10 12-6-4 12-2.5-4.5L4 10Z"/><path d="M9.5 11.5 16 4"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="consultant-reflection-modal" id="consultantReflectionModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="consultantReflectionTitle">
+              <section class="consultant-reflection-sheet">
+                <div class="consultant-reflection-header">
+                  <span>LOOOVE · 潜意识探索</span>
+                  <button class="consultant-reflection-close" onclick="closeReflectionDeck()" aria-label="关闭抽卡">×</button>
+                </div>
+                <div class="consultant-reflection-progress" aria-hidden="true"><i class="on"></i><i></i></div>
+
+                <div class="consultant-reflection-stage on" data-reflection-stage="deck">
+                  <h2 class="consultant-reflection-instruction" id="consultantReflectionTitle">凭第一感觉抽取 3 张。</h2>
+                  <button class="consultant-deck" onclick="drawReflectionCard()" aria-label="抽三张潜意识探索卡">
+                    <span class="consultant-deck-face"><img src="./抽卡/背面.png" alt="卡牌背面"></span>
+                  </button>
+                  <button class="consultant-reflection-primary" onclick="drawReflectionCard()">抽 3 张</button>
+                </div>
+
+                <div class="consultant-reflection-stage" data-reflection-stage="reflect">
+                  <div class="consultant-reflection-cards" id="consultantReflectionCards" aria-label="抽到的三张潜意识探索卡">
+                    <figure class="consultant-reflection-card"><img src="./抽卡/28.png" alt="第一张水彩卡牌"></figure>
+                    <figure class="consultant-reflection-card"><img src="./抽卡/31.png" alt="第二张水彩卡牌"></figure>
+                    <figure class="consultant-reflection-card"><img src="./抽卡/36.png" alt="第三张水彩卡牌"></figure>
+                  </div>
+                  <form class="consultant-reflection-form" onsubmit="event.preventDefault();submitReflectionCard()">
+                    <label class="consultant-reflection-question">三张图里，哪一张最吸引你？
+                      <textarea id="reflectionAttraction" aria-label="三张图里，哪一张最吸引你？"></textarea>
+                    </label>
+                    <label class="consultant-reflection-question">它让你想到了最近发生的什么？
+                      <textarea id="reflectionAssociation" aria-label="它让你想到了最近发生的什么？"></textarea>
+                    </label>
+                    <label class="consultant-reflection-question">如果三张图连成一个故事，故事正在走向哪里？
+                      <textarea id="reflectionDirection" aria-label="如果三张图连成一个故事，故事正在走向哪里？"></textarea>
+                    </label>
+                    <div class="consultant-reflection-error" id="consultantReflectionError" role="status"></div>
+                    <button class="consultant-reflection-primary" id="consultantReflectionSubmit" type="button" onclick="submitReflectionCard()">完成并发送给 LOOOVE</button>
+                  </form>
+                </div>
+              </section>
+            </div>
+          </div>
+
           <div class="home-state-screen" id="homeBodyState">
             <div class="sr-topbar">
               <button class="sr-back" onclick="closeHomeBodyState()" aria-label="返回">
                 <svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
               <div class="sr-toptitle-wrap"><div class="sr-toptitle">身体状态</div></div>
-              <button class="body-deep-link" onclick="openHomeDeepExplore()">深度探索</button>
+              <div style="width:28px;flex-shrink:0"></div>
             </div>
             <div class="health-sphere-wrap">
               <div class="health-sphere">
                 <div class="hs-center">
-                  <div class="hsc-status">身心安适</div>
-                  <div class="hsc-sub">Loooveness: 44</div>
+                  <div class="hsc-status">渐入平衡</div>
+                  <div class="hsc-sub">Loooveness 56</div>
                 </div>
                 <div class="hs-ring"></div>
                 <div class="hs-ring2"></div>
@@ -3047,24 +3594,6 @@ body{font-family:var(--sans);
                   <div class="arc-stat"><div class="arc-val">2<small>次</small></div><div class="arc-key">醒来</div></div>
                 </div>
               </div>
-            </div>
-            <div class="body-ai-coach">
-              <div class="body-ai-head">
-                <div class="body-ai-label">LOOOVE AI 身心教练</div>
-                <div class="body-ai-tag">实时解读</div>
-              </div>
-              <div class="body-ai-text" id="bodyAiStream"
-                data-text="你的心率、血氧和体温目前比较平稳。不过 HRV 32 提醒我们，身体可能还需要多一点恢复空间。"
-                data-html="你的心率、血氧和体温目前比较平稳。<br>不过 <em>HRV 32</em> 提醒我们，身体可能还需要多一点恢复空间。"></div>
-            </div>
-          </div>
-          <div class="home-deep-screen" id="homeDeepExplore">
-            <div class="sr-topbar">
-              <button class="sr-back" onclick="closeHomeDeepExplore()" aria-label="返回">
-                <svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <div class="sr-toptitle-wrap"><div class="sr-toptitle">深度探索</div></div>
-              <div style="width:28px;flex-shrink:0"></div>
             </div>
           </div>
           <div class="home-child-screen" id="homeMindState">
@@ -3094,7 +3623,7 @@ body{font-family:var(--sans);
                       </button>
                     </div>
                   </div>
-                  <div class="mind-reco-img"><img src="assets/004_breath_line.jpg" alt="跟着呼吸画线"></div>
+                  <div class="mind-reco-img"><img src="./呼吸画线.jpg" alt="跟着呼吸画线"></div>
                   <div class="mind-reco-copy">根据你此刻的情绪和身体信号，我们建议先做一个<em>低门槛的表达练习</em>：吸气时让线条向上或展开，呼气时让线条向下或变柔软。画完后，我们帮你看见这条线里藏着的节奏。</div>
                   <div class="mind-reco-steps">
                     <div class="mind-step"><b>01</b><span>跟随呼吸，不追求漂亮</span></div>
@@ -3331,6 +3860,7 @@ body{font-family:var(--sans);
               </section>
             </div>
           </div>
+          <!-- Demo 暂时隐藏：勋章
           <div class="home-child-screen" id="trajectoryBadgeWall">
             <div class="sr-topbar">
               <button class="sr-back" onclick="closeTrajectoryBadges()" aria-label="返回">
@@ -3410,6 +3940,7 @@ body{font-family:var(--sans);
               </section>
             </div>
           </div>
+          -->
           <div class="home-child-screen" id="growthRecordScreen">
             <div class="sr-topbar">
               <button class="sr-back" onclick="closeGrowthRecord()" aria-label="返回">
@@ -3420,6 +3951,7 @@ body{font-family:var(--sans);
             </div>
             <div class="home-child-scroll" id="growthRecordContent"></div>
           </div>
+          <!-- Demo 暂时隐藏：AI 洞察
           <div class="home-child-screen" id="trajectoryReviewScreen">
             <div class="sr-topbar">
               <button class="sr-back" onclick="closeTrajectoryReview()" aria-label="返回">
@@ -3456,6 +3988,7 @@ body{font-family:var(--sans);
               </section>
             </div>
           </div>
+          -->
 
           <!-- ===== TAB 1 今日 ===== -->
           <div class="tabpage on" id="t-home">
@@ -3470,27 +4003,35 @@ body{font-family:var(--sans);
               </div>
               <div class="home-orbit-wrap">
                 <div class="home-orbit-scene">
-                  <div class="home-figure"><img src="assets/首页.png" alt=""></div>
+                  <!-- 首页旧入口暂时隐藏，关联页面与函数继续保留
                   <button class="home-orbit-btn body" onclick="toggleHomeBodyState(this)">身体<br>状态</button>
                   <button class="home-orbit-btn mind" onclick="openHomeMindState()">情绪<br>调节</button>
                   <button class="home-orbit-btn xiaoha" onclick="openOverlay('ov-xiaoha')">Candice</button>
                   <button class="home-orbit-btn question" onclick="openAIChat()">思维<br>罗盘</button>
                   <button class="home-orbit-btn explore" onclick="openHomeExploreState()">探索<br>尝试</button>
+                  -->
+                  <section class="home-awareness-card" aria-label="今日状态">
+                    <div class="home-awareness-status">
+                      <button class="home-awareness-title" onclick="openBodyAwareness(2)">渐入平衡</button>
+                      <button class="home-awareness-score" onclick="openAwarenessBodyState()">
+                        Loooveness 56
+                        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>
+                      </button>
+                    </div>
+                    <div class="home-consultant">
+                      <div class="home-consultant-content">
+                        <div class="home-consultant-label">LOOOVE</div>
+                        <div class="home-consultant-copy">身体已经得到基本恢复，紧张感也在慢慢回落。<br>
+                          你正处在由静到动的过渡里，状态会随着活动逐渐打开。</div>
+                      </div>
+                      <button class="home-consultant-next" onclick="openHomeAwarenessPlaceholder()" aria-label="进入互动页面">
+                        <span>互动</span>
+                      </button>
+                    </div>
+                  </section>
                 </div>
               </div>
-              <!-- AI 健康助手 · 晚间 -->
-              <div class="ai-report">
-                <div class="ai-head">
-                  <div class="ai-identity">
-                    <div class="ai-pulse"></div>
-                    <span class="ai-brand">LOOOVE AI 身心教练</span>
-                    <span class="ai-mode-chip">晚 间 回 顾</span>
-                  </div>
-                  <div class="ai-insight">今天心律整体<em>平稳</em>，傍晚之后身体慢慢松下来了。</div>
-                  <div class="ai-plain-note">今晚不用再追赶进度，泡个热水澡，做两轮慢呼吸，把屏幕放远一点。</div>
-                </div>
-              </div>
-            </div>
+            </div><!-- /home-eve -->
 
             <!-- 早间 home -->
             <div id="home-morn">
@@ -3502,47 +4043,50 @@ body{font-family:var(--sans);
               </div>
               <div class="home-orbit-wrap">
                 <div class="home-orbit-scene">
-                  <div class="home-figure"><img src="assets/首页.png" alt=""></div>
+                  <!-- 首页旧入口暂时隐藏，关联页面与函数继续保留
                   <button class="home-orbit-btn body" onclick="toggleHomeBodyState(this)">身体<br>状态</button>
                   <button class="home-orbit-btn mind" onclick="openHomeMindState()">情绪<br>调节</button>
                   <button class="home-orbit-btn xiaoha" onclick="openOverlay('ov-xiaoha')">Candice</button>
                   <button class="home-orbit-btn question" onclick="openAIChat()">思维<br>罗盘</button>
                   <button class="home-orbit-btn explore" onclick="openHomeExploreState()">探索<br>尝试</button>
+                  -->
+                  <section class="home-awareness-card" aria-label="今日状态">
+                    <div class="home-awareness-status">
+                      <button class="home-awareness-title" onclick="openBodyAwareness(2)">渐入平衡</button>
+                      <button class="home-awareness-score" onclick="openAwarenessBodyState()">
+                        Loooveness 56
+                        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>
+                      </button>
+                    </div>
+                    <div class="home-consultant">
+                      <div class="home-consultant-content">
+                        <div class="home-consultant-label">LOOOVE</div>
+                        <div class="home-consultant-copy">身体已经得到基本恢复，紧张感也在慢慢回落。<br>
+                          你正处在由静到动的过渡里，状态会随着活动逐渐打开。</div>
+                      </div>
+                      <button class="home-consultant-next" onclick="openHomeAwarenessPlaceholder()" aria-label="进入互动页面">
+                        <span>互动</span>
+                      </button>
+                    </div>
+                  </section>
                 </div>
               </div>
-              <!-- AI 健康助手 · 早间 -->
-              <div class="ai-report">
-                <div class="ai-head">
-                  <div class="ai-identity">
-                    <div class="ai-pulse"></div>
-                    <span class="ai-brand">LOOOVE AI 身心教练</span>
-                    <span class="ai-mode-chip">早 间 报 告</span>
-                  </div>
-                  <div class="ai-insight"><span>早安 Candice，看到你昨夜睡了 <em>6h42m</em>，你的身体已经完成了基本恢复；不过夜里醒了 <em>2 次</em>，说明身体还没有完全进入深度稳定的修复节奏。</span><span>你的 <em>HRV</em> 处在可恢复区间，压力水平没有明显拉高，整体状态不错，今天适合稳稳启动，不要一醒来就把节奏排满。</span></div>
-                  <div class="ai-plain-note">
-                    <span><em>饮食：</em>先喝一杯温水，早餐加一点蛋白质，让血糖和能量更稳定。</span>
-                    <span><em>运动：</em>上午安排 <em>10 分钟</em>轻活动，散步、拉伸或舒缓唤醒都可以。</span>
-                    <span><em>情绪：</em>今天先完成一件小而确定的事，给自己一点掌控感。</span>
-                  </div>
-                  <button class="ai-feedback-btn" onclick="toast('反馈入口即将上线')">我要反馈</button>
-                </div>
-              </div>
-            </div>
+            </div><!-- /home-morn -->
 
           </div><!-- /t-home -->
 
           <!-- ===== TAB 2 轨迹 ===== -->
           <div class="tabpage" id="t-diary">
             <div class="diary-hero">
-              <h2 class="serif">成长轨迹</h2>
+              <h2 class="serif">轨迹</h2>
             </div>
             <div class="growth-filter-row">
               <div class="growth-tabs">
                 <button class="growth-tab on" data-growth="all" onclick="filterGrowthTrail(this)">全部</button>
-                <button class="growth-tab" data-growth="body" onclick="filterGrowthTrail(this)">身心觉察</button>
-                <button class="growth-tab" data-growth="tune" onclick="filterGrowthTrail(this)">情绪调节</button>
-                <button class="growth-tab" data-growth="think" onclick="filterGrowthTrail(this)">思维罗盘</button>
-                <button class="growth-tab" data-growth="explore" onclick="filterGrowthTrail(this)">探索尝试</button>
+                <button class="growth-tab" data-growth="highlight" onclick="filterGrowthTrail(this)">高光</button>
+                <button class="growth-tab" data-growth="low" onclick="filterGrowthTrail(this)">低谷</button>
+                <button class="growth-tab" data-growth="interaction" onclick="filterGrowthTrail(this)">互动</button>
+                <button class="growth-tab" data-growth="report" onclick="filterGrowthTrail(this)">报告</button>
               </div>
               <button class="growth-date-filter" onclick="openCalendar()" aria-label="日期筛选">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg>
@@ -3550,40 +4094,66 @@ body{font-family:var(--sans);
             </div>
             <div class="growth-line" id="growthTrail">
               <div class="growth-thread"></div>
-              <div class="growth-day"><span>6月11日 · 今晨</span></div>
-              <article class="growth-card left" data-growth="body" onclick="openGrowthRecord('bodyToday')">
-                <div class="growth-kind body">身心觉察</div>
-                <div class="growth-title">身体慢慢稳下来，心也轻了一点。</div>
-                <div class="growth-body">完成早间身心觉察后，系统把睡眠、HRV 和主观感受一起记录下来，作为今天的起点。</div>
-                <div class="growth-metrics"><span>睡眠 <em>6h42m</em></span><span>HRV <em>32ms</em></span><span>情绪：<em>安稳</em></span></div>
+              <div class="growth-day"><span>6月12日 · 今天</span></div>
+              <article class="growth-card left" data-growth="highlight" onclick="openGrowthRecord('lifeHighlight')">
+                <div class="growth-card-top"><div class="growth-kind kind-highlight">高光</div><time>19:26</time></div>
+                <div class="growth-title">和朋友散步时，你说了真话，也被温柔接住。</div>
+                <div class="growth-signal-preview">
+                  <p><b>声音</b><span>笑声变多，说到害怕时也没有绕开</span></p>
+                  <p><b>身体</b><span>HRV 45ms · 压力 1.9</span></p>
+                </div>
+                <div class="growth-summary-line">你没有只做那个可靠的人，也允许自己被关心。</div>
               </article>
-              <article class="growth-card right" data-growth="tune" onclick="openGrowthRecord('tuneToday')">
-                <div class="growth-kind tune">情绪调节</div>
-                <div class="growth-title">用粉橙和绿调，画下今天的情绪。</div>
-                <div class="growth-body">完成情绪绘画后，线条从紧促渐渐变得舒展，绘画前后的记录也显示压力有所回落。</div>
-                <div class="growth-metrics"><span>压力 <em>-0.4</em></span><span>心率 <em>-4</em></span><span>HRV <em>+6ms</em></span></div>
+              <article class="growth-card right" data-growth="low" onclick="openGrowthRecord('lifeLow')">
+                <div class="growth-card-top"><div class="growth-kind kind-low">低谷</div><time>17:08</time></div>
+                <div class="growth-title">期待了一周的见面临时取消，你一个人回了家。</div>
+                <div class="growth-signal-preview">
+                  <p><b>声音</b><span>连续说了三次“没关系”，随后沉默很久</span></p>
+                  <p><b>身体</b><span>HRV 31ms · 压力 3.8</span></p>
+                </div>
+                <div class="growth-summary-line">你很快照顾了对方，却把自己的失落留在了身体里。</div>
               </article>
-              <div class="growth-day"><span>6月10日 · 昨夜</span></div>
-              <article class="growth-card left" data-growth="think" onclick="openGrowthRecord('thinkYesterday')">
-                <div class="growth-kind think">思维罗盘</div>
-                <div class="growth-title">把“我是不是做不好”，整理成第一小步。</div>
-                <div class="growth-body">你把工作事业里的卡点说出来后，AI 教练识别到“害怕失败”，并帮你把行动拆小。</div>
-                <div class="growth-metrics"><span>CBT 记录</span><span>自动想法已识别</span><span>入睡提前 <em>11min</em></span></div>
+              <article class="growth-card left" data-growth="highlight" onclick="openGrowthRecord('signalHighlight')">
+                <div class="growth-card-top"><div class="growth-kind kind-highlight">高光</div><time>15:40</time></div>
+                <div class="growth-title">在评审里，把自己的判断说清楚了。</div>
+                <div class="growth-signal-preview">
+                  <p><b>声音</b><span>语速平稳，关键处停顿更清楚</span></p>
+                  <p><b>身体</b><span>HRV 41ms · 压力 2.6</span></p>
+                </div>
+                <div class="growth-summary-line">你没有回避分歧，也没有被分歧带走。</div>
               </article>
-              <article class="growth-card right" data-growth="explore" onclick="openGrowthRecord('exploreYesterday')">
-                <div class="growth-kind explore">探索尝试</div>
-                <div class="growth-title">把“都可以”，换成“我更想要这个”。</div>
-                <div class="growth-body">今天完成了一次小边界打卡：在低风险关系里表达一个真实偏好。</div>
-                <div class="growth-metrics"><span>小行动打卡</span><span>勇气 <em>+1</em></span><span>活动量 <em>2.9k</em></span></div>
+              <article class="growth-card right" data-growth="report" onclick="openGrowthRecord('weeklyReport')">
+                <div class="growth-card-top"><div class="growth-kind kind-report">周报告</div><time>12:00</time></div>
+                <div class="growth-title">恢复波动正在收窄。</div>
+                <div class="growth-report-brief"><span>Loooveness 均值 <b>58</b></span><span>有效记录 <b>5 次</b></span></div>
               </article>
-              <div class="growth-day"><span>6月9日 · 下午</span></div>
-              <article class="growth-card left" data-growth="tune" onclick="openGrowthRecord('tunePast')">
-                <div class="growth-kind tune">情绪调节</div>
-                <div class="growth-title">做完 3 分钟呼吸后，脑子没那么挤了。</div>
-                <div class="growth-body">练习后心率下降 5 次/分，主观波动感从“翻涌”回到“缓和”。</div>
-                <div class="growth-metrics"><span>心率 <em>-5</em></span><span>波动感下降</span><span>平静感提升</span></div>
+              <div class="growth-day"><span>6月11日 · 昨天</span></div>
+              <article class="growth-card left" data-growth="low" onclick="openGrowthRecord('signalLow')">
+                <div class="growth-card-top"><div class="growth-kind kind-low">低谷</div><time>10:19</time></div>
+                <div class="growth-title">会议结束了，恼火还留在身体里。</div>
+                <div class="growth-signal-preview">
+                  <p><b>声音</b><span>围绕需求排期发生争辩，语速明显加快</span></p>
+                  <p><b>身体</b><span>HRV 29ms · 压力 4.1</span></p>
+                </div>
+                <div class="growth-summary-line">被直接反驳后，你还在替那场争辩消耗能量。</div>
+              </article>
+              <article class="growth-card right" data-growth="interaction" onclick="openGrowthRecord('cardReflection')">
+                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·抽卡</div><time>21:17</time></div>
+                <div class="growth-title">当两种生活同时拉扯你。</div>
+                <div class="growth-interaction-brief"><b>理清方向</b><span>先看工作机会，关系等状态稳定后再谈</span></div>
+              </article>
+              <article class="growth-card left" data-growth="report" onclick="openGrowthRecord('morningReport')">
+                <div class="growth-card-top"><div class="growth-kind kind-report">早间报告</div><time>07:30</time></div>
+                <div class="growth-title">今晨恢复偏慢，适合从容启动。</div>
+                <div class="growth-report-brief"><span>Loooveness <b>56</b></span><span>睡眠 <b>6h42m</b></span></div>
+              </article>
+              <div class="growth-day"><span>6月10日 · 前天</span></div>
+              <article class="growth-card right compact" data-growth="interaction" onclick="openGrowthRecord('mantraMoment')">
+                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·心法</div><time>18:46</time></div>
+                <div class="growth-title">方案被反对，不等于能力被否定。</div>
               </article>
             </div>
+            <!-- Demo 暂时隐藏：勋章与 AI 洞察入口
             <button class="growth-badge-float" onclick="openTrajectoryBadges()" aria-label="勋章墙" title="勋章墙">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M8.4 13.8 7.5 21l4.5-2.3 4.5 2.3-.9-7.2"/>
@@ -3597,6 +4167,7 @@ body{font-family:var(--sans);
                 <path d="M8.5 8.2h7M8.5 11.3h4.8M15.5 13.7l.8 1.5 1.5.8-1.5.8-.8 1.5-.8-1.5-1.5-.8 1.5-.8z"/>
               </svg>
             </button>
+            -->
           </div>
 
           <!-- ===== TAB 3 调养（含心理呵护）===== -->
@@ -3978,6 +4549,11 @@ body{font-family:var(--sans);
                 </div>
                 <div class="mine-acct-btn" onclick="toast('账户管理 — 即将上线')">账户管理 ›</div>
               </div>
+              <button class="mine-profile-entry" onclick="openOverlay('ov-xiaoha')" aria-label="打开个人档案">
+                <span class="mine-profile-entry-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v13H4z"/><circle cx="9" cy="10" r="2.2"/><path d="M6.5 16c.5-2 1.4-3 2.5-3s2 .9 2.5 3M14 9h3.5M14 13h3.5"/></svg></span>
+                <span class="mine-profile-entry-copy"><b>个人档案</b><small>查看个性化画像</small></span>
+                <span class="mine-profile-entry-arr">›</span>
+              </button>
               <div class="mine-actions">
                 <div class="mine-act-btn" onclick="openOverlay('ov-heartrate')">
                   <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -4065,6 +4641,7 @@ body{font-family:var(--sans);
                   </div>
                 </div>
               </div>
+              -->
             </div>
           </div>
 
@@ -4758,11 +5335,11 @@ body{font-family:var(--sans);
             </div>
           </div><!-- /ov-chat -->
 
-          <!-- ===== Overlay: Candice ===== -->
+          <!-- ===== Overlay: 个人档案 ===== -->
           <div class="overlay" id="ov-xiaoha">
             <div class="sr-topbar">
               <button class="sr-back" onclick="closeOverlay('ov-xiaoha')" aria-label="返回"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-              <div class="sr-toptitle-wrap"><div class="sr-toptitle">Candice</div></div>
+              <div class="sr-toptitle-wrap"><div class="sr-toptitle">个人档案</div></div>
               <div style="width:28px;flex-shrink:0"></div>
             </div>
             <div class="sr-scroll">
@@ -5563,7 +6140,7 @@ body{font-family:var(--sans);
       <div class="hw-tag">HARDWARE</div>
       <img src="硬件图.png" alt="LOOOVE 智能戒指" class="hw-img">
       <div class="hw-cap">LOOOVE 智能戒指</div>
-      <div class="hw-sub">钛合金多面切割 · 持续监测<br>心率 · HRV · 压力 · 睡眠</div>
+      <div class="hw-sub">钛合金多面切割 · 持续监测<br>心率 · HRV · 压力 · 睡眠 · 声音</div>
     </div>
   </aside>
 
@@ -5679,98 +6256,109 @@ function filterGrowthTrail(btn){
   document.querySelectorAll('.growth-card').forEach(card=>{
     card.classList.toggle('hide',type!=='all'&&card.dataset.growth!==type);
   });
+  document.querySelectorAll('.growth-day').forEach(day=>{
+    let sibling=day.nextElementSibling;
+    let hasVisibleCard=false;
+    while(sibling&&!sibling.classList.contains('growth-day')){
+      if(sibling.classList.contains('growth-card')&&!sibling.classList.contains('hide')) hasVisibleCard=true;
+      sibling=sibling.nextElementSibling;
+    }
+    day.classList.toggle('hide',!hasVisibleCard);
+  });
 }
 const GROWTH_RECORDS={
-  tuneToday:{
-    title:'情绪调节',
-    date:'6月11日 · 今晨',
-    kind:'情绪调节',
-    headline:'用粉橙和绿调，画下今天的情绪。',
-    user:'我用粉橙和绿色画了一条呼吸线，前面有点紧，后面的颜色和线条都慢慢舒展开了。',
-    ai:'我看到粉橙和绿色在几处转折后逐渐融合，线条虽然有起伏，但一直保持连续。绘画结束后的记录里，HRV 从 32ms 升到 38ms，压力指数从 3.6 回落到 3.2；这些变化与你在线条后半段呈现出的放松感是一致的。',
-    before:[['压力指数','3.6'],['心率','74'],['HRV','32ms']],
-    after:[['压力指数','3.2'],['心率','70'],['HRV','38ms']],
-    note:'这次调节把难以描述的情绪放进了颜色和线条里。绘画前后的记录显示 HRV 上升、压力回落，而画面也从紧促转向舒展，说明你在创作过程中逐渐找回了呼吸节奏。'
+  lifeHighlight:{
+    type:'signal',title:'高光',date:'6月12日 · 19:26',kind:'高光',
+    headline:'和朋友散步时，你说了真话，也被温柔接住。',
+    summary:'你没有只做那个可靠的人，也允许自己被关心。',
+    voiceDetail:'散步时，你对朋友说：“其实我最近也会怕自己选错。”说完后你们一起笑了，之后的语气明显放松，也没有急着把话题带走。',
+    voiceMeta:'戒指录音 24 分钟 · 自然笑声 6 次 · 长停顿较个人基线减少 18%',
+    bodyData:[['45ms','HRV'],['68bpm','心率'],['1.9','压力']],
+    aiSummary:'这次高光不是你把所有事都处理好了，而是你愿意在朋友面前留下真实的一面。声音与身体同时放松，说明被理解、被关心本身就在帮助你恢复。'
   },
-  bodyToday:{
-    title:'身心觉察',
-    date:'6月11日 · 今晨',
-    kind:'身心觉察',
-    headline:'身体慢慢稳下来，心也轻了一点。',
-    emotion:'安稳',
-    frequency:{
-      word:'安稳',
-      sub:'情绪状态'
-    },
-    vitals:[['32ms','HRV'],['3.3','压力指数'],['6h42m','昨夜睡眠']],
-    user:'早上先看了睡眠、HRV 和身体状态，感觉今天可以不用一开始就很赶。',
-    ai:'这次身心觉察记录显示，你更接近“安稳”：HRV 32ms 和压力指数 3.3 都还算稳定，昨夜睡了 6h42m，中途醒了 2 次，基础恢复够用，但深度稳定感还可以再多一点。今天适合稳稳启动，把第一件事做小一点。',
-    before:[['睡眠','6h42m'],['夜醒','2次'],['压力','3.3']],
-    after:[['情绪','安稳'],['HRV','32ms'],['身心觉察','完成']],
-    note:'身体：HRV 32ms 和压力指数 3.3 都还算稳定，昨夜睡了 6h42m，中途醒了 2 次，基础恢复够用，但深度稳定感还可以再多一点。<br><br>情绪：你调出的频率更接近<em>安稳</em>，能量、空间和波动都在中间区间。这是一种可以被照顾、也可以被轻轻推进的状态。<br><br>现在可以这样做：先选一件小事完成，再安排一个短暂停顿；不需要把今天过成满分，只要让身体和情绪保持可持续。'
+  lifeLow:{
+    type:'signal',title:'低谷',date:'6月12日 · 17:08',kind:'低谷',
+    headline:'期待了一周的见面临时取消，你一个人回了家。',
+    summary:'你很快照顾了对方，却把自己的失落留在了身体里。',
+    voiceDetail:'朋友临时取消见面时，你在语音里连续说了三次“没关系”，尾音比平时更轻。挂断以后，录音里留下了一段很长的沉默。',
+    voiceMeta:'戒指录音 3 分 42 秒 · 长停顿 19 秒 · 音量较个人基线低 14%',
+    bodyData:[['31ms','HRV'],['79bpm','心率'],['3.8','压力']],
+    aiSummary:'这次低谷来自期待突然落空。你先用“没关系”安顿了朋友，却没有给自己的失落留下位置；身体信号提醒你，这份难过也值得被承认。'
   },
-  thinkYesterday:{
-    title:'思维罗盘',
-    date:'6月10日 · 昨夜',
-    kind:'思维罗盘',
-    headline:'把“我是不是做不好”，整理成第一小步。',
-    user:'我担心这件事会做砸，也怕别人觉得我不够好。',
-    ai:'我先把这次卡点放回一个更清楚的位置：这件事表面是工作事业，真正牵动你的，可能是“害怕失败”。先不用证明自己能不能做好，把下一步缩小到 10 分钟内能完成的动作。',
-    before:[['入睡','23:04'],['压力','3.8'],['反复想法','较多']],
-    after:[['入睡','22:53'],['卡点','已命名'],['下一步','已拆小']],
-    note:'当卡点被命名后，身体不需要继续在夜里反复推演。入睡时间提前 11 分钟，说明这次整理可能帮你减少了一部分未完成感。'
+  signalHighlight:{
+    type:'signal',title:'高光',date:'6月12日 · 15:40',kind:'高光',
+    headline:'在评审里，把自己的判断说清楚了。',
+    summary:'你没有回避分歧，也没有被分歧带走。',
+    voiceDetail:'“这个版本先解决核心路径，剩下的风险我会单独列出来。”你说到关键结论时放慢了语速，两次停顿都落在明确的判断之后。',
+    voiceMeta:'戒指录音 18 分钟 · 平均语速 216 字/分钟 · 音量稳定',
+    bodyData:[['41ms','HRV'],['72bpm','心率'],['2.6','压力']],
+    aiSummary:'这次高光不只是表达顺利，而是你在有分歧的场景里仍然保持了自己的节奏。声音里的停顿与身体数据同步稳定，说明你开始把“坚持判断”和“对抗别人”分开了。'
   },
-  exploreYesterday:{
-    title:'探索尝试',
-    date:'6月10日 · 昨夜',
-    kind:'探索尝试',
-    headline:'把“都可以”，换成“我更想要这个”。',
-    user:'我在一段亲密关系里，说出了一个很小的真实偏好。',
-    ai:'这个小行动不是为了立刻改变关系，而是在练习让你的声音也出现在关系里。低风险表达完成后，主动感会慢慢回来。',
-    before:[['主观主动感','低'],['活动量','2.3k'],['情绪','犹豫']],
-    after:[['勇气','+1'],['活动量','2.9k'],['边界','更清楚']],
-    note:'探索尝试的价值在于用小动作验证“我也可以选择”。完成后活动量和主观勇气都有提升，说明这次行动对身体和心理都不是高负荷。'
+  signalLow:{
+    type:'signal',title:'低谷',date:'6月11日 · 10:19',kind:'低谷',
+    headline:'会议结束了，恼火还留在身体里。',
+    summary:'被直接反驳后，你还在替那场争辩消耗能量。',
+    voiceDetail:'最近的录音中，你们围绕需求排期与实现边界产生了争辩；过程中，你的语速明显加快，语气里也流露出被压抑的愤怒。',
+    voiceMeta:'戒指录音 12 分钟 · 争辩片段 3 分 08 秒 · 语速较基线快 21%',
+    bodyData:[['29ms','HRV'],['86bpm','心率'],['4.1','压力']],
+    aiSummary:'你在会议中提出需求后，被开发直接反驳，双方争辩了几句。虽然会议已经结束，但那股被顶回来的恼火，还是继续留在身体里。'
   },
-  tunePast:{
-    title:'情绪调节',
-    date:'6月9日 · 下午',
-    kind:'情绪调节',
-    headline:'做完 3 分钟呼吸后，脑子没那么挤了。',
-    user:'我跟着呼吸画线，画到后面线条变慢了。',
-    ai:'线条从紧到松，说明身体在练习里找到了一点节奏。今天不需要马上解释所有情绪，先把一个动作做完，就是一次有效的调节。',
-    before:[['心率','75'],['波动感','翻涌'],['压力','3.7']],
-    after:[['心率','70'],['波动感','缓和'],['压力','3.4']],
-    note:'练习后心率下降 5 次/分，主观波动感也降低。这个变化不大，但足够说明身体能被温和地带回来。'
+  cardReflection:{
+    type:'interaction',interactionKind:'抽卡',title:'互动·抽卡',date:'6月11日 · 21:17',kind:'互动',
+    headline:'当两种生活同时拉扯你。',
+    detail:'你围绕工作去留和亲密关系完成了三张卡的潜意识探索。',
+    items:[
+      ['三张图里，哪一张最吸引你？','远处的路。'],
+      ['它让你想到了最近发生的什么？','我在认真考虑换工作，也在重新看待这段关系。'],
+      ['如果三张图连成一个故事，故事正在走向哪里？','先走近新的机会，再决定哪些关系值得继续。']
+    ],
+    aiSummary:'你不是缺少方向，而是工作与关系同时占用了选择力。三张图都指向“先拉开一点距离再判断”：先确认什么是你真正想靠近的，再决定哪些关系与机会值得继续投入。'
+  },
+  mantraMoment:{
+    type:'interaction',interactionKind:'心法',title:'互动·心法',date:'6月10日 · 18:46',kind:'互动',
+    headline:'方案被反对，不等于能力被否定。',
+    detail:'带走有用的信息，允许自己有情绪；等愤怒过去，再决定什么值得回应。',
+    items:[],
+    aiSummary:'这条心法被保存，是因为它回应了你在工作分歧里的惯性：容易把对方案的反对听成对自己的否定。你正在练习把事实、情绪和自我价值重新分开。'
+  },
+  morningReport:{
+    type:'report',reportKind:'早间报告',title:'早间报告',date:'6月11日 · 07:30',kind:'报告',
+    headline:'今晨恢复偏慢，适合从容启动。',
+    metrics:[['56','Loooveness'],['6h42m','睡眠'],['32ms','HRV'],['3.3','压力']],
+    sections:[['睡眠恢复','昨夜睡眠比近 7 日均值少 38 分钟，夜间醒来 2 次，恢复尚未完全。'],['身体节律','起床后心率逐渐回落，身体正在从静息状态慢慢打开。'],['今日建议','上午先做熟悉的事，把需要判断的任务留到状态打开之后。']],
+    aiSummary:'昨夜恢复低于近期水平，但起床后的心率变化正常。今天不需要追赶状态，从熟悉、低判断负荷的任务开始会更顺。'
+  },
+  weeklyReport:{
+    type:'report',reportKind:'周报告',title:'周报告',date:'6月12日 · 12:00',kind:'报告',
+    headline:'恢复波动正在收窄。',
+    metrics:[['58','Loooveness 均值'],['35ms','平均 HRV'],['6h56m','平均睡眠'],['5 次','有效记录']],
+    sections:[['本周变化','周初压力高位持续时间较长，周三以后恢复速度逐渐加快。'],['情绪线索','工作分歧仍是最明显的压力来源，但你在表达边界时比之前更稳定。'],['下周关注','继续观察高压会议后的两小时，给情绪一个明确的结束点。']],
+    aiSummary:'本周的变化不是压力消失了，而是你从压力里回来的速度变快了。高压之后的 HRV 回升更稳定，说明新的调节方式正在被身体记住。'
   }
 };
-function growthFrequencyMarkup(record){
-  if(!record.frequency)return '';
-  const freq=record.frequency;
-  const vitals=(record.vitals||[]).map(([v,k])=>`<div><b>${esc(v)}</b><span>${esc(k)}</span></div>`).join('');
-  return `
-    <section class="growth-frequency-section">
-      <div class="growth-record-kicker">情绪频率</div>
-      <div class="growth-frequency-detail" aria-label="${esc(freq.word)}情绪频率图">
-        <svg viewBox="0 0 320 128" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0 48 C42 36 78 38 116 50 S186 76 226 54 278 34 320 44"/>
-          <path d="M0 56 C42 44 78 46 116 58 S186 84 226 62 278 42 320 52"/>
-          <path d="M0 64 C42 52 78 54 116 66 S186 92 226 70 278 50 320 60"/>
-          <path d="M0 72 C42 60 78 62 116 74 S186 100 226 78 278 58 320 68"/>
-          <path d="M0 80 C42 68 78 70 116 82 S186 108 226 86 278 66 320 76"/>
-          <path d="M0 88 C42 76 78 78 116 90 S186 116 226 94 278 74 320 84"/>
-          <path d="M0 96 C42 84 78 86 116 98 S186 124 226 102 278 82 320 92"/>
-        </svg>
-        <div class="growth-frequency-word">${esc(freq.word)}<span>${esc(freq.sub||'情绪频率')}</span></div>
-      </div>
-      <div class="growth-record-data-line">${vitals}</div>
-      <div class="growth-state-result-card">
-        <div class="growth-state-result-head">
-          <div class="growth-state-result-title">此刻身心状态</div>
-          <div class="growth-state-result-chip">AI 解读</div>
-        </div>
-        <p>${record.note}</p>
-      </div>
-    </section>`;
+function growthRecordHero(record){
+  return `<section class="growth-record-block"><div class="growth-record-kicker">${esc(record.date)} · ${esc(record.kind)}</div><div class="growth-record-title">${esc(record.headline)}</div></section>`;
+}
+function growthSignalRecordMarkup(record){
+  const body=record.bodyData.map(([value,label])=>`<div><b>${esc(value)}</b><span>${esc(label)}</span></div>`).join('');
+  return `${growthRecordHero(record)}
+    <section class="growth-record-block"><div class="growth-detail-section-title">详细声音记录</div><blockquote class="growth-voice-quote"><p>${esc(record.voiceDetail)}</p><footer>${esc(record.voiceMeta)}</footer></blockquote></section>
+    <section class="growth-record-block"><div class="growth-detail-section-title">身体数据</div><div class="growth-body-data">${body}</div></section>
+    <section class="growth-record-block"><div class="growth-detail-section-title">AI 记录总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
+}
+function growthInteractionRecordMarkup(record){
+  const cards=record.items.length?`<div class="growth-card-result-row">${record.items.map(([question,answer])=>`<div class="growth-card-result-item"><b>${esc(question)}</b><p>${esc(answer)}</p></div>`).join('')}</div>`:'';
+  return `${growthRecordHero(record)}
+    <section class="growth-record-block"><div class="growth-detail-section-title">互动记录 · ${esc(record.interactionKind)}</div><div class="growth-interaction-piece"><strong>${esc(record.headline)}</strong><p>${esc(record.detail)}</p>${cards}</div></section>
+    <section class="growth-record-block"><div class="growth-detail-section-title">LOOOVE 回顾</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
+}
+function growthReportRecordMarkup(record){
+  const metrics=record.metrics.map(([value,label])=>`<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
+  const sections=record.sections.map(([title,copy])=>`<article><h4>${esc(title)}</h4><p>${esc(copy)}</p></article>`).join('');
+  return `${growthRecordHero(record)}
+    <section class="growth-record-block"><div class="growth-detail-section-title">报告数据</div><div class="growth-report-metrics">${metrics}</div></section>
+    <section class="growth-record-block"><div class="growth-detail-section-title">详细解读</div><div class="growth-report-detail-list">${sections}</div></section>
+    <section class="growth-record-block"><div class="growth-detail-section-title">LOOOVE 总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
 }
 function openGrowthRecord(key){
   Audio$.soft();
@@ -5780,43 +6368,9 @@ function openGrowthRecord(key){
   const content=document.getElementById('growthRecordContent');
   if(!record||!screen||!title||!content)return;
   title.textContent=record.title;
-  const before=record.before.map(([k,v])=>`<p>${esc(k)} <em>${esc(v)}</em></p>`).join('');
-  const after=record.after.map(([k,v])=>`<p>${esc(k)} <em>${esc(v)}</em></p>`).join('');
-  if(record.frequency){
-    content.innerHTML=`
-    <section class="growth-record-block">
-      <div class="growth-record-kicker">${esc(record.date)} · ${esc(record.kind)}</div>
-      <div class="growth-record-title">${esc(record.headline)}</div>
-    </section>
-    ${growthFrequencyMarkup(record)}`;
-  }else{
-    content.innerHTML=`
-    <section class="growth-record-block">
-      <div class="growth-record-kicker">${esc(record.date)} · ${esc(record.kind)}</div>
-      <div class="growth-record-title">${esc(record.headline)}</div>
-      <div class="growth-record-sub">这条记录把当时的行动、AI 回应和同一时间段里的身体变化放在一起看。</div>
-    </section>
-    ${growthFrequencyMarkup(record)}
-    <section class="growth-record-block">
-      <div class="growth-record-kicker">互动记录</div>
-      <div class="growth-dialog">
-        <div class="growth-bubble user">${esc(record.user)}</div>
-        <div class="growth-bubble ai"><strong>LOOOVE AI 身心教练</strong><br>${esc(record.ai)}</div>
-      </div>
-    </section>
-    <section class="growth-record-block">
-      <div class="growth-record-kicker">前后身心变化</div>
-      <div class="growth-change-grid">
-        <div class="growth-change-card"><h4>练习前</h4>${before}</div>
-        <div class="growth-change-arrow">→</div>
-        <div class="growth-change-card"><h4>练习后</h4>${after}</div>
-      </div>
-    </section>
-    ${record.frequency ? '' : `<section class="growth-record-block">
-      <div class="growth-record-kicker">AI 解读</div>
-      <div class="growth-record-sub">${esc(record.note)}</div>
-    </section>`}`;
-  }
+  const renderer=record.type==='signal'?growthSignalRecordMarkup:record.type==='interaction'?growthInteractionRecordMarkup:growthReportRecordMarkup;
+  content.innerHTML=renderer(record);
+  content.scrollTop=0;
   screen.classList.add('on');
   renderIcons(screen);
 }
@@ -6145,12 +6699,14 @@ const BODY_AWARENESS_STATES = [
   {image:'assets/身心觉察/7.png',title:'倦意偏重',score:37,palette:{score:'#b8b68c',primary:'#8e9565',secondary:'#c8c59a',ink:'#687047',body:'#858b65'},poem:'昨夜的休息比较零碎，身体今天会更珍惜稳定和规律。\n思路偶尔变慢很正常，这是恢复过程的一部分，不需要急着评判自己。\n上午先吃好早餐并处理熟悉的事务，把重要决定留到精神更清楚的时候。'}
 ];
 let lastAwarenessIndex=-1;
-function openBodyAwareness(){
+function openBodyAwareness(preferredIndex){
   Audio$.soft();
   _applyMode('morning');
   _highlightPicker('[data-m="morning"]');
-  let index=Math.floor(Math.random()*BODY_AWARENESS_STATES.length);
-  if(BODY_AWARENESS_STATES.length>1&&index===lastAwarenessIndex)index=(index+1)%BODY_AWARENESS_STATES.length;
+  let index=Number.isInteger(preferredIndex)&&BODY_AWARENESS_STATES[preferredIndex]
+    ?preferredIndex
+    :Math.floor(Math.random()*BODY_AWARENESS_STATES.length);
+  if(!Number.isInteger(preferredIndex)&&BODY_AWARENESS_STATES.length>1&&index===lastAwarenessIndex)index=(index+1)%BODY_AWARENESS_STATES.length;
   lastAwarenessIndex=index;
   const state=BODY_AWARENESS_STATES[index];
   const scene=document.querySelector('#ov-body-awareness .awareness-scene');
@@ -6535,6 +7091,223 @@ function onbCommit(){
 function onbHide(){
   document.getElementById('onb')?.classList.remove('on');
 }
+function openHomeAwarenessPlaceholder(){
+  Audio$.soft();
+  const screen=document.getElementById('homeAwarenessPlaceholder');
+  if(screen){
+    screen.classList.add('on');
+    renderIcons(screen);
+    const feed=document.getElementById('consultantAgentFeed');
+    if(feed)feed.scrollTop=0;
+    setTimeout(()=>document.getElementById('consultantAgentInput')?.focus({preventScroll:true}),260);
+  }
+}
+function closeHomeAwarenessPlaceholder(){
+  Audio$.soft();
+  document.getElementById('homeAwarenessPlaceholder')?.classList.remove('on');
+}
+function consultantScrollToEnd(){
+  const feed=document.getElementById('consultantAgentFeed');
+  if(feed)requestAnimationFrame(()=>{feed.scrollTop=feed.scrollHeight;});
+}
+function toggleConsultantSleepMusic(button){
+  if(!button)return;
+  const isPlaying=button.getAttribute('aria-pressed')!=='true';
+  button.setAttribute('aria-pressed',String(isPlaying));
+  button.classList.toggle('playing',isPlaying);
+  button.setAttribute('aria-label',`${isPlaying?'暂停':'播放'}专属助眠音乐《慢慢落下来》`);
+  if(isPlaying&&typeof Audio$!=='undefined')Audio$.tone(220,.55,.035,'sine');
+}
+function openReflectionDeck(){
+  const modal=document.getElementById('consultantReflectionModal');
+  if(!modal)return;
+  modal.classList.add('on');
+  modal.setAttribute('aria-hidden','false');
+  modal.querySelector('[data-reflection-stage="deck"]')?.classList.add('on');
+  modal.querySelector('[data-reflection-stage="reflect"]')?.classList.remove('on');
+  const progress=modal.querySelectorAll('.consultant-reflection-progress i');
+  progress.forEach((item,index)=>item.classList.toggle('on',index===0));
+  ['reflectionAttraction','reflectionAssociation','reflectionDirection'].forEach(id=>{
+    const field=document.getElementById(id);
+    if(field){field.value='';field.classList.remove('invalid')}
+  });
+  const error=document.getElementById('consultantReflectionError');
+  if(error)error.textContent='';
+  modal.querySelectorAll('.consultant-reflection-card').forEach(card=>card.classList.remove('revealed'));
+  Audio$.soft();
+  setTimeout(()=>modal.querySelector('.consultant-deck')?.focus(),220);
+}
+function closeReflectionDeck(){
+  const modal=document.getElementById('consultantReflectionModal');
+  if(!modal)return;
+  modal.classList.remove('on');
+  modal.setAttribute('aria-hidden','true');
+  document.querySelector('.consultant-card-draw-preview')?.focus({preventScroll:true});
+}
+function drawReflectionCard(){
+  const modal=document.getElementById('consultantReflectionModal');
+  if(!modal)return;
+  modal.querySelector('[data-reflection-stage="deck"]')?.classList.remove('on');
+  modal.querySelector('[data-reflection-stage="reflect"]')?.classList.add('on');
+  modal.querySelectorAll('.consultant-reflection-progress i').forEach(item=>item.classList.add('on'));
+  const cards=modal.querySelectorAll('.consultant-reflection-card');
+  cards.forEach(card=>card.classList.remove('revealed'));
+  if(cards[0])void cards[0].offsetWidth;
+  cards.forEach(card=>card.classList.add('revealed'));
+  Audio$.pluck();
+  setTimeout(()=>document.getElementById('reflectionAttraction')?.focus(),720);
+}
+function submitReflectionCard(){
+  const attractionField=document.getElementById('reflectionAttraction');
+  const associationField=document.getElementById('reflectionAssociation');
+  const directionField=document.getElementById('reflectionDirection');
+  const attraction=attractionField?.value.trim()||'';
+  const association=associationField?.value.trim()||'';
+  const direction=directionField?.value.trim()||'';
+  attractionField?.classList.toggle('invalid',!attraction);
+  associationField?.classList.toggle('invalid',!association);
+  directionField?.classList.toggle('invalid',!direction);
+  const error=document.getElementById('consultantReflectionError');
+  if(!attraction||!association||!direction){
+    if(error)error.textContent='把三个感受都留下，LOOOVE 才能读懂这组卡。';
+    (!attraction?attractionField:!association?associationField:directionField)?.focus();
+    return;
+  }
+  if(error)error.textContent='';
+  const payload={
+    cards:[
+      {id:'28',src:'./抽卡/28.png'},
+      {id:'31',src:'./抽卡/31.png'},
+      {id:'36',src:'./抽卡/36.png'}
+    ],
+    soundSignals:['反复提到换环境与新机会，正在考虑跳槽','与对象的对话出现争执和长时间停顿'],
+    attraction,
+    association,
+    direction,
+    bodyData:{loooveness:47,hrv:31,stress:'持续偏高'},
+    createdAt:'21:20'
+  };
+  window.lastLoooveReflectionPayload=payload;
+  const submit=document.getElementById('consultantReflectionSubmit');
+  if(submit){submit.disabled=true;submit.textContent='正在交给 LOOOVE…'}
+  Audio$.soft();
+  setTimeout(()=>{
+    closeReflectionDeck();
+    appendReflectionInterpretation(payload);
+    if(submit){submit.disabled=false;submit.textContent='完成并发送给 LOOOVE'}
+  },560);
+}
+function stripReflectionTerminalPunctuation(text){
+  return String(text||'').replace(/[。！？!?]+$/,'');
+}
+function appendReflectionInterpretation(payload){
+  const feed=document.getElementById('consultantAgentFeed');
+  if(!feed)return;
+  const userRow=document.createElement('div');
+  userRow.className='consultant-user-row';
+  const userWrap=document.createElement('div');
+  userWrap.className='consultant-user-wrap';
+  const userName=document.createElement('div');
+  userName.className='consultant-user-name';
+  userName.textContent='我的联想 · 刚刚';
+  const userBubble=document.createElement('div');
+  userBubble.className='consultant-user-bubble';
+  userBubble.textContent=`最吸引我的是「${payload.attraction}」。它让我想到「${payload.association}」。`;
+  userWrap.append(userName,userBubble);userRow.appendChild(userWrap);feed.appendChild(userRow);
+
+  const article=document.createElement('article');
+  article.className='consultant-agent-message consultant-reflection-result';
+  const meta=document.createElement('div');
+  meta.className='consultant-agent-meta';
+  meta.innerHTML='<span class="consultant-agent-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg></span><b>LOOOVE</b><time>刚刚</time>';
+  const card=document.createElement('section');
+  card.className='consultant-reflection-result-card';
+  const kicker=document.createElement('div');
+  kicker.className='consultant-section-label';
+  kicker.textContent='LOOOVE 的解读';
+  const title=document.createElement('h3');
+  title.textContent='你正在为变化寻找一个安全的落点。';
+  const copy=document.createElement('p');
+  const quotedDirection=stripReflectionTerminalPunctuation(payload.direction);
+  copy.textContent=`你最先被「${payload.attraction}」吸引，它让你想到「${payload.association}」。当三张图连在一起，故事走向「${quotedDirection}」。结合声音里同时出现的工作变化与关系冲突，你的迷茫更像是在寻找：怎样改变，又不让重要的部分一起失去。`;
+  const footer=document.createElement('footer');
+  footer.textContent='接下来只验证工作这一条路：看看机会、更新简历，不急着立刻辞职。关系里的答案，等身体不再紧绷时再谈。';
+  card.append(kicker,title,copy,footer);article.append(meta,card);feed.appendChild(article);
+  consultantScrollToEnd();
+  Audio$.pluck();
+}
+function consultantAppendUserMessage(text){
+  const feed=document.getElementById('consultantAgentFeed');
+  if(!feed)return null;
+  const row=document.createElement('div');
+  row.className='consultant-user-row';
+  const wrap=document.createElement('div');
+  wrap.className='consultant-user-wrap';
+  const name=document.createElement('div');
+  name.className='consultant-user-name';
+  name.textContent='我 · 刚刚';
+  const bubble=document.createElement('div');
+  bubble.className='consultant-user-bubble';
+  bubble.textContent=text;
+  wrap.append(name,bubble);row.appendChild(wrap);feed.appendChild(row);
+  consultantScrollToEnd();
+  return row;
+}
+function consultantPostAgentNotice(text,{thinking=false}={}){
+  const feed=document.getElementById('consultantAgentFeed');
+  if(!feed)return null;
+  const note=document.createElement('div');
+  note.className='consultant-inline-agent';
+  if(thinking){
+    note.setAttribute('aria-label','LOOOVE 正在思考');
+    note.innerHTML='<span class="consultant-thinking"><i></i><i></i><i></i></span>';
+  }else{
+    note.textContent=text;
+    note.style.whiteSpace='pre-line';
+  }
+  feed.appendChild(note);consultantScrollToEnd();
+  return note;
+}
+function consultantReplyFor(text){
+  if(/睡|失眠|醒/.test(text))return '我先把睡眠和今天的压力曲线放在一起看。你昨夜的恢复确实不足，但现在的心率仍在安全地回落。今晚先不追求“必须睡好”，我更建议把入睡前 30 分钟从任务区切换成恢复区。';
+  if(/工作|老板|项目|裁员|绩效/.test(text))return '听起来，真正消耗你的不只是工作量，而是持续的不确定和无法结束的待命感。我可以陪你把今天的事情分成：必须回应、可以协商、暂时不处理。你想先从哪一类开始？';
+  if(/关系|男友|伴侣|家人|朋友/.test(text))return '我听见你在关系里花了很多力气维持理解。结合最近语音里反复出现的解释性表达，我想先确认：你更累的是冲突本身，还是总要证明自己的感受是合理的？';
+  return '我收到这句话了。先不急着把它解释得完整。我会把你刚刚的表达和今天的身体曲线放在一起看：此刻你更需要被理解、一起理清，还是先让身体放松一点？';
+}
+function sendConsultantMessage(){
+  const input=document.getElementById('consultantAgentInput');
+  const text=input?.value.trim();
+  if(!text)return;
+  Audio$.soft();
+  consultantAppendUserMessage(text);
+  input.value='';
+  const thinking=consultantPostAgentNotice('',{thinking:true});
+  setTimeout(()=>{
+    if(!thinking||!thinking.isConnected)return;
+    thinking.removeAttribute('aria-label');
+    thinking.textContent=consultantReplyFor(text);
+    thinking.style.whiteSpace='pre-line';
+    consultantScrollToEnd();
+    Audio$.soft();
+  },720);
+}
+function consultantVoiceCheckin(){
+  const btn=document.getElementById('consultantVoiceBtn');
+  if(!btn||btn.classList.contains('recording'))return;
+  Audio$.soft();
+  btn.classList.add('recording');
+  btn.setAttribute('aria-label','正在记录声音');
+  const note=consultantPostAgentNotice('正在读取戒指的声音片段…');
+  setTimeout(()=>{
+    btn.classList.remove('recording');
+    btn.setAttribute('aria-label','开始声音记录');
+    if(note){
+      note.textContent='声音记录已收到。你的语速在前 12 秒偏快，随后逐渐放缓。我会把这一段作为今天的新基线，而不是给情绪贴标签。你也可以继续告诉我，刚才最想说却没有说完的是什么。';
+      consultantScrollToEnd();
+    }
+    Audio$.pluck();
+  },1350);
+}
 function toggleHomeBodyState(){
   Audio$.soft();
   const screen=document.getElementById('homeBodyState');
@@ -6659,7 +7432,9 @@ function closeMindToolDetail(playSound=true){
 let mindDrawInited=false;
 let mindDrawing=false;
 let mindBrushColor='#6f9bc8';
-function openMindDrawing(){
+let mindDrawingOrigin='mind';
+function openMindDrawing(origin='mind'){
+  mindDrawingOrigin=origin;
   Audio$.soft();
   const screen=document.getElementById('homeMindDrawing');
   if(screen)screen.classList.add('on');
@@ -6811,6 +7586,16 @@ function finishMindDrawing(){
   let image='';
   try{image=canvas?canvas.toDataURL('image/png'):'';}catch(e){image='';}
   closeMindDrawing(false);
+  if(mindDrawingOrigin==='consultant'){
+    const label=document.getElementById('consultantBreathLineLabel');
+    if(label)label.textContent='绘画疗愈 · 已完成';
+    document.querySelector('.consultant-breath-line-preview')?.classList.add('completed');
+    mindDrawingOrigin='mind';
+    consultantScrollToEnd();
+    toast('这次呼吸画线已完成');
+    return;
+  }
+  mindDrawingOrigin='mind';
   const thread=ensureMindConversation();
   if(thread){
     thread.insertAdjacentHTML('beforeend',`
@@ -9295,8 +10080,7 @@ requestAnimationFrame(updateHomeOrbitGather);
   b.innerHTML='<span class="app-conn-dot"></span>已连接';
   h.appendChild(b);
 });
-/* 打开页面即进入实时身心觉察 */
-try{selectHomeFlow('awareness');}catch(e){}
+/* 首页直接展示实时身心觉察，详情由首页状态词或分值按钮进入。 */
 </script>
 </body>
 </html>

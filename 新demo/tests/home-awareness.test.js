@@ -3,6 +3,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const html = fs.readFileSync(path.join(__dirname, '..', 'LOOOVE-demo.html'), 'utf8');
+const pagesEntrypointPath = path.join(__dirname, '..', '..', 'LOOOVE-demo.html');
+assert.equal(fs.readFileSync(pagesEntrypointPath, 'utf8'), html, 'GitHub Pages 根入口应与新demo的最新版 HTML 完全一致');
+for (const asset of ['背景图.png', '硬件图.png', '1.png', '呼吸画线.jpg', path.join('抽卡', '背面.png'), path.join('抽卡', '28.png'), path.join('抽卡', '31.png'), path.join('抽卡', '36.png')]) {
+  assert.equal(fs.existsSync(path.join(__dirname, '..', '..', asset)), true, `GitHub Pages 根目录应包含新 Demo 素材：${asset}`);
+}
 
 assert.match(html, /<div class="brand">[\s\S]*?<p>最懂你的私人顾问<\/p>/, '品牌介绍应精简为“最懂你的私人顾问”');
 assert.doesNotMatch(html, /见证22–35 岁迷茫困顿时期的女性|做比用户更了解自己的私人顾问/, '旧版两行品牌介绍应移除');
