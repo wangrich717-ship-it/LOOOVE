@@ -43,45 +43,9 @@ body{font-family:var(--sans);
 @keyframes glowPulse{0%,100%{box-shadow:0 0 24px rgba(255,127,99,.22)}50%{box-shadow:0 0 44px rgba(255,127,99,.42)}}
 @keyframes bookBump{0%{transform:scale(1)}40%{transform:scale(1.12) rotate(-2deg)}100%{transform:scale(1)}}
 
-/* ===== 外层布局 ===== */
-.stage{display:flex;align-items:center;gap:clamp(24px,4vw,64px);z-index:1}
-.side{width:280px;display:flex;flex-direction:column;gap:22px}
-/* 小屏：竖向堆叠 —— 文字 → 硬件 → APP，可滚动 */
-@media(max-width:1180px){
-  body{overflow:auto;display:block;
-    background-attachment:fixed}
-  .stage{flex-direction:column;gap:30px;padding:36px 16px 56px;align-items:center}
-  .side{width:auto;max-width:min(440px,92vw);align-items:center;text-align:center}
-  .principles div{text-align:left}
-  .stage>aside:first-of-type{order:1}   /* 文字 */
-  .stage>aside:last-of-type{order:2}    /* 硬件图 */
-  .center-col{order:3}                  /* APP */
-  /* 双入口按钮：与手机同宽并保持等分 */
-  #flowPicker{width:auto!important;max-width:96vw;justify-content:center;flex-wrap:wrap;gap:8px}
-  #flowPicker .fp-btn{flex:1 1 0}
-}
-/* 右侧 · 硬件展示 */
-.hw-showcase{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}
-.hw-tag{font-size:10px;letter-spacing:.32em;color:var(--text-muted);font-weight:600}
-.hw-img{width:100%;height:auto;filter:drop-shadow(0 20px 38px rgba(120,90,80,.24))}
-@media(max-width:1180px){.hw-img{width:80%}}
-.hw-cap{font-family:var(--serif);font-size:19px;color:var(--text-primary);letter-spacing:.03em}
-.hw-sub{font-size:12px;color:var(--text-muted);line-height:1.85}
-.brand h1{font-family:var(--serif);font-weight:700;font-size:44px;letter-spacing:.12em;
-  white-space:nowrap;color:#000}
-.brand p{margin-top:8px;color:var(--text-secondary);font-size:11.5px;letter-spacing:.18em;white-space:nowrap}
-.principles{display:flex;flex-direction:column;gap:12px}
-.principles div{font-size:13px;color:var(--text-muted);line-height:1.7;padding-left:14px;
-  border-left:2px solid rgba(255,127,99,.24)}
-.principles b{color:var(--text-secondary);font-weight:500;display:block}
-.guide{display:flex;flex-direction:column;gap:8px}
-.guide h3{font-size:12px;letter-spacing:.3em;color:var(--text-muted);margin-bottom:8px;font-weight:400}
-.guide div{font-size:13px;color:var(--text-secondary);padding:10px 14px;border-radius:var(--radius-md);
-  background:var(--glass-bg-2);border:1px solid transparent;line-height:1.6}
-.guide div b{color:var(--primary);font-weight:500}
-
-/* ===== 中柱：流程选择器 + 手机 ===== */
-.center-col{display:flex;flex-direction:column;align-items:center;gap:14px;z-index:2}
+/* ===== 单手机舞台 ===== */
+.stage{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;padding:20px;z-index:1}
+.center-col{display:flex;align-items:center;justify-content:center;z-index:2}
 
 /* 手机外选择器组 */
 .fp-group{display:flex;flex-direction:column;align-items:center;gap:9px}
@@ -618,6 +582,9 @@ body{font-family:var(--sans);
 .body-sleep-report .ai-report-card{min-height:156px;padding:26px 20px 24px}
 .body-sleep-report .arc-main{margin-bottom:28px}
 .body-sleep-report .arc-label{font-family:var(--serif);font-size:14px;color:var(--text-primary);font-weight:600;letter-spacing:.05em;line-height:1.2}
+.body-sleep-insight{margin-top:22px;padding-top:18px;border-top:1px solid rgba(95,95,95,.10)}
+.body-sleep-insight-label{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--primary)}
+.body-sleep-insight-text{margin-top:8px;font-family:var(--sans);font-size:12.5px;line-height:1.8;color:var(--text-secondary)}
 .body-ai-coach{position:relative;z-index:1;margin:0 4px 18px;padding:16px 18px 17px;border-radius:22px;
   background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(255,248,243,.44));
   border:1px solid rgba(255,255,255,.86);
@@ -1914,7 +1881,7 @@ body{font-family:var(--sans);
   border:1px solid rgba(255,255,255,.85);
   box-shadow:0 2px 10px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.92);
   display:flex;align-items:center;justify-content:center}
-.mine-ring-wrap svg{width:26px;height:26px;stroke:var(--primary);fill:none;stroke-width:1.5;stroke-linecap:round;opacity:.75}
+.mine-ring-wrap img{width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 4px 7px rgba(40,38,37,.16));opacity:.82}
 .mine-device-name{font-family:var(--serif);font-size:15px;color:var(--text-primary);font-weight:500}
 .mine-device-ok{font-size:11px;color:rgba(90,175,115,.9);margin-top:4px;display:flex;align-items:center;gap:5px}
 .mine-device-ok::before{content:'';width:6px;height:6px;border-radius:50%;background:rgba(90,175,115,.9);display:inline-block;flex-shrink:0}
@@ -1925,7 +1892,7 @@ body{font-family:var(--sans);
 /* 设备未连接态 */
 .mine-device-ok.off{color:var(--text-muted)}
 .mine-device-ok.off::before{background:rgba(0,0,0,.2)}
-.mine-ring-wrap.live svg{opacity:1;animation:ringPulse 1.6s ease-in-out infinite}
+.mine-ring-wrap.live img{opacity:1;animation:ringPulse 1.6s ease-in-out infinite}
 @keyframes ringPulse{0%,100%{opacity:.6}50%{opacity:1}}
 /* 戒指连接 UI */
 .dev-btn-row{display:flex;gap:10px;margin-top:16px}
@@ -3150,19 +3117,7 @@ body{font-family:var(--sans);
 
 <div class="stage">
 
-  <!-- 左 -->
-  <aside class="side">
-    <div class="brand">
-      <h1>LOOOVE</h1>
-      <p>最懂你的私人顾问</p>
-    </div>
-    <div class="principles">
-      <div><b>感知与见证</b>戒指持续记录身体信号，无感采集语音线索，结合用户主观感受与互动，共同识别真实发生的身心变化；</div>
-      <div><b>陪伴与行动</b>通过触觉提醒、对话、调息、音乐与绘画等方式，提供适合当下的个性化支持。</div>
-    </div>
-  </aside>
-
-  <!-- 中：流程选择器 + 手机 -->
+  <!-- 手机 -->
   <div class="center-col">
 
     <div class="phone-wrap">
@@ -3592,6 +3547,10 @@ body{font-family:var(--sans);
                   <div class="arc-stat"><div class="arc-val">22:31</div><div class="arc-key">入睡</div></div>
                   <div class="arc-stat"><div class="arc-val">06:48</div><div class="arc-key">清醒</div></div>
                   <div class="arc-stat"><div class="arc-val">2<small>次</small></div><div class="arc-key">醒来</div></div>
+                </div>
+                <div class="body-sleep-insight">
+                  <div class="body-sleep-insight-label">LOOOVE 解读</div>
+                  <div class="body-sleep-insight-text">昨夜 02:56 才入睡，是深睡比例偏低的主要原因——深夜入睡时生长激素分泌减少，深睡窗口收窄。睡眠效率 94% 表现不错，血氧全程稳定在安全区间。试着把入睡时间前移到 23:00 前，深睡眠会更充足。</div>
                 </div>
               </div>
             </div>
@@ -4084,7 +4043,7 @@ body{font-family:var(--sans);
               <div class="growth-tabs">
                 <button class="growth-tab on" data-growth="all" onclick="filterGrowthTrail(this)">全部</button>
                 <button class="growth-tab" data-growth="highlight" onclick="filterGrowthTrail(this)">高光</button>
-                <button class="growth-tab" data-growth="low" onclick="filterGrowthTrail(this)">低谷</button>
+                <button class="growth-tab" data-growth="low" onclick="filterGrowthTrail(this)">波动</button>
                 <button class="growth-tab" data-growth="interaction" onclick="filterGrowthTrail(this)">互动</button>
                 <button class="growth-tab" data-growth="report" onclick="filterGrowthTrail(this)">报告</button>
               </div>
@@ -4105,7 +4064,7 @@ body{font-family:var(--sans);
                 <div class="growth-summary-line">你没有只做那个可靠的人，也允许自己被关心。</div>
               </article>
               <article class="growth-card right" data-growth="low" onclick="openGrowthRecord('lifeLow')">
-                <div class="growth-card-top"><div class="growth-kind kind-low">低谷</div><time>17:08</time></div>
+                <div class="growth-card-top"><div class="growth-kind kind-low">波动</div><time>17:08</time></div>
                 <div class="growth-title">期待了一周的见面临时取消，你一个人回了家。</div>
                 <div class="growth-signal-preview">
                   <p><b>声音</b><span>连续说了三次“没关系”，随后沉默很久</span></p>
@@ -4129,7 +4088,7 @@ body{font-family:var(--sans);
               </article>
               <div class="growth-day"><span>6月11日 · 昨天</span></div>
               <article class="growth-card left" data-growth="low" onclick="openGrowthRecord('signalLow')">
-                <div class="growth-card-top"><div class="growth-kind kind-low">低谷</div><time>10:19</time></div>
+                <div class="growth-card-top"><div class="growth-kind kind-low">波动</div><time>10:19</time></div>
                 <div class="growth-title">会议结束了，恼火还留在身体里。</div>
                 <div class="growth-signal-preview">
                   <p><b>声音</b><span>围绕需求排期发生争辩，语速明显加快</span></p>
@@ -4898,7 +4857,7 @@ body{font-family:var(--sans);
               <div class="card" style="padding:0;margin-top:2px">
                 <div class="mine-device">
                   <div class="mine-ring-wrap" id="devRingIcon">
-                    <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="4.5" ry="7.5" transform="rotate(-18 12 12)"/><ellipse cx="12" cy="12" rx="2.5" ry="4.5" transform="rotate(-18 12 12)"/></svg>
+                    <img src="./硬件图.png" alt="LOOOVE 智能戒指实物图">
                   </div>
                   <div style="flex:1">
                     <div class="mine-device-name" id="devName">LOOOVE 智能戒指</div>
@@ -5602,7 +5561,7 @@ body{font-family:var(--sans);
             <div class="sr-scroll">
               <!-- AI 解读 (最上方) -->
               <div class="sr-ai">
-                <div class="sr-ai-lbl">A I &nbsp;解 读</div>
+                <div class="sr-ai-lbl">LOOOVE 解读</div>
                 <div class="sr-ai-text">昨夜 02:56 才入睡，是深睡比例偏低的主要原因——深夜入睡时生长激素分泌减少，深睡窗口收窄。睡眠效率 94% 表现不错，血氧全程稳定在安全区间。试着把入睡时间前移到 23:00 前，深睡眠会更充足。</div>
               </div>
 
@@ -6134,16 +6093,6 @@ body{font-family:var(--sans);
     </div><!-- /phone-wrap -->
   </div><!-- /center-col -->
 
-  <!-- 右 · 硬件展示 -->
-  <aside class="side">
-    <div class="hw-showcase">
-      <div class="hw-tag">HARDWARE</div>
-      <img src="硬件图.png" alt="LOOOVE 智能戒指" class="hw-img">
-      <div class="hw-cap">LOOOVE 智能戒指</div>
-      <div class="hw-sub">钛合金多面切割 · 持续监测<br>心率 · HRV · 压力 · 睡眠 · 声音</div>
-    </div>
-  </aside>
-
 </div><!-- /stage -->
 
 <script>
@@ -6277,13 +6226,13 @@ const GROWTH_RECORDS={
     aiSummary:'这次高光不是你把所有事都处理好了，而是你愿意在朋友面前留下真实的一面。声音与身体同时放松，说明被理解、被关心本身就在帮助你恢复。'
   },
   lifeLow:{
-    type:'signal',title:'低谷',date:'6月12日 · 17:08',kind:'低谷',
+    type:'signal',title:'波动',date:'6月12日 · 17:08',kind:'波动',
     headline:'期待了一周的见面临时取消，你一个人回了家。',
     summary:'你很快照顾了对方，却把自己的失落留在了身体里。',
     voiceDetail:'朋友临时取消见面时，你在语音里连续说了三次“没关系”，尾音比平时更轻。挂断以后，录音里留下了一段很长的沉默。',
     voiceMeta:'戒指录音 3 分 42 秒 · 长停顿 19 秒 · 音量较个人基线低 14%',
     bodyData:[['31ms','HRV'],['79bpm','心率'],['3.8','压力']],
-    aiSummary:'这次低谷来自期待突然落空。你先用“没关系”安顿了朋友，却没有给自己的失落留下位置；身体信号提醒你，这份难过也值得被承认。'
+    aiSummary:'这次波动来自期待突然落空。你先用“没关系”安顿了朋友，却没有给自己的失落留下位置；身体信号提醒你，这份难过也值得被承认。'
   },
   signalHighlight:{
     type:'signal',title:'高光',date:'6月12日 · 15:40',kind:'高光',
@@ -6295,7 +6244,7 @@ const GROWTH_RECORDS={
     aiSummary:'这次高光不只是表达顺利，而是你在有分歧的场景里仍然保持了自己的节奏。声音里的停顿与身体数据同步稳定，说明你开始把“坚持判断”和“对抗别人”分开了。'
   },
   signalLow:{
-    type:'signal',title:'低谷',date:'6月11日 · 10:19',kind:'低谷',
+    type:'signal',title:'波动',date:'6月11日 · 10:19',kind:'波动',
     headline:'会议结束了，恼火还留在身体里。',
     summary:'被直接反驳后，你还在替那场争辩消耗能量。',
     voiceDetail:'最近的录音中，你们围绕需求排期与实现边界产生了争辩；过程中，你的语速明显加快，语气里也流露出被压抑的愤怒。',
@@ -6344,7 +6293,7 @@ function growthSignalRecordMarkup(record){
   return `${growthRecordHero(record)}
     <section class="growth-record-block"><div class="growth-detail-section-title">详细声音记录</div><blockquote class="growth-voice-quote"><p>${esc(record.voiceDetail)}</p><footer>${esc(record.voiceMeta)}</footer></blockquote></section>
     <section class="growth-record-block"><div class="growth-detail-section-title">身体数据</div><div class="growth-body-data">${body}</div></section>
-    <section class="growth-record-block"><div class="growth-detail-section-title">AI 记录总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
+    <section class="growth-record-block"><div class="growth-detail-section-title">LOOOVE 总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
 }
 function growthInteractionRecordMarkup(record){
   const cards=record.items.length?`<div class="growth-card-result-row">${record.items.map(([question,answer])=>`<div class="growth-card-result-item"><b>${esc(question)}</b><p>${esc(answer)}</p></div>`).join('')}</div>`:'';
@@ -9910,7 +9859,7 @@ function drawChart(){
 })();
 function fitPhone(){
   const ph=document.getElementById('phone');
-  const scale=Math.min(1,(window.innerHeight*.88)/844,(window.innerWidth*.9)/500);
+  const scale=Math.min(1,(window.innerHeight*.92)/844,(window.innerWidth*.92)/390);
   ph.style.transform=`scale(${scale})`;
   ph.parentElement.style.width=(390*scale)+'px';
   ph.parentElement.style.height=(844*scale)+'px';

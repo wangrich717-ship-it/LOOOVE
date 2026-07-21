@@ -8,21 +8,26 @@ assert.equal(fs.readFileSync(pagesEntrypointPath, 'utf8'), html, 'GitHub Pages �
 for (const asset of ['背景图.png', '硬件图.png', '1.png', '呼吸画线.jpg', path.join('抽卡', '背面.png'), path.join('抽卡', '28.png'), path.join('抽卡', '31.png'), path.join('抽卡', '36.png')]) {
   assert.equal(fs.existsSync(path.join(__dirname, '..', '..', asset)), true, `GitHub Pages 根目录应包含新 Demo 素材：${asset}`);
 }
+assert.equal(
+  fs.readFileSync(path.join(__dirname, '..', '..', '硬件图.png')).equals(fs.readFileSync(path.join(__dirname, '..', '硬件图.png'))),
+  true,
+  '仓库根入口与新demo应使用同一张当前硬件图'
+);
 
-assert.match(html, /<div class="brand">[\s\S]*?<p>最懂你的私人顾问<\/p>/, '品牌介绍应精简为“最懂你的私人顾问”');
-assert.doesNotMatch(html, /见证22–35 岁迷茫困顿时期的女性|做比用户更了解自己的私人顾问/, '旧版两行品牌介绍应移除');
-const leftPrinciplesMarkup = (html.match(/<div class="principles">([\s\S]*?)<\/div>\s*<\/aside>/) || [])[1] || '';
-assert.match(leftPrinciplesMarkup, /<b>感知与见证<\/b>戒指持续记录身体信号，无感采集语音线索，结合用户主观感受与互动，共同识别真实发生的身心变化；/, '左侧第一项应准确介绍感知与见证');
-assert.doesNotMatch(leftPrinciplesMarkup, /理解与校准|逐步建立对你的个性化理解/, '左侧说明应移除理解与校准');
-assert.match(leftPrinciplesMarkup, /<b>陪伴与行动<\/b>通过触觉提醒、对话、调息、音乐与绘画等方式，提供适合当下的个性化支持。/, '左侧第二项应介绍陪伴与行动');
-assert.equal((leftPrinciplesMarkup.match(/<div>/g) || []).length, 2, '左侧说明只应保留感知与见证、陪伴与行动两项');
-assert.match(html, /<div class="hw-sub">钛合金多面切割 · 持续监测<br>心率 · HRV · 压力 · 睡眠 · 声音<\/div>/, '戒指硬件说明应把声音纳入持续监测项目');
+const activeMarkup = html.replace(/<!--[\s\S]*?-->/g, '');
+assert.doesNotMatch(activeMarkup, /<aside\b|class="brand"|class="principles"|class="hw-showcase"/, '手机外部的品牌文案与硬件展示应从页面结构中移除');
+assert.match(activeMarkup, /<div class="stage">\s*<div class="center-col">\s*<div class="phone-wrap">\s*<div class="phone" id="phone">/, '舞台区域应只保留居中的手机屏幕');
+assert.match(html, /\.stage\{display:flex;align-items:center;justify-content:center;min-height:100vh;[^}]*z-index:1\}/, '单手机舞台应在页面中水平垂直居中');
+assert.match(html, /function fitPhone\(\)[\s\S]*?window\.innerWidth\*\.92\)\/390/, '手机缩放应按真实宽度计算，避免窄屏显示过小');
 
 assert.match(html, /<div class="mine-profile-top">[\s\S]*?Candice[\s\S]*?<button class="mine-profile-entry" onclick="openOverlay\('ov-xiaoha'\)"[^>]*>[\s\S]*?<b>个人档案<\/b>[\s\S]*?<small>查看个性化画像<\/small>[\s\S]*?<\/button>\s*<div class="mine-actions">/, '我的页应在 Candice 与三项测量之间新增独立的个人档案入口');
 assert.match(html, /\.mine-profile-entry\{display:grid;grid-template-columns:34px 1fr 18px;[^}]*width:100%;[^}]*border-radius:16px/, '个人档案入口应使用独立整行卡片布局');
 assert.match(html, /\.mine-profile-entry,\.mine-act-btn\{background:rgba\(255,252,248,\.62\);backdrop-filter:blur\(16px\) saturate\(160%\);-webkit-backdrop-filter:blur\(16px\) saturate\(160%\);border:1px solid rgba\(255,255,255,\.82\);box-shadow:0 2px 10px rgba\(0,0,0,\.05\),inset 0 1px 0 rgba\(255,255,255,\.88\)\}/, '个人档案应与三项测量共用同一套底色、毛玻璃、边框和阴影');
 assert.match(html, /id="ov-xiaoha"[\s\S]*?class="sr-toptitle">个人档案<\/div>[\s\S]*?class="xh-name">Candice，32 岁<\/div>/, '个人档案入口应复用原 Candice 画像子页面并更新页面标题');
-assert.doesNotMatch(leftPrinciplesMarkup, /觉察与理解|稳定与接纳|突破与成长/, '左侧不应保留旧版三个介绍模块');
+assert.match(html, /class="mine-ring-wrap" id="devRingIcon">\s*<img src="\.\/硬件图\.png" alt="LOOOVE 智能戒指实物图">\s*<\/div>/, '我的设备卡应使用当前硬件图替代线性戒指图标');
+assert.doesNotMatch((html.match(/class="mine-ring-wrap" id="devRingIcon">([\s\S]*?)<\/div>/) || [])[1] || '', /<svg\b/, '我的设备卡不应继续显示旧 SVG 图标');
+assert.match(html, /\.mine-ring-wrap img\{width:46px;height:46px;object-fit:contain;[^}]*opacity:\.82\}/, '戒指实物图应在设备圆形容器内完整显示');
+assert.match(html, /\.mine-ring-wrap\.live img\{opacity:1;animation:ringPulse/, '戒指实物图应继续响应连接状态');
 assert.doesNotMatch(html, /基于生理和情绪信号的AI身心成长教练/, '旧品牌介绍应移除');
 assert.equal(fs.existsSync(path.join(__dirname, '..', '背景图.png')), true, '本地背景图片文件应存在');
 assert.match(html, /url\(['"]\.\/背景图\.png['"]\)/, '首页应使用本地背景图.png');
@@ -187,6 +192,10 @@ const bodyStateMarkup = (html.match(/<div class="home-state-screen" id="homeBody
 assert.doesNotMatch(bodyStateMarkup, /深度探索|body-ai-coach|实时解读/, '身体状态页应移除深度探索和 AI 实时解读');
 assert.doesNotMatch(html, /id="homeDeepExplore"/, '深度探索空白页面应移除');
 assert.match(html, /\.body-sleep-report \.ai-report-card\{min-height:156px;padding:26px 20px 24px\}/, '睡眠报告卡高度和内边距应增大');
+assert.match(bodyStateMarkup, /class="body-sleep-insight"[\s\S]*?class="body-sleep-insight-label">LOOOVE 解读<\/div>[\s\S]*?昨夜 02:56 才入睡，是深睡比例偏低的主要原因——深夜入睡时生长激素分泌减少，深睡窗口收窄。睡眠效率 94% 表现不错，血氧全程稳定在安全区间。试着把入睡时间前移到 23:00 前，深睡眠会更充足。/, '睡眠报告概览卡应直接展示详情页的 LOOOVE 解读');
+assert.match(html, /id="ov-sleep-report"[\s\S]*?class="sr-ai-lbl">LOOOVE 解读<\/div>/, '睡眠报告详情页也应使用 LOOOVE 解读命名');
+assert.match(html, /\.body-sleep-insight\{margin-top:22px;padding-top:18px;border-top:1px solid rgba\(95,95,95,\.10\)\}/, '睡眠 AI 解读应以轻分隔线承接数据区');
+assert.match(html, /\.body-sleep-insight-text\{margin-top:8px;font-family:var\(--sans\);font-size:12\.5px;line-height:1\.8;color:var\(--text-secondary\)\}/, '睡眠 AI 解读正文应沿用页面克制的正文样式');
 assert.match(html, /id="ov-body-awareness"/, '身心觉察详情页应保留');
 
 const trajectoryMarkup = (html.match(/<div class="tabpage" id="t-diary">([\s\S]*?)<\/div>\s*\n\s*<!-- ===== TAB 3/) || [])[1] || '';
@@ -196,10 +205,10 @@ const trajectoryTabs = [...activeTrajectoryMarkup.matchAll(/<button class="growt
 assert.deepEqual(trajectoryTabs, [
   { value: 'all', label: '全部' },
   { value: 'highlight', label: '高光' },
-  { value: 'low', label: '低谷' },
+  { value: 'low', label: '波动' },
   { value: 'interaction', label: '互动' },
   { value: 'report', label: '报告' },
-], '轨迹页应按“全部 / 高光 / 低谷 / 互动 / 报告”的顺序展示分类');
+], '轨迹页应按“全部 / 高光 / 波动 / 互动 / 报告”的顺序展示分类');
 assert.match(trajectoryMarkup, /<h2 class="serif">轨迹<\/h2>/, '轨迹页标题应精简为“轨迹”');
 const trajectoryCardTypes = [...activeTrajectoryMarkup.matchAll(/class="growth-card [^"]+" data-growth="([^"]+)"/g)].map(([, type]) => type);
 assert.ok(trajectoryCardTypes.length > 0, '轨迹页应保留成长记录');
@@ -231,7 +240,8 @@ assert.match(html, /\.growth-card\.compact\{min-height:0;padding-top:12px;paddin
 assert.match(activeTrajectoryMarkup, /data-growth="report"[\s\S]*?早间报告/, '报告分类应提供早间报告');
 assert.match(activeTrajectoryMarkup, /data-growth="report"[\s\S]*?周报告/, '报告分类应提供周报告');
 assert.match(activeTrajectoryMarkup, /data-growth="highlight"[\s\S]*?class="growth-kind kind-highlight">高光</, '高光记录应使用独立标签样式');
-assert.match(activeTrajectoryMarkup, /data-growth="low"[\s\S]*?class="growth-kind kind-low">低谷</, '低谷记录应使用独立标签样式');
+assert.match(activeTrajectoryMarkup, /data-growth="low"[\s\S]*?class="growth-kind kind-low">波动</, '波动记录应使用独立标签样式');
+assert.doesNotMatch(html, /低谷/, '用户可见文案不应再使用“低谷”表达');
 assert.equal((activeTrajectoryMarkup.match(/class="growth-kind kind-interaction">互动·(?:抽卡|心法)</g) || []).length, 2, '抽卡与心法应统一使用互动标签样式');
 assert.equal((activeTrajectoryMarkup.match(/class="growth-kind kind-report">(?:早间|周)报告</g) || []).length, 2, '早间报告与周报告应统一使用报告标签样式');
 assert.match(html, /\.growth-kind\.kind-highlight\{background:#fff0c7;color:#c67800;border-color:#ffd77d\}/, '高光标签应使用清亮蜜金色');
@@ -247,7 +257,7 @@ assert.match(html, /lifeLow:\{[\s\S]*?voiceDetail:'[^']*没关系[^']*'[\s\S]*?b
 assert.match(html, /type:'interaction'[\s\S]*?interactionKind:'抽卡'[\s\S]*?type:'interaction'[\s\S]*?interactionKind:'心法'/, '互动详情数据应分别支持抽卡与心法记录');
 assert.match(html, /interactionKind:'抽卡',title:'互动·抽卡'[\s\S]*?interactionKind:'心法',title:'互动·心法'/, '两类互动详情标题也应使用统一命名');
 assert.match(html, /type:'report'[\s\S]*?reportKind:'早间报告'[\s\S]*?type:'report'[\s\S]*?reportKind:'周报告'/, '报告详情数据应分别支持早间报告与周报告');
-assert.match(html, /function growthSignalRecordMarkup\(record\)[\s\S]*?详细声音记录[\s\S]*?身体数据[\s\S]*?AI 记录总结/, '高光和低谷详情页应展开三类完整信息');
+assert.match(html, /function growthSignalRecordMarkup\(record\)[\s\S]*?详细声音记录[\s\S]*?身体数据[\s\S]*?LOOOVE 总结/, '高光和波动详情页应展开三类完整信息，并使用 LOOOVE 总结命名');
 assert.match(html, /function growthInteractionRecordMarkup\(record\)[\s\S]*?互动记录[\s\S]*?LOOOVE 回顾/, '互动详情页应呈现抽卡或心法的留存内容');
 assert.match(html, /\.growth-card-result-row\{display:flex;flex-direction:column;gap:8px;margin-top:12px\}/, '抽卡结果的三个白色块应纵向独立排列');
 assert.match(html, /items:\[\s*\['三张图里，哪一张最吸引你？','远处的路。'\],\s*\['它让你想到了最近发生的什么？','我在认真考虑换工作，也在重新看待这段关系。'\],\s*\['如果三张图连成一个故事，故事正在走向哪里？','先走近新的机会，再决定哪些关系值得继续。'\]\s*\]/, '抽卡记录应保存三个问题及对应作答');
