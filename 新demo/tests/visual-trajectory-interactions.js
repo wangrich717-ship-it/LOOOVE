@@ -25,6 +25,15 @@ const { chromium } = require('playwright');
   const paintingListWidth = await page.locator('.growth-card[data-growth="interaction"]:not(.hide) .growth-interaction-media.painting').evaluate(element => element.getBoundingClientRect().width / element.parentElement.getBoundingClientRect().width);
   assert.ok(cardListWidth > .45 && cardListWidth < .55, '抽卡列表图片组应约占卡片宽度的一半');
   assert.ok(paintingListWidth > .20 && paintingListWidth < .26, '绘画列表图片应约占卡片宽度的四分之一');
+  const mantraListCard = page.locator('.growth-card[data-growth="interaction"]', { hasText: '互动·心法' });
+  const mantraSpacing = await mantraListCard.evaluate(card => {
+    const journey = card.querySelector('.growth-interaction-journey');
+    const cardBox = card.getBoundingClientRect();
+    const journeyBox = journey.getBoundingClientRect();
+    return { minHeight:getComputedStyle(card).minHeight, bottomGap:cardBox.bottom - journeyBox.bottom };
+  });
+  assert.equal(mantraSpacing.minHeight, '0px', '只有一句表达的心法卡不应继承通用卡片最小高度');
+  assert.ok(mantraSpacing.bottomGap <= 18, `心法内容下方留白应收紧，当前为 ${mantraSpacing.bottomGap}px`);
   await page.screenshot({ path: path.join(os.tmpdir(), 'looove-trajectory-interactions-list.png'), fullPage: false });
 
   for (const key of ['drawingBreath', 'cardReflection', 'mantraMoment']) {
