@@ -343,6 +343,10 @@ body{font-family:var(--sans);
 #homeAwarenessPlaceholder .sr-topbar{height:62px;background:transparent;
   border-bottom:0}
 #homeAwarenessPlaceholder .sr-toptitle{font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:.12em}
+.consultant-search-btn{width:28px;height:36px;flex:0 0 28px;border:0;background:transparent;color:var(--consultant-ink);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:color .2s ease,transform .2s ease}
+.consultant-search-btn:hover{color:var(--consultant-accent);transform:translateY(-1px)}
+.consultant-search-btn:active{transform:scale(.94)}
+.consultant-search-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .consultant-agent-presence{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:4px;
   color:var(--consultant-muted);font-size:8.5px;font-weight:500;letter-spacing:.08em}
 .consultant-agent-presence i{width:5px;height:5px;border-radius:50%;background:#63bd86;
@@ -362,6 +366,7 @@ body{font-family:var(--sans);
 .consultant-agent-avatar svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .consultant-agent-meta b{font-weight:700;color:var(--consultant-ink)}
 .consultant-agent-meta time{margin-left:auto;color:var(--consultant-muted);font-size:8.5px}
+.consultant-agent-feed .consultant-keyword{display:inline;margin:0;color:var(--consultant-accent);font-weight:400;font-style:normal}
 .consultant-dispatch-card,.consultant-analysis-card{position:relative;overflow:hidden;padding:18px 16px;border-radius:24px;background:rgba(255,255,255,.68);
   backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.94);
   box-shadow:0 14px 34px rgba(110,88,78,.11),inset 0 1px 0 rgba(255,255,255,.96)}
@@ -393,7 +398,7 @@ body{font-family:var(--sans);
 .consultant-evidence-item:first-child{border-top:0;padding-top:0}
 .consultant-section-label{color:var(--consultant-accent);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.08em}
 .consultant-evidence-item span{display:block;margin-top:7px;}
-.consultant-evidence-item span,.consultant-hypothesis p,.consultant-report-insight,.consultant-proactive-copy,.consultant-mantra-card footer{color:var(--consultant-ink);font-family:var(--sans);font-size:13px;font-weight:400;line-height:1.7}
+.consultant-evidence-item span,.consultant-hypothesis p,.consultant-report-insight,.consultant-proactive-copy,.consultant-mantra-card footer,.consultant-inline-agent{color:var(--consultant-ink);font-family:var(--sans);font-size:13px;font-weight:400;line-height:1.7}
 .consultant-hypothesis{margin-top:0;padding:13px 0 0;border-radius:0;background:transparent;
   border-left:0;border-top:1px solid rgba(95,95,95,.10)}
 .consultant-hypothesis p{margin-top:7px}
@@ -459,6 +464,16 @@ body{font-family:var(--sans);
 .consultant-breath-line-copy{min-width:0;font-family:var(--sans)}
 .consultant-breath-line-label{display:block;color:var(--consultant-accent);font-size:8.5px;font-weight:700;letter-spacing:.12em}
 .consultant-breath-line-title{display:block;margin-top:5px;font-family:var(--serif);font-size:14px;font-weight:600;line-height:1.45}
+.consultant-drawing-user{margin-top:22px}
+.consultant-drawing-user .consultant-user-wrap{width:58%;max-width:58%}
+.consultant-drawing-bubble{margin:0;padding:6px;border-radius:22px 22px 6px 22px;overflow:hidden;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.96);box-shadow:0 12px 28px rgba(110,88,78,.12),inset 0 1px 0 rgba(255,255,255,.98)}
+.consultant-drawing-bubble img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:17px 17px 4px 17px}
+.consultant-drawing-bubble figcaption{padding:8px 7px 5px;color:var(--consultant-muted);font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:.08em;text-align:left}
+.consultant-breath-feedback-message{margin-top:2px}
+.consultant-breath-feedback-card{padding:18px 17px 17px;border-radius:24px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.94);box-shadow:0 14px 34px rgba(110,88,78,.11),inset 0 1px 0 rgba(255,255,255,.96)}
+.consultant-breath-feedback-kicker{color:var(--consultant-accent);font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.14em}
+.consultant-breath-feedback-card h3{margin:8px 0 0;color:var(--consultant-ink);font-family:var(--serif);font-size:18px;font-weight:500;line-height:1.55;letter-spacing:.02em}
+.consultant-breath-feedback-card p{margin-top:7px;color:var(--consultant-ink);font-family:var(--sans);font-size:13px;font-weight:400;line-height:1.7}
 .consultant-card-draw-preview{width:100%;margin-top:10px;padding:12px;border:0;border-radius:20px;display:grid;grid-template-columns:54px 1fr;
   align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--consultant-ink);background:rgba(255,255,255,.88);
   box-shadow:0 10px 27px rgba(110,88,78,.10),inset 0 1px 0 rgba(255,255,255,.98);transition:transform .2s var(--ease-smooth),box-shadow .2s ease}
@@ -470,6 +485,7 @@ body{font-family:var(--sans);
 .consultant-card-draw-copy{min-width:0;font-family:var(--sans)}
 .consultant-card-draw-label{display:block;color:var(--consultant-accent);font-size:8.5px;font-weight:700;letter-spacing:.12em}
 .consultant-card-draw-title{display:block;margin-top:5px;font-family:var(--serif);font-size:14px;font-weight:600;line-height:1.45}
+.consultant-report-title,.consultant-mantra-card p,.consultant-proactive-title,.consultant-sleep-music-name,.consultant-breath-line-title,.consultant-breath-feedback-card h3,.consultant-taste-recommendation h3,.consultant-card-draw-title{color:var(--consultant-ink);font-family:var(--serif);font-size:14px;font-weight:600;line-height:1.45;letter-spacing:0}
 .consultant-reflection-modal{position:absolute;inset:0;z-index:260;display:flex;align-items:flex-end;justify-content:center;padding:62px 10px 10px;
   background:rgba(247,241,237,.58);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .32s var(--ease-smooth),visibility .32s}
@@ -547,7 +563,7 @@ body{font-family:var(--sans);
 .consultant-voice-btn.recording{color:var(--primary);animation:consultantRecordPulse 1.1s ease-in-out infinite}
 .consultant-voice-btn svg,.consultant-send-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .consultant-inline-agent{margin:10px 0 16px;padding:11px 13px;border-radius:17px 17px 17px 5px;background:rgba(255,255,255,.68);
-  border:1px solid rgba(255,255,255,.94);color:var(--consultant-ink);font-family:var(--serif);font-size:10.5px;line-height:1.7;
+  border:1px solid rgba(255,255,255,.94);
   box-shadow:0 10px 26px rgba(110,88,78,.09),inset 0 1px 0 rgba(255,255,255,.96);
   animation:consultantMessageIn .32s var(--ease-smooth) both}
 .consultant-thinking{display:inline-flex;gap:3px;align-items:center;height:12px}
@@ -1377,6 +1393,17 @@ body{font-family:var(--sans);
 .growth-interaction-brief{margin-top:10px;padding-top:9px;border-top:1px solid rgba(95,95,95,.08);font-size:11px;color:var(--text-secondary)}
 .growth-interaction-brief b{display:block;margin-bottom:3px;color:var(--primary);font-size:10px;letter-spacing:.08em}
 .growth-interaction-brief span{display:block;line-height:1.55}
+.growth-interaction-journey{display:flex;flex-direction:column;margin-top:10px;padding-top:8px;border-top:1px solid rgba(95,95,95,.08)}
+.growth-interaction-journey p{display:grid;grid-template-columns:34px 1fr;gap:7px;margin:0;padding:5px 0;font-size:10.5px;line-height:1.55}
+.growth-interaction-journey b{color:var(--text-muted);font-weight:600}
+.growth-interaction-journey span{color:var(--text-secondary)}
+.growth-interaction-media{display:grid;gap:7px;margin-top:11px}
+.growth-interaction-media.cards{grid-template-columns:repeat(3,1fr)}
+.growth-interaction-media.painting{grid-template-columns:1fr}
+.growth-interaction-media img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;background:#f7f2ed;box-shadow:0 8px 20px rgba(110,88,78,.09)}
+.growth-card .growth-interaction-media.cards{width:50%}
+.growth-card .growth-interaction-media.painting{width:23%}
+.growth-card .growth-interaction-media.painting img{aspect-ratio:4/5}
 .growth-report-brief{display:flex;gap:8px;margin-top:11px}
 .growth-report-brief span{flex:1;padding:9px 8px;border-radius:14px;background:rgba(255,255,255,.58);font-size:9.5px;line-height:1.45;color:var(--text-muted)}
 .growth-report-brief b{display:block;margin-top:2px;font-family:var(--serif);font-size:14px;color:var(--text-primary)}
@@ -1451,10 +1478,40 @@ body{font-family:var(--sans);
 .growth-body-data div{min-height:72px;padding:13px 6px;border-radius:17px;text-align:center;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.86)}
 .growth-body-data b{display:block;font-family:var(--serif);font-size:18px;color:var(--text-primary)}
 .growth-body-data span{display:block;margin-top:3px;font-size:9px;color:var(--text-muted);letter-spacing:.05em}
-.growth-ai-record{padding:15px 16px;border-radius:19px;background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,244,239,.58));font-family:var(--serif);font-size:14px;line-height:1.85;color:var(--text-primary)}
+.growth-ai-record{padding:0;border-radius:0;background:transparent;box-shadow:none;font-family:var(--serif);font-size:14px;line-height:1.85;color:var(--text-primary)}
+.growth-record-block.growth-interaction-summary{padding:0 16px}
+.growth-summary-row{padding:16px 0}
+.growth-summary-row+.growth-summary-row{border-top:1px solid rgba(95,95,95,.10)}
+.growth-summary-label{color:var(--primary);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em}
+.growth-summary-copy{margin-top:8px;font-family:var(--serif);font-size:14px;line-height:1.85;color:var(--text-primary)}
+.growth-summary-output .growth-interaction-media{margin-top:12px}
+.growth-summary-output .growth-interaction-media.painting{width:52%}
+.growth-summary-output .growth-card-result-row{margin-top:12px}
 .growth-interaction-piece{padding:16px;border-radius:20px;background:rgba(255,250,247,.72);border:1px solid rgba(238,132,102,.12)}
 .growth-interaction-piece strong{display:block;font-family:var(--serif);font-size:18px;line-height:1.55;color:var(--text-primary)}
 .growth-interaction-piece p{margin-top:8px;font-size:12.5px;line-height:1.75;color:var(--text-secondary)}
+.growth-interaction-flow{display:flex;flex-direction:column;gap:10px}
+.growth-interaction-turn{padding:14px 15px;border-radius:19px;border:1px solid rgba(255,255,255,.88);box-shadow:0 10px 24px -22px rgba(110,88,78,.48)}
+.growth-interaction-turn.user{margin-left:28px;background:rgba(255,238,230,.72);border-bottom-right-radius:7px}
+.growth-interaction-turn.looove,.growth-interaction-turn.feedback{margin-right:18px;background:rgba(255,255,255,.78);border-bottom-left-radius:7px}
+.growth-interaction-turn.looove:has(.growth-interaction-tool.mantra){margin-left:-6px;margin-right:-6px;padding-left:10px;padding-right:10px}
+.growth-interaction-turn.feedback{background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,244,239,.66))}
+.growth-interaction-role{color:var(--primary);font-size:9.5px;font-weight:700;letter-spacing:.1em}
+.growth-interaction-turn p{margin-top:6px;font-family:var(--serif);font-size:13px;line-height:1.78;color:var(--text-primary)}
+.growth-interaction-tool{margin-top:10px;padding:11px 12px;border-radius:14px;background:rgba(255,255,255,.68)}
+.growth-interaction-tool:not(.mantra){background:linear-gradient(145deg,rgba(255,250,246,.96),rgba(248,232,224,.82));border:1px solid rgba(238,132,102,.14);box-shadow:0 12px 26px rgba(110,88,78,.12),inset 0 1px 0 rgba(255,255,255,.96)}
+.growth-interaction-tool.has-thumb{display:grid;grid-template-columns:48px 1fr;gap:11px;align-items:center}
+.growth-interaction-tool-thumb{width:48px;height:60px;border-radius:11px;display:block;object-fit:cover;background:#f7f2ed;box-shadow:0 6px 16px rgba(110,88,78,.08)}
+.growth-interaction-tool-copy{min-width:0}
+.growth-interaction-tool b{display:block;color:var(--text-muted);font-size:9.5px;font-weight:600;letter-spacing:.08em}
+.growth-interaction-tool strong{display:block;margin-top:5px;font-family:var(--serif);font-size:14px;font-weight:600;line-height:1.6;color:var(--text-primary)}
+.growth-interaction-tool.mantra{position:relative;overflow:hidden;padding:18px 6px 17px;background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,244,239,.68));border:1px solid rgba(255,255,255,.96);box-shadow:0 12px 30px rgba(139,91,75,.10)}
+.growth-interaction-tool.mantra::before{content:"“";position:absolute;right:13px;top:-10px;color:rgba(255,127,99,.10);font-family:var(--serif);font-size:72px;line-height:1}
+.growth-interaction-tool.mantra b{position:relative;font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:.12em}
+.growth-interaction-mantra-main{position:relative;margin-top:8px!important;font-size:18px!important;font-weight:500!important;line-height:1.65!important;letter-spacing:.03em;white-space:nowrap}
+.growth-interaction-tool.mantra footer{position:relative;margin-top:10px;color:var(--text-primary);font-family:var(--sans);font-size:13px;font-weight:400;line-height:1.7}
+.growth-interaction-turn .growth-interaction-media.painting{width:62%}
+.growth-interaction-turn .growth-card-result-row{margin-top:10px}
 .growth-card-result-row{display:flex;flex-direction:column;gap:8px;margin-top:12px}
 .growth-card-result-item{width:100%;padding:12px 14px;border-radius:14px;text-align:left;background:rgba(255,255,255,.78)}
 .growth-card-result-item b{display:block;font-size:10.5px;line-height:1.5;color:var(--text-muted);font-weight:600}
@@ -3275,7 +3332,9 @@ body{font-family:var(--sans);
                 <div class="sr-toptitle">互动</div>
                 <div class="consultant-agent-presence"><i></i>LOOOVE 在线 · 戒指数据已同步</div>
               </div>
-              <div style="width:28px;flex-shrink:0"></div>
+              <button class="consultant-search-btn" type="button" aria-label="搜索互动记录">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5"/><path d="M14.5 14.5L19 19"/></svg>
+              </button>
             </div>
             <div class="home-awareness-placeholder-body consultant-agent-body" aria-label="LOOOVE 互动区">
               <main class="consultant-agent-feed" id="consultantAgentFeed" aria-live="polite">
@@ -3288,7 +3347,7 @@ body{font-family:var(--sans);
                     <b>LOOOVE</b><time>07:30</time>
                   </div>
                   <section class="consultant-dispatch-card consultant-morning-report">
-                    <div class="consultant-report-kicker">早间报告 <span>基于昨夜戒指数据</span></div>
+                    <div class="consultant-report-kicker">早间报告</div>
                     <h2 class="consultant-report-title">今晨恢复偏慢，适合从容启动。</h2>
 
                     <div class="consultant-report-dashboard" aria-label="今晨身体状态仪表盘">
@@ -3401,6 +3460,30 @@ body{font-family:var(--sans);
                   </section>
                 </article>
 
+                <div class="consultant-user-row consultant-drawing-user">
+                  <div class="consultant-user-wrap">
+                    <div class="consultant-user-name">我 · 14:15</div>
+                    <figure class="consultant-drawing-bubble">
+                      <img src="./呼吸画线.jpg" alt="我完成的呼吸画线作品">
+                      <figcaption>呼吸画线 · 已完成</figcaption>
+                    </figure>
+                  </div>
+                </div>
+
+                <article class="consultant-agent-message consultant-breath-feedback-message">
+                  <div class="consultant-agent-meta">
+                    <span class="consultant-agent-avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
+                    </span>
+                    <b>LOOOVE</b><time>14:16</time>
+                  </div>
+                  <section class="consultant-breath-feedback-card" aria-label="调息后的身体变化">
+                    <div class="consultant-breath-feedback-kicker">反馈</div>
+                    <h3>身体开始松开了。</h3>
+                    <p>心率从 68 降至 64 bpm，HRV 从 39 回升到 43 ms；呼吸节律逐渐放慢，压力曲线也开始回落。</p>
+                  </section>
+                </article>
+
                 <article class="consultant-agent-message consultant-taste-message">
                   <div class="consultant-agent-meta">
                     <span class="consultant-agent-avatar" aria-hidden="true">
@@ -3459,7 +3542,7 @@ body{font-family:var(--sans);
               </main>
 
               <div class="consultant-agent-composer">
-                <button class="consultant-voice-btn" id="consultantVoiceBtn" onclick="consultantVoiceCheckin()" aria-label="开始声音记录">
+                <button type="button" class="consultant-voice-btn" id="consultantVoiceBtn" onclick="consultantVoiceInput()" aria-label="语音输入">
                   <svg viewBox="0 0 20 20"><rect x="7" y="2" width="6" height="10" rx="3"/><path d="M4 9a6 6 0 0 0 12 0M10 15v3M7 18h6"/></svg>
                 </button>
                 <div class="consultant-agent-input-wrap">
@@ -4081,12 +4164,39 @@ body{font-family:var(--sans);
                 </div>
                 <div class="growth-summary-line">你没有回避分歧，也没有被分歧带走。</div>
               </article>
+              <article class="growth-card right" data-growth="interaction" onclick="openGrowthRecord('drawingBreath')">
+                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·绘画</div><time>14:16</time></div>
+                <div class="growth-title">烦躁慢慢退下去了。</div>
+                <div class="growth-interaction-media painting"><img src="./呼吸画线.jpg" alt="完成的呼吸画线作品"></div>
+                <div class="growth-interaction-journey">
+                  <p><b>你</b><span>我有点烦躁。</span></p>
+                  <p><b>结果</b><span>身体开始松开了。</span></p>
+                </div>
+              </article>
               <article class="growth-card right" data-growth="report" onclick="openGrowthRecord('weeklyReport')">
                 <div class="growth-card-top"><div class="growth-kind kind-report">周报告</div><time>12:00</time></div>
                 <div class="growth-title">恢复波动正在收窄。</div>
                 <div class="growth-report-brief"><span>Loooveness 均值 <b>58</b></span><span>有效记录 <b>5 次</b></span></div>
               </article>
               <div class="growth-day"><span>6月11日 · 昨天</span></div>
+              <article class="growth-card right" data-growth="interaction" onclick="openGrowthRecord('cardReflection')">
+                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·抽卡</div><time>21:17</time></div>
+                <div class="growth-title">当两种生活同时拉扯你。</div>
+                <div class="growth-interaction-media cards">
+                  <img src="./抽卡/28.png" alt="抽取的卡牌一"><img src="./抽卡/31.png" alt="抽取的卡牌二"><img src="./抽卡/36.png" alt="抽取的卡牌三">
+                </div>
+                <div class="growth-interaction-journey">
+                  <p><b>你</b><span>我最近有点迷茫。</span></p>
+                  <p><b>结果</b><span>先看工作机会，关系等状态稳定后再谈</span></p>
+                </div>
+              </article>
+              <article class="growth-card left" data-growth="interaction" onclick="openGrowthRecord('mantraMoment')">
+                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·心法</div><time>10:22</time></div>
+                <div class="growth-title">方案被反对，不等于能力被否定。</div>
+                <div class="growth-interaction-journey">
+                  <p><b>你</b><span>我最近压力好大。</span></p>
+                </div>
+              </article>
               <article class="growth-card left" data-growth="low" onclick="openGrowthRecord('signalLow')">
                 <div class="growth-card-top"><div class="growth-kind kind-low">波动</div><time>10:19</time></div>
                 <div class="growth-title">会议结束了，恼火还留在身体里。</div>
@@ -4096,20 +4206,10 @@ body{font-family:var(--sans);
                 </div>
                 <div class="growth-summary-line">被直接反驳后，你还在替那场争辩消耗能量。</div>
               </article>
-              <article class="growth-card right" data-growth="interaction" onclick="openGrowthRecord('cardReflection')">
-                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·抽卡</div><time>21:17</time></div>
-                <div class="growth-title">当两种生活同时拉扯你。</div>
-                <div class="growth-interaction-brief"><b>理清方向</b><span>先看工作机会，关系等状态稳定后再谈</span></div>
-              </article>
               <article class="growth-card left" data-growth="report" onclick="openGrowthRecord('morningReport')">
                 <div class="growth-card-top"><div class="growth-kind kind-report">早间报告</div><time>07:30</time></div>
                 <div class="growth-title">今晨恢复偏慢，适合从容启动。</div>
                 <div class="growth-report-brief"><span>Loooveness <b>56</b></span><span>睡眠 <b>6h42m</b></span></div>
-              </article>
-              <div class="growth-day"><span>6月10日 · 前天</span></div>
-              <article class="growth-card right compact" data-growth="interaction" onclick="openGrowthRecord('mantraMoment')">
-                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·心法</div><time>18:46</time></div>
-                <div class="growth-title">方案被反对，不等于能力被否定。</div>
               </article>
             </div>
             <!-- Demo 暂时隐藏：勋章与 AI 洞察入口
@@ -6252,10 +6352,24 @@ const GROWTH_RECORDS={
     bodyData:[['29ms','HRV'],['86bpm','心率'],['4.1','压力']],
     aiSummary:'你在会议中提出需求后，被开发直接反驳，双方争辩了几句。虽然会议已经结束，但那股被顶回来的恼火，还是继续留在身体里。'
   },
+  drawingBreath:{
+    type:'interaction',interactionKind:'绘画',title:'互动·绘画',date:'6月12日 · 14:16',kind:'互动',
+    headline:'烦躁慢慢退下去了。',
+    userMessage:'我有点烦躁。',
+    loooveResponse:'声音和身体数据都没有明显异常，这次烦躁更像注意力积累了一点噪音。我推荐一次绘画疗愈：跟着呼吸画线，让注意力回到手和呼吸上。',
+    recommendationTitle:'绘画疗愈',recommendationText:'跟着呼吸画线',
+    toolThumb:'./呼吸画线.jpg',
+    returnLabel:'你完成',userReturn:'',media:['./呼吸画线.jpg'],items:[],
+    aiSummary:'经过刚刚的疗愈，心率从 68 降至 64 bpm，HRV 从 39 回升到 43 ms；呼吸节律逐渐放慢，压力曲线也开始回落，身体正在从轻微紧绷转向放松。'
+  },
   cardReflection:{
     type:'interaction',interactionKind:'抽卡',title:'互动·抽卡',date:'6月11日 · 21:17',kind:'互动',
     headline:'当两种生活同时拉扯你。',
-    detail:'你围绕工作去留和亲密关系完成了三张卡的潜意识探索。',
+    userMessage:'我最近有点迷茫。',
+    loooveResponse:'最近的声音线索里同时出现了工作去留和关系争执，身体压力也持续在高位。两种生活一起占满了选择力，因此我推荐一次三张卡的潜意识探索。',
+    recommendationTitle:'潜意识探索',recommendationText:'抽取三张卡，探索内心',
+    toolThumb:'./抽卡/背面.png',
+    returnLabel:'你完成',userReturn:'完成了三张卡和三个问题。',media:['./抽卡/28.png','./抽卡/31.png','./抽卡/36.png'],
     items:[
       ['三张图里，哪一张最吸引你？','远处的路。'],
       ['它让你想到了最近发生的什么？','我在认真考虑换工作，也在重新看待这段关系。'],
@@ -6264,11 +6378,14 @@ const GROWTH_RECORDS={
     aiSummary:'你不是缺少方向，而是工作与关系同时占用了选择力。三张图都指向“先拉开一点距离再判断”：先确认什么是你真正想靠近的，再决定哪些关系与机会值得继续投入。'
   },
   mantraMoment:{
-    type:'interaction',interactionKind:'心法',title:'互动·心法',date:'6月10日 · 18:46',kind:'互动',
+    type:'interaction',interactionKind:'心法',title:'互动·心法',date:'6月11日 · 10:22',kind:'互动',
     headline:'方案被反对，不等于能力被否定。',
-    detail:'带走有用的信息，允许自己有情绪；等愤怒过去，再决定什么值得回应。',
-    items:[],
-    aiSummary:'这条心法被保存，是因为它回应了你在工作分歧里的惯性：容易把对方案的反对听成对自己的否定。你正在练习把事实、情绪和自我价值重新分开。'
+    userMessage:'我最近压力好大。',
+    loooveResponse:'会议争辩后，你的语速加快、HRV 降低，恼火还留在身体里。我没有继续安排任务，而是给了你一句今日心法。',
+    recommendationTitle:'今日心法',recommendationText:'方案被反对，不等于能力被否定。',
+    recommendationNote:['带走有用的信息，允许自己有情绪；','等愤怒过去，再决定什么值得回应。'],
+    media:[],items:[],
+    aiSummary:'这句心法把方案是否被采纳与个人能力分开。先带走有用的信息，也允许愤怒存在；等身体回稳后，再决定什么值得回应。'
   },
   morningReport:{
     type:'report',reportKind:'早间报告',title:'早间报告',date:'6月11日 · 07:30',kind:'报告',
@@ -6296,10 +6413,18 @@ function growthSignalRecordMarkup(record){
     <section class="growth-record-block"><div class="growth-detail-section-title">LOOOVE 总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
 }
 function growthInteractionRecordMarkup(record){
+  const media=record.media.length?`<div class="growth-interaction-media ${record.interactionKind==='抽卡'?'cards':'painting'}">${record.media.map((src,index)=>`<img src="${esc(src)}" alt="${esc(record.interactionKind)}记录 ${index+1}">`).join('')}</div>`:'';
   const cards=record.items.length?`<div class="growth-card-result-row">${record.items.map(([question,answer])=>`<div class="growth-card-result-item"><b>${esc(question)}</b><p>${esc(answer)}</p></div>`).join('')}</div>`:'';
+  const outputCopy=!record.media.length&&!record.items.length&&record.userReturn?`<p class="growth-summary-copy">${esc(record.userReturn)}</p>`:'';
+  const outputLabel=record.interactionKind==='抽卡'?'你的探索':record.interactionKind==='绘画'?'你的画作':'你的回应';
+  const hasOutput=Boolean(record.media.length||record.items.length||record.userReturn);
+  const outputRow=hasOutput?`<div class="growth-summary-row growth-summary-output"><div class="growth-summary-label">${outputLabel}</div>${outputCopy}${media}${cards}</div>`:'';
   return `${growthRecordHero(record)}
-    <section class="growth-record-block"><div class="growth-detail-section-title">互动记录 · ${esc(record.interactionKind)}</div><div class="growth-interaction-piece"><strong>${esc(record.headline)}</strong><p>${esc(record.detail)}</p>${cards}</div></section>
-    <section class="growth-record-block"><div class="growth-detail-section-title">LOOOVE 回顾</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
+    <section class="growth-record-block growth-interaction-summary">
+      <div class="growth-summary-row"><div class="growth-summary-label">你说</div><p class="growth-summary-copy">${esc(record.userMessage)}</p></div>
+      ${outputRow}
+      <div class="growth-summary-row"><div class="growth-summary-label">LOOOVE 总结</div><p class="growth-summary-copy">${esc(record.aiSummary)}</p></div>
+    </section>`;
 }
 function growthReportRecordMarkup(record){
   const metrics=record.metrics.map(([value,label])=>`<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
@@ -7240,20 +7365,21 @@ function sendConsultantMessage(){
     Audio$.soft();
   },720);
 }
-function consultantVoiceCheckin(){
+function consultantVoiceInput(){
   const btn=document.getElementById('consultantVoiceBtn');
-  if(!btn||btn.classList.contains('recording'))return;
+  const input=document.getElementById('consultantAgentInput');
+  if(!btn||!input||btn.classList.contains('recording'))return;
   Audio$.soft();
   btn.classList.add('recording');
-  btn.setAttribute('aria-label','正在记录声音');
-  const note=consultantPostAgentNotice('正在读取戒指的声音片段…');
+  btn.setAttribute('aria-label','正在听你说');
+  input.placeholder='正在听你说…';
   setTimeout(()=>{
     btn.classList.remove('recording');
-    btn.setAttribute('aria-label','开始声音记录');
-    if(note){
-      note.textContent='声音记录已收到。你的语速在前 12 秒偏快，随后逐渐放缓。我会把这一段作为今天的新基线，而不是给情绪贴标签。你也可以继续告诉我，刚才最想说却没有说完的是什么。';
-      consultantScrollToEnd();
-    }
+    btn.setAttribute('aria-label','语音输入');
+    input.placeholder='来和LOOOVE分享此刻的心事吧~';
+    input.value='我最近有点累，也有点说不上来的烦。';
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    input.focus();
     Audio$.pluck();
   },1350);
 }
@@ -10011,8 +10137,44 @@ function simMeasure(type){
 }
 function stopSim(){ if(RingBLE.simTimer){clearInterval(RingBLE.simTimer);RingBLE.simTimer=null;} RingBLE.sim=false; }
 
+const CONSULTANT_KEYWORDS=[
+  '体表温度已连续 40 分钟高于个人午后基线 0.4°C','压力高位持续时间变长','HRV 连续低于个人基线',
+  '情绪压力保持在高位','HRV 低于个人基线','Loooveness 降至 41','轻微燥热与感官疲劳',
+  '静息心率 68bpm','语速明显加快','被压抑的愤怒','被顶回来的恼火','压力曲线也开始回落',
+  'HRV 39ms','64 bpm','43 ms','烦躁','迷茫','68','39'
+];
+function highlightConsultantKeywords(root=document.getElementById('consultantAgentFeed')){
+  if(!root)return;
+  const escaped=CONSULTANT_KEYWORDS.map(word=>word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  const matcher=new RegExp(`(${escaped.join('|')})`,'g');
+  const targets=root.querySelectorAll('.consultant-report-insight,.consultant-evidence-item span,.consultant-hypothesis p,.consultant-mantra-card p,.consultant-mantra-card footer,.consultant-proactive-copy,.consultant-breath-feedback-card h3,.consultant-breath-feedback-card p,.consultant-taste-signal,.consultant-taste-practice p');
+  targets.forEach(target=>{
+    const walker=document.createTreeWalker(target,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()){
+      if(!walker.currentNode.parentElement?.classList.contains('consultant-keyword'))nodes.push(walker.currentNode);
+    }
+    nodes.forEach(node=>{
+      const parts=node.nodeValue.split(matcher);
+      if(parts.length<2)return;
+      const fragment=document.createDocumentFragment();
+      parts.forEach(part=>{
+        if(!part)return;
+        if(CONSULTANT_KEYWORDS.includes(part)){
+          const mark=document.createElement('span');
+          mark.className='consultant-keyword';
+          mark.textContent=part;
+          fragment.appendChild(mark);
+        }else fragment.appendChild(document.createTextNode(part));
+      });
+      node.replaceWith(fragment);
+    });
+  });
+}
+
 window.addEventListener('resize',fitPhone);fitPhone();
 renderIcons();
+highlightConsultantKeywords();
 renderHomeExtList('calm');
 renderDiary();
 try{drawChart();}catch(e){}
