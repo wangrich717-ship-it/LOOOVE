@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LOOOVE · 循证 AI 身心教练 Demo</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#ff7f63;--secondary:#ffb84d;--accent:#5aa7ff;
@@ -16,6 +16,7 @@
   --ease-smooth:cubic-bezier(.4,0,.2,1);--ease-bounce:cubic-bezier(.34,1.56,.64,1);
   --transition-fast:.2s var(--ease-smooth);--transition-base:.4s var(--ease-smooth);
   --transition-slow:.7s var(--ease-smooth);
+  --serif-en:'Cormorant Garamond',Georgia,serif;--sans-en:'DM Sans','Segoe UI',sans-serif;
   --serif:'Noto Serif SC',serif;--sans:'Noto Sans SC',sans-serif;
   --soft-page-bg:
     radial-gradient(circle at 86% 16%,rgba(238,188,174,.12),transparent 34%),
@@ -45,7 +46,58 @@ body{font-family:var(--sans);
 
 /* ===== 单手机舞台 ===== */
 .stage{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;padding:20px;z-index:1}
-.center-col{display:flex;align-items:center;justify-content:center;z-index:2}
+.center-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:2}
+
+/* 中英双语：手机外独立语言 Tab，不占用产品界面空间 */
+.language-switch{display:flex;align-items:center;justify-content:center;gap:3px;min-width:188px;
+  padding:4px;border:1px solid rgba(83,65,57,.10);border-radius:var(--radius-full);
+  background:rgba(255,255,255,.68);backdrop-filter:blur(18px) saturate(145%);
+  -webkit-backdrop-filter:blur(18px) saturate(145%);
+  box-shadow:0 12px 32px -22px rgba(84,61,51,.38),inset 0 1px 0 rgba(255,255,255,.92)}
+.language-switch button{min-width:88px;min-height:34px;padding:7px 15px;border:0;border-radius:var(--radius-full);
+  background:transparent;color:#9a8e89;font:600 11.5px/1 var(--sans-en);letter-spacing:.04em;
+  cursor:pointer;transition:color .2s var(--ease-smooth),background .2s var(--ease-smooth),
+  box-shadow .2s var(--ease-smooth),transform .2s var(--ease-smooth)}
+.language-switch button:hover{color:#574b47}
+.language-switch button:active{transform:scale(.97)}
+.language-switch button.on{background:#fff;color:#e66f56;box-shadow:0 4px 14px rgba(104,75,62,.12)}
+.language-switch button:focus-visible{outline:2px solid rgba(255,127,99,.48);outline-offset:2px}
+
+html[lang="en"]{--serif-en:'Cormorant Garamond',Georgia,serif;--sans-en:'DM Sans','Segoe UI',sans-serif;
+  --serif:var(--serif-en);--sans:var(--sans-en)}
+html[lang="en"] .app{font-family:var(--sans-en);letter-spacing:0}
+html[lang="en"] .serif,
+html[lang="en"] .onb-title,
+html[lang="en"] .onb-promise-title,
+html[lang="en"] .growth-title,
+html[lang="en"] .home-consultant-copy{font-family:var(--serif-en)}
+html[lang="en"] .onb-eyebrow,
+html[lang="en"] .sec-title,
+html[lang="en"] .home-brand-sub,
+html[lang="en"] .arc-label,
+html[lang="en"] .arc-key{letter-spacing:.08em}
+html[lang="en"] .onb-title{font-size:clamp(25px,7.2vw,31px);line-height:1.06}
+html[lang="en"] .onb-cover-copy{font-size:14px;line-height:1.95;letter-spacing:.01em}
+html[lang="en"] .onb-option{font-size:12.5px;line-height:1.45;min-height:48px}
+html[lang="en"] .onb-journey-step b{font-size:15px}
+html[lang="en"] .onb-journey-step span{font-size:10.5px}
+html[lang="en"] .home-consultant-copy{font-size:clamp(15px,3.9vw,16.5px);line-height:1.62}
+html[lang="en"] #t-diary .diary-hero h2{
+  font-size:28px;font-weight:600;line-height:1.08;letter-spacing:.025em
+}
+html[lang="en"] #t-diary .growth-title{
+  font-size:17px;font-weight:600;line-height:1.38;letter-spacing:.004em
+}
+html[lang="en"] #t-diary .growth-signal-preview span{font-size:11.5px;line-height:1.5}
+html[lang="en"] #t-diary .growth-summary-line{font-size:12.5px;line-height:1.55}
+html[lang="en"] .tabbar button{font-size:10px;letter-spacing:.01em}
+html[lang="en"] button,
+html[lang="en"] input,
+html[lang="en"] textarea{font-family:var(--sans-en)}
+html[lang="en"] .home-awareness-title{
+  align-self:flex-start;width:auto;max-width:100%;text-align:left;white-space:nowrap;
+  font-family:var(--serif-en);font-size:clamp(32px,9vw,40px);letter-spacing:.035em
+}
 
 /* 手机外选择器组 */
 .fp-group{display:flex;flex-direction:column;align-items:center;gap:9px}
@@ -323,7 +375,7 @@ body{font-family:var(--sans);
   font-size:13px;font-weight:400;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
 .home-consultant-label::before{content:"";width:7px;height:7px;flex:0 0 7px;border-radius:50%;
   background:#62b887;box-shadow:0 0 0 3px rgba(98,184,135,.12)}
-.home-consultant-copy{color:#5f5f5f;font-size:clamp(15px,4.1vw,17px);line-height:1.85;letter-spacing:.035em}
+.home-consultant-copy{min-height:7.4em;color:#5f5f5f;font-size:clamp(15px,4.1vw,17px);line-height:1.85;letter-spacing:.035em}
 .home-consultant-next{align-self:center;width:72%;min-width:0;height:42px;margin-top:14px;padding:0 15px;border:1px solid rgba(76,68,64,.12);
   border-radius:999px;background:#fff;color:var(--primary);display:inline-flex;align-items:center;
   justify-content:center;gap:0;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.08em;cursor:pointer;
@@ -340,7 +392,7 @@ body{font-family:var(--sans);
   radial-gradient(circle at 92% 8%,rgba(244,190,174,.15),transparent 31%),
   radial-gradient(circle at 4% 58%,rgba(181,207,194,.1),transparent 34%),
   linear-gradient(168deg,#fff 0%,#fffdfb 58%,#fff8f4 100%)}
-#homeAwarenessPlaceholder .sr-topbar{height:62px;background:transparent;
+#homeAwarenessPlaceholder .sr-topbar{height:56px;background:transparent;
   border-bottom:0}
 #homeAwarenessPlaceholder .sr-toptitle{font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:.12em}
 .consultant-search-btn{width:28px;height:36px;flex:0 0 28px;border:0;background:transparent;color:var(--consultant-ink);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:color .2s ease,transform .2s ease}
@@ -575,6 +627,263 @@ body{font-family:var(--sans);
 @keyframes consultantSleepWave{0%,100%{height:5px;opacity:.62}50%{height:16px;opacity:1}}
 @keyframes consultantCardReveal{from{opacity:0;transform:rotateY(90deg) scale(.94)}to{opacity:1;transform:rotateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.consultant-agent-message,.consultant-user-row,.consultant-inline-agent,.consultant-reflection-art.revealed{animation:none}.consultant-voice-btn.recording,.consultant-sleep-music-button.playing .consultant-sleep-wave i{animation:none}}
+
+/* ===== 互动 · 单一纵向 AI 内容流 ===== */
+.proactive-search-btn{width:28px;height:36px;flex:0 0 28px;border:0;background:transparent;color:var(--consultant-ink);
+  display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:color .2s ease,transform .2s ease}
+.proactive-search-btn:hover{color:var(--consultant-accent);transform:translateY(-1px)}
+.proactive-search-btn:active{transform:scale(.92)}
+.proactive-search-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.proactive-search-panel{position:absolute;z-index:48;top:124px;left:18px;right:18px;height:46px;padding:0 8px 0 14px;
+  display:flex;align-items:center;gap:8px;border:1px solid rgba(82,72,68,.09);border-radius:16px;
+  background:rgba(255,255,255,.96);box-shadow:0 12px 32px rgba(78,66,60,.12);opacity:0;pointer-events:none;
+  transform:translateY(-8px) scale(.985);transform-origin:50% 0;
+  transition:opacity .2s ease,transform .25s var(--ease-smooth)}
+.home-child-screen.searching .proactive-search-panel{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+.proactive-search-leading{width:16px;height:16px;flex:0 0 16px;fill:none;stroke:#9b918d;stroke-width:1.7;stroke-linecap:round}
+.proactive-search-panel input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:#514b48;
+  font-family:var(--sans);font-size:10.5px;line-height:1}
+.proactive-search-panel input::placeholder{color:#aaa19d}
+.proactive-search-panel input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.proactive-search-status{min-width:25px;color:#a09692;font-family:var(--sans);font-size:8.5px;text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.proactive-search-next,.proactive-search-close{border:0;background:transparent;color:#756d69;display:flex;align-items:center;
+  justify-content:center;padding:0;cursor:pointer;transition:color .18s ease,background .18s ease,transform .18s ease}
+.proactive-search-next{width:31px;height:31px;flex:0 0 31px;border-radius:50%;background:#fff7f3;color:var(--consultant-accent)}
+.proactive-search-close{width:25px;height:31px;flex:0 0 25px;border-radius:10px}
+.proactive-search-next:hover,.proactive-search-close:hover{color:#ee6f55;background:#fff1ec}
+.proactive-search-next:active,.proactive-search-close:active{transform:scale(.92)}
+.proactive-search-next svg,.proactive-search-close svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.home-awareness-placeholder-body.proactive-body{inset:124px 0 78px;overflow:hidden}
+.home-awareness-placeholder-body.proactive-body{transition:inset .26s var(--ease-smooth)}
+.home-child-screen.searching .home-awareness-placeholder-body.proactive-body{inset:180px 0 78px}
+.proactive-feed{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:17px 20px 64px;
+  scrollbar-width:none;overscroll-behavior:contain;color:#4e4a48;font-family:var(--sans)}
+.proactive-feed::-webkit-scrollbar{display:none}
+.proactive-stream-item{animation:proactiveReveal .45s var(--ease-smooth) both}
+.proactive-stream-item+.proactive-stream-item{margin-top:14px}
+.proactive-stream-item.is-search-match{outline:2px solid rgba(238,132,104,.7);outline-offset:5px;border-radius:25px;
+  animation:proactiveSearchMatch .62s var(--ease-smooth) both}
+@keyframes proactiveSearchMatch{0%{outline-color:rgba(238,132,104,0)}55%{outline-color:rgba(238,132,104,.82)}100%{outline-color:rgba(238,132,104,.7)}}
+.proactive-simulation-toast{position:absolute;z-index:50;top:112px;left:50%;max-width:calc(100% - 32px);
+  padding:12px 21px;border-radius:999px;background:rgba(65,59,56,.88);color:#fff;font-size:13.5px;font-weight:600;
+  letter-spacing:.06em;white-space:nowrap;pointer-events:none;opacity:0;
+  transform:translate(-50%,-12px);box-shadow:0 14px 36px rgba(55,48,44,.18);
+  transition:opacity .22s ease,transform .22s var(--ease-smooth)}
+.proactive-simulation-toast.on{opacity:1;transform:translate(-50%,0)}
+.proactive-agent-bubble{position:relative;width:94%;padding:15px 16px 17px;border-radius:22px 22px 22px 7px;
+  background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.96);
+  box-shadow:0 12px 28px rgba(75,66,61,.08),inset 0 1px 0 rgba(255,255,255,.98)}
+.proactive-agent-bubble::before{content:"";position:absolute;left:-1px;bottom:-1px;width:12px;height:12px;
+  background:linear-gradient(135deg,transparent 49%,rgba(255,255,255,.9) 50%);border-bottom-left-radius:5px}
+.proactive-ai-line{display:flex;align-items:center;gap:8px;margin:0 2px 10px;color:#807975;font-size:9px;font-weight:650;letter-spacing:.13em}
+.proactive-ai-line i{width:6px;height:6px;border-radius:50%;background:#77a484;box-shadow:0 0 0 4px rgba(119,164,132,.1)}
+.proactive-ai-line time{margin-left:auto;color:#aaa29e;font-size:8px;font-weight:400;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.proactive-primary-copy{margin:0;font-family:var(--serif);font-size:15.36px;font-weight:400;line-height:1.75;letter-spacing:.01em;color:#4a4644}
+.proactive-primary-copy p{margin:0}.proactive-primary-copy p+p{margin-top:11px}
+.proactive-metric{color:var(--consultant-accent);background:transparent;padding:0;border-radius:0;font-weight:500}
+.proactive-completion-feedback .proactive-agent-bubble{width:100%;padding:15px 16px 16px}
+.proactive-feedback-copy{font-family:var(--serif);font-size:15.36px;font-weight:400;line-height:1.75;letter-spacing:.01em;color:#4a4644}
+.proactive-feedback-copy p{margin:0}
+.proactive-recovery-plan .proactive-agent-bubble{width:100%;padding:16px 14px 15px}
+.proactive-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+.proactive-practice-grid:empty{display:none}
+.proactive-stage-item{animation:proactiveReveal .45s var(--ease-smooth) both}
+.proactive-stage-item.is-opening{transform:scale(.965)!important;border-color:rgba(238,132,104,.72)!important;
+  box-shadow:0 0 0 3px rgba(238,132,104,.16),0 12px 30px rgba(121,78,64,.16)!important}
+.proactive-stage-item.is-opening::after{content:"";position:absolute;inset:0;z-index:4;border-radius:inherit;
+  border:2px solid rgba(238,132,104,.62);background:rgba(255,244,239,.10);pointer-events:none;
+  animation:recommendationConfirm .65s var(--ease-smooth) both}
+.proactive-stage-item.is-opening .proactive-practice-arrow{background:var(--consultant-accent);border-color:var(--consultant-accent);
+  color:#fff;transform:translateX(2px)}
+.proactive-practice-card{position:relative;width:100%;overflow:hidden;padding:0;border:1px solid rgba(76,70,66,.1);border-radius:23px;
+  background:rgba(255,255,255,.82);color:inherit;text-align:left;cursor:pointer;box-shadow:0 14px 32px rgba(80,69,62,.09);
+  transition:transform .22s var(--ease-smooth),box-shadow .22s ease}
+.proactive-practice-card:hover{transform:translateY(-2px);box-shadow:0 18px 38px rgba(80,69,62,.13)}
+.proactive-practice-card:active{transform:scale(.99)}
+.proactive-practice-media{display:block;position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#fff}
+.proactive-practice-media img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1);mix-blend-mode:multiply}
+.proactive-practice-media::after{content:"";position:absolute;inset:0;border-bottom:1px solid rgba(69,64,61,.08);pointer-events:none}
+.proactive-practice-copy{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:13px 14px 14px}
+.proactive-practice-copy h4{margin:0;font-family:var(--serif);font-size:16px;font-weight:600;color:#474341}
+.proactive-practice-copy p{margin-top:5px;color:#958d89;font-size:9px;line-height:1.45;letter-spacing:.04em}
+.proactive-practice-arrow{width:30px;height:30px;border:1px solid rgba(73,68,65,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:#635e5a;font-size:14px;background:#fff}
+.proactive-practice-grid .proactive-practice-card{border-radius:16px;box-shadow:0 8px 20px rgba(80,69,62,.08)}
+.proactive-card-grid .proactive-practice-copy{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 20px;align-items:center;column-gap:6px;min-height:65px;padding:10px 9px 11px}
+.proactive-card-grid .proactive-practice-copy>span:first-child{display:block;min-width:0}
+.proactive-card-grid .proactive-practice-copy h4{margin:0;font-size:12px;line-height:1.45}
+.proactive-card-grid .proactive-practice-copy p{margin-top:5px;font-size:9.75px;line-height:1.4;letter-spacing:.025em}
+.proactive-card-grid .proactive-practice-copy h4,.proactive-card-grid .proactive-practice-copy p{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.proactive-card-grid .proactive-practice-arrow{position:static;justify-self:end;align-self:center;width:20px;height:20px;font-size:11px}
+.proactive-stream-break{height:1px;margin:28px 0 22px;background:linear-gradient(90deg,transparent,rgba(73,68,64,.13),transparent)}
+.proactive-user-label,.proactive-deep-user-meta{display:flex;width:100%;align-items:center;justify-content:center;margin:0 0 9px;text-align:center;color:#a09893;font-size:8px;letter-spacing:.1em}
+.proactive-user-label time,.proactive-deep-user-meta time{font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.proactive-user-bubble{width:fit-content;max-width:82%;margin-left:auto;padding:13px 17px;border-radius:26px 26px 7px 26px;
+  background:rgba(255,127,99,.12);border:1px solid rgba(255,127,99,.08);
+  box-shadow:0 10px 24px rgba(139,91,75,.10);color:var(--consultant-accent);font-family:var(--serif);font-size:15.36px;font-weight:500;line-height:1.75}
+.proactive-user-upload{width:100%}
+.proactive-user-upload-card{position:relative;display:block;width:78%;max-width:260px;margin-left:auto;aspect-ratio:4/3;padding:5px;overflow:hidden;
+  border-radius:22px 22px 7px 22px;background:rgba(255,127,99,.12);border:1px solid rgba(255,127,99,.08);
+  box-shadow:0 12px 28px rgba(139,91,75,.11)}
+.proactive-user-upload-card img{display:block;width:100%;height:100%;object-fit:cover;border-radius:17px 17px 4px 17px}
+.proactive-support-plan .proactive-agent-bubble{width:100%;padding:16px 14px 15px}
+.proactive-analysis-copy{margin:0;font-family:var(--serif);font-size:15.36px;font-weight:400;line-height:1.75;letter-spacing:.01em;color:#4a4644}
+.proactive-analysis-copy p{margin:0}.proactive-analysis-copy p+p{margin-top:11px}
+.proactive-support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+.proactive-support-grid:empty{display:none}
+.proactive-support-card{position:relative;width:100%;overflow:hidden;padding:0;border:1px solid rgba(75,68,64,.09);border-radius:16px;
+  background:rgba(255,255,255,.84);color:inherit;text-align:left;cursor:pointer;box-shadow:0 8px 20px rgba(79,67,60,.08);
+  transition:transform .22s var(--ease-smooth),box-shadow .22s ease,border-color .22s ease}
+.proactive-support-card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(79,67,60,.13)}
+.proactive-support-card:active{transform:scale(.99)}
+.proactive-support-card.selected{border-color:rgba(112,144,126,.4);box-shadow:0 15px 36px rgba(97,119,105,.14)}
+.proactive-art-media{display:block;width:100%;aspect-ratio:4/3;overflow:hidden;background:#fbfaf7}
+.proactive-art-media img{display:block;width:100%;height:100%;object-fit:cover}
+.proactive-food-plan .proactive-agent-bubble{width:100%;padding:16px 14px 15px}
+.proactive-food-copy{font-family:var(--serif);font-size:15.36px;font-weight:400;line-height:1.75;letter-spacing:.01em;color:#4a4644}
+.proactive-food-copy p{margin:0}.proactive-food-copy p+p{margin-top:11px}
+.proactive-food-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+.proactive-food-grid:empty{display:none}
+.proactive-food-card{position:relative;width:100%;overflow:hidden;padding:0;border:1px solid rgba(75,68,64,.09);border-radius:16px;
+  background:rgba(255,255,255,.84);color:inherit;text-align:left;cursor:pointer;box-shadow:0 8px 20px rgba(79,67,60,.08);
+  transition:transform .22s var(--ease-smooth),box-shadow .22s ease}
+.proactive-food-card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(79,67,60,.13)}
+.proactive-food-card:active{transform:scale(.99)}
+.proactive-food-media{display:block;width:100%;aspect-ratio:4/3;overflow:hidden;background:#fbfaf7}
+.proactive-food-media img{display:block;width:100%;height:100%;object-fit:cover}
+.proactive-night-plan .proactive-agent-bubble,
+.proactive-perspective-plan .proactive-agent-bubble{width:100%;padding:16px 14px 15px}
+.proactive-night-copy,.proactive-perspective-copy{font-family:var(--serif);font-size:15.36px;font-weight:400;
+  line-height:1.75;letter-spacing:.01em;color:#4a4644}
+.proactive-night-copy p,.proactive-perspective-copy p{margin:0}
+.proactive-night-copy p+p,.proactive-perspective-copy p+p{margin-top:11px}
+.proactive-resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+.proactive-resource-grid:empty{display:none}
+.proactive-resource-card{position:relative;width:100%;overflow:hidden;padding:0;border:1px solid rgba(75,68,64,.09);
+  border-radius:16px;background:rgba(255,255,255,.84);color:inherit;text-align:left;cursor:pointer;
+  box-shadow:0 8px 20px rgba(79,67,60,.08);
+  transition:transform .22s var(--ease-smooth),box-shadow .22s ease}
+.proactive-resource-card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(79,67,60,.13)}
+.proactive-resource-card:active{transform:scale(.99)}
+.proactive-resource-media{display:block;width:100%;aspect-ratio:4/3;overflow:hidden;background:#fbfaf7}
+.proactive-resource-media img{display:block;width:100%;height:100%;object-fit:cover}
+.proactive-deep-visual{position:relative;display:block;width:100%;aspect-ratio:4/3;overflow:hidden;background:#fbf7f2}
+.proactive-deep-visual img{display:block;width:100%;height:100%;object-fit:cover}
+.proactive-deep-thread{display:grid;gap:12px;margin-top:12px}
+.proactive-deep-message{animation:proactiveReveal .4s var(--ease-smooth) both}
+.proactive-deep-message.ai{width:94%;padding:15px 16px 17px;border-radius:22px 22px 22px 7px;background:rgba(255,255,255,.88);
+  border:1px solid rgba(255,255,255,.96);box-shadow:0 12px 28px rgba(75,66,61,.08)}
+.proactive-deep-message.user{width:100%;margin-left:auto;color:var(--consultant-accent)}
+.proactive-deep-user-bubble{width:fit-content;max-width:82%;margin-left:auto;padding:12px 15px;border-radius:22px 22px 6px 22px;
+  background:rgba(255,127,99,.12);border:1px solid rgba(255,127,99,.08);box-shadow:0 10px 24px rgba(139,91,75,.10);
+  color:var(--consultant-accent)}
+.proactive-deep-message p{margin:0;font-family:var(--serif);font-size:15.36px;font-weight:400;line-height:1.75;letter-spacing:.01em;color:#4a4644}
+.proactive-deep-message.user p{color:inherit;font-weight:500}
+.proactive-deep-message p+p{margin-top:11px}
+.proactive-deep-signal{display:flex;align-items:center;gap:7px;margin:1px 0 10px;color:var(--consultant-accent);
+  font-size:8px;font-weight:700;letter-spacing:.13em}
+.proactive-deep-signal::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;box-shadow:0 0 0 4px rgba(255,127,99,.08)}
+.proactive-message-composer{position:absolute;z-index:13;left:0;right:0;bottom:0;min-height:78px;padding:10px 16px 14px;
+  display:grid;grid-template-columns:30px minmax(0,1fr);align-items:center;gap:10px;background:rgba(255,255,255,.94);
+  backdrop-filter:blur(18px);border-top:1px solid rgba(76,69,65,.08);box-shadow:0 -8px 24px rgba(74,65,60,.035)}
+.proactive-composer-mic{display:flex;width:30px;height:44px;align-items:center;justify-content:center;color:#8f8985}
+.proactive-composer-mic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.proactive-composer-field{height:48px;padding:3px 4px 3px 16px;display:grid;grid-template-columns:minmax(0,1fr) 42px;align-items:center;
+  border:1px solid rgba(76,69,65,.1);border-radius:25px;background:#fbf8f6;transition:border-color .2s ease,box-shadow .2s ease}
+.proactive-composer-field:focus-within{border-color:rgba(255,127,99,.3);box-shadow:0 0 0 3px rgba(255,127,99,.065)}
+.proactive-composer-field input{width:100%;min-width:0;height:40px;padding:0;border:0;background:transparent;color:#4f4946;
+  font:12px/1 var(--serif);outline:none}
+.proactive-composer-field input::placeholder{color:#aaa09b}
+.proactive-composer-send{width:42px;height:42px;padding:0;border:0;border-radius:50%;background:var(--consultant-accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 7px 16px rgba(255,127,99,.22)}
+.proactive-composer-send svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.proactive-composer-send:active{transform:scale(.94)}
+.proactive-composer-send:disabled,.proactive-composer-field input:disabled{opacity:.48;cursor:default}
+.proactive-detail-screen{position:absolute;inset:0;z-index:15;display:none;overflow:hidden;
+  background:linear-gradient(165deg,#fff,#fbf9f7 68%,#f7f2ee)}
+.proactive-detail-screen.on{display:block;animation:practiceVideoIn .32s var(--ease-smooth) both}
+.proactive-detail-body{position:absolute;inset:103px 0 0;overflow-y:auto;padding:22px 20px 48px;scrollbar-width:none}
+.proactive-detail-body::-webkit-scrollbar{display:none}
+.proactive-art-page-visual{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:24px;background:#fbfaf7;
+  box-shadow:0 18px 42px rgba(66,59,55,.12)}
+.proactive-art-page-visual img{display:block;width:100%;height:100%;object-fit:cover}
+.proactive-detail-body h3{margin-top:9px;font-family:var(--serif);font-size:26px;font-weight:500;line-height:1.35;color:#47423f}
+.proactive-art-page-visual + h3{margin-top:22px}
+.proactive-art-page-intro{margin-top:16px;font-family:var(--serif);font-size:13px;line-height:1.8;color:#6d6662}
+.proactive-art-page-address{display:grid;grid-template-columns:auto minmax(0,1fr) 32px;align-items:center;column-gap:11px;margin-top:20px;padding:13px 13px 13px 15px;border-radius:18px;
+  background:rgba(255,255,255,.82);border:1px solid rgba(76,69,65,.08);box-shadow:0 10px 24px rgba(67,58,53,.06)}
+.proactive-art-page-address span{color:var(--consultant-accent);font-size:8px;font-weight:700;line-height:1;letter-spacing:.13em}
+.proactive-art-page-address strong{display:block;min-width:0;font-family:var(--serif);font-size:11px;font-weight:500;line-height:1.55;color:#554f4b}
+.proactive-art-page-navigation{display:grid;width:32px;height:32px;place-items:center;border:1px solid rgba(255,127,99,.2);border-radius:50%;
+  background:rgba(255,127,99,.09);color:var(--consultant-accent);transition:transform .22s ease,background .22s ease}
+.proactive-art-page-navigation:active{transform:scale(.93);background:rgba(255,127,99,.16)}
+.proactive-art-page-navigation svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.proactive-conversation-body{inset:103px 0 78px;padding:19px 20px 30px}
+.proactive-conversation-body .proactive-deep-thread{margin-top:0}
+.proactive-food-page-visual{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:24px;background:#fbfaf7;
+  box-shadow:0 18px 42px rgba(66,59,55,.12)}
+.proactive-food-page-visual img{display:block;width:100%;height:100%;object-fit:cover}
+.proactive-food-page-visual + h3{margin-top:20px}
+.proactive-food-steps{margin-top:20px;padding:16px;border-radius:20px;background:rgba(255,255,255,.84);
+  border:1px solid rgba(76,69,65,.08);box-shadow:0 10px 26px rgba(67,58,53,.06)}
+.proactive-food-steps b{display:block;color:#5c5551;font-size:10px;letter-spacing:.08em}
+.proactive-food-steps ol{display:grid;gap:9px;margin:12px 0 0 17px;color:#635c58;font-family:var(--serif);font-size:12px;line-height:1.7}
+.proactive-resource-body{padding-bottom:38px}
+.proactive-resource-visual{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:24px;background:#fbfaf7;
+  box-shadow:0 18px 42px rgba(66,59,55,.12)}
+.proactive-resource-visual img{display:block;width:100%;height:100%;object-fit:cover}
+.proactive-resource-title{margin-top:20px!important;font-size:24px!important}
+.proactive-resource-meta{margin-top:7px;color:#918884;font-size:9px;line-height:1.55;letter-spacing:.025em}
+.proactive-resource-intro{margin-top:16px;font-family:var(--serif);font-size:12.5px;line-height:1.78;color:#635d59}
+.proactive-resource-action{width:100%;height:46px;margin-top:16px;border:0;border-radius:23px;background:var(--consultant-accent);
+  color:#fff;font:600 11px/1 var(--sans);letter-spacing:.04em;cursor:pointer;
+  box-shadow:0 10px 22px rgba(255,127,99,.2);transition:transform .2s ease,background .2s ease}
+.proactive-resource-action:active{transform:scale(.985)}
+.proactive-resource-action.on{background:#54504d}
+.practice-video-screen{position:absolute;inset:0;z-index:14;display:none;background:linear-gradient(165deg,#fff,#fbf9f7 68%,#f7f2ee);overflow-y:auto;scrollbar-width:none}
+.practice-video-screen::-webkit-scrollbar{display:none}
+.practice-video-screen.on{display:block;animation:practiceVideoIn .32s var(--ease-smooth) both}
+.practice-video-topbar{position:sticky;top:0;z-index:3;height:103px;padding:55px 22px 10px;display:grid;grid-template-columns:34px 1fr 34px;align-items:center;
+  background:rgba(255,255,255,.86);backdrop-filter:blur(18px);border-bottom:1px solid rgba(72,67,63,.08)}
+.practice-video-close{width:34px;height:34px;border:0;border-radius:50%;background:transparent;color:#55514e;font-size:23px;line-height:1;cursor:pointer}
+.practice-video-topbar h2{text-align:center;font-family:var(--serif);font-size:15px;font-weight:600;color:#4b4744}
+.practice-video-body{padding:20px 20px 44px}
+.practice-video-player{position:relative;overflow:hidden;width:100%;aspect-ratio:4/3;border-radius:24px;background:#f1efed;box-shadow:0 18px 42px rgba(66,59,55,.14)}
+.practice-video-player img{width:100%;height:100%;display:block;object-fit:cover;filter:grayscale(1)}
+.practice-video-player::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02),transparent 60%,rgba(0,0,0,.16));pointer-events:none}
+.practice-video-play{position:absolute;z-index:2;left:50%;top:50%;width:54px;height:54px;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.76);
+  border-radius:50%;background:rgba(52,49,47,.78);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(9px)}
+.practice-video-play::before{content:"";width:0;height:0;margin-left:4px;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:11px solid currentColor}
+.practice-video-play.playing{opacity:.12}.practice-video-player:hover .practice-video-play.playing{opacity:.8}
+.practice-video-play.playing::before{width:11px;height:14px;margin:0;border:0;border-left:4px solid currentColor;border-right:4px solid currentColor}
+.practice-video-fullscreen{position:absolute;z-index:4;top:13px;right:13px;width:34px;height:34px;border:1px solid rgba(255,255,255,.62);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(48,45,43,.58);color:#fff;cursor:pointer;backdrop-filter:blur(8px)}
+.practice-video-fullscreen svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.practice-video-copy{margin:18px 2px 0}.practice-video-copy h3{font-family:var(--serif);font-size:22px;font-weight:500;color:#484441}
+.practice-video-copy p{margin-top:7px;color:#8e8783;font-size:10px;line-height:1.6}
+.practice-video-timeline{position:absolute;z-index:3;left:15px;right:15px;bottom:13px}
+.practice-video-track{height:4px;border-radius:99px;background:rgba(255,255,255,.48);overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.practice-video-track i{display:block;width:0;height:100%;border-radius:inherit;background:#ed8066;transition:width .18s linear}
+.practice-video-time{display:flex;justify-content:space-between;margin-top:7px;color:rgba(255,255,255,.92);font-size:8px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.practice-video-step{margin-top:18px;padding:15px;border-radius:18px;background:#fff;border:1px solid rgba(70,65,62,.08);box-shadow:0 10px 24px rgba(67,58,53,.07)}
+.practice-video-step span{display:block;color:#a09894;font-size:8px;letter-spacing:.12em}.practice-video-step b{display:block;margin-top:7px;font-family:var(--serif);font-size:15px;font-weight:600;color:#504b48}
+.practice-video-dots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:13px}
+.practice-video-dots i{height:3px;border-radius:99px;background:#e4e0dd}.practice-video-dots i.on{background:#4f4a47}
+.practice-video-screen.is-expanded{overflow:hidden}
+.practice-video-screen.is-expanded .practice-video-topbar,
+.practice-video-screen.is-expanded .practice-video-copy,
+.practice-video-screen.is-expanded .practice-video-step{display:none}
+.practice-video-screen.is-expanded .practice-video-body{position:absolute;inset:0;padding:0}
+.practice-video-screen.is-expanded .practice-video-player{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;border-radius:0;box-shadow:none}
+.practice-video-screen.is-expanded .practice-video-player img{object-fit:contain;background:#181715}
+.practice-video-screen.is-expanded .practice-video-fullscreen{top:58px;right:20px}
+@keyframes proactiveReveal{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@keyframes recommendationConfirm{0%{opacity:0;transform:scale(.98)}35%,75%{opacity:1;transform:scale(1)}100%{opacity:.42;transform:scale(1)}}
+@keyframes practiceVideoIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.proactive-stream-item,.proactive-deep-message,.practice-video-screen.on,.proactive-detail-screen.on{animation:none}}
+
 @keyframes homeOrbFloatA{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(6px,-10px,0)}}
 @keyframes homeOrbFloatB{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-7px,8px,0)}}
 @keyframes homeOrbFloatC{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(8px,9px,0)}}
@@ -1325,6 +1634,12 @@ body{font-family:var(--sans);
 
 /* ===== 成长轨迹 ===== */
 .diary-hero{align-items:center}
+#t-diary{overflow:hidden}
+#t-diary>.tab-scroll-area{top:74px;bottom:0;padding-bottom:0;display:flex;flex-direction:column;overflow:hidden}
+#t-diary>.tab-scroll-area>.growth-filter-row{position:relative;z-index:8;flex:0 0 40px;margin:0 0 16px;
+  background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.growth-list-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;overscroll-behavior:contain;scrollbar-width:none}
+.growth-list-scroll::-webkit-scrollbar{display:none}
 .growth-badge-float,.growth-review-float{position:absolute;right:8px;top:52%;bottom:auto;transform:translateY(-50%);z-index:36;width:52px;height:52px;border-radius:50%;
   border:1px solid rgba(238,132,102,.22);background:rgba(255,255,255,.82);color:var(--primary);
   -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);
@@ -1407,6 +1722,40 @@ body{font-family:var(--sans);
 .growth-report-brief{display:flex;gap:8px;margin-top:11px}
 .growth-report-brief span{flex:1;padding:9px 8px;border-radius:14px;background:rgba(255,255,255,.58);font-size:9.5px;line-height:1.45;color:var(--text-muted)}
 .growth-report-brief b{display:block;margin-top:2px;font-family:var(--serif);font-size:14px;color:var(--text-primary)}
+.growth-line{position:relative;min-height:0;padding:0 0 8px;display:flex;flex-direction:column;gap:16px;justify-content:flex-start;overflow:visible;flex:0 0 auto}
+.growth-line::before{display:none}
+.growth-spine{position:absolute;left:18px;top:4px;bottom:4px;width:1px;background:rgba(238,132,102,.34);
+  border-radius:999px;box-shadow:0 0 4px rgba(238,132,102,.12);pointer-events:none}
+.growth-trail-node{position:relative;z-index:2;padding-left:46px;display:flex;align-items:center;flex:0 0 auto;opacity:0;
+  animation:growthNodeIn .62s cubic-bezier(.2,.82,.22,1) forwards}
+.growth-trail-node::before{content:'';position:absolute;z-index:4;left:12px;top:calc(50% - 6px);width:12px;height:12px;
+  border-radius:50%;background:var(--node-color,#e88468);
+  box-shadow:0 0 0 7px color-mix(in srgb,var(--node-color,#e88468) 14%,transparent)}
+.growth-trail-node::after{content:'';position:absolute;z-index:1;left:18px;top:50%;width:28px;border-top:1px dashed color-mix(in srgb,var(--node-color,#e88468) 34%,transparent)}
+.growth-trail-node[data-growth="highlight"]{--node-color:#d5a13c}
+.growth-trail-node[data-growth="low"]{--node-color:#c97a8d}
+.growth-trail-node[data-growth="interaction"]{--node-color:#e88468}
+.growth-trail-node[data-growth="report"]{--node-color:#7fa08b}
+.growth-node-button{position:relative;width:100%;min-height:82px;padding:14px 15px;border:1px solid rgba(255,255,255,.92);border-radius:20px;
+  background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(255,248,242,.42));color:inherit;font-family:var(--sans);cursor:pointer;
+  box-shadow:0 15px 34px -30px rgba(125,91,74,.56),inset 0 1px 0 rgba(255,255,255,.86);
+  text-align:center;backdrop-filter:blur(18px) saturate(148%);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.growth-node-button:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--node-color,#e88468) 24%,white);
+  box-shadow:0 20px 38px -26px color-mix(in srgb,var(--node-color,#e88468) 58%,rgba(90,65,54,.32)),inset 0 1px 0 rgba(255,255,255,.98)}
+.growth-node-button:hover .growth-node-copy{color:var(--primary)}
+.growth-node-button:active{transform:scale(.985)}
+.growth-node-meta{display:flex;width:100%;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:8px;margin:0 0 7px;color:#918985;font-size:10.9px;line-height:1.35;letter-spacing:.025em}
+.growth-node-kind{color:var(--node-color,#e88468);font-weight:700;text-align:left}
+.growth-node-meta time{margin-left:auto;white-space:nowrap;text-align:right}
+.growth-node-copy{display:block;width:100%;font-family:var(--serif);font-size:clamp(12px,3.28vw,13.6px);font-weight:400;line-height:1.85;letter-spacing:.035em;color:#302c2a;
+  text-align:left;white-space:normal;word-break:normal;overflow-wrap:break-word;transition:color .2s ease}
+.growth-trail-node.hide{display:none}
+.growth-record-reveal{opacity:0;transform:translateY(10px)}
+.growth-record-reveal.on{animation:growthRecordReveal .42s var(--ease-smooth) forwards}
+@keyframes growthNodeIn{from{opacity:0;transform:translateY(32px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes growthRecordReveal{to{opacity:1;transform:translateY(0)}}
+.growth-interaction-media.practice img,.growth-interaction-media.reading img{aspect-ratio:4/3;object-fit:cover}
+.growth-interaction-media.practice,.growth-interaction-media.reading{grid-template-columns:1fr}
 .growth-card.hide{display:none}
 .growth-day.hide{display:none}
 .growth-frequency-word{position:absolute;left:12px;bottom:9px;font-family:var(--serif);font-size:17px;font-weight:700;color:#5f7456;line-height:1;
@@ -1478,6 +1827,7 @@ body{font-family:var(--sans);
 .growth-body-data div{min-height:72px;padding:13px 6px;border-radius:17px;text-align:center;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.86)}
 .growth-body-data b{display:block;font-family:var(--serif);font-size:18px;color:var(--text-primary)}
 .growth-body-data span{display:block;margin-top:3px;font-size:9px;color:var(--text-muted);letter-spacing:.05em}
+.growth-body-note{margin-top:12px;font-family:var(--serif);font-size:13.5px;line-height:1.7;color:var(--text-primary)}
 .growth-ai-record{padding:0;border-radius:0;background:transparent;box-shadow:none;font-family:var(--serif);font-size:14px;line-height:1.85;color:var(--text-primary)}
 .growth-record-block.growth-interaction-summary{padding:0 16px}
 .growth-summary-row{padding:16px 0}
@@ -3177,6 +3527,12 @@ body{font-family:var(--sans);
   <!-- 手机 -->
   <div class="center-col">
 
+    <!-- Chinese-only build: language switch disabled.
+    <div class="language-switch" role="group" aria-label="Language">
+      <button class="on" type="button" data-lang="zh-CN" aria-pressed="true" onclick="setDemoLanguage('zh-CN',this)">中文</button>
+      <button type="button" data-lang="en" aria-pressed="false" onclick="setDemoLanguage('en',this)">English</button>
+    </div>
+    -->
     <div class="phone-wrap">
       <div class="phone" id="phone">
         <div class="island"></div>
@@ -3329,271 +3685,138 @@ body{font-family:var(--sans);
                 <svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
               <div class="sr-toptitle-wrap">
-                <div class="sr-toptitle">互动</div>
-                <div class="consultant-agent-presence"><i></i>LOOOVE 在线 · 戒指数据已同步</div>
+                <div class="sr-toptitle" data-i18n-zh="互动" data-i18n-en="Talk">互动</div>
+                <div class="consultant-agent-presence"><i></i><span data-i18n-zh="LOOOVE 正在读取此刻" data-i18n-en="LOOOVE is reading this moment">LOOOVE 正在读取此刻</span></div>
               </div>
-              <button class="consultant-search-btn" type="button" aria-label="搜索互动记录">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5"/><path d="M14.5 14.5L19 19"/></svg>
+              <button class="proactive-search-btn" type="button" onclick="LOOOVEInteraction.toggleSearch()" aria-label="搜索互动内容" aria-controls="proactiveSearchPanel" aria-expanded="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.5 4.5"/></svg>
               </button>
             </div>
-            <div class="home-awareness-placeholder-body consultant-agent-body" aria-label="LOOOVE 互动区">
-              <main class="consultant-agent-feed" id="consultantAgentFeed" aria-live="polite">
-                <div class="consultant-day-marker"><span>6月11日 · 星期四</span></div>
-                <article class="consultant-agent-message">
-                  <div class="consultant-agent-meta">
-                    <span class="consultant-agent-avatar" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
-                    </span>
-                    <b>LOOOVE</b><time>07:30</time>
-                  </div>
-                  <section class="consultant-dispatch-card consultant-morning-report">
-                    <div class="consultant-report-kicker">早间报告</div>
-                    <h2 class="consultant-report-title">今晨恢复偏慢，适合从容启动。</h2>
-
-                    <div class="consultant-report-dashboard" aria-label="今晨身体状态仪表盘">
-                      <div class="consultant-primary-metrics">
-                        <div class="consultant-primary-metric"><div class="consultant-data-label">Loooveness</div><div class="consultant-primary-value">56</div></div>
-                        <div class="consultant-primary-metric"><div class="consultant-data-label">睡眠</div><div class="consultant-primary-value">6小时42分</div></div>
-                      </div>
-                      <div class="consultant-secondary-metrics">
-                        <div class="consultant-secondary-metric"><div class="consultant-data-label">HRV</div><div class="consultant-secondary-value">32<small>ms</small></div></div>
-                        <div class="consultant-secondary-metric"><div class="consultant-data-label">静息心率</div><div class="consultant-secondary-value">70<small>bpm</small></div></div>
-                        <div class="consultant-secondary-metric"><div class="consultant-data-label">压力</div><div class="consultant-secondary-value">3.3<small>/ 5</small></div></div>
-                      </div>
-                    </div>
-
-                    <p class="consultant-report-insight">昨夜恢复低于近期水平。上午先做熟悉的事，把需要判断的任务留到状态打开之后。</p>
-                  </section>
-                </article>
-
-                <div class="consultant-user-row">
-                  <div class="consultant-user-wrap">
-                    <div class="consultant-user-name">我 · 10:18</div>
-                    <div class="consultant-user-bubble">我最近压力好大</div>
-                  </div>
-                </div>
-
-                <article class="consultant-agent-message">
-                  <div class="consultant-agent-meta">
-                    <span class="consultant-agent-avatar" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
-                    </span>
-                    <b>LOOOVE</b><time>10:19</time>
-                  </div>
-                  <section class="consultant-analysis-card">
-                    <div class="consultant-evidence">
-                      <div class="consultant-evidence-item"><b class="consultant-section-label">声音线索</b><span>最近的录音中，你们围绕需求排期与实现边界产生了争辩；过程中，你的语速明显加快，语气里也流露出被压抑的愤怒。</span></div>
-                      <div class="consultant-evidence-item"><b class="consultant-section-label">身体数据</b><span>会议后紧张感持续，HRV 低于个人基线，情绪压力保持在高位。</span></div>
-                    </div>
-                    <div class="consultant-hypothesis">
-                      <div class="consultant-hypothesis-label consultant-section-label">推测</div>
-                      <p>你在会议中提出需求后，被开发直接反驳，双方争辩了几句。虽然会议已经结束，但那股被顶回来的恼火，还是继续留在身体里。</p>
-                    </div>
-                    <div class="consultant-intervention-board">
-                      <div class="consultant-intervention-title consultant-section-label">推荐</div>
-                      <blockquote class="consultant-mantra-card">
-                        <div class="consultant-mantra-kicker">今日心法</div>
-                        <p>方案被反对，不等于能力被否定。</p>
-                        <footer>带走有用的信息，允许自己有情绪；<br>等愤怒过去，再决定什么值得回应。</footer>
-                      </blockquote>
-                    </div>
-                  </section>
-                </article>
-
-                <article class="consultant-agent-message consultant-proactive-message">
-                  <div class="consultant-agent-meta">
-                    <span class="consultant-agent-avatar" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
-                    </span>
-                    <b>LOOOVE</b><time>23:47</time>
-                  </div>
-                  <section class="consultant-proactive-card" aria-label="LOOOVE 深夜主动关心">
-                    <div class="consultant-proactive-kicker">深夜关心</div>
-                    <h2 class="consultant-proactive-title">身体还没有进入休息。</h2>
-                    <p class="consultant-proactive-copy">已经很晚了，你还没有入睡，Loooveness 降至 41。我为你生成了一段音乐，陪你度过这段仍然清醒的时间。</p>
-                    <button class="consultant-sleep-music-button" id="consultantSleepMusicButton" onclick="toggleConsultantSleepMusic(this)" aria-pressed="false" aria-label="播放专属助眠音乐《慢慢落下来》">
-                      <span class="consultant-sleep-play" aria-hidden="true">
-                        <span class="consultant-sleep-wave"><i></i><i></i><i></i><i></i><i></i></span>
-                      </span>
-                      <span class="consultant-sleep-music-copy">
-                        <span class="consultant-sleep-music-label">专属助眠音乐</span>
-                        <span class="consultant-sleep-music-name">慢慢落下来</span>
-                      </span>
-                    </button>
-                  </section>
-                </article>
-
-                <div class="consultant-day-marker"><span>6月12日 · 星期五</span></div>
-                <div class="consultant-user-row consultant-restless-user">
-                  <div class="consultant-user-wrap">
-                    <div class="consultant-user-name">我 · 14:08</div>
-                    <div class="consultant-user-bubble">我有点烦躁</div>
-                  </div>
-                </div>
-
-                <article class="consultant-agent-message consultant-restless-message">
-                  <div class="consultant-agent-meta">
-                    <span class="consultant-agent-avatar" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
-                    </span>
-                    <b>LOOOVE</b><time>14:09</time>
-                  </div>
-                  <section class="consultant-analysis-card consultant-restless-card">
-                    <div class="consultant-evidence">
-                      <div class="consultant-evidence-item"><b class="consultant-section-label">声音线索</b><span>最近的录音里没有出现明显冲突或反复提及的困扰，语速、语气都接近平时。</span></div>
-                      <div class="consultant-evidence-item"><b class="consultant-section-label">身体数据</b><span>HRV 39ms、静息心率 68bpm，压力曲线处在个人正常范围，身体没有明显负荷升高。</span></div>
-                    </div>
-                    <div class="consultant-hypothesis">
-                      <div class="consultant-hypothesis-label consultant-section-label">推测</div>
-                      <p>这次烦躁更像是注意力积累了一点噪音，不一定对应某件具体的事。</p>
-                    </div>
-                    <div class="consultant-intervention-board">
-                      <div class="consultant-intervention-title consultant-section-label">推荐</div>
-                      <button class="consultant-breath-line-preview" onclick="openMindDrawing('consultant')" aria-label="开始跟着呼吸画线">
-                        <span class="consultant-breath-line-thumb" aria-hidden="true"><img src="./呼吸画线.jpg" alt="跟着呼吸画线"></span>
-                        <span class="consultant-breath-line-copy">
-                          <span class="consultant-breath-line-label" id="consultantBreathLineLabel">绘画疗愈</span>
-                          <span class="consultant-breath-line-title">跟着呼吸画线</span>
-                        </span>
-                      </button>
-                    </div>
-                  </section>
-                </article>
-
-                <div class="consultant-user-row consultant-drawing-user">
-                  <div class="consultant-user-wrap">
-                    <div class="consultant-user-name">我 · 14:15</div>
-                    <figure class="consultant-drawing-bubble">
-                      <img src="./呼吸画线.jpg" alt="我完成的呼吸画线作品">
-                      <figcaption>呼吸画线 · 已完成</figcaption>
-                    </figure>
-                  </div>
-                </div>
-
-                <article class="consultant-agent-message consultant-breath-feedback-message">
-                  <div class="consultant-agent-meta">
-                    <span class="consultant-agent-avatar" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
-                    </span>
-                    <b>LOOOVE</b><time>14:16</time>
-                  </div>
-                  <section class="consultant-breath-feedback-card" aria-label="调息后的身体变化">
-                    <div class="consultant-breath-feedback-kicker">反馈</div>
-                    <h3>身体开始松开了。</h3>
-                    <p>心率从 68 降至 64 bpm，HRV 从 39 回升到 43 ms；呼吸节律逐渐放慢，压力曲线也开始回落。</p>
-                  </section>
-                </article>
-
-                <article class="consultant-agent-message consultant-taste-message">
-                  <div class="consultant-agent-meta">
-                    <span class="consultant-agent-avatar" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
-                    </span>
-                    <b>LOOOVE</b><time>16:40</time>
-                  </div>
-                  <section class="consultant-taste-card" aria-label="LOOOVE 主动探索尝试">
-                    <p class="consultant-taste-signal">刚才的声音与身体数据都没有明显异常，但体表温度已连续 40 分钟高于个人午后基线 0.4°C。此刻的烦躁更像轻微燥热与感官疲劳。</p>
-                    <div class="consultant-taste-practice">
-                      <div class="consultant-taste-kicker">探索尝试</div>
-                      <div class="consultant-taste-recommendation">
-                        <h3>舌尖上的正念</h3>
-                        <p>慢煮一壶绿豆汤、酸梅汤，或自制水果冰棒、冰冻葡萄，专注感受冰凉在口腔化开的清甜，用味觉的“微凉”抵消体感的燥热。</p>
-                      </div>
-                    </div>
-                  </section>
-                </article>
-
-                <div class="consultant-user-row consultant-clarity-user">
-                  <div class="consultant-user-wrap">
-                    <div class="consultant-user-name">我 · 21:16</div>
-                    <div class="consultant-user-bubble">我最近有点迷茫</div>
-                  </div>
-                </div>
-
-                <article class="consultant-agent-message consultant-clarity-message">
-                  <div class="consultant-agent-meta">
-                    <span class="consultant-agent-avatar" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.6"/></svg>
-                    </span>
-                    <b>LOOOVE</b><time>21:17</time>
-                  </div>
-                  <section class="consultant-analysis-card consultant-clarity-card">
-                    <div class="consultant-evidence">
-                      <div class="consultant-evidence-item"><b class="consultant-section-label">声音线索</b><span>最近的录音里，你反复提到“换个环境”“看看新的机会”，已经开始认真考虑跳槽；与对象的几段对话里也出现了争执和长时间停顿。</span></div>
-                      <div class="consultant-evidence-item"><b class="consultant-section-label">身体数据</b><span>过去 7 天，HRV 连续低于个人基线，压力高位持续时间变长，睡眠恢复也在下降。</span></div>
-                    </div>
-                    <div class="consultant-hypothesis">
-                      <div class="consultant-hypothesis-label consultant-section-label">推测</div>
-                      <p>工作去留和亲密关系同时需要你做判断，迷茫更像是选择力被多重压力占满了。</p>
-                    </div>
-                    <div class="consultant-intervention-board">
-                      <div class="consultant-intervention-title consultant-section-label">推荐</div>
-                      <button class="consultant-card-draw-preview" onclick="openReflectionDeck()" aria-label="打开潜意识探索">
-                        <span class="consultant-card-draw-mini" aria-hidden="true"><img src="./抽卡/背面.png" alt=""></span>
-                        <span class="consultant-card-draw-copy">
-                          <span class="consultant-card-draw-label">潜意识探索</span>
-                          <span class="consultant-card-draw-title">抽取卡牌，探索内心</span>
-                        </span>
-                      </button>
-                    </div>
-                  </section>
-                </article>
-
-              </main>
-
-              <div class="consultant-agent-composer">
-                <button type="button" class="consultant-voice-btn" id="consultantVoiceBtn" onclick="consultantVoiceInput()" aria-label="语音输入">
-                  <svg viewBox="0 0 20 20"><rect x="7" y="2" width="6" height="10" rx="3"/><path d="M4 9a6 6 0 0 0 12 0M10 15v3M7 18h6"/></svg>
+            <form class="proactive-search-panel" id="proactiveSearchPanel" role="search" onsubmit="return LOOOVEInteraction.submitSearch(event)" autocomplete="off" aria-hidden="true">
+              <svg class="proactive-search-leading" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.5 4.5"/></svg>
+              <input id="proactiveSearchInput" type="search" placeholder="搜索互动内容" aria-label="搜索互动内容">
+              <span class="proactive-search-status" id="proactiveSearchStatus" aria-live="polite"></span>
+              <button class="proactive-search-next" type="submit" aria-label="下一个搜索结果">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
+              </button>
+              <button class="proactive-search-close" type="button" onclick="LOOOVEInteraction.closeSearch()" aria-label="关闭搜索">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+              </button>
+            </form>
+            <div class="proactive-simulation-toast" id="proactiveSimulationToast" role="status" aria-live="polite"></div>
+            <div class="home-awareness-placeholder-body proactive-body" aria-label="LOOOVE 主动互动区">
+              <main class="proactive-feed" id="loooveProactiveFeed" aria-live="polite" aria-label="AI 动态简报"></main>
+            </div>
+            <form class="proactive-message-composer proactive-main-composer" id="proactiveMainComposer" onsubmit="return LOOOVEInteraction.submitMainConversation(event)" autocomplete="off">
+              <span class="proactive-composer-mic" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></svg>
+              </span>
+              <span class="proactive-composer-field">
+                <input id="proactiveMainInput" type="text" placeholder="来和LOOOVE分享此刻的心事吧~" aria-label="来和LOOOVE分享此刻的心事吧~">
+                <button class="proactive-composer-send" id="proactiveMainSend" type="submit" aria-label="发送消息">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-6.7 18-3.1-7.2L4 10.7 21 3Z"/><path d="m11.2 13.8 4.1-4.1"/></svg>
                 </button>
-                <div class="consultant-agent-input-wrap">
-                  <input class="consultant-agent-input" id="consultantAgentInput" placeholder="来和LOOOVE分享此刻的心事吧~" onkeydown="if(event.key==='Enter')sendConsultantMessage()">
-                  <button class="consultant-send-btn" onclick="sendConsultantMessage()" aria-label="发送消息">
-                    <svg viewBox="0 0 20 20"><path d="m4 10 12-6-4 12-2.5-4.5L4 10Z"/><path d="M9.5 11.5 16 4"/></svg>
+              </span>
+            </form>
+            <section class="practice-video-screen" id="practiceVideoScreen" aria-hidden="true" aria-label="运动教学视频">
+              <header class="practice-video-topbar">
+                <button class="practice-video-close" type="button" onclick="LOOOVEInteraction.closePracticeVideo()" aria-label="返回互动">‹</button>
+                <h2 id="practiceVideoHeader">教学视频</h2>
+                <span aria-hidden="true"></span>
+              </header>
+              <div class="practice-video-body">
+                <div class="practice-video-player" id="practiceVideoPlayer">
+                  <img id="practiceVideoImage" src="./assets/互动/baduanjin-sequence.png" alt="八段锦教学动作">
+                  <button class="practice-video-play" id="practiceVideoPlay" type="button" onclick="LOOOVEInteraction.togglePracticeVideo()" aria-label="暂停教学视频"></button>
+                  <button class="practice-video-fullscreen" id="practiceVideoFullscreen" type="button" onclick="LOOOVEInteraction.togglePracticeFullscreen()" aria-label="全屏播放" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>
                   </button>
+                  <div class="practice-video-timeline">
+                    <div class="practice-video-track"><i id="practiceVideoProgress"></i></div>
+                    <div class="practice-video-time"><span id="practiceVideoElapsed">00:00</span><span id="practiceVideoDuration">08:00</span></div>
+                  </div>
+                </div>
+                <div class="practice-video-copy">
+                  <h3 id="practiceVideoTitle">八段锦 · 轻量版</h3>
+                  <p id="practiceVideoMeta">8–12 分钟 · 四段动作教学</p>
+                </div>
+                <div class="practice-video-step">
+                  <span id="practiceVideoStepIndex">动作 1 / 4</span>
+                  <b id="practiceVideoStepTitle">预备式 · 调整站姿</b>
+                  <div class="practice-video-dots" id="practiceVideoDots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
                 </div>
               </div>
-            </div>
-
-            <div class="consultant-reflection-modal" id="consultantReflectionModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="consultantReflectionTitle">
-              <section class="consultant-reflection-sheet">
-                <div class="consultant-reflection-header">
-                  <span>LOOOVE · 潜意识探索</span>
-                  <button class="consultant-reflection-close" onclick="closeReflectionDeck()" aria-label="关闭抽卡">×</button>
+            </section>
+            <section class="proactive-detail-screen" id="proactiveArtScreen" aria-hidden="true" aria-label="艺术展">
+              <header class="practice-video-topbar">
+                <button class="practice-video-close proactive-detail-back" type="button" onclick="LOOOVEInteraction.closeSupportPage()" aria-label="返回互动">‹</button>
+                <h2 id="proactiveArtPageHeader">艺术展</h2>
+                <span aria-hidden="true"></span>
+              </header>
+              <div class="proactive-detail-body">
+                <div class="proactive-art-page-visual"><img src="./assets/互动/art-reset-exhibition.png" alt="柔和彩色的当代美术馆空间与女性倒影"></div>
+                <h3 id="proactiveArtPageTitle">世界上的另一个我</h3>
+                <p class="proactive-art-page-intro" id="proactiveArtPageIntro">这是一次以镜像、空间与自我观看为线索的当代艺术体验。你可以不急着理解作品，只留意哪一处颜色、光线或倒影让你停下来。</p>
+                <div class="proactive-art-page-address">
+                  <span id="proactiveArtPageAddressLabel">地址</span>
+                  <strong id="proactiveArtPageAddress">浦东美术馆 · 上海市浦东新区滨江大道 2777 号</strong>
+                  <a class="proactive-art-page-navigation" href="https://uri.amap.com/search?keyword=%E6%B5%A6%E4%B8%9C%E7%BE%8E%E6%9C%AF%E9%A6%86" target="_blank" rel="noopener noreferrer" aria-label="导航到浦东美术馆">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.6 20 4l-6.6 15.5-2.2-6.7-6.7-2.2Z"/><path d="m11.2 12.8 3.7-3.7"/></svg>
+                  </a>
                 </div>
-                <div class="consultant-reflection-progress" aria-hidden="true"><i class="on"></i><i></i></div>
-
-                <div class="consultant-reflection-stage on" data-reflection-stage="deck">
-                  <h2 class="consultant-reflection-instruction" id="consultantReflectionTitle">凭第一感觉抽取 3 张。</h2>
-                  <button class="consultant-deck" onclick="drawReflectionCard()" aria-label="抽三张潜意识探索卡">
-                    <span class="consultant-deck-face"><img src="./抽卡/背面.png" alt="卡牌背面"></span>
+              </div>
+            </section>
+            <section class="proactive-detail-screen" id="proactiveConversationScreen" aria-hidden="true" aria-label="深度对话">
+              <header class="practice-video-topbar">
+                <button class="practice-video-close proactive-detail-back" type="button" onclick="LOOOVEInteraction.closeSupportPage()" aria-label="返回互动">‹</button>
+                <h2 id="proactiveConversationPageHeader">深度对话</h2>
+                <span aria-hidden="true"></span>
+              </header>
+              <div class="proactive-detail-body proactive-conversation-body">
+                <div class="proactive-deep-thread" id="proactiveDeepThread" aria-live="polite"></div>
+              </div>
+              <form class="proactive-message-composer proactive-deep-composer" id="proactiveDeepComposer" onsubmit="return LOOOVEInteraction.submitDeepConversation(event)" autocomplete="off">
+                <span class="proactive-composer-mic" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></svg>
+                </span>
+                <span class="proactive-composer-field">
+                  <input id="proactiveDeepInput" type="text" placeholder="来和LOOOVE分享此刻的心事吧~" aria-label="来和LOOOVE分享此刻的心事吧~">
+                  <button class="proactive-composer-send" id="proactiveDeepSend" type="submit" aria-label="发送消息">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-6.7 18-3.1-7.2L4 10.7 21 3Z"/><path d="m11.2 13.8 4.1-4.1"/></svg>
                   </button>
-                  <button class="consultant-reflection-primary" onclick="drawReflectionCard()">抽 3 张</button>
+                </span>
+              </form>
+            </section>
+            <section class="proactive-detail-screen" id="proactiveFoodScreen" aria-hidden="true" aria-label="饮食建议">
+              <header class="practice-video-topbar">
+                <button class="practice-video-close proactive-detail-back" type="button" onclick="LOOOVEInteraction.closeFoodPage()" aria-label="返回互动">‹</button>
+                <h2 id="proactiveFoodPageHeader">今天怎么吃</h2>
+                <span aria-hidden="true"></span>
+              </header>
+              <div class="proactive-detail-body">
+                <div class="proactive-food-page-visual"><img id="proactiveFoodImage" src="./assets/互动/food-mung-bean-lily.png" alt="绿豆百合小碗"></div>
+                <h3 id="proactiveFoodPageTitle">绿豆百合小碗</h3>
+                <div class="proactive-food-steps">
+                  <b id="proactiveFoodStepsLabel">简单做法</b>
+                  <ol id="proactiveFoodSteps"></ol>
                 </div>
-
-                <div class="consultant-reflection-stage" data-reflection-stage="reflect">
-                  <div class="consultant-reflection-cards" id="consultantReflectionCards" aria-label="抽到的三张潜意识探索卡">
-                    <figure class="consultant-reflection-card"><img src="./抽卡/28.png" alt="第一张水彩卡牌"></figure>
-                    <figure class="consultant-reflection-card"><img src="./抽卡/31.png" alt="第二张水彩卡牌"></figure>
-                    <figure class="consultant-reflection-card"><img src="./抽卡/36.png" alt="第三张水彩卡牌"></figure>
-                  </div>
-                  <form class="consultant-reflection-form" onsubmit="event.preventDefault();submitReflectionCard()">
-                    <label class="consultant-reflection-question">三张图里，哪一张最吸引你？
-                      <textarea id="reflectionAttraction" aria-label="三张图里，哪一张最吸引你？"></textarea>
-                    </label>
-                    <label class="consultant-reflection-question">它让你想到了最近发生的什么？
-                      <textarea id="reflectionAssociation" aria-label="它让你想到了最近发生的什么？"></textarea>
-                    </label>
-                    <label class="consultant-reflection-question">如果三张图连成一个故事，故事正在走向哪里？
-                      <textarea id="reflectionDirection" aria-label="如果三张图连成一个故事，故事正在走向哪里？"></textarea>
-                    </label>
-                    <div class="consultant-reflection-error" id="consultantReflectionError" role="status"></div>
-                    <button class="consultant-reflection-primary" id="consultantReflectionSubmit" type="button" onclick="submitReflectionCard()">完成并发送给 LOOOVE</button>
-                  </form>
-                </div>
-              </section>
-            </div>
+              </div>
+            </section>
+            <section class="proactive-detail-screen" id="proactiveResourceScreen" aria-hidden="true" aria-label="推荐详情">
+              <header class="practice-video-topbar">
+                <button class="practice-video-close proactive-detail-back" type="button" onclick="LOOOVEInteraction.closeResourcePage()" aria-label="返回互动">‹</button>
+                <h2 id="proactiveResourceHeader">推荐详情</h2>
+                <span aria-hidden="true"></span>
+              </header>
+              <div class="proactive-detail-body proactive-resource-body">
+                <div class="proactive-resource-visual"><img id="proactiveResourceImage" src="./assets/互动/night-music-spiegel.png" alt="夜间音乐"></div>
+                <h3 class="proactive-resource-title" id="proactiveResourceTitle">Spiegel im Spiegel</h3>
+                <p class="proactive-resource-meta" id="proactiveResourceMeta">Arvo Pärt · 约 9 分钟</p>
+                <p class="proactive-resource-intro" id="proactiveResourceIntro">没有歌词和明显鼓点。先听一遍，让注意力慢慢离开仍在运转的思绪，不要求自己立刻睡着。</p>
+                <button class="proactive-resource-action" id="proactiveResourceAction" type="button" onclick="LOOOVEInteraction.activateResource()">播放音乐</button>
+              </div>
+            </section>
           </div>
-
           <div class="home-state-screen" id="homeBodyState">
             <div class="sr-topbar">
               <button class="sr-back" onclick="closeHomeBodyState()" aria-label="返回">
@@ -4054,7 +4277,7 @@ body{font-family:var(--sans);
                   -->
                   <section class="home-awareness-card" aria-label="今日状态">
                     <div class="home-awareness-status">
-                      <button class="home-awareness-title" onclick="openBodyAwareness(2)">渐入平衡</button>
+                      <button class="home-awareness-title" onclick="openBodyAwareness(2)" data-i18n-zh="渐入平衡" data-i18n-en="Feel like a stroll">渐入平衡</button>
                       <button class="home-awareness-score" onclick="openAwarenessBodyState()">
                         Loooveness 56
                         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>
@@ -4063,11 +4286,11 @@ body{font-family:var(--sans);
                     <div class="home-consultant">
                       <div class="home-consultant-content">
                         <div class="home-consultant-label">LOOOVE</div>
-                        <div class="home-consultant-copy">身体已经得到基本恢复，紧张感也在慢慢回落。<br>
-                          你正处在由静到动的过渡里，状态会随着活动逐渐打开。</div>
+                        <div class="home-consultant-copy"><span data-i18n-zh="身体已经得到基本恢复，紧张感也在慢慢回落。" data-i18n-en="Your tension from morning is easing. I'm happy to be the company — virtual, obviously.">身体已经得到基本恢复，紧张感也在慢慢回落。</span><br>
+                          <span data-i18n-zh="你正处在由静到动的过渡里，状态会随着活动逐渐打开。" data-i18n-en="We can wander wherever the mood goes: talk through a half-formed idea, or just shoot the breeze about nothing in particular">你正处在由静到动的过渡里，状态会随着活动逐渐打开。</span></div>
                       </div>
                       <button class="home-consultant-next" onclick="openHomeAwarenessPlaceholder()" aria-label="进入互动页面">
-                        <span>互动</span>
+                        <span data-i18n-zh="互动" data-i18n-en="Let's stroll">互动</span>
                       </button>
                     </div>
                   </section>
@@ -4094,7 +4317,7 @@ body{font-family:var(--sans);
                   -->
                   <section class="home-awareness-card" aria-label="今日状态">
                     <div class="home-awareness-status">
-                      <button class="home-awareness-title" onclick="openBodyAwareness(2)">渐入平衡</button>
+                      <button class="home-awareness-title" onclick="openBodyAwareness(2)" data-i18n-zh="渐入平衡" data-i18n-en="Feel like a stroll">渐入平衡</button>
                       <button class="home-awareness-score" onclick="openAwarenessBodyState()">
                         Loooveness 56
                         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>
@@ -4103,11 +4326,11 @@ body{font-family:var(--sans);
                     <div class="home-consultant">
                       <div class="home-consultant-content">
                         <div class="home-consultant-label">LOOOVE</div>
-                        <div class="home-consultant-copy">身体已经得到基本恢复，紧张感也在慢慢回落。<br>
-                          你正处在由静到动的过渡里，状态会随着活动逐渐打开。</div>
+                        <div class="home-consultant-copy"><span data-i18n-zh="身体已经得到基本恢复，紧张感也在慢慢回落。" data-i18n-en="Your tension from morning is easing. I'm happy to be the company — virtual, obviously.">身体已经得到基本恢复，紧张感也在慢慢回落。</span><br>
+                          <span data-i18n-zh="你正处在由静到动的过渡里，状态会随着活动逐渐打开。" data-i18n-en="We can wander wherever the mood goes: talk through a half-formed idea, or just shoot the breeze about nothing in particular">你正处在由静到动的过渡里，状态会随着活动逐渐打开。</span></div>
                       </div>
                       <button class="home-consultant-next" onclick="openHomeAwarenessPlaceholder()" aria-label="进入互动页面">
-                        <span>互动</span>
+                        <span data-i18n-zh="互动" data-i18n-en="Let's stroll">互动</span>
                       </button>
                     </div>
                   </section>
@@ -4134,83 +4357,10 @@ body{font-family:var(--sans);
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg>
               </button>
             </div>
-            <div class="growth-line" id="growthTrail">
-              <div class="growth-thread"></div>
-              <div class="growth-day"><span>6月12日 · 今天</span></div>
-              <article class="growth-card left" data-growth="highlight" onclick="openGrowthRecord('lifeHighlight')">
-                <div class="growth-card-top"><div class="growth-kind kind-highlight">高光</div><time>19:26</time></div>
-                <div class="growth-title">和朋友散步时，你说了真话，也被温柔接住。</div>
-                <div class="growth-signal-preview">
-                  <p><b>声音</b><span>笑声变多，说到害怕时也没有绕开</span></p>
-                  <p><b>身体</b><span>HRV 45ms · 压力 1.9</span></p>
-                </div>
-                <div class="growth-summary-line">你没有只做那个可靠的人，也允许自己被关心。</div>
-              </article>
-              <article class="growth-card right" data-growth="low" onclick="openGrowthRecord('lifeLow')">
-                <div class="growth-card-top"><div class="growth-kind kind-low">波动</div><time>17:08</time></div>
-                <div class="growth-title">期待了一周的见面临时取消，你一个人回了家。</div>
-                <div class="growth-signal-preview">
-                  <p><b>声音</b><span>连续说了三次“没关系”，随后沉默很久</span></p>
-                  <p><b>身体</b><span>HRV 31ms · 压力 3.8</span></p>
-                </div>
-                <div class="growth-summary-line">你很快照顾了对方，却把自己的失落留在了身体里。</div>
-              </article>
-              <article class="growth-card left" data-growth="highlight" onclick="openGrowthRecord('signalHighlight')">
-                <div class="growth-card-top"><div class="growth-kind kind-highlight">高光</div><time>15:40</time></div>
-                <div class="growth-title">在评审里，把自己的判断说清楚了。</div>
-                <div class="growth-signal-preview">
-                  <p><b>声音</b><span>语速平稳，关键处停顿更清楚</span></p>
-                  <p><b>身体</b><span>HRV 41ms · 压力 2.6</span></p>
-                </div>
-                <div class="growth-summary-line">你没有回避分歧，也没有被分歧带走。</div>
-              </article>
-              <article class="growth-card right" data-growth="interaction" onclick="openGrowthRecord('drawingBreath')">
-                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·绘画</div><time>14:16</time></div>
-                <div class="growth-title">烦躁慢慢退下去了。</div>
-                <div class="growth-interaction-media painting"><img src="./呼吸画线.jpg" alt="完成的呼吸画线作品"></div>
-                <div class="growth-interaction-journey">
-                  <p><b>你</b><span>我有点烦躁。</span></p>
-                  <p><b>结果</b><span>身体开始松开了。</span></p>
-                </div>
-              </article>
-              <article class="growth-card right" data-growth="report" onclick="openGrowthRecord('weeklyReport')">
-                <div class="growth-card-top"><div class="growth-kind kind-report">周报告</div><time>12:00</time></div>
-                <div class="growth-title">恢复波动正在收窄。</div>
-                <div class="growth-report-brief"><span>Loooveness 均值 <b>58</b></span><span>有效记录 <b>5 次</b></span></div>
-              </article>
-              <div class="growth-day"><span>6月11日 · 昨天</span></div>
-              <article class="growth-card right" data-growth="interaction" onclick="openGrowthRecord('cardReflection')">
-                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·抽卡</div><time>21:17</time></div>
-                <div class="growth-title">当两种生活同时拉扯你。</div>
-                <div class="growth-interaction-media cards">
-                  <img src="./抽卡/28.png" alt="抽取的卡牌一"><img src="./抽卡/31.png" alt="抽取的卡牌二"><img src="./抽卡/36.png" alt="抽取的卡牌三">
-                </div>
-                <div class="growth-interaction-journey">
-                  <p><b>你</b><span>我最近有点迷茫。</span></p>
-                  <p><b>结果</b><span>先看工作机会，关系等状态稳定后再谈</span></p>
-                </div>
-              </article>
-              <article class="growth-card left compact" data-growth="interaction" onclick="openGrowthRecord('mantraMoment')">
-                <div class="growth-card-top"><div class="growth-kind kind-interaction">互动·心法</div><time>10:22</time></div>
-                <div class="growth-title">方案被反对，不等于能力被否定。</div>
-                <div class="growth-interaction-journey">
-                  <p><b>你</b><span>我最近压力好大。</span></p>
-                </div>
-              </article>
-              <article class="growth-card left" data-growth="low" onclick="openGrowthRecord('signalLow')">
-                <div class="growth-card-top"><div class="growth-kind kind-low">波动</div><time>10:19</time></div>
-                <div class="growth-title">会议结束了，恼火还留在身体里。</div>
-                <div class="growth-signal-preview">
-                  <p><b>声音</b><span>围绕需求排期发生争辩，语速明显加快</span></p>
-                  <p><b>身体</b><span>HRV 29ms · 压力 4.1</span></p>
-                </div>
-                <div class="growth-summary-line">被直接反驳后，你还在替那场争辩消耗能量。</div>
-              </article>
-              <article class="growth-card left" data-growth="report" onclick="openGrowthRecord('morningReport')">
-                <div class="growth-card-top"><div class="growth-kind kind-report">早间报告</div><time>07:30</time></div>
-                <div class="growth-title">今晨恢复偏慢，适合从容启动。</div>
-                <div class="growth-report-brief"><span>Loooveness <b>56</b></span><span>睡眠 <b>6h42m</b></span></div>
-              </article>
+            <div class="growth-list-scroll" id="growthListScroll">
+              <div class="growth-line" id="growthTrail" aria-live="polite">
+                <span class="growth-spine" aria-hidden="true"></span>
+              </div>
             </div>
             <!-- Demo 暂时隐藏：勋章与 AI 洞察入口
             <button class="growth-badge-float" onclick="openTrajectoryBadges()" aria-label="勋章墙" title="勋章墙">
@@ -4962,7 +5112,7 @@ body{font-family:var(--sans);
                   <div style="flex:1">
                     <div class="mine-device-name" id="devName">LOOOVE 智能戒指</div>
                     <div class="mine-device-ok off" id="devStatus">未连接</div>
-                    <div class="mine-device-id" id="devId">点击下方按钮连接戒指</div>
+                    <div class="mine-device-id" id="devId"></div>
                   </div>
                   <div class="mine-device-bat" id="devBat">—</div>
                 </div>
@@ -6196,6 +6346,757 @@ body{font-family:var(--sans);
 </div><!-- /stage -->
 
 <script>
+const I18n={
+  lang:'zh-CN',
+  exact:{
+    'LOOOVE · 循证 AI 身心教练 Demo':'LOOOVE · Evidence-based AI Mind-Body Coach Demo',
+    '你的专属 AI 身心教练':'Your personal AI mind-body coach',
+    '你现在的情绪如何？':'How are you feeling right now?',
+    '稳中有波':'Gently shifting',
+    '身体状态尚稳，情绪有一点轻微起伏':'Your body feels steady, with a little emotional movement.',
+    '能量感':'Energy',
+    '低电量':'Low',
+    '很有劲':'Energized',
+    '舒展感':'Ease',
+    '压着':'Held in',
+    '松开':'Open',
+    '波动感':'Intensity',
+    '平稳':'Calm',
+    '翻涌':'Turbulent',
+    '情绪底色':'Emotional tone',
+    '偏消极':'More negative',
+    '偏积极':'More positive',
+    '确定调频':'Set this state',
+    '平衡':'Balance',
+    '压力指数':'Stress index',
+    '昨夜睡眠':'Last night’s sleep',
+    '此刻身心状态':'Current mind-body state',
+    'AI 解读':'AI insight',
+    '重新调频':'Tune again',
+    '大多数时候，我们绕着别人转':'Most days, our attention goes to everyone else.',
+    '用别人的标准，丈量自己':'We measure ourselves by standards that are not ours.',
+    '接下来的两分钟，让你的身体带你':'For the next two minutes, let your body guide you',
+    '认识那个久违的自己':'back to the self you have missed.',
+    '开始认识自我':'Meet yourself',
+    '关 于 你 · 1 / 3':'ABOUT YOU · 1 / 3',
+    '关 于 你 · 2 / 3':'ABOUT YOU · 2 / 3',
+    '关 于 你 · 3 / 3':'ABOUT YOU · 3 / 3',
+    '最近，身体有没有在悄悄跟你说些什么？':'What has your body been quietly telling you lately?',
+    '睡了也累，像一直没真正充上电':'I sleep, but never feel fully recharged.',
+    '莫名紧绷、心慌，身体很难放松':'I feel tense or on edge, and cannot fully relax.',
+    '肩颈、胃、胸口或身体某处经常不舒服':'My neck, stomach, chest, or another area often feels uncomfortable.',
+    '身体变得很沉，行动和反应都慢了下来':'My body feels heavy, and everything has slowed down.',
+    '整体还不错，想更细致地照顾自己':'I feel mostly well and want to care for myself more intentionally.',
+    '我不太会觉察身体，只有严重了才发现':'I notice body signals only when they become intense.',
+    '当情绪涌上来，你通常怎么办？':'When emotions rise, what do you usually do?',
+    '硬扛，忍一忍，事情过去就好了':'Push through and wait for it to pass.',
+    '找人说说，但说完还是不知道怎么办':'Talk to someone, but still feel unsure afterward.',
+    '刷手机、吃东西、买东西，转移注意':'Scroll, snack, or shop to distract myself.',
+    '自己消化，不想麻烦别人':'Handle it alone so I do not burden anyone.',
+    '想做点什么，但不知道从哪里开始':'Want to act, but do not know where to begin.',
+    '我会写日记 / 冥想 / 运动':'Journal, meditate, or move my body.',
+    '如果现在只先改变一点点，你最想从哪里开始？':'If you changed one small thing, where would you begin?',
+    '看见自己：知道身体和情绪发生了什么':'Notice myself — understand what my body and emotions are doing.',
+    '理解自己：弄明白我为什么总是这样反应':'Understand myself — see why I react this way.',
+    '接纳自己：不再一不舒服就责怪自己':'Accept myself — stop turning discomfort into self-blame.',
+    '照顾自己：焦虑、疲惫时有具体方法可用':'Care for myself — have practical tools for anxiety and fatigue.',
+    '探索自己：重新知道我喜欢和想要什么':'Explore myself — rediscover what I enjoy and want.',
+    '主动选择：重新掌控自己的生活':'Choose actively — regain authorship of my life.',
+    '返回':'Back',
+    '看见你':'SEEING YOU',
+    '先看见你的感受和选择':'First, notice what you feel and choose.',
+    '你刚才选下的，不是一些孤立的答案。它们更像身体、情绪和生活方向留下的三条线索。':'These are not isolated answers. They are three clues from your body, emotions, and sense of direction.',
+    '身 体':'BODY',
+    '情 绪':'EMOTIONS',
+    '开 始':'BEGIN',
+    '身体正在提醒你，需要被认真听见。':'Your body is asking to be heard.',
+    '情绪涌上来时，你也许更习惯先自己撑住。':'When emotions rise, you may be used to carrying them alone.',
+    '改变可以从很小的一步开始。':'Change can begin with one small step.',
+    '继续':'Continue',
+    '你 会 走 到 哪 里':'WHERE THIS CAN LEAD',
+    '把身体的声音，':'Turn your body’s voice',
+    '变成自己的方向。':'into your own direction.',
+    '觉察与理解':'Notice & understand',
+    '看见身体与情绪':'Read body and emotion signals',
+    '身体数据':'Your Body',
+    '情绪信号':'Emotional cues',
+    '稳定与接纳':'Steady & accept',
+    '稳定情绪，接纳自我':'Regulate emotions, accept yourself',
+    '情绪调节':'Emotional regulation',
+    '允许波动':'Allow change',
+    '突破与成长':'Move & grow',
+    '小步行动，持续成长':'Take small steps, keep growing',
+    '思维罗盘':'Thought compass',
+    '探索尝试':'Explore',
+    '我准备好了':'I’m ready',
+    '约定':'A PROMISE',
+    '和自己，做一个小约定。':'Make one small promise to yourself.',
+    '我承诺':'I PROMISE',
+    '从今天起，':'From today,',
+    '我愿意多了解自己的身体，':'I will listen to my body,',
+    '也多照顾一点自己的情绪。':'and care for my emotions.',
+    '持续成长，持续爱自己':'Keep growing. Keep loving myself.',
+    '我 是':'I AM',
+    '写下你的名字':'Your name',
+    '约好了':'Promise made',
+
+    '晚安 · 6月11日 星期四':'Good evening · June 11 · Thursday',
+    '6月11日 星期四':'June 11 · Thursday',
+    '今日状态':'Today’s state',
+    '身心觉察':'Mind-body awareness',
+    '心弦微紧':'Slightly tense',
+    '恢复未满':'Still recovering',
+    '渐入平衡':'Balance',
+    '身心舒展':'Open and at ease',
+    '倦意偏重':'Low energy',
+    '身体已经得到基本恢复，紧张感也在慢慢回落。':'Your body has recovered its baseline, and tension is easing.',
+    '你正处在由静到动的过渡里，状态会随着活动逐渐打开。':'You are moving from stillness into motion. Gentle activity will help you open up.',
+    '午饭后快走二十分钟，再把下午第一段完整时间留给重要任务。':'Take a 20-minute walk after lunch, then reserve your first uninterrupted afternoon block for what matters.',
+    '身体的基础状态依然平稳，只是恢复感稍弱，心里容易有些绷紧。':'Your baseline is steady, though recovery feels lighter and some tension remains.',
+    '注意力来回跳动并不代表你做不好，只是需要一个更清晰的节奏。':'A wandering attention does not mean you are failing; it needs a clearer rhythm.',
+    '今天把需要判断的事情集中在一个时段，专注一轮后起身舒展几分钟。':'Group decision-heavy work into one block, then stand and stretch for a few minutes.',
+    '昨夜的睡眠有些零碎，但身体仍维持着稳定的日常节奏。':'Sleep was fragmented, but your body is keeping a steady daily rhythm.',
+    '今天的专注力可能来得慢一些，给自己一点进入状态的时间就好。':'Focus may arrive slowly today. Give yourself time to ease in.',
+    '上午接触十五分钟自然光，把最重要的任务放在光线充足的时段完成。':'Get 15 minutes of daylight this morning and do your key task when the light is strongest.',
+    '昨夜休息较为完整，身体和呼吸都显得舒展。':'Rest was complete, and your body and breath feel open.',
+    '心里有余地时，耐心与表达也会自然回来。':'With more inner room, patience and expression return naturally.',
+    '今天把这份稳定留给一项深度工作，或一次值得认真进行的沟通。':'Use this steadiness for one deep-work task or meaningful conversation.',
+    '昨夜的休息比较零碎，身体今天会更珍惜稳定和规律。':'Rest was fragmented, so your body will value steadiness and routine today.',
+    '思路偶尔变慢很正常，这是恢复过程的一部分，不需要急着评判自己。':'Slower thinking is a normal part of recovery; there is no need to judge it.',
+    '上午先吃好早餐并处理熟悉的事务，把重要决定留到精神更清楚的时候。':'Eat a good breakfast and start with familiar tasks. Save key decisions for later.',
+    '这像此刻的你吗？':'Does this feel like you right now?',
+    '不太像，调整感受':'Not quite · Adjust',
+    '很接近，开始照顾':'Yes · Start caring',
+    '查看身体状态':'View body state',
+    '互动':'Moments',
+    '进入互动页面':"Let's stroll",
+    '首页':'Home',
+    '轨迹':'Journey',
+    '百科':'Library',
+    '我的':'Me',
+    '全部':'All',
+    '高光':'Glimmers',
+    '波动':'Waves',
+    '报告':'Letters',
+    '6月14日 · 21:18':'June 14 · 21:18',
+    '6月12日 · 16:24':'June 12 · 16:24',
+    '6月11日 · 07:44':'June 11 · 07:44',
+    '6月10日 · 21:17':'June 10 · 21:17',
+    '6月10日 · 18:42':'June 10 · 18:42',
+    '6月10日 · 15:40':'June 10 · 15:40',
+    '6月10日 · 10:19':'June 10 · 10:19',
+    '6月9日 · 20:00':'June 9 · 20:00',
+    '读完《设计你的人生》，上传了读书笔记。':'Finished Designing Your Life and uploaded reading notes.',
+    '完成一次深度对话，理清了思绪。':'Completed a deep conversation and clarified your thoughts.',
+    '完成 8 分钟八段锦练习。':'Completed eight minutes of Baduanjin.',
+    '完成一次卡牌潜意识探索。':'Completed an intuitive card exploration.',
+    '完成一次绘画疗愈。':'Completed a therapeutic drawing practice.',
+    '在评审中，清楚表达了自己的判断。':'Expressed your judgment clearly in the review.',
+    '会议结束后，压力仍停留在身体里。':'After the meeting, stress remained in your body.',
+    'LOOOVE 推送了本周身心复盘报告。':'LOOOVE shared your weekly mind-body review.',
+    '读书笔记':'Reading notes',
+    '深度对话':'Deep conversation',
+    '八段锦练习':'Baduanjin practice',
+    '潜意识探索':'Intuitive exploration',
+    '绘画疗愈':'Therapeutic drawing',
+    '周复盘报告':'Weekly review',
+    '你的读书笔记':'Your reading notes',
+    '你的觉察':'Your insight',
+    '练习记录':'Practice record',
+    '日期筛选':'Filter by date',
+    '6月12日 · 今天':'June 12 · Today',
+    '6月11日 · 昨天':'June 11 · Yesterday',
+    '6月11日 · 星期四':'June 11 · Thursday',
+    '6月12日 · 星期五':'June 12 · Friday',
+    '和朋友散步时，你说了真话，也被温柔接住。':'The walk was ordinary. The being-seen wasn\'t.',
+    '笑声变多，说到害怕时也没有绕开':'More laughter; you named the fear instead of avoiding it.',
+    'HRV 45ms · 压力 1.9':'HRV 45 ms · Stress 1.9',
+    '你没有只做那个可靠的人，也允许自己被关心。':'You let yourself be cared for, not only be the reliable one.',
+    '期待了一周的见面临时取消，你一个人回了家。':'A long-awaited plan fell through, and you went home alone.',
+    '连续说了三次“没关系”，随后沉默很久':'You said “It’s okay” three times, then went quiet.',
+    'HRV 31ms · 压力 3.8':'HRV 31 ms · Stress 3.8',
+    '你很快照顾了对方，却把自己的失落留在了身体里。':'You reassured them quickly, while your body held the disappointment.',
+    '在评审里，把自己的判断说清楚了。':'You held your pace through disagreement and kept your judgment clear.',
+    '语速平稳，关键处停顿更清楚':'Steady pace, with clear pauses at key points.',
+    'HRV 41ms · 压力 2.6':'HRV 41 ms · Stress 2.6',
+    '你没有回避分歧，也没有被分歧带走。':'A steady wave under pressure — your rhythm held.',
+    '互动·绘画':'Moments · Drawing',
+    '烦躁慢慢退下去了。':'The restlessness began to fade.',
+    '完成的呼吸画线作品':'Completed breath drawing',
+    '你':'You',
+    '我有点烦躁。':'I feel a little restless.',
+    '我有点烦躁':'I feel a little restless.',
+    '结果':'Result',
+    '身体开始松开了。':'Your body began to soften.',
+    '周报告':'Weekly Letter',
+    '恢复波动正在收窄。':'Your recovery waves are settling.',
+    'Loooveness 均值':'Average Loooveness',
+    '有效记录':'Useful entries',
+    '5 次':'5 entries',
+    '互动·抽卡':'Moments · Cards',
+    '当两种生活同时拉扯你。':'When two versions of life pull at you.',
+    '抽取的卡牌一':'Drawn card one',
+    '抽取的卡牌二':'Drawn card two',
+    '抽取的卡牌三':'Drawn card three',
+    '我最近有点迷茫。':'I’ve been feeling lost.',
+    '我最近有点迷茫':'I’ve been feeling lost.',
+    '先看工作机会，关系等状态稳定后再谈':'Explore the work opportunity first; revisit the relationship from steadier ground.',
+    '互动·心法':'Moments · Reframe',
+    '方案被反对，不等于能力被否定。':'A rejected proposal is not a rejection of your ability.',
+    '我最近压力好大。':'I’ve been under a lot of pressure.',
+    '我最近压力好大':'I’ve been under a lot of pressure.',
+    '会议结束了，恼火还留在身体里。':'The meeting ended. The anger of being pushed back stayed in your body.',
+    '围绕需求排期发生争辩，语速明显加快':'A scheduling dispute made your speech noticeably faster.',
+    'HRV 29ms · 压力 4.1':'HRV 29 ms · Stress 4.1',
+    '被直接反驳后，你还在替那场争辩消耗能量。':'After being challenged directly, your body kept spending energy on the argument.',
+    '早间报告':'Morning Letter',
+    '今晨恢复偏慢，适合从容启动。':'Recovery is slower this morning. Start gently.',
+    '睡眠':'Sleep',
+
+    '账户管理 ›':'Account ›',
+    '账户管理 — 即将上线':'Account settings · Coming soon',
+    '个人档案':'Profile',
+    '打开个人档案':'Open profile',
+    '查看个性化画像':'View your personal pattern',
+    '自我研究':'Self discovery',
+    '35 个问题，重新看见自己':'35 questions to see yourself anew',
+    '历史':'History',
+    '自我是最值得研究的课题':'You are worth discovering',
+    '你可以随时更新。':'Return and update anytime.',
+    '开始研究':'Begin',
+    '你喜欢吃什么？又对哪些食物完全提不起兴趣？':'What foods do you enjoy—and which ones leave you cold?',
+    '描述一下你现在的外貌状态：发色、发型，以及日常穿衣风格。':'Describe how you look today: your hair and everyday style.',
+    '不假思索，用五个词描述你的性格。':'Without overthinking, choose five words that describe you.',
+    '你真正愿意持续投入时间的爱好有哪些？':'Which interests are you genuinely willing to keep giving time to?',
+    '你现在做什么工作？内心深处，你真正想做什么？':'What work do you do now? Deep down, what would you rather do?',
+    '你的身体状况如何？有没有长期需要关注的地方？':'How is your physical health? Is anything asking for ongoing attention?',
+    '目前生活里，你最在意的三件事是什么？':'What are the three things that matter most to you now?',
+    '什么样的人或行为，会让你从内心深处感到反感？':'What kind of person or behavior deeply puts you off?',
+    '你最深层的恐惧是什么？':'What is your deepest fear?',
+    '你最热爱的，是怎样一种生活状态？':'What way of living do you love most?',
+    '你认为自己有哪些真正独特的优势？':'What strengths feel uniquely yours?',
+    '什么最容易打乱你的情绪状态？':'What most easily unsettles you emotionally?',
+    '什么情况下，你会对自己感到深深的失望？':'When do you feel most disappointed in yourself?',
+    '情绪低落时，什么能真正让你好起来？':'When you feel low, what genuinely helps?',
+    '哪些具体的瞬间，让你真切感受到活着很美好？':'Which moments make being alive feel beautiful?',
+    '对你而言，「幸福」究竟意味着什么？':'What does happiness truly mean to you?',
+    '在亲密关系或深度友谊中，你最需要什么？':'What do you need most in a close relationship or friendship?',
+    '在关系里，有没有什么是你绝对无法接受的？':'What is completely unacceptable to you in a relationship?',
+    '你做过的哪件事，至今仍让自己感到骄傲？':'What have you done that still makes you proud?',
+    '还有哪些强烈想实现、却始终没有落地的愿望？':'Which strong wishes have you not yet acted on?',
+    '你脑海里那个反复浮现的画面或场景是什么？':'What image or scene keeps returning to your mind?',
+    '你在意别人怎么看你吗？描述一下你现在的状态。':'How much do others’ opinions matter to you right now?',
+    '做重要决定时，你最依赖什么？':'What do you rely on when making an important decision?',
+    '有没有过去深信不疑、如今正在悄悄推翻的认知？':'Which belief you once held firmly are you now questioning?',
+    '如果完全不考虑任何后果，你现在最想做什么？':'If consequences did not matter, what would you do now?',
+    '你害怕过一成不变的生活吗？为什么？':'Do you fear an unchanging life? Why?',
+    '如果可以重来，你会走一条完全不同的职业路径吗？那会是什么？':'If you could begin again, would you choose a different career? What would it be?',
+    '什么样的工作状态让你充满能量？什么样的会让你持续消耗？':'What kind of work energizes you—and what drains you?',
+    '你认为自己最适合做哪类工作，创造、影响、执行、研究，还是其他？':'Which work suits you best: creating, influencing, executing, researching, or something else?',
+    '为了真正热爱的工作，你愿意牺牲什么？又有什么是绝对不愿妥协的？':'What would you sacrifice for work you love—and what would you never compromise?',
+    '三到五年后，你希望自己的职业状态是什么样的？':'What do you want your work life to look like in three to five years?',
+    '你想成为什么样的人？请尽量具体地描述。':'Who do you want to become? Be as specific as you can.',
+    '你绝对不愿意活成什么样子？':'What kind of person do you never want to become?',
+    '这一生，你最不愿失去什么？':'What are you least willing to lose in this life?',
+    '你想要过怎样的一生？':'What kind of life do you want to live?',
+    '写下你此刻真实想到的内容':'Write what honestly comes to mind…',
+    '重新填写':'Start over',
+    '上一题':'Previous',
+    '下一题':'Next',
+    'AI 教练分析':'AI coach analysis',
+    '填写':'Questions',
+    '还没有保存过的自我研究记录。':'No saved self-discovery entries yet.',
+    '自我研究记录':'Self-discovery entry',
+    'Candice，32 岁':'Candice · 32',
+    '个人成长画像 · 高觉知型':'Growth profile · Highly self-aware',
+    '核心定位：':'Core:',
+    '高觉知、高自律、持续迭代的创业者，在安全感与自由、自我成就与利他价值之间，寻找更稳的平衡。':'A self-aware, disciplined entrepreneur seeking steadier balance between security and freedom, achievement and contribution.',
+    '绝对自由':'Freedom',
+    '自我成长':'Growth',
+    '至亲安稳':'Family security',
+    '真诚责任':'Integrity',
+    '利他赋能':'Empower others',
+    '内在价值强度':'Core values',
+    '自由感':'Freedom',
+    '成长性':'Growth',
+    '责任感':'Responsibility',
+    '安全感':'Security',
+    '松弛度':'Ease',
+    '核心张力':'Core tension',
+    '想要绝对自由':'Craves full freedom',
+    '渴望掌控自己的时间、职业路径和生活节奏。':'Wants authorship over time, career, and pace of life.',
+    '又有强责任感':'Carries deep responsibility',
+    '会为了家人、安全感和长期目标，主动承担很多压力。':'Takes on pressure for family, security, and long-term goals.',
+    'Candice 的关键不是「变得更努力」，而是学习在努力之外，给自己留一块可以松下来的地方。':'Candice does not need to try harder. She needs room to soften beyond the effort.',
+    '核心人格':'Core personality',
+    '外显稳定、真诚、负责；内在高度清醒，既温柔也有边界，既能长期自律，也保留对自由和体验的强烈渴望。':'Steady, sincere, and responsible. Gentle with clear boundaries, disciplined yet strongly drawn to freedom and experience.',
+    '情绪模式':'Emotional pattern',
+    '惯性方式是理性锚定和目标自救。真正容易触发波动的，不是普通压力，而是重要关系的不确定与自我停滞。':'You regain control through logic and goals. Uncertainty in close relationships and feeling stuck affect you more than everyday stress.',
+    '关系动力':'Relationship pattern',
+    '你倾向清醒筛选、宁缺毋滥，重视真诚和信任。下一步可以练习把微小脆弱交给可信任的人，而不必全部独自消化。':'You choose carefully and value honesty and trust. Practice sharing small vulnerabilities with people who feel safe.',
+    '职业路径':'Career path',
+    '更适合创造型、影响力型、能持续迭代的工作方式。你需要的不是机械稳定，而是能看见反馈、不断生长的空间。':'You thrive in creative, high-impact work that keeps evolving—not routine stability, but visible feedback and room to grow.',
+    '未来轨迹':'Future path',
+    '适合你的未来不是单点成功，而是一个能持续创造、连接资源、输出影响力的平台型人生。':'Your future is less about one milestone and more about a platform for creating, connecting, and shaping change.',
+    '下一步可以从这里开始':'Start here',
+    '建立一个低成本松弛仪式':'Create a small ritual for ease',
+    '每天固定 10 分钟，不产出、不复盘，只观察身体和情绪，让系统从高控制模式里退出来。':'Take 10 minutes daily with no output or review. Simply notice your body and emotions.',
+    '把压力拆成可求助的小句子':'Turn pressure into one ask',
+    '不用倾诉全部，只练习说出一句「我最近有点累」，让关系开始承担一点真实重量。':'You do not need to share everything. Begin with: “I’ve been a little tired lately.”',
+    '给自由配一张安全地图':'Give freedom a safety map',
+    '把创业、现金流、家庭责任分别写成边界和缓冲方案，自由会因为有底而更稳。':'Set boundaries and buffers for the business, cash flow, and family responsibilities.',
+    '心率测量':'Heart rate',
+    '血氧测量':'Blood oxygen',
+    '体表温度':'Skin temperature',
+    '2026年6月17日':'June 17, 2026',
+    'LOOOVE AI · 洞察':'LOOOVE AI · INSIGHT',
+    '今日平均心率74次/分，处于正常范围。孕期心率比孕前高约10–15次属正常生理反应——血液循环量增加了约50%。若静息状态持续超过100次/分，建议在下次产检时告知医生。':'Today’s average heart rate is 74 bpm, within the normal range. A rise of 10–15 bpm during pregnancy is common as blood volume increases. If resting heart rate stays above 100 bpm, mention it at your next prenatal visit.',
+    '正 常':'NORMAL',
+    '今日心率走势':'TODAY’S HEART RATE',
+    '日 均 心 率':'DAILY AVERAGE',
+    '日 最 小':'DAILY LOW',
+    '日 最 大':'DAILY HIGH',
+    '血氧均值97.2%，处于健康范围（孕期建议≥95%）。充足的血氧饱和度意味着宝宝能获得稳定的氧气供应，有助于大脑和器官的发育。保持适当通风和轻度活动有助于维持这个水平。':'Average blood oxygen is 97.2%, within the healthy range (recommended pregnancy level: ≥95%). Good ventilation and gentle activity can help maintain this level.',
+    '今日血氧分布':'TODAY’S BLOOD OXYGEN',
+    '血 氧 区 间':'BLOOD OXYGEN RANGE',
+    '日 均 血 氧':'DAILY AVERAGE',
+    '今日体温在36.3–36.6°C之间，波动平稳，在孕期正常范围内。孕中期基础体温通常比孕前略高0.3–0.5°C，这是孕激素作用的正常表现。若体温持续超过37.5°C，请及时就医。':'Today’s temperature stayed between 36.3 and 36.6°C, stable and within the normal pregnancy range. If it remains above 37.5°C, seek medical care.',
+    '平均':'AVERAGE',
+    '今日体温走势':'TODAY’S TEMPERATURE',
+    '日 均 温 度':'DAILY AVERAGE',
+    '活动':'Activity',
+    '今日步数2,900步，离目标还有一段距离。孕中期建议保持轻度活动，饭后散步10–15分钟有助于控制血糖、改善下肢循环——不必追求步数，走得舒适最重要。':'You have taken 2,900 steps today. During pregnancy, a comfortable 10–15 minute walk after meals can support circulation. Comfort matters more than the number.',
+    '每天的目标':'DAILY GOAL',
+    '活 动 步 数':'ACTIVITY STEPS',
+    '/ 10000 步':'/ 10,000 steps',
+    '运 动 距 离':'DISTANCE',
+    '/ 5 千米':'/ 5 km',
+    '热 量 消 耗':'CALORIES',
+    '/ 300 千卡':'/ 300 kcal',
+    '今日步数':'TODAY’S STEPS',
+    '距 离':'DISTANCE',
+    '热 量':'CALORIES',
+    '今 日 活 动 趋 势':'TODAY’S ACTIVITY',
+    '今日压力均值42，整体平稳。早晨出现短暂的中等压力峰值，下午已自然回落——你的情绪调节能力很好。孕期保持这样的压力水平，对宝宝的神经发育非常有益。':'Today’s average stress is 42 and overall steady. A brief morning rise settled naturally by the afternoon.',
+    '正常':'Normal',
+    '情 绪 平 稳':'EMOTIONALLY STEADY',
+    '今日压力分布':'TODAY’S STRESS',
+    '最 小 值 — 最 大 值':'LOW — HIGH',
+    '放松（<25）':'Relaxed (<25)',
+    '正常（25–50）':'Normal (25–50)',
+    '中等（51–75）':'Moderate (51–75)',
+    '偏高（75+）':'High (75+)',
+    '单位设置':'Units',
+    '单位设置 — 即将上线':'Units · Coming soon',
+    '帮助与反馈':'Help & feedback',
+    '帮助与反馈 — 即将上线':'Help & feedback · Coming soon',
+    '隐私政策':'Privacy',
+    '隐私政策 — 即将上线':'Privacy · Coming soon',
+    '关于我们':'About',
+    '关于我们 — 即将上线':'About · Coming soon',
+    '检查更新':'Check for updates',
+    '版本 3.0.4':'Version 3.0.4',
+    '已是最新版本 ✓':'You’re up to date ✓',
+
+    'LOOOVE 在线 · 戒指数据已同步':'LOOOVE online · Ring data synced',
+    '搜索互动记录':'Search conversations',
+    'LOOOVE 互动区':'LOOOVE conversation',
+    '今晨身体状态仪表盘':'Morning body dashboard',
+    '静息心率':'Resting heart rate',
+    '压力':'Stress',
+    '6小时42分':'6 h 42 min',
+    '昨夜恢复低于近期水平。上午先做熟悉的事，把需要判断的任务留到状态打开之后。':'Recovery was below your recent baseline. Begin with familiar tasks; save decisions for later.',
+    '我 · 10:18':'Me · 10:18',
+    '我 · 14:08':'Me · 14:08',
+    '我 · 14:15':'Me · 14:15',
+    '我 · 21:16':'Me · 21:16',
+    '声音线索':'Voice cues',
+    '最近的录音中，你们围绕需求排期与实现边界产生了争辩；过程中，你的语速明显加快，语气里也流露出被压抑的愤怒。':'A recent recording captured a dispute about scope and timing. Your pace quickened, with restrained anger in your voice.',
+    '会议后紧张感持续，HRV 低于个人基线，情绪压力保持在高位。':'Tension stayed high after the meeting. HRV remained below your baseline and emotional stress stayed elevated.',
+    '推测':'Pattern',
+    '你在会议中提出需求后，被开发直接反驳，双方争辩了几句。虽然会议已经结束，但那股被顶回来的恼火，还是继续留在身体里。':'Your request was challenged directly and the exchange became tense. The meeting ended, but the anger of being pushed back stayed in your body.',
+    '推荐':'Recommended',
+    '今日心法':'Today’s reframe',
+    '带走有用的信息，允许自己有情绪；':'Keep what is useful, and allow the emotion.',
+    '等愤怒过去，再决定什么值得回应。':'Let the anger pass before deciding what deserves a response.',
+    '带走有用的信息，允许自己有情绪；等愤怒过去，再决定什么值得回应。':'Keep what is useful, and allow the emotion; let the anger pass before deciding what deserves a response.',
+    'LOOOVE 深夜主动关心':'LOOOVE late-night care',
+    '深夜关心':'Late-night care',
+    '身体还没有进入休息。':'Your body has not entered rest yet.',
+    '已经很晚了，你还没有入睡，Loooveness 降至 41。我为你生成了一段音乐，陪你度过这段仍然清醒的时间。':'It’s late and you’re still awake; Loooveness has fallen to 41. I made a quiet track to stay with you.',
+    '播放专属助眠音乐《慢慢落下来》':'Play your sleep track, Settle Slowly',
+    '专属助眠音乐':'Your sleep track',
+    '慢慢落下来':'Settle Slowly',
+    '最近的录音里没有出现明显冲突或反复提及的困扰，语速、语气都接近平时。':'Recent recordings show no clear conflict or repeated concern. Your pace and tone are close to normal.',
+    'HRV 39ms、静息心率 68bpm，压力曲线处在个人正常范围，身体没有明显负荷升高。':'HRV is 39 ms, resting heart rate is 68 bpm, and stress remains in your normal range.',
+    '这次烦躁更像是注意力积累了一点噪音，不一定对应某件具体的事。':'This restlessness feels more like accumulated mental noise than one specific event.',
+    '开始跟着呼吸画线':'Start a breath drawing',
+    '绘画疗愈':'Breath drawing',
+    '跟着呼吸画线':'Draw with your breath',
+    '我完成的呼吸画线作品':'My completed breath drawing',
+    '呼吸画线 · 已完成':'Breath drawing · Complete',
+    '调息后的身体变化':'Body change after breathing',
+    '反馈':'Feedback',
+    '心率从 68 降至 64 bpm，HRV 从 39 回升到 43 ms；呼吸节律逐渐放慢，压力曲线也开始回落。':'Heart rate fell from 68 to 64 bpm, HRV rose from 39 to 43 ms, and your breathing and stress curve began to settle.',
+    'LOOOVE 主动探索尝试':'LOOOVE suggested exploration',
+    '刚才的声音与身体数据都没有明显异常，但体表温度已连续 40 分钟高于个人午后基线 0.4°C。此刻的烦躁更像轻微燥热与感官疲劳。':'Voice and body data show no clear concern, though skin temperature has stayed 0.4°C above your afternoon baseline for 40 minutes. This feels more like warmth and sensory fatigue.',
+    '舌尖上的正念':'Taste meditation',
+    '慢煮一壶绿豆汤、酸梅汤，或自制水果冰棒、冰冻葡萄，专注感受冰凉在口腔化开的清甜，用味觉的“微凉”抵消体感的燥热。':'Try a cool, lightly sweet taste—chilled grapes, fruit ice, or a simple herbal drink. Let the coolness soften the sense of heat.',
+    '最近的录音里，你反复提到“换个环境”“看看新的机会”，已经开始认真考虑跳槽；与对象的几段对话里也出现了争执和长时间停顿。':'You have repeatedly mentioned a new environment and new opportunities, while recent relationship conversations include conflict and long pauses.',
+    '过去 7 天，HRV 连续低于个人基线，压力高位持续时间变长，睡眠恢复也在下降。':'For seven days, HRV has stayed below baseline, stress has lasted longer, and sleep recovery has declined.',
+    '工作去留和亲密关系同时需要你做判断，迷茫更像是选择力被多重压力占满了。':'Work and relationship decisions are competing for the same mental space. Feeling lost may be decision overload.',
+    '潜意识探索':'Intuitive cards',
+    '抽取卡牌，探索内心':'Draw cards to explore within',
+    'LOOOVE · 潜意识探索':'LOOOVE · Intuitive cards',
+    '打开潜意识探索':'Open intuitive cards',
+    '关闭抽卡':'Close cards',
+    '抽三张潜意识探索卡':'Draw three intuitive cards',
+    '卡牌背面':'Card back',
+    '抽到的三张潜意识探索卡':'Three drawn intuitive cards',
+    '第一张水彩卡牌':'Watercolor card one',
+    '第二张水彩卡牌':'Watercolor card two',
+    '第三张水彩卡牌':'Watercolor card three',
+    '凭第一感觉抽取 3 张。':'Draw three cards by instinct.',
+    '抽 3 张':'Draw 3',
+    '完成并发送给 LOOOVE':'Finish and send to LOOOVE',
+
+    '身体状态':'Body state',
+    '心率':'Heart rate',
+    '血氧':'Blood oxygen',
+    '运动量':'Activity',
+    '体温':'Temperature',
+    '睡眠报告':'Sleep report',
+    '2026年6月17日 · 02:56 — 08:31':'June 17, 2026 · 02:56 — 08:31',
+    '查看完整报告 >':'View full report ›',
+    '睡了 6小时42分':'6 h 42 min asleep',
+    '睡眠评分':'Sleep score',
+    '睡 眠 时 长':'SLEEP DURATION',
+    '睡 眠 评 分':'SLEEP SCORE',
+    '睡 眠 效 率':'SLEEP EFFICIENCY',
+    '睡 眠 结 构':'SLEEP STAGES',
+    '睡 眠 心 率':'SLEEPING HEART RATE',
+    '睡 眠 血 氧':'SLEEPING BLOOD OXYGEN',
+    '心 率 变 异 性 HRV':'HEART RATE VARIABILITY · HRV',
+    '入睡':'Asleep',
+    '入 睡':'ASLEEP',
+    '清醒':'Awake',
+    '清 醒':'AWAKE',
+    '深睡眠':'Deep sleep',
+    '浅睡眠':'Light sleep',
+    '快速眼动':'REM',
+    '次/分':'bpm',
+    '全程平均':'Nightly average',
+    '区间 93–98%':'Range 93–98%',
+    'RMSSD 均值':'Average RMSSD',
+    '孕中期 HRV 偏低属正常生理变化，持续关注趋势比单次数值更重要。':'Lower HRV is a normal physiological shift during the second trimester. Trends matter more than a single reading.',
+    '次':'times',
+    '醒来':'Wake-ups',
+    'LOOOVE 解读':'LOOOVE insight',
+    '昨夜 02:56 才入睡，是深睡比例偏低的主要原因——深夜入睡时生长激素分泌减少，深睡窗口收窄。睡眠效率 94% 表现不错，血氧全程稳定在安全区间。试着把入睡时间前移到 23:00 前，深睡眠会更充足。':'Falling asleep at 2:56 a.m. shortened your deep-sleep window. Sleep efficiency was strong at 94%, and oxygen stayed stable. Moving bedtime closer to 11 p.m. may support deeper sleep.',
+    '工具箱':'Toolbox',
+    'LOOOVE AI 身心教练':'LOOOVE AI mind-body coach',
+    '根据你此刻的情绪和身体信号，我们建议先做一个':'Based on your current emotions and body signals, begin with a',
+    '低门槛的表达练习':'low-pressure expression exercise',
+    '吸气时让线条向上或展开，呼气时让线条向下或变柔软。画完后，我们帮你看见这条线里藏着的节奏。':'Let the line rise as you inhale and soften as you exhale. When you finish, we’ll help you notice its rhythm.',
+    '跟随呼吸，不追求漂亮':'Follow the breath, not perfection',
+    '连续画三轮，观察停顿':'Draw three rounds and notice the pauses',
+    '在线条打结处加一点颜色':'Add color where the line feels tangled',
+    '最后画一条最舒服的呼气线':'End with your easiest exhale line',
+    '开始绘画':'Start drawing',
+    '发送':'Send',
+    '完成':'Done',
+    '吸气时，让线条':'As you inhale, let the line',
+    '向上或展开':'rise or open',
+    '；呼气时，让线条':'As you exhale, let it',
+    '向下或变柔软':'fall or soften',
+    '。不需要画得漂亮，只要把此刻的呼吸留在纸面上。':'It does not need to look beautiful—just leave this breath on the page.',
+    '清空':'Clear',
+    '工具':'Tool',
+    '你可以自由探索，我们也会为你智能推荐~':'Explore freely. We’ll also suggest what may fit you.',
+    '情绪命名':'Name the emotion',
+    '用于「我不知道自己怎么了」':'For “I don’t know what I’m feeling.”',
+    '快速稳定':'Settle quickly',
+    '用于「我快被情绪淹没了」':'For “This emotion is overwhelming me.”',
+    '身体放松':'Relax the body',
+    '用于「身体很紧、很累、很慌」':'For tension, fatigue, or panic.',
+    '想法整理':'Sort your thoughts',
+    '用于「我脑子里太乱了」':'For “My mind is too crowded.”',
+    '接纳与自我安抚':'Acceptance & self-soothing',
+    '用于「责怪自己、否定自己时」':'For self-blame or self-doubt.',
+    '表达与释放':'Express & release',
+    '用于「我说不出来，但很堵」':'For feelings that are hard to say.',
+    '情绪轮盘':'Emotion wheel',
+    '情绪天气':'Emotion weather',
+    '身体情绪地图':'Body-emotion map',
+    '情绪强度打分':'Emotion intensity',
+    '情绪背后的需要':'Need behind the emotion',
+    '情绪颜色卡':'Emotion color card',
+    '54321接地':'5-4-3-2-1 grounding',
+    '蝴蝶拥抱':'Butterfly hug',
+    '冷水降温':'Cool-water reset',
+    '生理叹气':'Physiological sigh',
+    '延长呼气':'Longer exhale',
+    '安全岛':'Safe place',
+    '身体支撑练习':'Body support',
+    '身体扫描':'Body scan',
+    '渐进式肌肉放松':'Progressive muscle relaxation',
+    '呼吸练习':'Breathing practice',
+    '下颌放松':'Release the jaw',
+    '肩颈释放':'Neck and shoulder release',
+    '迷走神经练习':'Vagus nerve practice',
+    '睡前放松':'Wind down for sleep',
+    '自动化思维':'Automatic thoughts',
+    '认知扭曲':'Cognitive distortions',
+    '证据练习':'Evidence check',
+    '替代想法':'Alternative thought',
+    '责任饼图':'Responsibility pie',
+    '最坏最好最可能':'Worst / best / most likely',
+    '行为实验':'Behavioral experiment',
+    '自我同情':'Self-compassion',
+    '写给自己':'Write to yourself',
+    '内在小孩安抚':'Soothe your inner child',
+    '内在批评者识别':'Notice the inner critic',
+    '慈心冥想':'Loving-kindness meditation',
+    '允许不完美':'Allow imperfection',
+    '表达性书写':'Expressive writing',
+    '未寄出的信':'Unsent letter',
+    '情绪涂鸦':'Emotion doodle',
+    '声音释放':'Voice release',
+    '音乐调节':'Music regulation',
+
+    '详细声音记录':'Snapshot',
+    'LOOOVE 总结':'Your Note',
+    '6月12日 · 19:26 · 高光':'June 12 · 19:26 · Glimmers',
+    '6月12日 · 17:08 · 波动':'June 12 · 17:08 · Wave',
+    '6月12日 · 15:40 · 高光':'June 12 · 15:40 · Glimmer',
+    '6月11日 · 10:19 · 波动':'June 11 · 10:19 · Waves',
+    '6月12日 · 14:16 · 互动':'June 12 · 14:16 · Moments',
+    '6月11日 · 21:17 · 互动':'June 11 · 21:17 · Moments',
+    '6月11日 · 10:22 · 互动':'June 11 · 10:22 · Moments',
+    '6月11日 · 07:30 · 报告':'June 11 · 07:30 · Letters',
+    '6月12日 · 12:00 · 报告':'June 12 · 12:00 · Letters',
+    '散步时，你对朋友说：“其实我最近也会怕自己选错。”说完后你们一起笑了，之后的语气明显放松，也没有急着把话题带走。':'The words came out: "I\'m honestly afraid I\'ll make the wrong choice." You laughed, and your voice unclenched — no longer rushing to leave.',
+    '戒指录音 24 分钟 · 自然笑声 6 次 · 长停顿较个人基线减少 18%':'Ring audio 24 min · 6 natural laughs · Long pauses down 18% from baseline',
+    '这次高光不是你把所有事都处理好了，而是你愿意在朋友面前留下真实的一面。声音与身体同时放松，说明被理解、被关心本身就在帮助你恢复。':'A friend met your honest side — that was the glimmer. Your voice and body exhaled at once. Understanding did the healing.',
+    '朋友临时取消见面时，你在语音里连续说了三次“没关系”，尾音比平时更轻。挂断以后，录音里留下了一段很长的沉默。':'When your friend canceled, you said "It\'s okay" three times, quieter each time. A long silence followed the call. Your voice carried more than the words.',
+    '戒指录音 3 分 42 秒 · 长停顿 19 秒 · 音量较个人基线低 14%':'Ring audio 3 min 42 sec · 19-sec pause · Volume 14% below baseline',
+    '这次波动来自期待突然落空。你先用“没关系”安顿了朋友，却没有给自己的失落留下位置；身体信号提醒你，这份难过也值得被承认。':'This wave came from a hope suddenly falling through. You comforted your friend first, and your own disappointment quietly waited. Your body is asking you to name it too.',
+    '“这个版本先解决核心路径，剩下的风险我会单独列出来。”你说到关键结论时放慢了语速，两次停顿都落在明确的判断之后。':'"This version solves the core first; I\'ll list the remaining risks separately." You slowed at the key conclusion and paused after each clear judgment. Your voice stayed steady through the pushback.',
+    '戒指录音 18 分钟 · 平均语速 216 字/分钟 · 音量稳定':'Ring audio 18 min · Average pace 216 characters/min · Stable volume',
+    '这次高光不只是表达顺利，而是你在有分歧的场景里仍然保持了自己的节奏。声音里的停顿与身体数据同步稳定，说明你开始把“坚持判断”和“对抗别人”分开了。':'Your glimmer lived in keeping rhythm through disagreement. You paused, stayed clear, and let your judgment speak without turning the room into a fight.',
+    '戒指录音 12 分钟 · 争辩片段 3 分 08 秒 · 语速较基线快 21%':'Ring audio 12 min · Dispute 3 min 08 sec · Pace 21% above baseline',
+    '绘画':'Drawing',
+    '抽卡':'Cards',
+    '心法':'Reframe',
+    '声音和身体数据都没有明显异常，这次烦躁更像注意力积累了一点噪音。我推荐一次绘画疗愈：跟着呼吸画线，让注意力回到手和呼吸上。':'Voice and body data look steady. This restlessness feels like accumulated mental noise. Try a breath drawing to bring attention back to your hand and breath.',
+    '你完成':'You completed',
+    '经过刚刚的疗愈，心率从 68 降至 64 bpm，HRV 从 39 回升到 43 ms；呼吸节律逐渐放慢，压力曲线也开始回落，身体正在从轻微紧绷转向放松。':'After the practice, heart rate fell from 68 to 64 bpm and HRV rose from 39 to 43 ms. Breathing slowed, stress eased, and your body shifted toward relaxation.',
+    '最近的声音线索里同时出现了工作去留和关系争执，身体压力也持续在高位。两种生活一起占满了选择力，因此我推荐一次三张卡的潜意识探索。':'Recent voice cues point to both a career decision and relationship conflict, while body stress stays high. Try three intuitive cards to create room for choice.',
+    '抽取三张卡，探索内心':'Draw three cards and look within',
+    '完成了三张卡和三个问题。':'Completed three cards and three prompts.',
+    '三张图里，哪一张最吸引你？':'Which image draws you in most?',
+    '远处的路。':'The road in the distance.',
+    '它让你想到了最近发生的什么？':'What recent experience does it bring to mind?',
+    '我在认真考虑换工作，也在重新看待这段关系。':'I’m seriously considering a new job and rethinking this relationship.',
+    '如果三张图连成一个故事，故事正在走向哪里？':'If the three images formed a story, where would it go?',
+    '先走近新的机会，再决定哪些关系值得继续。':'Move toward the new opportunity first, then decide which relationships deserve more.',
+    '你不是缺少方向，而是工作与关系同时占用了选择力。三张图都指向“先拉开一点距离再判断”：先确认什么是你真正想靠近的，再决定哪些关系与机会值得继续投入。':'You do not lack direction; work and relationships are competing for your capacity to choose. The cards suggest creating distance, then deciding what you truly want to move toward.',
+    '会议争辩后，你的语速加快、HRV 降低，恼火还留在身体里。我没有继续安排任务，而是给了你一句今日心法。':'After the meeting, your pace rose and HRV fell; the anger stayed in your body. Instead of another task, here is one reframe.',
+    '这句心法把方案是否被采纳与个人能力分开。先带走有用的信息，也允许愤怒存在；等身体回稳后，再决定什么值得回应。':'This separates the proposal’s outcome from your ability. Keep useful feedback, allow the anger, and choose your response once your body settles.',
+    '昨夜睡眠比近 7 日均值少 38 分钟，夜间醒来 2 次，恢复尚未完全。':'You slept 38 minutes less than your seven-day average and woke twice. Recovery is not complete.',
+    '起床后心率逐渐回落，身体正在从静息状态慢慢打开。':'Heart rate gradually settled after waking as your body moved out of rest.',
+    '上午先做熟悉的事，把需要判断的任务留到状态打开之后。':'Begin with familiar tasks. Save judgment-heavy work until you feel more open.',
+    '昨夜恢复低于近期水平，但起床后的心率变化正常。今天不需要追赶状态，从熟悉、低判断负荷的任务开始会更顺。':'Recovery was below your recent level, but post-waking heart rate changed normally. Do not chase your energy today; begin with familiar, low-decision tasks.',
+    '周初压力高位持续时间较长，周三以后恢复速度逐渐加快。':'Stress waves ran high early in the week. Recovery accelerated after Wednesday.',
+    '工作分歧仍是最明显的压力来源，但你在表达边界时比之前更稳定。':'Work conflict stands as your clearest stressor. Expressing boundaries steadies you.',
+    '继续观察高压会议后的两小时，给情绪一个明确的结束点。':'After high-pressure meetings, your wave takes about two hours to land. Give the emotion a clear ending.',
+    '本周的变化不是压力消失了，而是你从压力里回来的速度变快了。高压之后的 HRV 回升更稳定，说明新的调节方式正在被身体记住。':'You met stress this week and came back from it faster each time. Steadier HRV recovery shows your body picking up the new regulation pattern.',
+    '你说':'You said',
+    '你的探索':'Your exploration',
+    '你的画作':'Your drawing',
+    '你的回应':'Your response',
+    '报告数据':'Report data',
+    '详细解读':'Detailed insight',
+    '平均 HRV':'Average HRV',
+    '平均睡眠':'Average sleep',
+    '本周变化':'This week',
+    '情绪线索':'Emotional cues',
+    '下周关注':'Next week',
+    '睡眠恢复':'Sleep recovery',
+    '身体节律':'Body rhythm',
+    '今日建议':'Today’s guidance',
+
+    '关闭':'Close',
+    '语音输入':'Voice input',
+    '发送消息':'Send message',
+    '来和LOOOVE分享此刻的心事吧~':'Share what’s on your mind…',
+    '说说现在的感受…':'Share what you’re feeling…',
+    '说不上来…':'Hard to name…',
+    '等待连接……':'Waiting to connect…',
+    '我的设备':'My device',
+    'LOOOVE 智能戒指':'LOOOVE Smart Ring',
+    'LOOOVE 智能戒指（模拟）':'LOOOVE Smart Ring · Demo',
+    '连接真实戒指（蓝牙）':'Connect ring via Bluetooth',
+    '用模拟数据演示':'Use demo data',
+    '演示模式 · 非真实戒指':'Demo mode · No physical ring',
+    '进入模拟模式（演示数据）':'Demo mode started',
+    '真实蓝牙连接需用':'For Bluetooth, use',
+    '或':'or',
+    '电脑 Chrome / Edge':'desktop Chrome / Edge',
+    '（iOS 网页暂不支持蓝牙，正式 App 用原生壳即可）。':'. Web Bluetooth is unavailable on iOS. The native app will support it.',
+    '心 率':'HEART RATE',
+    '血 氧':'BLOOD OXYGEN',
+    '体 温':'TEMPERATURE',
+    '压 力':'STRESS',
+    '步 数':'STEPS',
+    '测心率 / HRV':'Measure heart rate / HRV',
+    '测血氧':'Measure blood oxygen',
+    '测体温':'Measure temperature',
+    '蓝牙通信日志 · BraveChip BCL603 私有协议':'Bluetooth log · BraveChip BCL603 protocol',
+    '已连接':'Connected',
+    '未连接':'Disconnected',
+    '断开连接':'Disconnect',
+    'LOOOVE 智能戒指实物图':'LOOOVE smart ring',
+    '数据来自 LOOOVE 智能戒指传感器，仅供参考，不构成医疗诊断。':'Ring sensor data is for wellbeing reference only and is not a medical diagnosis.'
+  },
+  terms:[
+    ['即将开放','Coming soon'],['即将上线','Coming soon'],['已完成','Complete'],['已填写','Answered'],
+    ['身心','mind-body'],['身体','Body'],['情绪','Emotion'],['睡眠','Sleep'],
+    ['压力','Stress'],['声音','Voice'],['报告','Report'],['记录','Record'],
+    ['查看','View'],['开始','Start'],['保存','Save'],['取消','Cancel'],
+    ['确认','Confirm'],['今天','Today'],['昨天','Yesterday']
+  ],
+  textSource:new WeakMap(),
+  textRendered:new WeakMap(),
+  attrSource:new WeakMap(),
+  attrRendered:new WeakMap(),
+  observer:null,
+  translating:false,
+
+  t(value){
+    if(value==null||this.lang!=='en')return value;
+    const raw=String(value);
+    if(/\r?\n/.test(raw)){
+      return raw.split(/(\r?\n)/).map(part=>/^\r?\n$/.test(part)?part:this.t(part)).join('');
+    }
+    const lead=(raw.match(/^\s*/)||[''])[0];
+    const tail=(raw.match(/\s*$/)||[''])[0];
+    const core=raw.slice(lead.length,raw.length-tail.length).replace(/\s+/g,' ').trim();
+    if(!core)return raw;
+    let translated=this.exact[core];
+    if(!translated){
+      const timestamped=core.match(/^(\d{2}:\d{2}:\d{2}) (.+)$/);
+      if(timestamped){
+        const message=this.t(timestamped[2]);
+        if(message!==timestamped[2])translated=`${timestamped[1]} ${message}`;
+      }
+    }
+    if(!translated){
+      translated=core
+        .replace(/^(\d+)月(\d+)日 · 今天$/,(_,m,d)=>`${this.monthName(m)} ${d} · Today`)
+        .replace(/^(\d+)月(\d+)日 · 昨天$/,(_,m,d)=>`${this.monthName(m)} ${d} · Yesterday`)
+        .replace(/^(\d+)月(\d+)日$/,(_,m,d)=>`${this.monthName(m)} ${d}`)
+        .replace(/^(绘画|抽卡|心法)记录 (\d+)$/,(_,kind,index)=>`${this.exact[kind]||kind} record ${index}`);
+    }
+    if(translated===core){
+      let candidate=core;
+      this.terms.forEach(([zh,en])=>{candidate=candidate.split(zh).join(en);});
+      translated=/[\u3400-\u9fff]/.test(candidate)?core:candidate;
+    }
+    return lead+translated+tail;
+  },
+
+  monthName(month){
+    return ['','January','February','March','April','May','June','July','August','September','October','November','December'][Number(month)]||month;
+  },
+
+  translateTextNode(node){
+    if(!node||!node.parentElement||/^(SCRIPT|STYLE|NOSCRIPT|CODE)$/i.test(node.parentElement.tagName))return;
+    if(node.parentElement.closest('[data-i18n-ignore]'))return;
+    if(node.parentElement.closest('[data-i18n-en]'))return;
+    if(node.parentElement.closest('[data-i18n-rich]'))return;
+    const current=node.nodeValue;
+    const last=this.textRendered.get(node);
+    if(!this.textSource.has(node)||current!==last)this.textSource.set(node,current);
+    const source=this.textSource.get(node);
+    const next=this.lang==='en'?this.t(source):source;
+    this.textRendered.set(node,next);
+    if(current!==next)node.nodeValue=next;
+  },
+
+  translateElement(element){
+    if(!element||element.nodeType!==Node.ELEMENT_NODE||element.closest('[data-i18n-ignore]'))return;
+    if(element.hasAttribute('data-i18n-en')){
+      const next=this.lang==='en'?element.dataset.i18nEn:element.dataset.i18nZh;
+      if(next!=null&&element.textContent!==next)element.textContent=next;
+    }
+    const attrs=['aria-label','title','placeholder','alt'];
+    const sources=this.attrSource.get(element)||{};
+    const rendered=this.attrRendered.get(element)||{};
+    attrs.forEach(attr=>{
+      if(!element.hasAttribute(attr))return;
+      const current=element.getAttribute(attr);
+      if(!(attr in sources)||current!==rendered[attr])sources[attr]=current;
+      const next=this.lang==='en'?this.t(sources[attr]):sources[attr];
+      rendered[attr]=next;
+      if(current!==next)element.setAttribute(attr,next);
+    });
+    this.attrSource.set(element,sources);
+    this.attrRendered.set(element,rendered);
+  },
+
+  translateRoot(root=document.body){
+    if(!root)return;
+    this.translating=true;
+    if(root.nodeType===Node.TEXT_NODE)this.translateTextNode(root);
+    if(root.nodeType===Node.ELEMENT_NODE)this.translateElement(root);
+    const scope=root.nodeType===Node.ELEMENT_NODE?root:root.parentElement;
+    if(scope){
+      const walker=document.createTreeWalker(scope,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);
+      while(walker.nextNode()){
+        if(walker.currentNode.nodeType===Node.TEXT_NODE)this.translateTextNode(walker.currentNode);
+        else this.translateElement(walker.currentNode);
+      }
+    }
+    this.translating=false;
+  },
+
+  setLanguage(){
+    this.lang='zh-CN';
+    document.documentElement.lang='zh-CN';
+    document.title='LOOOVE · 循证 AI 身心教练 Demo';
+    this.translateRoot(document.body);
+    if(typeof onbRenderInsight==='function'&&document.getElementById('onb')?.dataset.step==='insight')onbRenderInsight();
+    if(typeof highlightConsultantKeywords==='function')highlightConsultantKeywords();
+  },
+
+  observe(){
+    if(this.observer||!document.body)return;
+    this.observer=new MutationObserver(records=>{
+      if(this.translating)return;
+      records.forEach(record=>{
+        if(record.type==='characterData')this.translateTextNode(record.target);
+        record.addedNodes&&record.addedNodes.forEach(node=>this.translateRoot(node));
+        if(record.type==='attributes')this.translateElement(record.target);
+      });
+    });
+    this.observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','alt']});
+  }
+};
+
+/* Chinese-only build: runtime language switching disabled.
+function setDemoLanguage(lang,button){
+  I18n.setLanguage(lang);
+  if(document.getElementById('homeAwarenessPlaceholder')?.classList.contains('on')&&typeof LOOOVEInteraction!=='undefined')LOOOVEInteraction.start();
+  document.querySelectorAll('.language-switch button').forEach(item=>{
+    const active=item.dataset.lang===I18n.lang;
+    item.classList.toggle('on',active);
+    item.setAttribute('aria-pressed',String(active));
+  });
+  button&&button.blur();
+}
+*/
+
 const ICONS={
   sun:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
   moon:'<svg viewBox="0 0 24 24"><path d="M20 15.5A7.5 7.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5z"/></svg>',
@@ -6272,7 +7173,8 @@ function switchTab(id){
   document.querySelector('.app')?.classList.toggle('home-visual',id==='t-home');
   updateHomeOrbitGather();
   if(id==='t-space')drawChart();
-  if(id==='t-diary')renderDiary();
+  if(id==='t-diary')GrowthTrail.start();
+  else GrowthTrail.stop();
 }
 function openTrajectoryBadges(){
   Audio$.soft();
@@ -6298,26 +7200,112 @@ function closeTrajectoryReview(){
   Audio$.soft();
   document.getElementById('trajectoryReviewScreen')?.classList.remove('on');
 }
+const GROWTH_TRAIL_ITEMS=[
+  {key:'bookReflection',type:'interaction',kind:'互动',date:'6月14日 · 21:18',brief:'读完《设计你的人生》，上传了读书笔记。',side:'left'},
+  {key:'signalHighlight',type:'highlight',kind:'高光',date:'6月14日 · 18:42',brief:'在评审中，清楚表达了自己的判断。',side:'right'},
+  {key:'deepConversation',type:'interaction',kind:'互动',date:'6月13日 · 16:24',brief:'完成一次深度对话，理清了思绪。',side:'left'},
+  {key:'signalLow',type:'low',kind:'波动',date:'6月13日 · 10:19',brief:'会议结束后，压力仍停留在身体里。',side:'right'},
+  {key:'weeklyReport',type:'report',kind:'报告',date:'6月12日 · 20:00',brief:'LOOOVE 推送了本周身心复盘报告。',side:'left'},
+  {key:'drawingBreath',type:'interaction',kind:'互动',date:'6月12日 · 18:42',brief:'完成一次绘画疗愈。',side:'right'},
+  {key:'lifeHighlight',type:'highlight',kind:'高光',date:'6月12日 · 15:40',brief:'和朋友散步时，说了真话，也被温柔接住。',side:'left'},
+  {key:'cardReflection',type:'interaction',kind:'互动',date:'6月11日 · 21:17',brief:'完成一次卡牌潜意识探索。',side:'right'},
+  {key:'lifeLow',type:'low',kind:'波动',date:'6月11日 · 17:08',brief:'见面临时取消，把失落留在了身体里。',side:'left'},
+  {key:'baduanjinPractice',type:'interaction',kind:'互动',date:'6月11日 · 07:44',brief:'完成 8 分钟八段锦练习。',side:'right'},
+  {key:'morningReport',type:'report',kind:'报告',date:'6月11日 · 07:30',brief:'LOOOVE 推送了今晨恢复报告。',side:'left'}
+];
+const GrowthTrail={
+  interval:780,
+  timer:null,
+  index:0,
+  filter:'all',
+  stop(){
+    clearTimeout(this.timer);
+    this.timer=null;
+  },
+  delay(ms){
+    return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?35:ms;
+  },
+  start(){
+    this.stop();
+    const trail=document.getElementById('growthTrail');
+    if(!trail)return;
+    trail.querySelectorAll('.growth-trail-node').forEach(node=>node.remove());
+    this.index=GROWTH_TRAIL_ITEMS.length-1;
+    this.filter=document.querySelector('.growth-tab.on')?.dataset.growth||'all';
+    const page=document.getElementById('growthListScroll');
+    if(page)page.scrollTop=0;
+    this.timer=setTimeout(()=>this.renderNext(),this.delay(240));
+  },
+  nodeMarkup(item,index){
+    const hidden=this.filter!=='all'&&this.filter!==item.type?' hide':'';
+    return `<article class="growth-trail-node${hidden}" data-growth="${item.type}" data-index="${index}">
+      <button class="growth-node-button" type="button" onclick="openGrowthRecord('${item.key}')" aria-label="${esc(item.brief)}">
+        <span class="growth-node-meta"><span class="growth-node-kind">${esc(item.kind)}</span><time>${esc(item.date)}</time></span>
+        <span class="growth-node-copy">${esc(item.brief)}</span>
+      </button>
+    </article>`;
+  },
+  renderNext(){
+    const trail=document.getElementById('growthTrail');
+    if(!trail||this.index<0)return;
+    const item=GROWTH_TRAIL_ITEMS[this.index];
+    trail.insertAdjacentHTML('afterbegin',this.nodeMarkup(item,this.index));
+    const node=trail.querySelector('.growth-trail-node');
+    this.index-=1;
+    renderIcons(node);
+    this.keepNewestVisible(node);
+    this.timer=setTimeout(()=>this.renderNext(),this.delay(this.interval));
+  },
+  keepNewestVisible(node){
+    const page=document.getElementById('growthListScroll');
+    if(!page||!node)return;
+    const behavior=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
+    requestAnimationFrame(()=>page.scrollTo({top:0,behavior}));
+  },
+  setFilter(type){
+    this.filter=type;
+    document.querySelectorAll('.growth-trail-node').forEach(node=>{
+      node.classList.toggle('hide',type!=='all'&&node.dataset.growth!==type);
+    });
+  }
+};
 function filterGrowthTrail(btn){
   Audio$.soft();
   document.querySelectorAll('.growth-tab').forEach(b=>b.classList.toggle('on',b===btn));
-  const type=btn.dataset.growth;
-  document.querySelectorAll('.growth-card').forEach(card=>{
-    card.classList.toggle('hide',type!=='all'&&card.dataset.growth!==type);
-  });
-  document.querySelectorAll('.growth-day').forEach(day=>{
-    let sibling=day.nextElementSibling;
-    let hasVisibleCard=false;
-    while(sibling&&!sibling.classList.contains('growth-day')){
-      if(sibling.classList.contains('growth-card')&&!sibling.classList.contains('hide')) hasVisibleCard=true;
-      sibling=sibling.nextElementSibling;
-    }
-    day.classList.toggle('hide',!hasVisibleCard);
-  });
+  GrowthTrail.setFilter(btn.dataset.growth);
 }
 const GROWTH_RECORDS={
+  bookReflection:{
+    type:'interaction',interactionKind:'阅读',title:'读书笔记',date:'6月14日 · 21:18',kind:'互动',
+    headline:'读完《设计你的人生》，上传了读书笔记。',
+    userMessage:'我读完了，也把书里触动我的部分整理成了笔记。',
+    loooveResponse:'你把职业选择从一个抽象问题，慢慢拆成了可以验证的小行动。',
+    recommendationTitle:'设计你的人生',recommendationText:'边读，边写，边尝试',
+    toolThumb:'./assets/互动/career-designing-your-life-book.png',
+    returnLabel:'你上传',userReturn:'',media:['./assets/互动/career-reading-notes.png'],items:[],
+    aiSummary:'你的执行力Max，不仅读了书，还认真写下了自己的思考。你没有停在“想明白”，而是在边读、边写、边尝试，那些模糊的可能，已经开始被你一点点带进现实。'
+  },
+  deepConversation:{
+    type:'interaction',interactionKind:'深聊',title:'深度对话',date:'6月13日 · 16:24',kind:'互动',
+    headline:'完成一次深度对话，理清了思绪。',
+    userMessage:'我最近好疲惫，好烦躁。',
+    loooveResponse:'我们从身体感受谈起，也看见了声音里反复出现的自责。',
+    recommendationTitle:'深度对话',recommendationText:'把事情、感受和责任慢慢分开',
+    returnLabel:'你的觉察',userReturn:'事情本身、习惯性的自责，以及自己真正想要的，并不是同一件事。',media:[],items:[],
+    aiSummary:'这次对话里，你看清了事情本身、习惯性的自责，以及自己真正想要的。也意识到，凡事先怪自己，正在压缩你的感受和边界。带着这个觉察，继续前进吧~'
+  },
+  baduanjinPractice:{
+    type:'interaction',interactionKind:'运动',title:'八段锦练习',date:'6月11日 · 07:44',kind:'互动',
+    headline:'完成 8 分钟八段锦练习。',
+    userMessage:'今天先把节奏放轻一点。',
+    loooveResponse:'身体恢复余量不多时，熟悉、低强度的动作更容易把你带回可用区。',
+    recommendationTitle:'八段锦·轻量版',recommendationText:'8 分钟 · 四段动作',
+    toolThumb:'./assets/互动/baduanjin-sequence.png',
+    returnLabel:'练习记录',userReturn:'',media:['./assets/互动/baduanjin-sequence.png'],items:[],
+    aiSummary:'练习后，心率从 84 降到 72 bpm，肩颈紧张感也有所回落。身体已经从持续消耗里慢慢松开。'
+  },
   lifeHighlight:{
-    type:'signal',title:'高光',date:'6月12日 · 19:26',kind:'高光',
+    type:'signal',title:'高光',date:'6月12日 · 15:40',kind:'高光',
     headline:'和朋友散步时，你说了真话，也被温柔接住。',
     summary:'你没有只做那个可靠的人，也允许自己被关心。',
     voiceDetail:'散步时，你对朋友说：“其实我最近也会怕自己选错。”说完后你们一起笑了，之后的语气明显放松，也没有急着把话题带走。',
@@ -6326,7 +7314,7 @@ const GROWTH_RECORDS={
     aiSummary:'这次高光不是你把所有事都处理好了，而是你愿意在朋友面前留下真实的一面。声音与身体同时放松，说明被理解、被关心本身就在帮助你恢复。'
   },
   lifeLow:{
-    type:'signal',title:'波动',date:'6月12日 · 17:08',kind:'波动',
+    type:'signal',title:'波动',date:'6月11日 · 17:08',kind:'波动',
     headline:'期待了一周的见面临时取消，你一个人回了家。',
     summary:'你很快照顾了对方，却把自己的失落留在了身体里。',
     voiceDetail:'朋友临时取消见面时，你在语音里连续说了三次“没关系”，尾音比平时更轻。挂断以后，录音里留下了一段很长的沉默。',
@@ -6335,16 +7323,17 @@ const GROWTH_RECORDS={
     aiSummary:'这次波动来自期待突然落空。你先用“没关系”安顿了朋友，却没有给自己的失落留下位置；身体信号提醒你，这份难过也值得被承认。'
   },
   signalHighlight:{
-    type:'signal',title:'高光',date:'6月12日 · 15:40',kind:'高光',
+    type:'signal',title:'高光',date:'6月14日 · 18:42',kind:'高光',
     headline:'在评审里，把自己的判断说清楚了。',
     summary:'你没有回避分歧，也没有被分歧带走。',
+    bodyNote:'你没有回避分歧，也没有被分歧带走。',
     voiceDetail:'“这个版本先解决核心路径，剩下的风险我会单独列出来。”你说到关键结论时放慢了语速，两次停顿都落在明确的判断之后。',
     voiceMeta:'戒指录音 18 分钟 · 平均语速 216 字/分钟 · 音量稳定',
     bodyData:[['41ms','HRV'],['72bpm','心率'],['2.6','压力']],
     aiSummary:'这次高光不只是表达顺利，而是你在有分歧的场景里仍然保持了自己的节奏。声音里的停顿与身体数据同步稳定，说明你开始把“坚持判断”和“对抗别人”分开了。'
   },
   signalLow:{
-    type:'signal',title:'波动',date:'6月11日 · 10:19',kind:'波动',
+    type:'signal',title:'波动',date:'6月13日 · 10:19',kind:'波动',
     headline:'会议结束了，恼火还留在身体里。',
     summary:'被直接反驳后，你还在替那场争辩消耗能量。',
     voiceDetail:'最近的录音中，你们围绕需求排期与实现边界产生了争辩；过程中，你的语速明显加快，语气里也流露出被压抑的愤怒。',
@@ -6353,8 +7342,8 @@ const GROWTH_RECORDS={
     aiSummary:'你在会议中提出需求后，被开发直接反驳，双方争辩了几句。虽然会议已经结束，但那股被顶回来的恼火，还是继续留在身体里。'
   },
   drawingBreath:{
-    type:'interaction',interactionKind:'绘画',title:'互动·绘画',date:'6月12日 · 14:16',kind:'互动',
-    headline:'烦躁慢慢退下去了。',
+    type:'interaction',interactionKind:'绘画',title:'绘画疗愈',date:'6月12日 · 18:42',kind:'互动',
+    headline:'完成一次绘画疗愈。',
     userMessage:'我有点烦躁。',
     loooveResponse:'声音和身体数据都没有明显异常，这次烦躁更像注意力积累了一点噪音。我推荐一次绘画疗愈：跟着呼吸画线，让注意力回到手和呼吸上。',
     recommendationTitle:'绘画疗愈',recommendationText:'跟着呼吸画线',
@@ -6363,8 +7352,8 @@ const GROWTH_RECORDS={
     aiSummary:'经过刚刚的疗愈，心率从 68 降至 64 bpm，HRV 从 39 回升到 43 ms；呼吸节律逐渐放慢，压力曲线也开始回落，身体正在从轻微紧绷转向放松。'
   },
   cardReflection:{
-    type:'interaction',interactionKind:'抽卡',title:'互动·抽卡',date:'6月11日 · 21:17',kind:'互动',
-    headline:'当两种生活同时拉扯你。',
+    type:'interaction',interactionKind:'抽卡',title:'潜意识探索',date:'6月11日 · 21:17',kind:'互动',
+    headline:'完成一次卡牌潜意识探索。',
     userMessage:'我最近有点迷茫。',
     loooveResponse:'最近的声音线索里同时出现了工作去留和关系争执，身体压力也持续在高位。两种生活一起占满了选择力，因此我推荐一次三张卡的潜意识探索。',
     recommendationTitle:'潜意识探索',recommendationText:'抽取三张卡，探索内心',
@@ -6395,8 +7384,8 @@ const GROWTH_RECORDS={
     aiSummary:'昨夜恢复低于近期水平，但起床后的心率变化正常。今天不需要追赶状态，从熟悉、低判断负荷的任务开始会更顺。'
   },
   weeklyReport:{
-    type:'report',reportKind:'周报告',title:'周报告',date:'6月12日 · 12:00',kind:'报告',
-    headline:'恢复波动正在收窄。',
+    type:'report',reportKind:'周报告',title:'周复盘报告',date:'6月12日 · 20:00',kind:'报告',
+    headline:'LOOOVE 推送了本周身心复盘报告。',
     metrics:[['58','Loooveness 均值'],['35ms','平均 HRV'],['6h56m','平均睡眠'],['5 次','有效记录']],
     sections:[['本周变化','周初压力高位持续时间较长，周三以后恢复速度逐渐加快。'],['情绪线索','工作分歧仍是最明显的压力来源，但你在表达边界时比之前更稳定。'],['下周关注','继续观察高压会议后的两小时，给情绪一个明确的结束点。']],
     aiSummary:'本周的变化不是压力消失了，而是你从压力里回来的速度变快了。高压之后的 HRV 回升更稳定，说明新的调节方式正在被身体记住。'
@@ -6407,16 +7396,19 @@ function growthRecordHero(record){
 }
 function growthSignalRecordMarkup(record){
   const body=record.bodyData.map(([value,label])=>`<div><b>${esc(value)}</b><span>${esc(label)}</span></div>`).join('');
+  const bodyNote=record.bodyNote?`<p class="growth-body-note">${esc(record.bodyNote)}</p>`:'';
   return `${growthRecordHero(record)}
     <section class="growth-record-block"><div class="growth-detail-section-title">详细声音记录</div><blockquote class="growth-voice-quote"><p>${esc(record.voiceDetail)}</p><footer>${esc(record.voiceMeta)}</footer></blockquote></section>
-    <section class="growth-record-block"><div class="growth-detail-section-title">身体数据</div><div class="growth-body-data">${body}</div></section>
+    <section class="growth-record-block"><div class="growth-detail-section-title">身体数据</div><div class="growth-body-data">${body}</div>${bodyNote}</section>
     <section class="growth-record-block"><div class="growth-detail-section-title">LOOOVE 总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
 }
 function growthInteractionRecordMarkup(record){
-  const media=record.media.length?`<div class="growth-interaction-media ${record.interactionKind==='抽卡'?'cards':'painting'}">${record.media.map((src,index)=>`<img src="${esc(src)}" alt="${esc(record.interactionKind)}记录 ${index+1}">`).join('')}</div>`:'';
+  const mediaClass=record.interactionKind==='抽卡'?'cards':record.interactionKind==='运动'?'practice':record.interactionKind==='阅读'?'reading':'painting';
+  const media=record.media.length?`<div class="growth-interaction-media ${mediaClass}">${record.media.map((src,index)=>`<img src="${esc(src)}" alt="${esc(record.interactionKind)}记录 ${index+1}">`).join('')}</div>`:'';
   const cards=record.items.length?`<div class="growth-card-result-row">${record.items.map(([question,answer])=>`<div class="growth-card-result-item"><b>${esc(question)}</b><p>${esc(answer)}</p></div>`).join('')}</div>`:'';
   const outputCopy=!record.media.length&&!record.items.length&&record.userReturn?`<p class="growth-summary-copy">${esc(record.userReturn)}</p>`:'';
-  const outputLabel=record.interactionKind==='抽卡'?'你的探索':record.interactionKind==='绘画'?'你的画作':'你的回应';
+  const outputLabels={抽卡:'你的探索',绘画:'你的画作',阅读:'你的读书笔记',深聊:'你的觉察',运动:'练习记录'};
+  const outputLabel=outputLabels[record.interactionKind]||'你的回应';
   const hasOutput=Boolean(record.media.length||record.items.length||record.userReturn);
   const outputRow=hasOutput?`<div class="growth-summary-row growth-summary-output"><div class="growth-summary-label">${outputLabel}</div>${outputCopy}${media}${cards}</div>`:'';
   return `${growthRecordHero(record)}
@@ -6432,7 +7424,7 @@ function growthReportRecordMarkup(record){
   return `${growthRecordHero(record)}
     <section class="growth-record-block"><div class="growth-detail-section-title">报告数据</div><div class="growth-report-metrics">${metrics}</div></section>
     <section class="growth-record-block"><div class="growth-detail-section-title">详细解读</div><div class="growth-report-detail-list">${sections}</div></section>
-    <section class="growth-record-block"><div class="growth-detail-section-title">LOOOVE 总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
+    <section class="growth-record-block"><div class="growth-detail-section-title" data-i18n-zh="LOOOVE 总结" data-i18n-en="Your letter">LOOOVE 总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
 }
 function openGrowthRecord(key){
   Audio$.soft();
@@ -6445,6 +7437,11 @@ function openGrowthRecord(key){
   const renderer=record.type==='signal'?growthSignalRecordMarkup:record.type==='interaction'?growthInteractionRecordMarkup:growthReportRecordMarkup;
   content.innerHTML=renderer(record);
   content.scrollTop=0;
+  content.querySelectorAll('section').forEach(section=>section.classList.add('growth-record-reveal'));
+  const revealBlocks=content.querySelectorAll('.growth-record-reveal');
+  revealBlocks.forEach((block,index)=>{
+    setTimeout(()=>block.classList.add('on'),180+index*320);
+  });
   screen.classList.add('on');
   renderIcons(screen);
 }
@@ -7147,9 +8144,17 @@ function onbRenderInsight(){
   const body=document.getElementById('onbInsightBody');
   const emotion=document.getElementById('onbInsightEmotion');
   const start=document.getElementById('onbInsightStart');
-  if(body)body.textContent=onbAnswers.body?`你提到「${onbAnswers.body}」，这会成为我们先听见身体的入口。`:'身体正在提醒你，需要被认真听见。';
-  if(emotion)emotion.textContent=onbAnswers.emotion?`当情绪来了，你更常见的方式是「${onbAnswers.emotion}」。这里会先给它一个停靠点。`:'情绪涌上来时，你也许更习惯先自己撑住。';
-  if(start)start.textContent=onbAnswers.start?`你想从「${onbAnswers.start}」开始，接下来会把这一步拆得更轻一点。`:'改变可以从很小的一步开始。';
+  const english=I18n.lang==='en';
+  const answer=value=>I18n.t(value).replace(/[.!?]$/,'');
+  if(body)body.textContent=onbAnswers.body
+    ?(english?`You mentioned “${answer(onbAnswers.body)}.” This is where we begin listening to your body.`:`你提到「${onbAnswers.body}」，这会成为我们先听见身体的入口。`)
+    :(english?'Your body is asking to be heard.':'身体正在提醒你，需要被认真听见。');
+  if(emotion)emotion.textContent=onbAnswers.emotion
+    ?(english?`When emotions rise, you often “${answer(onbAnswers.emotion)}.” We’ll give that response somewhere to land.`:`当情绪来了，你更常见的方式是「${onbAnswers.emotion}」。这里会先给它一个停靠点。`)
+    :(english?'When emotions rise, you may be used to carrying them alone.':'情绪涌上来时，你也许更习惯先自己撑住。');
+  if(start)start.textContent=onbAnswers.start
+    ?(english?`You want to begin with “${answer(onbAnswers.start)}.” We’ll make this first step feel lighter.`:`你想从「${onbAnswers.start}」开始，接下来会把这一步拆得更轻一点。`)
+    :(english?'Change can begin with one small step.':'改变可以从很小的一步开始。');
 }
 function onbCommit(){
   const input=document.getElementById('onbNameInput');
@@ -7165,19 +8170,1001 @@ function onbCommit(){
 function onbHide(){
   document.getElementById('onb')?.classList.remove('on');
 }
+
+const LOOOVE_PROACTIVE_COPY={
+  'zh-CN':{
+    toastMorning:'模拟时间：6月11日 · 今早',
+    toastDay2:'模拟时间：6月12日 · 第二天',
+    toastDay2Night:'模拟时间：6月12日 · 第二天晚上',
+    toastDay3:'模拟时间：6月13日 · 第三天',
+    toastDay4:'模拟时间：6月14日 · 第四天',
+    searchLabel:'搜索互动内容',
+    searchPlaceholder:'搜索当前已加载的内容',
+    searchNext:'下一个搜索结果',
+    searchClose:'关闭搜索',
+    searchEmpty:'请输入关键词',
+    searchNone:'没有找到',
+    recoveryCopyLead:'这几天你习惯用高强度训练释放自己，但今天 HRV 仅 48 ms、压力指数偏高，身体的恢复余量不多。',
+    recoveryCopyBody:'今天不妨把节奏放轻一些：做低强度的运动，或去公园慢走 20 分钟，让身体从持续消耗中慢慢松下来。',
+    practiceFeedback:'你完成了 8 分钟八段锦。练习后心率从 84 降到 72 bpm，肩颈紧张感也有所回落。身体现在感觉如何？',
+    baduanTitle:'八段锦 · 轻量版',
+    baduanMeta:'8–12 分钟 · 四段动作教学',
+    yogaTitle:'瑜伽 · 恢复序列',
+    yogaMeta:'8 分钟 · 猫牛式与婴儿式',
+    userCheckIn:'我最近好疲惫，好烦躁。',
+    analysisCopyLead:'你已经持续紧绷了一段时间。语速较平时加快 18%，HRV 降至 40 ms。',
+    analysisCopyBody:'最近的高压工作，冲突以及与关系中的波动在不断消耗你的恢复余量。该为自己留一点缓冲了，我记得你喜欢看展，最近刚好有个新展，可以去看看，如果你有余力，也可以和我进行一次深度对话~',
+    deepFeedback:'这次对话里，你看清了事情本身、习惯性的自责，以及自己真正想要的。也意识到，凡事先怪自己，正在压缩你的感受和边界。带着这个觉察，继续前进吧~',
+    artKicker:'艺术展',
+    artTitle:'世界上的另一个我',
+    artAlt:'柔和彩色的当代美术馆空间与女性倒影',
+    artIntro:'这是一次以镜像、空间与自我观看为线索的当代艺术体验。你可以不急着理解作品，只留意哪一处颜色、光线或倒影让你停下来。',
+    artAddressLabel:'地址',
+    artAddress:'浦东美术馆 · 上海市浦东新区滨江大道 2777 号',
+    artNavigation:'导航到浦东美术馆',
+    deepKicker:'深度对话',
+    deepTitle:'和 LOOOVE 深聊一次',
+    deepAlt:'两个柔和彩色的女性内在视角相对交谈',
+    artPageHeader:'艺术展',
+    conversationPageHeader:'深度对话',
+    pageBack:'返回互动',
+    deepBodyQuestion:'我们先从身体开始。最近这段时间，你的身体怎么样？有没有哪里一直紧着、沉着，或者很难放松？',
+    deepVoiceSignalLabel:'声音线索',
+    deepVoiceObservation:'你提到最近发生的事时，语速突然放慢，句尾压低，也出现了几次明显停顿。',
+    deepSelfBlame:'这些声音线索让我留意到一种自责：你似乎在问自己，是不是我再做得好一点，事情就不会这样。',
+    deepFollowup:'最近发生的哪件事，最容易让你冒出“是不是我不够好”的念头？',
+    deepReason:'这种自责未必说明责任真的在你。它更像是在事情失去控制后，你试着把原因揽回自己身上，好让结果重新变得可以解释。',
+    deepReflection:'我听到了。你在意的可能不只是这件事本身，而是害怕自己的需要让别人失望，所以习惯先检讨自己、再照顾关系。我们可以继续分开看：哪些是你真正需要承担的，哪些只是为了维持关系而多背下来的。',
+    deepContinue:'如果愿意，可以继续说说：当你不再把全部责任揽到自己身上，你最担心会发生什么？',
+    deepPlaceholder:'来和LOOOVE分享此刻的心事吧~',
+    deepSend:'发送消息',
+    videoHeader:'教学视频',
+    videoBack:'返回互动',
+    videoPlay:'播放教学视频',
+    videoPause:'暂停教学视频',
+    videoEnterFullscreen:'全屏播放',
+    videoExitFullscreen:'退出全屏',
+    videoStep:'动作',
+    nightCopyLead:'已经 00:47，你还没有入睡，心率仍比夜间基线高 7 bpm。',
+    nightCopyBody:'睡不着的话，让我们听一首舒缓的音乐，或完成一次身体扫描，慢慢进入睡眠。',
+    musicFeedback:'音乐结束了。晚安，今晚先让身体休息。',
+    musicCardTitle:'睡前音乐',
+    musicCardMeta:'Spiegel im Spiegel',
+    musicAlt:'月光卧室里准备听音乐的女性',
+    musicHeader:'睡前音乐',
+    musicTitle:'Spiegel im Spiegel',
+    musicMeta:'Arvo Pärt · 约 9 分钟',
+    musicIntro:'没有歌词和明显鼓点。先听一遍，让注意力慢慢离开仍在运转的思绪，不要求自己立刻睡着。',
+    musicAction:'播放音乐',
+    musicActionActive:'暂停',
+    meditationCardTitle:'身体扫描',
+    meditationCardMeta:'6 分钟',
+    meditationAlt:'月光下躺在床上进行身体扫描的女性',
+    meditationHeader:'身体扫描',
+    meditationTitle:'6 分钟身体扫描',
+    meditationMeta:'躺姿 · 无需屏息',
+    meditationIntro:'从额头走到脚底，只确认哪里还在用力；跟着呼气，让注意力一段一段向下。',
+    meditationAction:'开始冥想',
+    meditationActionActive:'暂停',
+    foodCopyLead:'广东近期闷热潮湿，再加上你近 3 晚平均入睡延后 38 分钟、夜间醒来 2 次，身体的恢复负担正在增加。',
+    foodCopyBody:'今天可以把饮食调清淡一些，补足水分，也可以通过日常食物适量补充钾和镁~',
+    foodPageHeader:'今天怎么吃',
+    foodPageBack:'返回互动',
+    foodStepsLabel:'简单做法',
+    mungTitle:'绿豆百合小碗',
+    mungMeta:'补充水分',
+    mungAlt:'柔和水彩风格的绿豆百合小碗',
+    mungSteps:['绿豆提前浸泡，清水煮至软开花。','关火前加入泡发百合，再煮 5 分钟。','少量糖或不加糖，放到温热后再吃。'],
+    bananaTitle:'香蕉燕麦酸奶杯',
+    bananaMeta:'补充钾与镁',
+    bananaAlt:'柔和水彩风格的香蕉燕麦酸奶杯',
+    bananaSteps:['半根香蕉切片，放入原味酸奶。','加入 2 汤匙燕麦，撒少量南瓜籽。','拌匀后直接食用，不必再加蜂蜜。'],
+    perspectiveCopyLead:'你这两天恢复得不错，HRV 回到 56 ms，睡眠效率 88%。',
+    perspectiveCopyBody:'前阵子更适合先稳住自己，现在有了一点余力，可以试着向外走一步，重新打开职业上的可能。',
+    careerNoteFeedback:'你的执行力Max，不仅读了书，还认真写下了自己的思考。你没有停在“想明白”，而是在边读、边写、边尝试，那些模糊的可能，已经开始被你一点点带进现实。',
+    bookCardTitle:'读《设计你的人生》',
+    bookCardMeta:'换个角度看工作与选择',
+    bookAlt:'暖色水彩画中的一本精装书',
+    bookHeader:'职业阅读',
+    bookTitle:'设计你的人生',
+    bookMeta:'Bill Burnett & Dave Evans',
+    bookIntro:'不急着找到唯一答案。先从书里的“原型体验”开始，把一个职业方向变成可以验证的小尝试。',
+    bookAction:'开始阅读',
+    bookActionActive:'继续阅读',
+    interviewCardTitle:'约一次职业访谈',
+    interviewCardMeta:'找一位你欣赏的同行，聊 30 分钟他的路径与真实工作日常',
+    interviewAlt:'两位女性在柔和日光中进行职业访谈',
+    interviewHeader:'职业访谈',
+    interviewTitle:'约一位欣赏的同行',
+    interviewMeta:'30 分钟 · 了解真实工作日常',
+    interviewIntro:'不求建议，只问路径、日常和困难。带着三个具体问题去聊，看看这个方向是否适合你。',
+    interviewAction:'准备三个问题',
+    interviewActionActive:'问题已准备',
+    resourcePageBack:'返回互动',
+    baduanSteps:['预备式 · 调整站姿','托掌 · 随呼吸上提','开胸 · 放松肩颈','收势 · 回到自然站立'],
+    yogaSteps:['桌式 · 手腕置于肩下','猫式 · 背部缓慢拱起','牛式 · 胸口柔和打开','婴儿式 · 向后安静休息']
+  },
+  en:{
+    toastMorning:'Simulated time: Jun 11 · morning',
+    toastDay2:'Simulated time: Jun 12 · day two',
+    toastDay2Night:'Simulated time: Jun 12 · night',
+    toastDay3:'Simulated time: Jun 13 · day three',
+    toastDay4:'Simulated time: Jun 14 · day four',
+    searchLabel:'Search conversation',
+    searchPlaceholder:'Search loaded messages',
+    searchNext:'Next search result',
+    searchClose:'Close search',
+    searchEmpty:'Enter a keyword',
+    searchNone:'No results',
+    recoveryCopyLead:'Over the past few days, you have been using high-intensity training to release tension. Today HRV is only 48 ms and your stress index is high, leaving little recovery reserve.',
+    recoveryCopyBody:'Let the pace soften today: choose low-intensity movement or take a slow 20-minute walk in the park, and let your body ease out of sustained exertion.',
+    practiceFeedback:'You completed eight minutes of Baduanjin. Heart rate eased from 84 to 72 bpm, and neck and shoulder tension also softened. How does your body feel now?',
+    baduanTitle:'Baduanjin · gentle set',
+    baduanMeta:'8–12 min · four guided movements',
+    yogaTitle:'Yoga · recovery flow',
+    yogaMeta:'8 min · cat–cow and child’s pose',
+    userCheckIn:'I’ve been so tired and irritable lately.',
+    analysisCopyLead:'You have been tense for a while. Speech is 18% faster than usual, and HRV has fallen to 40 ms.',
+    analysisCopyBody:'Recent high-pressure work, conflict, and changes in your relationship are steadily using up your recovery reserve. It is time to leave yourself a little buffer. I remember you enjoy exhibitions, and there is a new one on now. You could go take a look—or, if you have the bandwidth, we can have a deeper conversation together.',
+    deepFeedback:'In this conversation, you saw the situation itself, your habitual self-blame, and what you truly want. You also noticed that blaming yourself first is narrowing your feelings and boundaries. Carry this awareness forward.',
+    artKicker:'Art exhibition',
+    artTitle:'Another Me in the World',
+    artAlt:'A softly colored contemporary gallery with a woman and her reflection',
+    artIntro:'A contemporary art experience shaped around mirrors, space, and self-observation. You do not have to understand each work—just notice which color, light, or reflection makes you pause.',
+    artAddressLabel:'Address',
+    artAddress:'Museum of Art Pudong · 2777 Binjiang Avenue, Pudong New Area, Shanghai',
+    artNavigation:'Navigate to Museum of Art Pudong',
+    deepKicker:'Deeper conversation',
+    deepTitle:'Have a deeper talk with LOOOVE',
+    deepAlt:'Two softly colored feminine inner perspectives facing each other in conversation',
+    artPageHeader:'Art exhibition',
+    conversationPageHeader:'Deeper conversation',
+    pageBack:'Back to conversation',
+    deepBodyQuestion:'Let us begin with your body. How has it felt lately? Is there anywhere that stays tense, heavy, or difficult to relax?',
+    deepVoiceSignalLabel:'Voice signal',
+    deepVoiceObservation:'When you spoke about what happened recently, your pace suddenly slowed, your sentence endings softened, and several pauses became noticeably longer.',
+    deepSelfBlame:'Those voice signals point to self-blame: you seem to be asking whether things would have gone differently if you had done better.',
+    deepFollowup:'Which recent moment most easily brings up the thought, “Maybe I was not good enough”?',
+    deepReason:'Self-blame does not necessarily mean the responsibility is yours. When something feels out of control, taking the cause back onto yourself can make the outcome feel explainable again.',
+    deepReflection:'I hear you. What hurts may be more than the event itself—you may fear that your needs will disappoint someone, so you examine yourself before caring for the relationship. We can separate what is truly yours to carry from what you picked up simply to keep the relationship intact.',
+    deepContinue:'If you would like, keep going: what do you fear might happen if you stopped carrying all of the responsibility?',
+    deepPlaceholder:'Share what’s on your mind…',
+    deepSend:'Send message',
+    videoHeader:'Teaching video',
+    videoBack:'Back to conversation',
+    videoPlay:'Play teaching video',
+    videoPause:'Pause teaching video',
+    videoEnterFullscreen:'Enter fullscreen',
+    videoExitFullscreen:'Exit fullscreen',
+    videoStep:'Movement',
+    nightCopyLead:'It is already 00:47, and you are still awake. Your heart rate remains 7 bpm above your nighttime baseline.',
+    nightCopyBody:'If sleep is not coming, let us listen to something calming or complete a body scan and ease into sleep.',
+    musicFeedback:'The music has ended. Good night—let your body rest now.',
+    musicCardTitle:'Bedtime music',
+    musicCardMeta:'Spiegel im Spiegel',
+    musicAlt:'A woman preparing to listen to music in a moonlit bedroom',
+    musicHeader:'Bedtime music',
+    musicTitle:'Spiegel im Spiegel',
+    musicMeta:'Arvo Pärt · about 9 min',
+    musicIntro:'No lyrics and no pronounced beat. Listen once and let your attention leave thoughts that are still running, without asking yourself to fall asleep immediately.',
+    musicAction:'Play music',
+    musicActionActive:'Pause',
+    meditationCardTitle:'Body scan',
+    meditationCardMeta:'6 minutes',
+    meditationAlt:'A woman lying down for a body scan in moonlight',
+    meditationHeader:'Body scan',
+    meditationTitle:'6-minute body scan',
+    meditationMeta:'Lying down · no breath holds',
+    meditationIntro:'Move from forehead to feet and notice where effort remains; follow each exhale as attention moves downward, one area at a time.',
+    meditationAction:'Start meditation',
+    meditationActionActive:'Pause',
+    foodCopyLead:'Guangdong has been hot and humid lately. Together with falling asleep 38 minutes later on average and waking twice across the past three nights, this is adding to your recovery load.',
+    foodCopyBody:"Keep today's food light, prioritize water, and use everyday foods for a moderate amount of potassium and magnesium.",
+    foodPageHeader:'What to eat today',
+    foodPageBack:'Back to conversation',
+    foodStepsLabel:'Simple preparation',
+    mungTitle:'Mung bean & lily bowl',
+    mungMeta:'Hydration',
+    mungAlt:'A soft watercolor mung bean and lily bowl',
+    mungSteps:['Soak the mung beans, then simmer until soft.','Add soaked lily bulbs for the final 5 minutes.','Use little or no sugar, and let it cool to warm before eating.'],
+    bananaTitle:'Banana oat yogurt cup',
+    bananaMeta:'Potassium + magnesium',
+    bananaAlt:'A soft watercolor banana oat yogurt cup',
+    bananaSteps:['Slice half a banana into plain yogurt.','Add 2 tablespoons of oats and a small sprinkle of pumpkin seeds.','Stir gently and serve; no honey is needed.'],
+    perspectiveCopyLead:'Your recovery has been steady for two days: HRV is back to 56 ms and sleep efficiency is 88%.',
+    perspectiveCopyBody:'Earlier, it made sense to steady yourself first. Now that you have a little room, take one step outward and reopen the possibilities in your working life.',
+    careerNoteFeedback:'Your follow-through is at full strength: you read the book and wrote down your own thinking. You did not stop at understanding—you kept reading, writing, and experimenting, bringing blurred possibilities into real life one step at a time.',
+    bookCardTitle:'Read Designing Your Life',
+    bookCardMeta:'See work and choices differently',
+    bookAlt:'A single hardcover book in warm watercolor',
+    bookHeader:'Career reading',
+    bookTitle:'Designing Your Life',
+    bookMeta:'Bill Burnett & Dave Evans',
+    bookIntro:'You do not need one perfect answer. Start with a prototype experience and turn one career direction into a small experiment you can test.',
+    bookAction:'Start reading',
+    bookActionActive:'Continue reading',
+    interviewCardTitle:'Book a career conversation',
+    interviewCardMeta:'30 minutes with a peer you admire',
+    interviewAlt:'Two women having a career conversation in soft daylight',
+    interviewHeader:'Career conversation',
+    interviewTitle:'Meet a peer you admire',
+    interviewMeta:'30 minutes · learn the real working day',
+    interviewIntro:'Do not ask for advice. Ask about their path, daily work, and difficulties. Bring three specific questions and see whether this direction fits you.',
+    interviewAction:'Prepare three questions',
+    interviewActionActive:'Questions ready',
+    resourcePageBack:'Back to conversation',
+    baduanSteps:['Prepare · settle your stance','Lift · follow the breath upward','Open · release neck and shoulders','Close · return to a natural stance'],
+    yogaSteps:['Tabletop · wrists below shoulders','Cat · round the spine gently','Cow · soften the chest forward','Child’s pose · rest back quietly']
+  }
+};
+
+const LOOOVEInteraction={
+  timers:[],
+  run:0,
+  timing:{contentPause:1500,toastVisible:2200,recommendationPress:650,feedbackPause:2800,practiceProgress:3000,detailDwell:3600,audioPlayDelay:1300,audioDetailDwell:4600},
+  pace:[2200,1500,1500,1500,4400,2800,2200,1500,1500,1500,1500,4400,2800,2200,1500,1500,1500,5500,2800,2200,1500,1500,1500,2200,1500,1500,1500,1500],
+  deepTurn:0,
+  deepReplyTimer:null,
+  videoTimer:null,
+  videoPlaying:false,
+  videoPercent:0,
+  videoKind:'baduan',
+  searchQuery:'',
+  searchIndex:-1,
+  copy(){
+    return LOOOVE_PROACTIVE_COPY[I18n?.lang==='en'?'en':'zh-CN'];
+  },
+  timeline(){
+    return I18n?.lang==='en'
+      ?{
+        recovery:'Jun 11 · 07:32',
+        practiceFeedback:'Jun 11 · 07:44',
+        user:'Jun 12 · 16:20',
+        support:'Jun 12 · 16:21',
+        deepFeedback:'Jun 12 · 16:24',
+        night:'Jun 12 · 23:47',
+        musicFeedback:'Jun 12 · 23:57',
+        food:'Jun 13 · 12:18',
+        perspective:'Jun 14 · 20:36',
+        careerNote:'Jun 14 · 21:18',
+        careerFeedback:'Jun 14 · 21:19'
+      }
+      :{
+        recovery:'6月11日 · 07:32',
+        practiceFeedback:'6月11日 · 07:44',
+        user:'6月12日 · 16:20',
+        support:'6月12日 · 16:21',
+        deepFeedback:'6月12日 · 16:24',
+        night:'6月12日 · 23:47',
+        musicFeedback:'6月12日 · 23:57',
+        food:'6月13日 · 12:18',
+        perspective:'6月14日 · 20:36',
+        careerNote:'6月14日 · 21:18',
+        careerFeedback:'6月14日 · 21:19'
+      };
+  },
+  timestamp(moment=''){
+    if(moment)return this.timeline()[moment]||moment;
+    const now=new Date();
+    return String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  },
+  agentIdentity(moment=''){
+    return "<div class=\"proactive-ai-line\"><i></i><span>LOOOVE</span><time>"+this.timestamp(moment)+"</time></div>";
+  },
+  userIdentity(className='proactive-user-label',moment=''){
+    return "<div class=\""+className+"\"><time>"+this.timestamp(moment)+"</time></div>";
+  },
+  delay(ms){
+    return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?28:ms;
+  },
+  feed(){
+    return document.getElementById('loooveProactiveFeed');
+  },
+  toggleSearch(){
+    const screen=document.getElementById('homeAwarenessPlaceholder');
+    if(!screen?.classList.contains('searching'))return this.openSearch();
+    this.closeSearch();
+  },
+  openSearch(){
+    const screen=document.getElementById('homeAwarenessPlaceholder');
+    const panel=document.getElementById('proactiveSearchPanel');
+    const button=screen?.querySelector('.proactive-search-btn');
+    if(!screen||!panel)return;
+    screen.classList.add('searching');
+    panel.setAttribute('aria-hidden','false');
+    button?.setAttribute('aria-expanded','true');
+    const input=document.getElementById('proactiveSearchInput');
+    requestAnimationFrame(()=>input?.focus());
+  },
+  closeSearch(silent=false){
+    const screen=document.getElementById('homeAwarenessPlaceholder');
+    const panel=document.getElementById('proactiveSearchPanel');
+    const button=screen?.querySelector('.proactive-search-btn');
+    screen?.classList.remove('searching');
+    panel?.setAttribute('aria-hidden','true');
+    button?.setAttribute('aria-expanded','false');
+    this.clearSearchMatch();
+    this.searchQuery='';
+    this.searchIndex=-1;
+    const input=document.getElementById('proactiveSearchInput');
+    const status=document.getElementById('proactiveSearchStatus');
+    if(input)input.value='';
+    if(status)status.textContent='';
+    if(!silent)button?.focus();
+  },
+  clearSearchMatch(){
+    this.feed()?.querySelectorAll('.proactive-stream-item.is-search-match').forEach(node=>node.classList.remove('is-search-match'));
+  },
+  submitSearch(event){
+    event?.preventDefault?.();
+    const input=document.getElementById('proactiveSearchInput');
+    const status=document.getElementById('proactiveSearchStatus');
+    const query=input?.value.trim()||'';
+    const c=this.copy();
+    this.clearSearchMatch();
+    if(!query){
+      if(status)status.textContent=c.searchEmpty;
+      return false;
+    }
+    const normalized=query.toLocaleLowerCase();
+    const matches=[...(this.feed()?.querySelectorAll('.proactive-stream-item')||[])]
+      .filter(node=>node.textContent.toLocaleLowerCase().includes(normalized));
+    if(!matches.length){
+      this.searchQuery=normalized;
+      this.searchIndex=-1;
+      if(status)status.textContent=c.searchNone;
+      return false;
+    }
+    this.searchIndex=this.searchQuery===normalized?(this.searchIndex+1)%matches.length:0;
+    this.searchQuery=normalized;
+    const current=matches[this.searchIndex];
+    current.classList.add('is-search-match');
+    if(status)status.textContent=(this.searchIndex+1)+'/'+matches.length;
+    const behavior=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
+    current.scrollIntoView({behavior,block:'center'});
+    return false;
+  },
+  highlightMetrics(text){
+    const metrics=[
+      'HRV 仅 48 ms','压力指数偏高','语速较平时加快 18%','HRV 降至 40 ms',
+      '近 3 晚平均入睡延后 38 分钟','夜间醒来 2 次','00:47','心率仍比夜间基线高 7 bpm',
+      'HRV 回到 56 ms','睡眠效率 88%','心率从 84 降到 72 bpm',
+      'HRV is only 48 ms','stress index is high','Speech is 18% faster than usual','HRV has fallen to 40 ms',
+      '00:47','7 bpm above your nighttime baseline','HRV is back to 56 ms','sleep efficiency is 88%'
+    ];
+    return metrics.reduce((copy,metric)=>copy.replace(metric,"<span class=\"proactive-metric\">"+metric+"</span>"),String(text));
+  },
+  syncStaticLabels(){
+    const english=I18n?.lang==='en';
+    const c=this.copy();
+    const labels=[
+      ['#homeAwarenessPlaceholder .proactive-search-btn','搜索互动内容','Search conversation'],
+      ['#homeAwarenessPlaceholder .proactive-body','LOOOVE 主动互动区','LOOOVE proactive guidance'],
+      ['#loooveProactiveFeed','AI 动态简报','Dynamic AI briefing'],
+      ['#practiceVideoScreen','运动教学视频','Movement teaching video'],
+      ['#proactiveArtScreen','艺术展','Art exhibition'],
+      ['#proactiveConversationScreen','深度对话','Deeper conversation'],
+      ['#proactiveFoodScreen','饮食建议','Food suggestion'],
+      ['#proactiveResourceScreen','推荐详情','Recommendation details']
+    ];
+    labels.forEach(([selector,zh,en])=>document.querySelector(selector)?.setAttribute('aria-label',english?en:zh));
+    const searchInput=document.getElementById('proactiveSearchInput');
+    searchInput?.setAttribute('placeholder',c.searchPlaceholder);
+    searchInput?.setAttribute('aria-label',c.searchLabel);
+    document.querySelector('.proactive-search-next')?.setAttribute('aria-label',c.searchNext);
+    document.querySelector('.proactive-search-close')?.setAttribute('aria-label',c.searchClose);
+    document.getElementById('practiceVideoHeader').textContent=c.videoHeader;
+    document.getElementById('practiceVideoTitle').textContent=c.baduanTitle;
+    document.getElementById('practiceVideoMeta').textContent=c.baduanMeta;
+    document.getElementById('practiceVideoStepIndex').textContent=c.videoStep+' 1 / 4';
+    document.getElementById('practiceVideoStepTitle').textContent=c.baduanSteps[0];
+    document.getElementById('practiceVideoImage')?.setAttribute('alt',c.baduanTitle);
+    document.getElementById('practiceVideoPlay')?.setAttribute('aria-label',c.videoPause);
+    document.querySelector('#practiceVideoScreen .practice-video-close')?.setAttribute('aria-label',c.videoBack);
+    document.getElementById('practiceVideoFullscreen')?.setAttribute('aria-label',c.videoEnterFullscreen);
+    document.getElementById('proactiveArtPageHeader').textContent=c.artPageHeader;
+    document.getElementById('proactiveArtPageTitle').textContent=c.artTitle;
+    document.getElementById('proactiveArtPageIntro').textContent=c.artIntro;
+    document.getElementById('proactiveArtPageAddressLabel').textContent=c.artAddressLabel;
+    document.getElementById('proactiveArtPageAddress').textContent=c.artAddress;
+    document.querySelector('.proactive-art-page-navigation')?.setAttribute('aria-label',c.artNavigation);
+    document.querySelector('#proactiveArtScreen img')?.setAttribute('alt',c.artAlt);
+    document.getElementById('proactiveConversationPageHeader').textContent=c.conversationPageHeader;
+    ['proactiveMainInput','proactiveDeepInput'].forEach(id=>{
+      document.getElementById(id)?.setAttribute('placeholder',c.deepPlaceholder);
+      document.getElementById(id)?.setAttribute('aria-label',c.deepPlaceholder);
+    });
+    ['proactiveMainSend','proactiveDeepSend'].forEach(id=>document.getElementById(id)?.setAttribute('aria-label',c.deepSend));
+    document.querySelectorAll('.proactive-detail-back').forEach(button=>button.setAttribute('aria-label',c.pageBack));
+    const food=this.foodData().mung;
+    document.getElementById('proactiveFoodPageHeader').textContent=c.foodPageHeader;
+    document.getElementById('proactiveFoodPageTitle').textContent=food.title;
+    document.getElementById('proactiveFoodStepsLabel').textContent=c.foodStepsLabel;
+    document.getElementById('proactiveFoodImage')?.setAttribute('alt',food.alt);
+    document.querySelector('#proactiveFoodScreen .proactive-detail-back')?.setAttribute('aria-label',c.foodPageBack);
+    const resource=this.resourceData().music;
+    document.getElementById('proactiveResourceHeader').textContent=resource.header;
+    document.getElementById('proactiveResourceTitle').textContent=resource.title;
+    document.getElementById('proactiveResourceMeta').textContent=resource.meta;
+    document.getElementById('proactiveResourceIntro').textContent=resource.intro;
+    document.getElementById('proactiveResourceAction').textContent=resource.action;
+    document.getElementById('proactiveResourceImage')?.setAttribute('alt',resource.alt);
+    document.querySelector('#proactiveResourceScreen .proactive-detail-back')?.setAttribute('aria-label',c.resourcePageBack);
+  },
+  stop(){
+    this.timers.forEach(timer=>clearTimeout(timer));
+    this.timers=[];
+    this.run+=1;
+    this.closeSupportPage(true);
+    this.closeFoodPage(true);
+    this.closeResourcePage(true);
+    this.closePracticeVideo(true);
+    this.closeSearch(true);
+    const toast=document.getElementById('proactiveSimulationToast');
+    toast?.classList.remove('on');
+    if(toast)toast.textContent='';
+  },
+  start(){
+    this.stop();
+    const run=this.run;
+    const feed=this.feed();
+    if(!feed)return;
+    this.syncStaticLabels();
+    feed.innerHTML='';
+    const mainInput=document.getElementById('proactiveMainInput');
+    if(mainInput)mainInput.value='';
+    this.runSequence(this.sequence(),0,run);
+  },
+  sequence(){
+    return [
+      ()=>this.showSimulationToast('toastMorning'),
+      ()=>this.renderRecoveryIntro(),
+      ()=>this.renderPracticeCard('baduan'),
+      ()=>this.renderPracticeCard('yoga'),
+      ()=>this.simulatePracticeVisit(),
+      ()=>this.renderPracticeFeedback(),
+      ()=>this.showSimulationToast('toastDay2'),
+      ()=>this.renderUserCheckIn(),
+      ()=>this.renderSupportPlan(),
+      ()=>this.renderSupportCard('art'),
+      ()=>this.renderSupportCard('deep'),
+      ()=>this.simulateDeepVisit(),
+      ()=>this.renderDeepFeedback(),
+      ()=>this.showSimulationToast('toastDay2Night'),
+      ()=>this.renderNightPlan(),
+      ()=>this.renderResourceCard('music'),
+      ()=>this.renderResourceCard('meditation'),
+      ()=>this.simulateMusicVisit(),
+      ()=>this.renderMusicFeedback(),
+      ()=>this.showSimulationToast('toastDay3'),
+      ()=>this.renderFoodPlan(),
+      ()=>this.renderFoodCard('mung'),
+      ()=>this.renderFoodCard('banana'),
+      ()=>this.showSimulationToast('toastDay4'),
+      ()=>this.renderPerspectivePlan(),
+      ()=>this.renderResourceCard('book'),
+      ()=>this.renderResourceCard('interview'),
+      ()=>this.renderCareerNoteUpload(),
+      ()=>this.renderCareerNoteFeedback()
+    ];
+  },
+  runSequence(tasks,index,run){
+    if(run!==this.run||index>=tasks.length)return;
+    tasks[index]();
+    if(index>=tasks.length-1)return;
+    const timer=setTimeout(()=>this.runSequence(tasks,index+1,run),this.delay(this.pace[index]));
+    this.timers.push(timer);
+  },
+  showSimulationToast(key){
+    const toast=document.getElementById('proactiveSimulationToast');
+    const text=this.copy()[key];
+    if(!toast||!text)return;
+    toast.classList.remove('on');
+    toast.textContent=text;
+    void toast.offsetWidth;
+    toast.classList.add('on');
+    const run=this.run;
+    const timer=setTimeout(()=>{
+      if(run!==this.run)return;
+      toast.classList.remove('on');
+    },this.delay(this.timing.toastVisible));
+    this.timers.push(timer);
+  },
+  append(markup){
+    const feed=this.feed();
+    if(!feed)return null;
+    feed.insertAdjacentHTML('beforeend',markup);
+    const node=feed.lastElementChild;
+    this.followLatest(node);
+    return node;
+  },
+  appendRecoveryPart(selector,markup){
+    const target=this.feed()?.querySelector(selector);
+    if(!target)return null;
+    target.insertAdjacentHTML('beforeend',markup);
+    const node=target.lastElementChild;
+    this.followLatest(node);
+    return node;
+  },
+  activateRecommendation(button,type,kind){
+    if(!button||button.classList.contains('is-opening'))return;
+    const action={
+      practice:()=>this.openPracticeVideo(kind),
+      support:()=>this.openSupportPage(kind),
+      food:()=>this.openFoodPage(kind),
+      resource:()=>this.openResourcePage(kind)
+    }[type];
+    if(!action)return;
+    const run=this.run;
+    button.classList.add('is-opening');
+    button.setAttribute('aria-busy','true');
+    this.followLatest(button);
+    Audio$?.soft?.();
+    const timer=setTimeout(()=>{
+      if(run!==this.run)return;
+      button.classList.remove('is-opening');
+      button.removeAttribute('aria-busy');
+      action();
+    },this.delay(this.timing.recommendationPress));
+    this.timers.push(timer);
+  },
+  pressRecommendation(selector,onOpen){
+    const card=this.feed()?.querySelector(selector);
+    if(!card){
+      onOpen();
+      return;
+    }
+    const run=this.run;
+    card.classList.add('is-opening');
+    card.setAttribute('aria-busy','true');
+    this.followLatest(card);
+    Audio$?.soft?.();
+    const timer=setTimeout(()=>{
+      if(run!==this.run)return;
+      card.classList.remove('is-opening');
+      card.removeAttribute('aria-busy');
+      onOpen();
+    },this.delay(this.timing.recommendationPress));
+    this.timers.push(timer);
+  },
+  renderRecoveryIntro(){
+    const c=this.copy();
+    this.append("<section class=\"proactive-stream-item proactive-recovery-intro proactive-recovery-plan\"><div class=\"proactive-agent-bubble\">"+this.agentIdentity('recovery')+"<div class=\"proactive-primary-copy\"><p>"+this.highlightMetrics(c.recoveryCopyLead)+"</p><p>"+this.highlightMetrics(c.recoveryCopyBody)+"</p></div><div class=\"proactive-practice-grid proactive-card-grid\"></div></div></section>");
+  },
+  renderPracticeCard(kind){
+    const c=this.copy();
+    const yoga=kind==='yoga';
+    const title=yoga?c.yogaTitle:c.baduanTitle;
+    const meta=yoga?c.yogaMeta:c.baduanMeta;
+    const src=yoga?'./assets/互动/yoga-sequence.png':'./assets/互动/baduanjin-sequence.png';
+    this.appendRecoveryPart('.proactive-practice-grid',"<button class=\"proactive-stage-item proactive-practice-card\" type=\"button\" onclick=\"LOOOVEInteraction.activateRecommendation(this,'practice','"+kind+"')\" aria-label=\""+title+"\"><span class=\"proactive-practice-media\"><img src=\""+src+"\" alt=\""+title+"\"></span><span class=\"proactive-practice-copy\"><span><h4>"+title+"</h4><p>"+meta+"</p></span><span class=\"proactive-practice-arrow\" aria-hidden=\"true\">›</span></span></button>");
+  },
+  simulatePracticeVisit(){
+    this.pressRecommendation('.proactive-practice-card',()=>{
+      this.openPracticeVideo('baduan');
+      this.setVideoPlaying(true,this.timing.practiceProgress);
+      const run=this.run;
+      const completeTimer=setTimeout(()=>{
+        if(run!==this.run)return;
+        this.videoPercent=100;
+        this.updatePracticeVideo();
+        this.setVideoPlaying(false);
+      },this.delay(this.timing.practiceProgress));
+      const closeTimer=setTimeout(()=>{
+        if(run!==this.run)return;
+        this.closePracticeVideo(true);
+      },this.delay(this.timing.detailDwell));
+      this.timers.push(completeTimer,closeTimer);
+    });
+  },
+  renderCompletionFeedback(copyKey,moment,className){
+    const c=this.copy();
+    this.append("<section class=\"proactive-stream-item proactive-completion-feedback "+className+"\"><div class=\"proactive-agent-bubble\">"+this.agentIdentity(moment)+"<div class=\"proactive-feedback-copy\"><p>"+this.highlightMetrics(c[copyKey])+"</p></div></div></section>");
+  },
+  renderPracticeFeedback(){
+    this.renderCompletionFeedback('practiceFeedback','practiceFeedback','proactive-practice-feedback');
+  },
+  renderUserCheckIn(){
+    const c=this.copy();
+    this.append("<section class=\"proactive-stream-item proactive-user-checkin\"><div class=\"proactive-stream-break\"></div>"+this.userIdentity('proactive-user-label','user')+"<div class=\"proactive-user-bubble\">"+c.userCheckIn+"</div></section>");
+  },
+  renderSupportPlan(){
+    const c=this.copy();
+    this.append("<section class=\"proactive-stream-item proactive-support-options proactive-support-plan\"><div class=\"proactive-agent-bubble\">"+this.agentIdentity('support')+"<div class=\"proactive-analysis-copy\"><p>"+this.highlightMetrics(c.analysisCopyLead)+"</p><p>"+this.highlightMetrics(c.analysisCopyBody)+"</p></div><div class=\"proactive-support-grid proactive-card-grid\"></div></div></section>");
+  },
+  renderSupportCard(kind){
+    const c=this.copy();
+    const deep=kind==='deep';
+    const visual=deep
+      ?"<span class=\"proactive-deep-visual\"><img src=\"./assets/互动/deep-conversation.png\" alt=\""+c.deepAlt+"\"></span>"
+      :"<span class=\"proactive-art-media\"><img src=\"./assets/互动/art-reset-exhibition.png\" alt=\""+c.artAlt+"\"></span>";
+    const cardTitle=deep?c.deepKicker:c.artKicker;
+    const cardMeta=deep?c.deepTitle:c.artTitle;
+    this.appendRecoveryPart('.proactive-support-grid',"<button class=\"proactive-stage-item proactive-support-card\" data-support=\""+kind+"\" type=\"button\" onclick=\"LOOOVEInteraction.activateRecommendation(this,'support','"+kind+"')\">"+visual+"<span class=\"proactive-practice-copy\"><span><h4>"+cardTitle+"</h4><p>"+cardMeta+"</p></span><span class=\"proactive-practice-arrow\" aria-hidden=\"true\">›</span></span></button>");
+  },
+  simulateDeepVisit(){
+    this.pressRecommendation('.proactive-support-card[data-support="deep"]',()=>{
+      this.openSupportPage('deep');
+      const run=this.run;
+      const timer=setTimeout(()=>{
+        if(run!==this.run)return;
+        this.closeSupportPage(true);
+      },this.delay(this.timing.detailDwell));
+      this.timers.push(timer);
+    });
+  },
+  renderDeepFeedback(){
+    this.renderCompletionFeedback('deepFeedback','deepFeedback','proactive-deep-feedback');
+  },
+  renderNightPlan(){
+    const c=this.copy();
+    this.append("<section class=\"proactive-stream-item proactive-night-plan\"><div class=\"proactive-stream-break\"></div><div class=\"proactive-agent-bubble\">"+this.agentIdentity('night')+"<div class=\"proactive-night-copy\"><p>"+this.highlightMetrics(c.nightCopyLead)+"</p><p>"+this.highlightMetrics(c.nightCopyBody)+"</p></div><div class=\"proactive-resource-grid proactive-night-grid proactive-card-grid\"></div></div></section>");
+  },
+  renderFoodPlan(){
+    const c=this.copy();
+    this.append("<section class=\"proactive-stream-item proactive-food-plan\"><div class=\"proactive-stream-break\"></div><div class=\"proactive-agent-bubble\">"+this.agentIdentity('food')+"<div class=\"proactive-food-copy\"><p>"+this.highlightMetrics(c.foodCopyLead)+"</p><p>"+this.highlightMetrics(c.foodCopyBody)+"</p></div><div class=\"proactive-food-grid proactive-card-grid\"></div></div></section>");
+  },
+  renderFoodCard(kind){
+    const data=this.foodData()[kind];
+    if(!data)return;
+    this.appendRecoveryPart('.proactive-food-grid',"<button class=\"proactive-stage-item proactive-food-card\" data-food=\""+kind+"\" type=\"button\" onclick=\"LOOOVEInteraction.activateRecommendation(this,'food','"+kind+"')\"><span class=\"proactive-food-media\"><img src=\""+data.src+"\" alt=\""+data.alt+"\"></span><span class=\"proactive-practice-copy\"><span><h4>"+data.title+"</h4><p>"+data.meta+"</p></span><span class=\"proactive-practice-arrow\" aria-hidden=\"true\">›</span></span></button>");
+  },
+  renderPerspectivePlan(){
+    const c=this.copy();
+    this.append("<section class=\"proactive-stream-item proactive-perspective-plan\"><div class=\"proactive-stream-break\"></div><div class=\"proactive-agent-bubble\">"+this.agentIdentity('perspective')+"<div class=\"proactive-perspective-copy\"><p>"+this.highlightMetrics(c.perspectiveCopyLead)+"</p><p>"+this.highlightMetrics(c.perspectiveCopyBody)+"</p></div><div class=\"proactive-resource-grid proactive-perspective-grid proactive-card-grid\"></div></div></section>");
+  },
+  renderCareerNoteUpload(){
+    const alt=I18n?.lang==='en'?'Uploaded reading notes from Designing Your Life':'《设计你的人生》读书笔记';
+    this.append("<section class=\"proactive-stream-item proactive-user-upload\">"+this.userIdentity('proactive-user-label','careerNote')+"<div class=\"proactive-user-upload-card\"><img src=\"./assets/互动/career-reading-notes.png\" alt=\""+alt+"\"></div></section>");
+  },
+  renderCareerNoteFeedback(){
+    this.renderCompletionFeedback('careerNoteFeedback','careerFeedback','proactive-career-feedback');
+  },
+  renderResourceCard(kind){
+    const data=this.resourceData()[kind];
+    if(!data)return;
+    this.appendRecoveryPart('.proactive-'+data.group+'-grid',"<button class=\"proactive-stage-item proactive-resource-card\" data-resource=\""+kind+"\" type=\"button\" aria-label=\""+data.cardTitle+"\" onclick=\"LOOOVEInteraction.activateRecommendation(this,'resource','"+kind+"')\"><span class=\"proactive-resource-media\"><img src=\""+data.src+"\" alt=\""+data.alt+"\"></span><span class=\"proactive-practice-copy\"><span><h4>"+data.cardTitle+"</h4><p>"+data.cardMeta+"</p></span><span class=\"proactive-practice-arrow\" aria-hidden=\"true\">›</span></span></button>");
+  },
+  simulateMusicVisit(){
+    this.pressRecommendation('.proactive-resource-card[data-resource="music"]',()=>{
+      this.openResourcePage('music');
+      const run=this.run;
+      const playTimer=setTimeout(()=>{
+        if(run!==this.run)return;
+        this.activateResource();
+      },this.delay(this.timing.audioPlayDelay));
+      const closeTimer=setTimeout(()=>{
+        if(run!==this.run)return;
+        this.closeResourcePage(true);
+      },this.delay(this.timing.audioDetailDwell));
+      this.timers.push(playTimer,closeTimer);
+    });
+  },
+  renderMusicFeedback(){
+    this.renderCompletionFeedback('musicFeedback','musicFeedback','proactive-music-feedback');
+  },
+  submitMainConversation(event){
+    event?.preventDefault?.();
+    const input=document.getElementById('proactiveMainInput');
+    const value=input?.value.trim();
+    if(!value)return false;
+    const feed=this.feed();
+    if(!feed)return false;
+    const safe=this.escapeDeepText(value);
+    feed.insertAdjacentHTML('beforeend',"<section class=\"proactive-stream-item proactive-user-message\"><div class=\"proactive-stream-break\"></div>"+this.userIdentity()+"<div class=\"proactive-user-bubble\">"+safe+"</div></section>");
+    const node=feed.lastElementChild;
+    input.value='';
+    this.followLatest(node);
+    Audio$?.soft?.();
+    return false;
+  },
+  openSupportPage(kind){
+    const screen=document.getElementById(kind==='art'?'proactiveArtScreen':'proactiveConversationScreen');
+    if(!screen)return;
+    this.closeFoodPage(true);
+    this.closeResourcePage(true);
+    this.closeSupportPage(true);
+    screen.classList.add('on');
+    screen.setAttribute('aria-hidden','false');
+    screen.querySelector('.proactive-detail-body')?.scrollTo({top:0,behavior:'auto'});
+    if(kind==='deep')this.startDeepConversation();
+    Audio$?.soft?.();
+  },
+  closeSupportPage(silent=false){
+    clearTimeout(this.deepReplyTimer);
+    this.deepReplyTimer=null;
+    ['proactiveArtScreen','proactiveConversationScreen'].forEach(id=>{
+      const screen=document.getElementById(id);
+      screen?.classList.remove('on');
+      screen?.setAttribute('aria-hidden','true');
+    });
+    if(!silent)Audio$?.soft?.();
+  },
+  foodData(){
+    const c=this.copy();
+    return {
+      mung:{
+        title:c.mungTitle,meta:c.mungMeta,alt:c.mungAlt,
+        src:'./assets/互动/food-mung-bean-lily.png',steps:c.mungSteps
+      },
+      banana:{
+        title:c.bananaTitle,meta:c.bananaMeta,alt:c.bananaAlt,
+        src:'./assets/互动/food-banana-oat-yogurt.png',steps:c.bananaSteps
+      }
+    };
+  },
+  resourceData(){
+    const c=this.copy();
+    return {
+      music:{
+        group:'night',cardTitle:c.musicCardTitle,cardMeta:c.musicCardMeta,
+        header:c.musicHeader,title:c.musicTitle,meta:c.musicMeta,
+        intro:c.musicIntro,action:c.musicAction,actionActive:c.musicActionActive,
+        alt:c.musicAlt,src:'./assets/互动/night-music-spiegel.png'
+      },
+      meditation:{
+        group:'night',cardTitle:c.meditationCardTitle,cardMeta:c.meditationCardMeta,
+        header:c.meditationHeader,title:c.meditationTitle,meta:c.meditationMeta,
+        intro:c.meditationIntro,action:c.meditationAction,actionActive:c.meditationActionActive,
+        alt:c.meditationAlt,src:'./assets/互动/night-body-scan.png'
+      },
+      book:{
+        group:'perspective',cardTitle:c.bookCardTitle,cardMeta:c.bookCardMeta,
+        header:c.bookHeader,title:c.bookTitle,meta:c.bookMeta,
+        intro:c.bookIntro,action:c.bookAction,actionActive:c.bookActionActive,
+        alt:c.bookAlt,src:'./assets/互动/career-designing-your-life-book.png'
+      },
+      interview:{
+        group:'perspective',cardTitle:c.interviewCardTitle,cardMeta:c.interviewCardMeta,
+        header:c.interviewHeader,title:c.interviewTitle,meta:c.interviewMeta,
+        intro:c.interviewIntro,action:c.interviewAction,actionActive:c.interviewActionActive,
+        alt:c.interviewAlt,src:'./assets/互动/career-interview.png'
+      }
+    };
+  },
+  openFoodPage(kind){
+    const screen=document.getElementById('proactiveFoodScreen');
+    const data=this.foodData()[kind];
+    if(!screen||!data)return;
+    this.closeSupportPage(true);
+    this.closeResourcePage(true);
+    document.getElementById('proactiveFoodPageHeader').textContent=this.copy().foodPageHeader;
+    document.getElementById('proactiveFoodImage').src=data.src;
+    document.getElementById('proactiveFoodImage').alt=data.alt;
+    document.getElementById('proactiveFoodPageTitle').textContent=data.title;
+    document.getElementById('proactiveFoodStepsLabel').textContent=this.copy().foodStepsLabel;
+    document.getElementById('proactiveFoodSteps').innerHTML=data.steps.map(step=>"<li>"+step+"</li>").join('');
+    screen.querySelector('.proactive-detail-back')?.setAttribute('aria-label',this.copy().foodPageBack);
+    screen.classList.add('on');
+    screen.setAttribute('aria-hidden','false');
+    screen.querySelector('.proactive-detail-body')?.scrollTo({top:0,behavior:'auto'});
+    Audio$?.soft?.();
+  },
+  closeFoodPage(silent=false){
+    const screen=document.getElementById('proactiveFoodScreen');
+    screen?.classList.remove('on');
+    screen?.setAttribute('aria-hidden','true');
+    if(!silent)Audio$?.soft?.();
+  },
+  openResourcePage(kind){
+    const screen=document.getElementById('proactiveResourceScreen');
+    const data=this.resourceData()[kind];
+    if(!screen||!data)return;
+    this.closeSupportPage(true);
+    this.closeFoodPage(true);
+    document.getElementById('proactiveResourceHeader').textContent=data.header;
+    document.getElementById('proactiveResourceImage').src=data.src;
+    document.getElementById('proactiveResourceImage').alt=data.alt;
+    document.getElementById('proactiveResourceTitle').textContent=data.title;
+    document.getElementById('proactiveResourceMeta').textContent=data.meta;
+    document.getElementById('proactiveResourceIntro').textContent=data.intro;
+    const action=document.getElementById('proactiveResourceAction');
+    action.textContent=data.action;
+    action.classList.remove('on');
+    action.dataset.resource=kind;
+    screen.querySelector('.proactive-detail-back')?.setAttribute('aria-label',this.copy().resourcePageBack);
+    screen.classList.add('on');
+    screen.setAttribute('aria-hidden','false');
+    screen.querySelector('.proactive-detail-body')?.scrollTo({top:0,behavior:'auto'});
+    Audio$?.soft?.();
+  },
+  closeResourcePage(silent=false){
+    const screen=document.getElementById('proactiveResourceScreen');
+    screen?.classList.remove('on');
+    screen?.setAttribute('aria-hidden','true');
+    if(!silent)Audio$?.soft?.();
+  },
+  activateResource(){
+    const button=document.getElementById('proactiveResourceAction');
+    if(!button)return;
+    const active=button.classList.toggle('on');
+    const data=this.resourceData()[button.dataset.resource];
+    if(!data)return;
+    button.textContent=active?data.actionActive:data.action;
+    Audio$?.soft?.();
+  },
+  startDeepConversation(){
+    const thread=document.getElementById('proactiveDeepThread');
+    if(!thread)return;
+    clearTimeout(this.deepReplyTimer);
+    this.deepReplyTimer=null;
+    const c=this.copy();
+    this.deepTurn=0;
+    thread.innerHTML='';
+    const input=document.getElementById('proactiveDeepInput');
+    const send=document.getElementById('proactiveDeepSend');
+    if(input){input.value='';input.disabled=false;input.setAttribute('placeholder',c.deepPlaceholder);}
+    if(send)send.disabled=false;
+    this.appendDeepMessage([c.deepBodyQuestion],'ai');
+  },
+  escapeDeepText(value){
+    const span=document.createElement('span');
+    span.textContent=String(value);
+    return span.innerHTML;
+  },
+  appendDeepMessage(parts,role='ai',showSignal=false){
+    const thread=document.getElementById('proactiveDeepThread');
+    if(!thread)return null;
+    const c=this.copy();
+    const messages=(Array.isArray(parts)?parts:[parts]).map(part=>"<p>"+(role==='user'?this.escapeDeepText(part):part)+"</p>").join('');
+    const signal=showSignal?"<div class=\"proactive-deep-signal\">"+c.deepVoiceSignalLabel+"</div>":'';
+    const identity=role==='ai'?this.agentIdentity():this.userIdentity('proactive-deep-user-meta');
+    const body=role==='user'?"<div class=\"proactive-deep-user-bubble\">"+messages+"</div>":signal+messages;
+    thread.insertAdjacentHTML('beforeend',"<article class=\"proactive-deep-message "+role+"\">"+identity+body+"</article>");
+    const node=thread.lastElementChild;
+    this.followLatest(node);
+    return node;
+  },
+  submitDeepConversation(event){
+    event?.preventDefault?.();
+    const input=document.getElementById('proactiveDeepInput');
+    const send=document.getElementById('proactiveDeepSend');
+    const value=input?.value.trim();
+    if(!value||input.disabled)return false;
+    const c=this.copy();
+    this.appendDeepMessage([value],'user');
+    input.value='';
+    input.disabled=true;
+    if(send)send.disabled=true;
+    const response=this.deepTurn===0
+      ?[c.deepVoiceObservation,c.deepSelfBlame,c.deepFollowup]
+      :this.deepTurn===1
+        ?[c.deepReason,c.deepReflection,c.deepContinue]
+        :[c.deepContinue];
+    const showSignal=this.deepTurn===0;
+    this.deepTurn+=1;
+    this.deepReplyTimer=setTimeout(()=>{
+      if(!document.getElementById('proactiveConversationScreen')?.classList.contains('on'))return;
+      this.appendDeepMessage(response,'ai',showSignal);
+      input.disabled=false;
+      if(send)send.disabled=false;
+      input.focus();
+      this.deepReplyTimer=null;
+      Audio$?.soft?.();
+    },this.delay(720));
+    return false;
+  },
+  videoData(){
+    const c=this.copy();
+    return {
+      baduan:{
+        title:c.baduanTitle,meta:c.baduanMeta,src:'./assets/互动/baduanjin-sequence.png',
+        duration:480,steps:c.baduanSteps
+      },
+      yoga:{
+        title:c.yogaTitle,meta:c.yogaMeta,src:'./assets/互动/yoga-sequence.png',
+        duration:480,steps:c.yogaSteps
+      }
+    };
+  },
+  openPracticeVideo(kind){
+    const data=this.videoData()[kind];
+    const screen=document.getElementById('practiceVideoScreen');
+    if(!data||!screen)return;
+    this.videoKind=kind;
+    this.videoPercent=0;
+    document.getElementById('practiceVideoHeader').textContent=this.copy().videoHeader;
+    document.getElementById('practiceVideoImage').src=data.src;
+    document.getElementById('practiceVideoImage').alt=data.title;
+    document.getElementById('practiceVideoTitle').textContent=data.title;
+    document.getElementById('practiceVideoMeta').textContent=data.meta;
+    document.getElementById('practiceVideoDuration').textContent=this.formatTime(data.duration);
+    screen.querySelector('.practice-video-close')?.setAttribute('aria-label',this.copy().videoBack);
+    this.setPracticeFullscreen(false);
+    screen.classList.add('on');
+    screen.setAttribute('aria-hidden','false');
+    screen.scrollTop=0;
+    this.updatePracticeVideo();
+    this.setVideoPlaying(true);
+    Audio$?.soft?.();
+  },
+  closePracticeVideo(silent=false){
+    clearInterval(this.videoTimer);
+    this.videoTimer=null;
+    this.videoPlaying=false;
+    const screen=document.getElementById('practiceVideoScreen');
+    this.setPracticeFullscreen(false);
+    screen?.classList.remove('on');
+    screen?.setAttribute('aria-hidden','true');
+    document.getElementById('practiceVideoPlay')?.classList.remove('playing');
+    if(!silent)Audio$?.soft?.();
+  },
+  togglePracticeVideo(){
+    this.setVideoPlaying(!this.videoPlaying);
+  },
+  togglePracticeFullscreen(){
+    const screen=document.getElementById('practiceVideoScreen');
+    if(!screen)return;
+    this.setPracticeFullscreen(!screen.classList.contains('is-expanded'));
+  },
+  setPracticeFullscreen(expanded){
+    const screen=document.getElementById('practiceVideoScreen');
+    const button=document.getElementById('practiceVideoFullscreen');
+    screen?.classList.toggle('is-expanded',Boolean(expanded));
+    button?.setAttribute('aria-expanded',String(Boolean(expanded)));
+    button?.setAttribute('aria-label',expanded?this.copy().videoExitFullscreen:this.copy().videoEnterFullscreen);
+  },
+  setVideoPlaying(playing,simulationDuration=0){
+    clearInterval(this.videoTimer);
+    this.videoTimer=null;
+    this.videoPlaying=playing;
+    const play=document.getElementById('practiceVideoPlay');
+    play?.classList.toggle('playing',playing);
+    play?.setAttribute('aria-label',playing?this.copy().videoPause:this.copy().videoPlay);
+    if(!playing)return;
+    const interval=simulationDuration?60:180;
+    const increment=simulationDuration?100/(simulationDuration/interval):.7;
+    this.videoTimer=setInterval(()=>{
+      this.videoPercent=Math.min(100,this.videoPercent+increment);
+      this.updatePracticeVideo();
+      if(this.videoPercent>=100)this.setVideoPlaying(false);
+    },interval);
+  },
+  updatePracticeVideo(){
+    const data=this.videoData()[this.videoKind];
+    const index=Math.min(3,Math.floor(this.videoPercent/25));
+    const elapsed=Math.round(data.duration*this.videoPercent/100);
+    const progress=document.getElementById('practiceVideoProgress');
+    if(progress)progress.style.width=this.videoPercent+'%';
+    const elapsedNode=document.getElementById('practiceVideoElapsed');
+    if(elapsedNode)elapsedNode.textContent=this.formatTime(elapsed);
+    const stepIndex=document.getElementById('practiceVideoStepIndex');
+    if(stepIndex)stepIndex.textContent=this.copy().videoStep+' '+(index+1)+' / 4';
+    const stepTitle=document.getElementById('practiceVideoStepTitle');
+    if(stepTitle)stepTitle.textContent=data.steps[index];
+    document.querySelectorAll('#practiceVideoDots i').forEach((dot,dotIndex)=>dot.classList.toggle('on',dotIndex===index));
+  },
+  formatTime(seconds){
+    const minutes=Math.floor(seconds/60);
+    const rest=Math.floor(seconds%60);
+    return String(minutes).padStart(2,'0')+':'+String(rest).padStart(2,'0');
+  },
+  followLatest(node){
+    const feed=this.feed();
+    if(!feed||!node)return;
+    const detail=node.closest('.proactive-detail-body');
+    const behavior=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
+    const move=()=>detail
+      ?detail.scrollTo({top:Math.max(0,detail.scrollHeight-detail.clientHeight),behavior})
+      :feed.scrollTo({top:Math.max(0,feed.scrollHeight-feed.clientHeight),behavior});
+    requestAnimationFrame(move);
+    const timer=setTimeout(move,this.delay(460));
+    this.timers.push(timer);
+  }
+};
+
 function openHomeAwarenessPlaceholder(){
   Audio$.soft();
   const screen=document.getElementById('homeAwarenessPlaceholder');
   if(screen){
     screen.classList.add('on');
     renderIcons(screen);
-    const feed=document.getElementById('consultantAgentFeed');
-    if(feed)feed.scrollTop=0;
-    setTimeout(()=>document.getElementById('consultantAgentInput')?.focus({preventScroll:true}),260);
+    LOOOVEInteraction.start();
   }
 }
 function closeHomeAwarenessPlaceholder(){
   Audio$.soft();
+  LOOOVEInteraction.stop();
   document.getElementById('homeAwarenessPlaceholder')?.classList.remove('on');
 }
 function consultantScrollToEnd(){
@@ -9983,12 +11970,28 @@ function drawChart(){
     box.appendChild(s);
   }
 })();
+const fitPhoneBasePixelRatio=window.devicePixelRatio||1;
 function fitPhone(){
   const ph=document.getElementById('phone');
-  const scale=Math.min(1,(window.innerHeight*.92)/844,(window.innerWidth*.92)/390);
+  const stage=document.querySelector('.stage');
+  const viewport=window.visualViewport;
+  const pixelRatio=(window.devicePixelRatio||fitPhoneBasePixelRatio)/fitPhoneBasePixelRatio;
+  const viewportHeight=window.innerHeight*pixelRatio;
+  const viewportWidth=window.innerWidth*pixelRatio;
+  const viewportTop=viewport?.offsetTop||0;
+  const viewportLeft=viewport?.offsetLeft||0;
+  const maxScale=1;
+  const phoneHeightScale=(viewportHeight-56)/844;
+  const phoneWidthScale=(viewportWidth-16)/390;
+  const scale=Math.min(maxScale,phoneHeightScale,phoneWidthScale);
   ph.style.transform=`scale(${scale})`;
   ph.parentElement.style.width=(390*scale)+'px';
   ph.parentElement.style.height=(844*scale)+'px';
+  if(stage){
+    const shiftX=viewportLeft+viewportWidth/2-window.innerWidth/2;
+    const shiftY=viewportTop+viewportHeight/2-window.innerHeight/2;
+    stage.style.transform=`translate3d(${shiftX}px,${shiftY}px,0)`;
+  }
   const fp=document.getElementById('flowPicker');
   if(fp)fp.style.width=(390*scale)+'px';
 }
@@ -10149,6 +12152,16 @@ function highlightConsultantKeywords(root=document.getElementById('consultantAge
   const matcher=new RegExp(`(${escaped.join('|')})`,'g');
   const targets=root.querySelectorAll('.consultant-report-insight,.consultant-evidence-item span,.consultant-hypothesis p,.consultant-mantra-card p,.consultant-mantra-card footer,.consultant-proactive-copy,.consultant-breath-feedback-card h3,.consultant-breath-feedback-card p,.consultant-taste-signal,.consultant-taste-practice p');
   targets.forEach(target=>{
+    if(!target.hasAttribute('data-i18n-rich')){
+      target.setAttribute('data-i18n-rich','');
+      target.dataset.i18nRichSource=target.textContent.replace(/\s+/g,' ').trim();
+      target.dataset.i18nRichHtml=target.innerHTML;
+    }
+    if(I18n.lang==='en'){
+      target.textContent=I18n.t(target.dataset.i18nRichSource);
+      return;
+    }
+    target.innerHTML=target.dataset.i18nRichHtml;
     const walker=document.createTreeWalker(target,NodeFilter.SHOW_TEXT);
     const nodes=[];
     while(walker.nextNode()){
@@ -10191,6 +12204,10 @@ requestAnimationFrame(updateHomeOrbitGather);
   b.innerHTML='<span class="app-conn-dot"></span>已连接';
   h.appendChild(b);
 });
+document.documentElement.lang='zh-CN';
+I18n.lang='zh-CN';
+I18n.translateRoot(document.body);
+I18n.observe();
 /* 首页直接展示实时身心觉察，详情由首页状态词或分值按钮进入。 */
 </script>
 </body>
