@@ -8698,7 +8698,6 @@ const LOOOVEInteraction={
     const run=this.run;
     button.classList.add('is-opening');
     button.setAttribute('aria-busy','true');
-    this.followLatest(button);
     Audio$?.soft?.();
     const timer=setTimeout(()=>{
       if(run!==this.run)return;
@@ -8717,7 +8716,6 @@ const LOOOVEInteraction={
     const run=this.run;
     card.classList.add('is-opening');
     card.setAttribute('aria-busy','true');
-    this.followLatest(card);
     Audio$?.soft?.();
     const timer=setTimeout(()=>{
       if(run!==this.run)return;
