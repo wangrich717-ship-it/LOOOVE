@@ -7489,11 +7489,19 @@ const GrowthTrail={
     this.keepNewestVisible(node);
     this.timer=setTimeout(()=>this.renderNext(),this.delay(this.interval));
   },
+  layoutVisibleNodes(){
+    const trail=document.getElementById('growthTrail');
+    if(!trail)return;
+    trail.querySelectorAll('.growth-trail-node:not(.hide)').forEach((node,index)=>{
+      node.dataset.align=index%2===0?'left':'right';
+    });
+  },
   updateSpine(){
     const trail=document.getElementById('growthTrail');
     const spine=trail?.querySelector('.growth-spine');
     const path=spine?.querySelector('path');
     if(!trail||!spine||!path)return;
+    this.layoutVisibleNodes();
     requestAnimationFrame(()=>{
       const height=Math.max(1,Math.ceil(trail.getBoundingClientRect().height));
       const nodes=[...trail.querySelectorAll('.growth-trail-node:not(.hide)')];
