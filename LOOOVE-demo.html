@@ -1857,29 +1857,34 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
 .growth-report-brief{display:flex;gap:8px;margin-top:11px}
 .growth-report-brief span{flex:1;padding:9px 8px;border-radius:14px;background:rgba(255,255,255,.58);font-size:9.5px;line-height:1.45;color:var(--text-muted)}
 .growth-report-brief b{display:block;margin-top:2px;font-family:var(--serif);font-size:14px;color:var(--text-primary)}
-.growth-line{position:relative;min-height:0;padding:0 0 8px;display:flex;flex-direction:column;gap:16px;justify-content:flex-start;overflow:visible;flex:0 0 auto}
+.growth-line{position:relative;min-height:0;padding:0 8px 42px;display:flex;flex-direction:column;gap:20px;justify-content:flex-start;overflow:visible;flex:0 0 auto}
 .growth-line::before{display:none}
-.growth-spine{position:absolute;left:18px;top:4px;bottom:4px;width:1px;background:rgba(238,132,102,.34);
-  border-radius:999px;box-shadow:0 0 4px rgba(238,132,102,.12);pointer-events:none}
-.growth-trail-node{position:relative;z-index:2;padding-left:46px;display:flex;align-items:center;flex:0 0 auto;opacity:0;
+.growth-spine{position:absolute;z-index:0;left:50%;top:0;width:110px;height:1px;transform:translateX(-50%);pointer-events:none;overflow:visible}
+.growth-spine path{fill:none;stroke:var(--primary);stroke-width:3;stroke-linecap:round;opacity:.42;filter:drop-shadow(0 7px 12px rgba(255,127,99,.12))}
+.growth-trail-node{position:relative;z-index:2;width:86%;display:flex;align-items:center;flex:0 0 auto;opacity:0;
   animation:growthNodeIn .62s cubic-bezier(.2,.82,.22,1) forwards}
-.growth-trail-node::before{content:'';position:absolute;z-index:4;left:12px;top:calc(50% - 6px);width:12px;height:12px;
-  border-radius:50%;background:var(--node-color,#e88468);
-  box-shadow:0 0 0 7px color-mix(in srgb,var(--node-color,#e88468) 14%,transparent)}
-.growth-trail-node::after{content:'';position:absolute;z-index:1;left:18px;top:50%;width:28px;border-top:1px dashed color-mix(in srgb,var(--node-color,#e88468) 34%,transparent)}
-.growth-trail-node[data-growth="highlight"]{--node-color:#d5a13c}
-.growth-trail-node[data-growth="low"]{--node-color:#c97a8d}
-.growth-trail-node[data-growth="interaction"]{--node-color:#e88468}
-.growth-trail-node[data-growth="report"]{--node-color:#7fa08b}
-.growth-node-button{position:relative;width:100%;min-height:82px;padding:14px 15px;border:1px solid rgba(255,255,255,.92);border-radius:20px;
-  background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(255,248,242,.42));color:inherit;font-family:var(--sans);cursor:pointer;
-  box-shadow:0 15px 34px -30px rgba(125,91,74,.56),inset 0 1px 0 rgba(255,255,255,.86);
-  text-align:center;backdrop-filter:blur(18px) saturate(148%);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.growth-trail-node[data-align="left"]{margin-left:0;margin-right:auto}
+.growth-trail-node[data-align="right"]{margin-left:auto;margin-right:0}
+.growth-terminal-node::before{content:'';position:absolute;z-index:0;left:var(--terminal-x);top:100%;width:3px;height:18px;background:rgba(255,127,99,.42);
+  border-radius:0;transform:translateX(-50%);pointer-events:none}
+.growth-terminal-node::after{content:'';position:absolute;z-index:3;left:var(--terminal-x);top:calc(100% + 18px);width:11px;height:11px;aspect-ratio:1;border-radius:50%;background:var(--primary);
+  transform:translateX(-50%);box-shadow:0 0 0 6px rgba(255,127,99,.16),0 3px 8px rgba(255,127,99,.18);pointer-events:none}
+.growth-trail-node[data-growth="highlight"]{--node-color:#cba348;--growth-art:url('./assets/轨迹/trajectory-highlight-watercolor.webp')}
+.growth-trail-node[data-growth="low"]{--node-color:#bd7d91;--growth-art:url('./assets/轨迹/trajectory-low-watercolor.webp')}
+.growth-trail-node[data-growth="interaction"]{--node-color:#df8568;--growth-art:url('./assets/轨迹/trajectory-interaction-watercolor.webp')}
+.growth-trail-node[data-growth="review"]{--node-color:#7f9f8b;--growth-art:url('./assets/轨迹/trajectory-review-watercolor.webp')}
+.growth-node-button{position:relative;width:100%;min-height:112px;padding:19px 22px;border:1px solid rgba(238,231,227,.9);border-radius:25px;
+  background:#fff;color:inherit;font-family:var(--sans);cursor:pointer;
+  box-shadow:0 18px 34px -28px rgba(111,82,69,.42),inset 0 1px 0 rgba(255,255,255,.9);
+  overflow:hidden;isolation:isolate;text-align:left;-webkit-backdrop-filter:none;backdrop-filter:none;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.growth-node-button::before{content:'';position:absolute;inset:0;z-index:0;background:var(--growth-art) center/cover no-repeat;opacity:.5;pointer-events:none}
+.growth-node-button>.growth-node-meta,.growth-node-button>.growth-node-copy{position:relative;z-index:1}
 .growth-node-button:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--node-color,#e88468) 24%,white);
   box-shadow:0 20px 38px -26px color-mix(in srgb,var(--node-color,#e88468) 58%,rgba(90,65,54,.32)),inset 0 1px 0 rgba(255,255,255,.98)}
-.growth-node-button:hover .growth-node-copy{color:var(--primary)}
+.growth-node-button:hover .growth-node-copy{color:#282421}
 .growth-node-button:active{transform:scale(.985)}
-.growth-node-meta{display:flex;width:100%;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:8px;margin:0 0 7px;color:#918985;font-size:10.9px;line-height:1.35;letter-spacing:.025em}
+.growth-node-meta{display:flex;width:100%;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:8px;margin:0 0 9px;color:#877e79;font-size:10.9px;line-height:1.35;letter-spacing:.025em}
 .growth-node-kind{color:var(--node-color,#e88468);font-weight:700;text-align:left}
 .growth-node-meta time{margin-left:auto;white-space:nowrap;text-align:right}
 .growth-node-copy{display:block;width:100%;font-family:var(--serif);font-size:clamp(12px,3.28vw,13.6px);font-weight:400;line-height:1.85;letter-spacing:.035em;color:#302c2a;
@@ -1887,7 +1892,7 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
 .growth-trail-node.hide{display:none}
 .growth-record-reveal{opacity:0;transform:translateY(10px)}
 .growth-record-reveal.on{animation:growthRecordReveal .42s var(--ease-smooth) forwards}
-@keyframes growthNodeIn{from{opacity:0;transform:translateY(32px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes growthNodeIn{from{opacity:0;transform:translateY(-18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes growthRecordReveal{to{opacity:1;transform:translateY(0)}}
 .growth-interaction-media.practice img,.growth-interaction-media.reading img{aspect-ratio:4/3;object-fit:cover}
 .growth-interaction-media.practice,.growth-interaction-media.reading{grid-template-columns:1fr}
@@ -2001,15 +2006,15 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
 .growth-card-result-item{width:100%;padding:12px 14px;border-radius:14px;text-align:left;background:rgba(255,255,255,.78)}
 .growth-card-result-item b{display:block;font-size:10.5px;line-height:1.5;color:var(--text-muted);font-weight:600}
 .growth-card-result-item p{margin-top:5px;font-family:var(--serif);font-size:12px;line-height:1.65;color:var(--text-primary)}
-.growth-report-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.growth-report-metrics div{padding:13px;border-radius:17px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.88)}
-.growth-report-metrics span{display:block;font-size:9.5px;color:var(--text-muted)}
-.growth-report-metrics b{display:block;margin-top:4px;font-family:var(--serif);font-size:18px;color:var(--text-primary)}
-.growth-report-detail-list{display:flex;flex-direction:column;gap:13px}
-.growth-report-detail-list article{padding-bottom:13px;border-bottom:1px solid rgba(95,95,95,.08)}
-.growth-report-detail-list article:last-child{padding-bottom:0;border-bottom:0}
-.growth-report-detail-list h4{font-size:11px;color:var(--text-muted);letter-spacing:.08em}
-.growth-report-detail-list p{margin-top:6px;font-family:var(--serif);font-size:13.5px;line-height:1.8;color:var(--text-primary)}
+.growth-review-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.growth-review-metrics div{padding:13px;border-radius:17px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.88)}
+.growth-review-metrics span{display:block;font-size:9.5px;color:var(--text-muted)}
+.growth-review-metrics b{display:block;margin-top:4px;font-family:var(--serif);font-size:18px;color:var(--text-primary)}
+.growth-review-detail-list{display:flex;flex-direction:column;gap:13px}
+.growth-review-detail-list article{padding-bottom:13px;border-bottom:1px solid rgba(95,95,95,.08)}
+.growth-review-detail-list article:last-child{padding-bottom:0;border-bottom:0}
+.growth-review-detail-list h4{font-size:11px;color:var(--text-muted);letter-spacing:.08em}
+.growth-review-detail-list p{margin-top:6px;font-family:var(--serif);font-size:13.5px;line-height:1.8;color:var(--text-primary)}
 .growth-change-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:stretch}
 .growth-change-card{border-radius:18px;padding:12px;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.84)}
 .growth-change-card h4{margin:0 0 8px;font-size:11px;color:var(--text-muted);letter-spacing:.12em}
@@ -4588,7 +4593,7 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
                 <button class="growth-tab" data-growth="highlight" onclick="filterGrowthTrail(this)">高光</button>
                 <button class="growth-tab" data-growth="low" onclick="filterGrowthTrail(this)">波动</button>
                 <button class="growth-tab" data-growth="interaction" onclick="filterGrowthTrail(this)">互动</button>
-                <button class="growth-tab" data-growth="report" onclick="filterGrowthTrail(this)">报告</button>
+                <button class="growth-tab" data-growth="review" onclick="filterGrowthTrail(this)">盘点</button>
               </div>
               <button class="growth-date-filter" onclick="openCalendar()" aria-label="日期筛选">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg>
@@ -4596,7 +4601,9 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
             </div>
             <div class="growth-list-scroll" id="growthListScroll">
               <div class="growth-line" id="growthTrail" aria-live="polite">
-                <span class="growth-spine" aria-hidden="true"></span>
+                <svg class="growth-spine" viewBox="0 0 110 1" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M55 0 L55 1"/>
+                </svg>
               </div>
             </div>
             <!-- Demo 暂时隐藏：勋章与 AI 洞察入口
@@ -7428,13 +7435,13 @@ const GROWTH_TRAIL_ITEMS=[
   {key:'signalHighlight',type:'highlight',kind:'高光',date:'6月14日 · 18:42',brief:'在评审中，清楚表达了自己的判断。',side:'right'},
   {key:'deepConversation',type:'interaction',kind:'互动',date:'6月13日 · 16:24',brief:'完成一次深度对话，理清了思绪。',side:'left'},
   {key:'signalLow',type:'low',kind:'波动',date:'6月13日 · 10:19',brief:'会议结束后，压力仍停留在身体里。',side:'right'},
-  {key:'weeklyReport',type:'report',kind:'报告',date:'6月12日 · 20:00',brief:'LOOOVE 推送了本周身心复盘报告。',side:'left'},
+  {key:'weeklyReport',type:'review',kind:'盘点',date:'6月12日 · 20:00',brief:'LOOOVE 完成了本周身心状态盘点。',side:'left'},
   // 暂时隐藏：{key:'drawingBreath',type:'interaction',kind:'互动',date:'6月12日 · 18:42',brief:'完成一次绘画疗愈。',side:'right'},
   {key:'lifeHighlight',type:'highlight',kind:'高光',date:'6月12日 · 15:40',brief:'和朋友散步时，说了真话，也被温柔接住。',side:'left'},
   // 暂时隐藏：{key:'cardReflection',type:'interaction',kind:'互动',date:'6月11日 · 21:17',brief:'完成一次卡牌潜意识探索。',side:'right'},
   // 暂时隐藏：{key:'lifeLow',type:'low',kind:'波动',date:'6月11日 · 17:08',brief:'见面临时取消，把失落留在了身体里。',side:'left'},
   {key:'baduanjinPractice',type:'interaction',kind:'互动',date:'6月11日 · 07:44',brief:'完成 8 分钟八段锦练习。',side:'right'},
-  // 暂时隐藏：{key:'morningReport',type:'report',kind:'报告',date:'6月11日 · 07:30',brief:'LOOOVE 推送了今晨恢复报告。',side:'left'}
+  // 暂时隐藏：{key:'morningReport',type:'review',kind:'盘点',date:'6月11日 · 07:30',brief:'LOOOVE 完成了今晨恢复盘点。',side:'left'}
 ];
 const GrowthTrail={
   interval:780,
@@ -7457,11 +7464,12 @@ const GrowthTrail={
     this.filter=document.querySelector('.growth-tab.on')?.dataset.growth||'all';
     const page=document.getElementById('growthListScroll');
     if(page)page.scrollTop=0;
+    this.updateSpine();
     this.timer=setTimeout(()=>this.renderNext(),this.delay(240));
   },
   nodeMarkup(item,index){
     const hidden=this.filter!=='all'&&this.filter!==item.type?' hide':'';
-    return `<article class="growth-trail-node${hidden}" data-growth="${item.type}" data-index="${index}">
+    return `<article class="growth-trail-node${hidden}" data-growth="${item.type}" data-align="${index%2===0?'left':'right'}" data-index="${index}">
       <button class="growth-node-button" type="button" onclick="openGrowthRecord('${item.key}')" aria-label="${esc(item.brief)}">
         <span class="growth-node-meta"><span class="growth-node-kind">${esc(item.kind)}</span><time>${esc(item.date)}</time></span>
         <span class="growth-node-copy">${esc(item.brief)}</span>
@@ -7476,8 +7484,45 @@ const GrowthTrail={
     const node=trail.querySelector('.growth-trail-node');
     this.index-=1;
     renderIcons(node);
+    this.updateSpine();
+    node.addEventListener('animationend',()=>this.updateSpine(),{once:true});
     this.keepNewestVisible(node);
     this.timer=setTimeout(()=>this.renderNext(),this.delay(this.interval));
+  },
+  updateSpine(){
+    const trail=document.getElementById('growthTrail');
+    const spine=trail?.querySelector('.growth-spine');
+    const path=spine?.querySelector('path');
+    if(!trail||!spine||!path)return;
+    requestAnimationFrame(()=>{
+      const height=Math.max(1,Math.ceil(trail.getBoundingClientRect().height));
+      const nodes=[...trail.querySelectorAll('.growth-trail-node:not(.hide)')];
+      const lastNode=nodes[nodes.length-1];
+      trail.querySelectorAll('.growth-terminal-node').forEach(node=>node.classList.remove('growth-terminal-node'));
+      lastNode?.classList.add('growth-terminal-node');
+      if(lastNode)lastNode.style.setProperty('--terminal-x',`${trail.clientWidth/2-lastNode.offsetLeft}px`);
+      const spineHeight=lastNode?Math.max(1,Math.round(lastNode.offsetTop+lastNode.offsetHeight/2)):1;
+      spine.style.height=`${spineHeight}px`;
+      const points=[{x:55,y:0}];
+      nodes.forEach((node,index)=>{
+        const next=nodes[index+1];
+        const nodeBottom=node.offsetTop+node.offsetHeight;
+        const gap=next?Math.max(0,next.offsetTop-nodeBottom):Math.max(0,height-nodeBottom);
+        points.push({
+          x:index===nodes.length-1?55:(node.dataset.align==='left'?43:67),
+          y:index===nodes.length-1?spineHeight:Math.min(height,Math.round(nodeBottom+gap/2))
+        });
+      });
+      let pathData=`M${points[0].x} ${points[0].y}`;
+      for(let index=1;index<points.length;index+=1){
+        const previous=points[index-1];
+        const current=points[index];
+        const middle=(previous.y+current.y)/2;
+        pathData+=` C${previous.x} ${middle} ${current.x} ${middle} ${current.x} ${current.y}`;
+      }
+      spine.setAttribute('viewBox',`0 0 110 ${spineHeight}`);
+      path.setAttribute('d',pathData);
+    });
   },
   keepNewestVisible(node){
     const page=document.getElementById('growthListScroll');
@@ -7490,6 +7535,7 @@ const GrowthTrail={
     document.querySelectorAll('.growth-trail-node').forEach(node=>{
       node.classList.toggle('hide',type!=='all'&&node.dataset.growth!==type);
     });
+    this.updateSpine();
   }
 };
 function filterGrowthTrail(btn){
@@ -7600,18 +7646,18 @@ const GROWTH_RECORDS={
     aiSummary:'这句心法把方案是否被采纳与个人能力分开。先带走有用的信息，也允许愤怒存在；等身体回稳后，再决定什么值得回应。'
   },
   morningReport:{
-    type:'report',reportKind:'早间报告',title:'早间报告',date:'6月11日 · 07:30',kind:'报告',
+    type:'review',reviewKind:'晨间盘点',title:'今晨恢复盘点',date:'6月11日 · 07:30',kind:'盘点',
     headline:'今晨恢复偏慢，适合从容启动。',
     metrics:[['56','Loooveness'],['6h42m','睡眠'],['32ms','HRV'],['3.3','压力']],
     sections:[['睡眠恢复','昨夜睡眠比近 7 日均值少 38 分钟，夜间醒来 2 次，恢复尚未完全。'],['身体节律','起床后心率逐渐回落，身体正在从静息状态慢慢打开。'],['今日建议','上午先做熟悉的事，把需要判断的任务留到状态打开之后。']],
     aiSummary:'昨夜恢复低于近期水平，但起床后的心率变化正常。今天不需要追赶状态，从熟悉、低判断负荷的任务开始会更顺。'
   },
   weeklyReport:{
-    type:'report',reportKind:'周报告',title:'周复盘报告',date:'6月12日 · 20:00',kind:'报告',
-    headline:'LOOOVE 推送了本周身心复盘报告。',
+    type:'review',reviewKind:'周度盘点',title:'本周身心盘点',date:'6月12日 · 20:00',kind:'盘点',
+    headline:'LOOOVE 完成了本周身心状态盘点。',
     metrics:[['58','Loooveness 均值'],['35ms','平均 HRV'],['6h56m','平均睡眠'],['5 次','有效记录']],
-    sections:[['本周变化','周初压力高位持续时间较长，周三以后恢复速度逐渐加快。'],['情绪线索','工作分歧仍是最明显的压力来源，但你在表达边界时比之前更稳定。'],['下周关注','继续观察高压会议后的两小时，给情绪一个明确的结束点。']],
-    aiSummary:'本周的变化不是压力消失了，而是你从压力里回来的速度变快了。高压之后的 HRV 回升更稳定，说明新的调节方式正在被身体记住。'
+    sections:[['本周恢复','周初压力高位持续时间较长；周三以后，HRV 回升速度逐渐加快。'],['反复出现','工作分歧后，身体紧绷停留得最久；清楚表达边界后，恢复会明显更快。'],['下一步','高压会议后留出 20 分钟缓冲，用慢走或呼吸为身体标记“已经结束”。']],
+    aiSummary:'这是 LOOOVE 为你完成的本周盘点：压力仍会出现，但你回到稳定的速度更快了。尤其在清楚表达边界之后，HRV 回升更完整。下周继续保留高压后的缓冲，让恢复成为节奏的一部分。'
   }
 };
 function growthRecordHero(record){
@@ -7641,13 +7687,13 @@ function growthInteractionRecordMarkup(record){
       <div class="growth-summary-row"><div class="growth-summary-label">LOOOVE 总结</div><p class="growth-summary-copy">${esc(record.aiSummary)}</p></div>
     </section>`;
 }
-function growthReportRecordMarkup(record){
+function growthReviewRecordMarkup(record){
   const metrics=record.metrics.map(([value,label])=>`<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
   const sections=record.sections.map(([title,copy])=>`<article><h4>${esc(title)}</h4><p>${esc(copy)}</p></article>`).join('');
   return `${growthRecordHero(record)}
-    <section class="growth-record-block"><div class="growth-detail-section-title">报告数据</div><div class="growth-report-metrics">${metrics}</div></section>
-    <section class="growth-record-block"><div class="growth-detail-section-title">详细解读</div><div class="growth-report-detail-list">${sections}</div></section>
-    <section class="growth-record-block"><div class="growth-detail-section-title" data-i18n-zh="LOOOVE 总结" data-i18n-en="Your letter">LOOOVE 总结</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
+    <section class="growth-record-block"><div class="growth-detail-section-title">盘点数据</div><div class="growth-review-metrics">${metrics}</div></section>
+    <section class="growth-record-block"><div class="growth-detail-section-title">阶段回看</div><div class="growth-review-detail-list">${sections}</div></section>
+    <section class="growth-record-block"><div class="growth-detail-section-title">LOOOVE 复盘</div><div class="growth-ai-record">${esc(record.aiSummary)}</div></section>`;
 }
 function openGrowthRecord(key){
   Audio$.soft();
@@ -7657,7 +7703,7 @@ function openGrowthRecord(key){
   const content=document.getElementById('growthRecordContent');
   if(!record||!screen||!title||!content)return;
   title.textContent=record.title;
-  const renderer=record.type==='signal'?growthSignalRecordMarkup:record.type==='interaction'?growthInteractionRecordMarkup:growthReportRecordMarkup;
+  const renderer=record.type==='signal'?growthSignalRecordMarkup:record.type==='interaction'?growthInteractionRecordMarkup:growthReviewRecordMarkup;
   content.innerHTML=renderer(record);
   content.scrollTop=0;
   content.querySelectorAll('section').forEach(section=>section.classList.add('growth-record-reveal'));
