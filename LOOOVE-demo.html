@@ -977,6 +977,55 @@ html[lang="en"] #proactiveProfileScreen .profile-portrait-note p{font-size:14px;
 html[lang="en"] #proactiveProfileScreen .profile-companion-plan h4{font-size:19px}
 html[lang="en"] #proactiveProfileScreen .profile-companion-plan p{font-size:12.5px;line-height:1.6;grid-template-columns:86px minmax(0,1fr)}
 html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size:9.5px}
+.proactive-profile-map-screen,.proactive-profile-screen{--profile-art-opacity:.8;isolation:isolate;background:#f8f7f4}
+.proactive-profile-map-screen{--profile-art:url('./assets/profile/mind-body-journey.png')}
+.proactive-profile-screen{--profile-art:url('./assets/profile/mind-body-portrait.png')}
+.proactive-profile-map-screen::before,.proactive-profile-screen::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.1)),var(--profile-art);
+  background-size:cover;background-position:center top;background-repeat:no-repeat;opacity:var(--profile-art-opacity)}
+.proactive-profile-map-screen>.practice-video-topbar,.proactive-profile-screen>.practice-video-topbar,
+.proactive-profile-map-screen>.proactive-detail-body,.proactive-profile-screen>.proactive-detail-body{z-index:1}
+.proactive-profile-map-screen>.practice-video-topbar,.proactive-profile-screen>.practice-video-topbar{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom-color:transparent}
+.proactive-profile-map-body,.proactive-profile-body{padding:16px 16px 64px}
+.journey-scene-heading,.profile-portrait-heading{position:relative;z-index:2;text-align:center;color:#5a463b;text-shadow:0 1px 12px rgba(255,255,255,.95)}
+.journey-scene-heading small,.profile-portrait-heading small{display:block;color:#bd7a5d;font-size:8.5px;font-weight:700;letter-spacing:.18em}
+.journey-scene-heading h3,.profile-portrait-heading h3{margin-top:5px;font:500 22px/1.2 var(--serif)}
+.journey-scene-heading p,.profile-portrait-heading p{margin-top:5px;font:400 10.5px/1.6 var(--serif);color:#756862}
+.profile-map-path{position:relative;display:block;min-height:680px;margin-top:5px;padding:0}
+.profile-map-route{display:none}
+.profile-map-station{position:absolute;z-index:2;width:184px;min-height:76px;margin:0;padding:12px 13px;border-radius:20px;display:flex;gap:10px;justify-content:flex-start;align-items:center;
+  background:rgba(255,255,255,.84);border:1px solid rgba(220,174,139,.58);box-shadow:0 10px 28px rgba(89,69,58,.11),inset 0 1px 0 rgba(255,255,255,.92);backdrop-filter:blur(7px)}
+.profile-map-station--growth{top:18px;right:4px}.profile-map-station--relation{top:180px;left:1px}.profile-map-station--stress{top:332px;right:0}.profile-map-station--body{top:493px;left:10px;border-color:rgba(241,128,91,.78);box-shadow:0 0 0 3px rgba(255,255,255,.48),0 12px 30px rgba(232,127,91,.18)}
+.profile-map-index{width:38px;height:38px;flex:0 0 38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,247,240,.9);color:#d48061;font:500 15px var(--serif);box-shadow:0 0 0 5px rgba(255,244,237,.55)}
+.profile-map-station:nth-of-type(even) .profile-map-index{color:#d48061;background:rgba(255,247,240,.9);box-shadow:0 0 0 5px rgba(255,244,237,.55)}
+.profile-map-station-copy{max-width:118px;text-align:left}.profile-map-station h4{font-size:15px;color:#4f4038}.profile-map-station p{margin-top:4px;font-size:8px;line-height:1.45;color:#8f8179}
+.profile-map-finish{position:absolute;top:610px;left:50%;width:184px;min-height:58px;transform:translateX(-50%);padding:10px 12px;border-radius:18px;background:rgba(255,255,255,.82);border:1px solid rgba(226,183,151,.6);box-shadow:0 10px 24px rgba(91,70,58,.1)}
+.profile-map-finish i{display:none}.profile-map-finish h4{font-size:13px}.profile-map-finish p{margin-top:3px;font-size:8.5px}
+.profile-portrait-heading{display:none}
+.profile-portrait-hero,.profile-dimension-card,.profile-portrait-note,.profile-companion-plan{background:rgba(255,255,255,.86);border-color:rgba(222,194,176,.7);box-shadow:0 13px 31px rgba(77,63,56,.1);backdrop-filter:blur(7px)}
+.profile-portrait-hero{padding:17px 18px;border-radius:22px}.profile-portrait-hero::after{opacity:.22}.profile-portrait-hero small{font-size:8px}.profile-portrait-hero h3{margin-top:6px;font-size:23px}.profile-portrait-hero>p{font-size:11.5px;line-height:1.72}.profile-traits span{font-size:8px}
+.profile-dimension-grid.profile-dimension-stage{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;height:auto;margin-top:8px}
+.profile-dimension-stage .profile-dimension-card{position:relative;width:auto;height:132px;min-height:0;padding:12px 11px;border-radius:18px}
+.profile-dimension-card--body,.profile-dimension-card--stress,.profile-dimension-card--relation,.profile-dimension-card--growth{top:auto;right:auto;left:auto}
+.profile-dimension-stage .profile-dimension-card b{font-size:15px}.profile-dimension-stage .profile-dimension-card p{margin-top:10px;font-size:10.5px;line-height:1.68}.profile-dimension-stage .profile-dimension-card span{margin-top:10px;font-size:8px;line-height:1.4}
+.profile-portrait-note,.profile-companion-plan{position:relative;z-index:2}
+.mine-growth-profile{gap:0;padding:20px 18px 17px}
+.mine-growth-profile .mine-profile-top{align-items:center}
+.mine-growth-profile .mine-avatar{margin-top:0}
+.mine-growth-profile .mine-name{font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:.02em}
+.mine-growth-eyebrow{margin-top:5px;color:#9b918c;font-size:9.5px;letter-spacing:.08em}
+.mine-growth-summary{margin-top:16px;padding-top:14px;border-top:1px solid rgba(91,77,70,.08);font-family:var(--serif);font-size:12px;line-height:1.78;color:#5d5551}
+.mine-growth-summary b{color:var(--primary);font-family:var(--sans);font-size:9.5px;letter-spacing:.08em}
+.mine-growth-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.mine-growth-tags span{padding:6px 9px;border-radius:99px;background:rgba(255,238,231,.68);border:1px solid rgba(238,142,111,.16);color:#d97960;font-size:9px;letter-spacing:.04em}
+.mine-value-dimensions{margin-top:14px;padding:12px 12px 10px;border-radius:16px;background:rgba(255,255,255,.62);border:1px solid rgba(238,142,111,.11)}
+.mine-value-title{margin-bottom:7px;color:var(--primary);font-size:9.5px;font-weight:700;letter-spacing:.08em}
+.mine-value-row{display:grid;grid-template-columns:43px 1fr 22px;align-items:center;gap:8px;min-height:19px;color:#746a65;font-size:8.5px}
+.mine-value-track{height:4px;border-radius:99px;background:rgba(237,154,127,.12);overflow:hidden}.mine-value-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ef866a,#ebbd56)}
+.mine-value-row strong{color:#e9785e;font-size:8.5px;text-align:right}
+.mine-growth-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
+.mine-growth-action{min-height:42px;border:1px solid rgba(238,142,111,.2);border-radius:15px;background:rgba(255,255,255,.78);color:#5a504b;font:600 11px var(--sans);cursor:pointer;box-shadow:0 7px 18px rgba(93,72,62,.06);transition:.2s ease}
+.mine-growth-action:first-child{color:#e2765e}.mine-growth-action:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(93,72,62,.1)}
 .practice-video-screen{position:absolute;inset:0;z-index:14;display:none;background:linear-gradient(165deg,#fff,#fbf9f7 68%,#f7f2ee);overflow-y:auto;scrollbar-width:none}
 .practice-video-screen::-webkit-scrollbar{display:none}
 .practice-video-screen.on{display:block;animation:practiceVideoIn .32s var(--ease-smooth) both}
@@ -2379,7 +2428,7 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
   box-shadow:0 4px 20px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.9)}
 .mine-profile-top{display:flex;align-items:center;gap:16px}
 .mine-profile-entry{display:grid;grid-template-columns:34px 1fr 18px;align-items:center;gap:10px;width:100%;margin:14px 0 8px;padding:10px 12px;border-radius:16px;font-family:var(--sans);text-align:left;color:var(--text-primary);cursor:pointer;transition:transform .15s,background .15s}
-.mine-profile-entry,.mine-act-btn{background:rgba(255,252,248,.62);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(255,255,255,.82);box-shadow:0 2px 10px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.88)}
+.mine-profile-entry{background:rgba(255,252,248,.62);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(255,255,255,.82);box-shadow:0 2px 10px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.88)}
 .mine-profile-entry:active{transform:scale(.98);background:rgba(255,255,255,.76)}
 .mine-profile-entry-icon{width:34px;height:34px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(255,127,99,.09);color:var(--primary)}
 .mine-profile-entry-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -2410,9 +2459,6 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
   background:rgba(90,175,115,.12);padding:2px 8px;border-radius:100px;border:1px solid rgba(90,175,115,.2)}
 .mine-sub{font-size:11.5px;color:var(--text-muted);margin-top:5px;line-height:1.6}
 .mine-sub em{font-style:normal;color:var(--primary)}
-.mine-acct-btn{margin-left:auto;font-size:11px;color:var(--text-muted);white-space:nowrap;
-  display:flex;align-items:center;gap:2px;cursor:pointer;flex-shrink:0;
-  background:rgba(0,0,0,.04);padding:5px 10px;border-radius:100px}
 .mine-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mine-feat-btn{padding:14px 12px 12px;display:flex;flex-direction:column;align-items:flex-start;
   gap:8px;cursor:pointer;transition:transform .15s}
@@ -2470,13 +2516,6 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
 .dev-log .lg-rx{color:#9bf0a8}
 .dev-log .lg-sys{color:rgba(255,200,150,.85)}
 .dev-log .lg-hex{color:rgba(255,255,255,.5)}
-.mine-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:6px 0 2px}
-.mine-act-btn{padding:13px 6px 11px;text-align:center;cursor:pointer;
-  border-radius:16px;
-  transition:transform .15s}
-.mine-act-btn:active{transform:scale(.94);opacity:.85}
-.mine-act-btn svg{width:20px;height:20px;stroke:var(--primary);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block;margin:0 auto 6px}
-.mine-act-lbl{font-size:10.5px;color:var(--text-secondary)}
 .mine-list{padding:0 2px}
 .mine-list-item{display:flex;align-items:center;gap:14px;padding:14px 0;cursor:pointer;
   border-bottom:1px solid rgba(0,0,0,.05)}
@@ -3862,10 +3901,10 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
                 </button>
               </span>
             </form>
-            <section class="proactive-detail-screen proactive-profile-map-screen" id="proactiveProfileMapScreen" aria-hidden="true" aria-label="身心地图">
+            <section class="proactive-detail-screen proactive-profile-map-screen" id="proactiveProfileMapScreen" aria-hidden="true" aria-label="身心旅程">
               <header class="practice-video-topbar">
                 <button class="practice-video-close proactive-detail-back" type="button" onclick="LOOOVEInteraction.closeProfileMap()" aria-label="返回互动">‹</button>
-                <h2 id="proactiveProfileMapHeader">身心地图</h2>
+                <h2 id="proactiveProfileMapHeader">身心旅程</h2>
                 <span aria-hidden="true"></span>
               </header>
               <div class="proactive-detail-body proactive-profile-map-body" id="proactiveProfileMapBody">
@@ -3873,74 +3912,69 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
                   <span class="profile-map-route" aria-hidden="true">
                     <svg viewBox="0 0 110 620" preserveAspectRatio="none"><path d="M57 4 C13 84 101 137 53 213 C17 271 94 322 53 392 C19 449 92 512 53 616"/></svg>
                   </span>
-                  <article class="profile-map-station">
-                    <span class="profile-map-index">01</span>
-                    <div class="profile-map-station-copy">
-                      <h4 id="profileMapBodyTitle">身体底图</h4>
-                      <p id="profileMapBodyMeta">睡眠 / 能量 / 活动 / 恢复</p>
-                    </div>
-                  </article>
-                  <article class="profile-map-station">
-                    <span class="profile-map-index">02</span>
-                    <div class="profile-map-station-copy">
-                      <h4 id="profileMapStressTitle">压力反应</h4>
-                      <p id="profileMapStressMeta">触发 / 情绪 / 身体信号 / 应对方式</p>
-                    </div>
-                  </article>
-                  <article class="profile-map-station">
-                    <span class="profile-map-index">03</span>
-                    <div class="profile-map-station-copy">
-                      <h4 id="profileMapRelationTitle">关系连接</h4>
-                      <p id="profileMapRelationMeta">亲密 / 表达 / 边界 / 支持来源</p>
-                    </div>
-                  </article>
-                  <article class="profile-map-station">
+                  <article class="profile-map-station profile-map-station--growth">
                     <span class="profile-map-index">04</span>
                     <div class="profile-map-station-copy">
                       <h4 id="profileMapRhythmTitle">成长路径</h4>
                       <p id="profileMapRhythmMeta">工作 / 决策 / 动力 / 成长方向</p>
                     </div>
                   </article>
-                  <div class="profile-map-finish">
-                    <i aria-hidden="true">♡</i>
-                    <h4 id="profileMapFinishTitle">身心地图已点亮</h4>
-                    <p id="profileMapFinishMeta">正在生成专属身心档案</p>
-                  </div>
+                  <article class="profile-map-station profile-map-station--relation">
+                    <span class="profile-map-index">03</span>
+                    <div class="profile-map-station-copy">
+                      <h4 id="profileMapRelationTitle">关系支持</h4>
+                      <p id="profileMapRelationMeta">亲密 / 表达 / 边界 / 支持来源</p>
+                    </div>
+                  </article>
+                  <article class="profile-map-station profile-map-station--stress">
+                    <span class="profile-map-index">02</span>
+                    <div class="profile-map-station-copy">
+                      <h4 id="profileMapStressTitle">压力反应</h4>
+                      <p id="profileMapStressMeta">触发 / 情绪 / 身体信号 / 应对方式</p>
+                    </div>
+                  </article>
+                  <article class="profile-map-station profile-map-station--body">
+                    <span class="profile-map-index">01</span>
+                    <div class="profile-map-station-copy">
+                      <h4 id="profileMapBodyTitle">身心状态</h4>
+                      <p id="profileMapBodyMeta">睡眠 / 能量 / 活动 / 恢复</p>
+                    </div>
+                  </article>
                 </div>
               </div>
             </section>
-            <section class="proactive-detail-screen proactive-profile-screen" id="proactiveProfileScreen" aria-hidden="true" aria-label="用户画像">
+            <section class="proactive-detail-screen proactive-profile-screen" id="proactiveProfileScreen" aria-hidden="true" aria-label="身心画像">
               <header class="practice-video-topbar">
                 <button class="practice-video-close proactive-detail-back" type="button" onclick="LOOOVEInteraction.closeProfileDetail()" aria-label="返回互动">‹</button>
-                <h2 id="proactiveProfileHeader">你的身心档案</h2>
+                <h2 id="proactiveProfileHeader">你的身心画像</h2>
                 <span aria-hidden="true"></span>
               </header>
               <div class="proactive-detail-body proactive-profile-body" id="proactiveProfileBody">
                 <section class="profile-portrait-hero">
-                  <small id="profilePortraitEyebrow">LOOOVE PORTRAIT · 01</small>
+                  <small id="profilePortraitEyebrow">总体印象</small>
                   <h3 id="profilePortraitTitle">敏锐的行动者</h3>
                   <p id="profilePortraitIntro">你感知细腻、行动力强，也习惯在变化里先寻找自己能做的部分。</p>
                   <div class="profile-traits" id="profilePortraitTraits">
                     <span>高感知</span><span>高责任</span><span>目标驱动</span><span>深度连接</span>
                   </div>
                 </section>
-                <div class="profile-dimension-grid">
-                  <article class="profile-dimension-card">
-                    <b id="profileBodyDimensionTitle">身体底图</b>
+                <div class="profile-dimension-grid profile-dimension-stage">
+                  <article class="profile-dimension-card profile-dimension-card--body">
+                    <b id="profileBodyDimensionTitle">身心状态</b>
                     <p id="profileBodyDimensionCopy">熟悉高强度释放，也对睡眠和恢复变化很敏感。</p>
                     <span id="profileBodyDimensionMeta">恢复优先 · 强度后置</span>
                   </article>
-                  <article class="profile-dimension-card">
+                  <article class="profile-dimension-card profile-dimension-card--stress">
                     <b id="profileStressDimensionTitle">压力反应</b>
                     <p id="profileStressDimensionCopy">压力升高时会提速、绷紧，并用完成感找回掌控。</p>
                     <span id="profileStressDimensionMeta">先稳身体 · 再做判断</span>
                   </article>
-                  <article class="profile-dimension-card">
+                  <article class="profile-dimension-card profile-dimension-card--relation">
                     <b id="profileRelationDimensionTitle">关系支持</b>
                     <p id="profileRelationDimensionCopy">重视深度回应；关系摇摆时，容易先检讨自己。</p>
                     <span id="profileRelationDimensionMeta">感受在前 · 边界随后</span>
                   </article>
-                  <article class="profile-dimension-card">
+                  <article class="profile-dimension-card profile-dimension-card--growth">
                     <b id="profileRhythmDimensionTitle">成长路径</b>
                     <p id="profileRhythmDimensionCopy">有探索欲和成长动力，适合在恢复与行动间交替推进。</p>
                     <span id="profileRhythmDimensionMeta">留白蓄能 · 小步验证</span>
@@ -4990,36 +5024,31 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
             <div class="wiki-head"><h2>我的</h2></div>
 
             <!-- 个人资料 + 测量 -->
-            <div class="card mine-profile">
+            <div class="card mine-profile mine-growth-profile">
               <div class="mine-profile-top">
                 <div class="mine-avatar">
                   <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </div>
                 <div style="flex:1;min-width:0">
                   <div class="mine-name-row">
-                    <div class="mine-name">Candice</div>
+                    <div class="mine-name">Candice，32 岁</div>
                   </div>
+                  <div class="mine-growth-eyebrow">成长档案 · 持续更新</div>
                 </div>
-                <div class="mine-acct-btn" onclick="toast('账户管理 — 即将上线')">账户管理 ›</div>
               </div>
-              <button class="mine-profile-entry" onclick="openOverlay('ov-xiaoha')" aria-label="打开个人档案">
-                <span class="mine-profile-entry-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v13H4z"/><circle cx="9" cy="10" r="2.2"/><path d="M6.5 16c.5-2 1.4-3 2.5-3s2 .9 2.5 3M14 9h3.5M14 13h3.5"/></svg></span>
-                <span class="mine-profile-entry-copy"><b>个人档案</b><small>查看个性化画像</small></span>
-                <span class="mine-profile-entry-arr">›</span>
-              </button>
-              <div class="mine-actions">
-                <div class="mine-act-btn" onclick="openOverlay('ov-heartrate')">
-                  <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                  <div class="mine-act-lbl">心率测量</div>
-                </div>
-                <div class="mine-act-btn" onclick="openOverlay('ov-spo2')">
-                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 13.5c0-2 1.79-3.5 4-3.5s4 1.5 4 3.5-1.79 3.5-4 3.5-4-1.5-4-3.5z"/></svg>
-                  <div class="mine-act-lbl">血氧测量</div>
-                </div>
-                <div class="mine-act-btn" onclick="openOverlay('ov-temp')">
-                  <svg viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
-                  <div class="mine-act-lbl">体表温度</div>
-                </div>
+              <div class="mine-growth-summary"><b>当前成长课题</b><br>你崇尚自由与人生体验，也在练习先稳住内心，再把力量投向真正重要的方向。</div>
+              <div class="mine-growth-tags"><span>自由体验</span><span>内在稳定</span><span>真诚连接</span></div>
+              <div class="mine-value-dimensions">
+                <div class="mine-value-title">内在价值强度</div>
+                <div class="mine-value-row"><span>自由感</span><div class="mine-value-track"><i style="width:96%"></i></div><strong>96</strong></div>
+                <div class="mine-value-row"><span>成长性</span><div class="mine-value-track"><i style="width:92%"></i></div><strong>92</strong></div>
+                <div class="mine-value-row"><span>责任感</span><div class="mine-value-track"><i style="width:88%"></i></div><strong>88</strong></div>
+                <div class="mine-value-row"><span>安全感</span><div class="mine-value-track"><i style="width:78%"></i></div><strong>78</strong></div>
+                <div class="mine-value-row"><span>松弛度</span><div class="mine-value-track"><i style="width:46%"></i></div><strong>46</strong></div>
+              </div>
+              <div class="mine-growth-actions">
+                <button class="mine-growth-action" type="button" onclick="openOverlay('ov-xiaoha')">查看详情</button>
+                <button class="mine-growth-action" type="button" onclick="openSelfResearchAssessment()">自我研究</button>
               </div>
             </div>
 
@@ -5766,23 +5795,19 @@ html[lang="en"] #proactiveProfileScreen .profile-companion-plan p span{font-size
             </div>
           </div><!-- /ov-chat -->
 
-          <!-- ===== Overlay: 个人档案 ===== -->
+          <!-- ===== Overlay: 成长档案 ===== -->
           <div class="overlay" id="ov-xiaoha">
             <div class="sr-topbar">
               <button class="sr-back" onclick="closeOverlay('ov-xiaoha')" aria-label="返回"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8 1.5L2 8.5L8 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-              <div class="sr-toptitle-wrap"><div class="sr-toptitle">个人档案</div></div>
+              <div class="sr-toptitle-wrap"><div class="sr-toptitle">成长档案</div></div>
               <div style="width:28px;flex-shrink:0"></div>
             </div>
             <div class="sr-scroll">
-              <section class="xh-hero">
-                <button class="xh-research-pill" onclick="openSelfResearchAssessment()"><span><b>自我研究</b><small>35 个问题，重新看见自己</small></span></button>
-              </section>
-
               <section class="xh-profile">
                 <div class="xh-profile-top">
                   <div>
                     <div class="xh-name">Candice，32 岁</div>
-                    <div class="xh-meta">个人成长画像 · 高觉知型</div>
+                    <div class="xh-meta">成长档案 · 持续更新 · 高觉知型</div>
                   </div>
                 </div>
                 <div class="xh-core">
@@ -6783,10 +6808,8 @@ const I18n={
     '今晨恢复偏慢，适合从容启动。':'Recovery is slower this morning. Start gently.',
     '睡眠':'Sleep',
 
-    '账户管理 ›':'Account ›',
-    '账户管理 — 即将上线':'Account settings · Coming soon',
-    '个人档案':'Profile',
-    '打开个人档案':'Open profile',
+    '成长档案':'Growth dossier',
+    '打开成长档案':'Open growth dossier',
     '查看个性化画像':'View your personal pattern',
     '自我研究':'Self discovery',
     '35 个问题，重新看见自己':'35 questions to see yourself anew',
@@ -8443,32 +8466,32 @@ const LOOOVE_PROACTIVE_COPY={
     searchClose:'关闭搜索',
     searchEmpty:'请输入关键词',
     searchNone:'没有找到',
-    profileGameLead:'在我们真正开始相处前，先让我们一起点亮身心地图吧。',
+    profileGameLead:'在我们真正开始相处前，先让我们一起开启身心旅程吧。',
     profileGameBody:'这一步，能让我更早看见你的身体状态、压力反应、关系支持与成长路径。',
-    profileGameTitle:'身心地图',
-    profileGameMeta:'生成专属身心档案',
-    profileInsightLead:'太棒啦，我们点亮了身心地图。',
+    profileGameTitle:'身心旅程',
+    profileGameMeta:'开启身心旅程',
+    profileInsightLead:'太棒啦，我们完成了身心旅程。',
     profileInsightBody:'我发现，你感受得很细，也总能迅速行动起来。但压力一高，也容易把更多责任先收回自己身上。',
     profileInsightNote:'这不是为了给你贴标签，只是我们理解彼此的第一个起点。',
-    profileEntryTitle:'查看你的身心档案',
-    profileEntryMeta:'四维画像 · LOOOVE 的理解',
-    profileMapHeader:'身心地图',
-    profileMapBodyTitle:'身体底图',
+    profileEntryTitle:'查看你的身心画像',
+    profileEntryMeta:'初始画像 · LOOOVE 的理解',
+    profileMapHeader:'身心旅程',
+    profileMapBodyTitle:'身心状态',
     profileMapBodyMeta:'睡眠 / 能量 / 活动 / 恢复',
     profileMapStressTitle:'压力反应',
     profileMapStressMeta:'触发 / 情绪 / 身体信号 / 应对方式',
-    profileMapRelationTitle:'关系连接',
+    profileMapRelationTitle:'关系支持',
     profileMapRelationMeta:'亲密 / 表达 / 边界 / 支持来源',
     profileMapRhythmTitle:'成长路径',
     profileMapRhythmMeta:'工作 / 决策 / 动力 / 成长方向',
-    profileMapFinishTitle:'身心地图已点亮',
-    profileMapFinishMeta:'正在生成专属身心档案',
-    profileHeader:'你的身心档案',
-    profilePortraitEyebrow:'LOOOVE PORTRAIT · 01',
+    profileMapFinishTitle:'身心旅程已开启',
+    profileMapFinishMeta:'正在生成你的身心画像',
+    profileHeader:'你的身心画像',
+    profilePortraitEyebrow:'总体印象',
     profilePortraitTitle:'敏锐的行动者',
     profilePortraitIntro:'你感知细腻、行动力强，也习惯在变化里先寻找自己能做的部分。',
     profileTraits:['高感知','高责任','目标驱动','深度连接'],
-    profileBodyDimensionTitle:'身体底图',
+    profileBodyDimensionTitle:'身心状态',
     profileBodyDimensionCopy:'熟悉高强度释放，也对睡眠和恢复变化很敏感。',
     profileBodyDimensionMeta:'恢复优先 · 强度后置',
     profileStressDimensionTitle:'压力反应',
@@ -8603,32 +8626,32 @@ const LOOOVE_PROACTIVE_COPY={
     searchClose:'Close search',
     searchEmpty:'Enter a keyword',
     searchNone:'No results',
-    profileGameLead:'Before we really get to know each other, let’s light up your mind-body map together.',
-    profileGameBody:'This step helps me see your physical state, stress responses, relational support, and growth path sooner.',
-    profileGameTitle:'Mind-body map',
-    profileGameMeta:'Create your personal mind-body profile',
-    profileInsightLead:'Wonderful—we’ve lit up your mind-body map.',
+    profileGameLead:'Before we really get to know each other, let’s begin your mind-body journey together.',
+    profileGameBody:'This first journey helps me notice your body state, stress responses, relational support, and growth path sooner.',
+    profileGameTitle:'Mind-body journey',
+    profileGameMeta:'Begin your mind-body journey',
+    profileInsightLead:'Wonderful—we’ve completed your mind-body journey.',
     profileInsightBody:'I’m noticing that you feel things deeply and move quickly into action. When pressure rises, you may also pull more responsibility back onto yourself.',
     profileInsightNote:'This isn’t a label—only the first step in learning how to understand one another.',
     profileEntryTitle:'Open your mind-body portrait',
     profileEntryMeta:'Four dimensions · LOOOVE’s understanding',
-    profileMapHeader:'Mind-body map',
-    profileMapBodyTitle:'Body baseline',
+    profileMapHeader:'Mind-body journey',
+    profileMapBodyTitle:'Body state',
     profileMapBodyMeta:'Sleep / energy / activity / recovery',
     profileMapStressTitle:'Stress response',
     profileMapStressMeta:'Triggers / emotion / body signals / coping',
-    profileMapRelationTitle:'Relational connection',
+    profileMapRelationTitle:'Relational support',
     profileMapRelationMeta:'Intimacy / expression / boundaries / support sources',
     profileMapRhythmTitle:'Growth path',
     profileMapRhythmMeta:'Work / decisions / motivation / growth direction',
-    profileMapFinishTitle:'Your mind-body map is lit',
-    profileMapFinishMeta:'Creating your personal mind-body profile',
+    profileMapFinishTitle:'Your mind-body journey has begun',
+    profileMapFinishMeta:'Creating your mind-body portrait',
     profileHeader:'Your mind-body portrait',
-    profilePortraitEyebrow:'LOOOVE PORTRAIT · 01',
+    profilePortraitEyebrow:'总体印象',
     profilePortraitTitle:'The perceptive doer',
     profilePortraitIntro:'You notice subtle shifts, act decisively, and look first for what you can do when circumstances change.',
     profileTraits:['Perceptive','Responsible','Goal-led','Deeply connected'],
-    profileBodyDimensionTitle:'Body baseline',
+    profileBodyDimensionTitle:'Body state',
     profileBodyDimensionCopy:'You know high-intensity release and notice changes in sleep and recovery quickly.',
     profileBodyDimensionMeta:'Recovery first · intensity later',
     profileStressDimensionTitle:'Stress response',
@@ -8903,7 +8926,7 @@ const LOOOVEInteraction={
       ['#homeAwarenessPlaceholder .proactive-body','LOOOVE 主动互动区','LOOOVE proactive guidance'],
       ['#loooveProactiveFeed','AI 动态简报','Dynamic AI briefing'],
       ['#practiceVideoScreen','运动教学视频','Movement teaching video'],
-      ['#proactiveProfileMapScreen','身心地图','Mind-body map'],
+      ['#proactiveProfileMapScreen','身心旅程','Mind-body journey'],
       ['#proactiveProfileScreen','用户画像','Mind-body portrait'],
       ['#proactiveArtScreen','艺术展','Art exhibition'],
       ['#proactiveConversationScreen','深度对话','Deeper conversation'],
@@ -9208,7 +9231,12 @@ const LOOOVEInteraction={
     screen.classList.add('is-revealing');
     body.scrollTo({top:0,behavior:'auto'});
     const route=screen.querySelector('.profile-map-route');
-    const items=[...screen.querySelectorAll('.profile-map-station'),screen.querySelector('.profile-map-finish')].filter(Boolean);
+    const items=[
+      screen.querySelector('.profile-map-station--body'),
+      screen.querySelector('.profile-map-station--stress'),
+      screen.querySelector('.profile-map-station--relation'),
+      screen.querySelector('.profile-map-station--growth')
+    ].filter(Boolean);
     const run=this.run;
     const routeTimer=setTimeout(()=>{
       if(run===this.run&&screen.classList.contains('on'))route?.classList.add('is-visible');
