@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="zh-CN" data-language="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LOOOVE 身心 Online，一段属于你的身心互动旅程。">
+  <title>身心 Online — LOOOVE</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23eadccf' stroke-width='8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <div class="game-shell">
+    <img class="game-background" src="game-assets/bodymind-online-arrival.webp" alt="">
+    <div class="game-atmosphere" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <header class="game-header">
+      <a href="index.html" class="game-back" aria-label="返回 LOOOVE 首页">
+        <span aria-hidden="true">←</span>
+        <span data-zh="返回" data-en="Back">返回</span>
+      </a>
+      <div class="game-controls">
+        <button class="sound-toggle" id="soundToggle" type="button" aria-label="关闭声音">◌</button>
+        <button class="game-language-toggle" id="gameLanguageToggle" type="button" aria-label="Switch to English">
+          <span class="language-current">中</span><i aria-hidden="true"></i><span class="language-next">EN</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="screen-stage">
+      <section class="game-screen is-active" id="welcomeScreen" aria-labelledby="welcomeTitle">
+        <div class="welcome-copy">
+          <h1 id="welcomeTitle" data-zh="解锁你的身心图鉴" data-en="Unlock your body–mind atlas">解锁你的身心图鉴</h1>
+          <p class="welcome-lead" id="welcomeLead" data-zh="从此刻的身体开始，找到那些正在消耗你、托住你，也牵引你的线索。" data-en="Start with your body now, and find the clues that drain you, support you, and pull you forward.">从此刻的身体开始，找到那些正在消耗你、托住你，也牵引你的线索。</p>
+          <button class="game-action game-action--primary primary-action" id="readyButton" type="button" data-zh="开始解锁" data-en="Start unlocking">开始解锁</button>
+        </div>
+      </section>
+
+      <section class="game-screen" id="weatherScreen" aria-labelledby="weatherTitle" hidden>
+        <div class="weather-panel">
+          <div class="chapter-line">
+            <span data-zh="01 / 身体天气" data-en="01 / BODY WEATHER">01 / 身体天气</span>
+            <div class="chapter-progress" aria-label="旅程进度"><i class="active"></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <h2 id="weatherTitle" data-zh="最近一段时间，你的身体更像哪一种天气？" data-en="Lately, what kind of weather has your body felt like?">最近一段时间，你的身体更像哪一种天气？</h2>
+
+          <div class="weather-artwork" id="weatherArtwork" data-weather="clear" aria-live="polite">
+            <div class="weather-sky" aria-hidden="true"></div>
+            <div class="clear-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="weather-sun" aria-hidden="true"><i></i></div>
+            <div class="weather-clouds" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="weather-wind" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="weather-rain" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="weather-lightning" aria-hidden="true"></div>
+            <div class="weather-fog" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="weather-artwork-copy">
+              <span id="weatherName">晴空</span>
+              <p id="weatherDescription">视野澄澈，身体里有松弛而明亮的空间。</p>
+            </div>
+          </div>
+
+          <div class="weather-tuner">
+            <div class="tuner-track-wrap">
+              <div class="tuner-points" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <input type="range" id="weatherTuner" min="0" max="5" step="any" value="0" aria-label="左右滑动选择最近的身体天气">
+            </div>
+            <div class="weather-scale" aria-hidden="true">
+              <span class="weather-state" data-value="0">晴空</span>
+              <span class="weather-state" data-value="1">微风</span>
+              <span class="weather-state" data-value="2">低云</span>
+              <span class="weather-state" data-value="3">细雨</span>
+              <span class="weather-state" data-value="4">骤雨</span>
+              <span class="weather-state" data-value="5">浓雾</span>
+            </div>
+            <button class="game-action game-action--primary" type="button" id="continueButton" data-zh="这就是最近的我" data-en="This feels like me lately">这就是最近的我</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="nextScreen" class="game-screen stress-screen" aria-labelledby="nextTitle" hidden>
+        <div class="stress-backdrop" aria-hidden="true"></div>
+        <div class="stress-panel" id="stressStage" style="--pressure: 0">
+          <header class="release-detail-header" id="releaseDetailHeader" hidden>
+            <button class="release-detail-back" id="releaseDetailBack" type="button" aria-label="返回 Demo" data-aria-label-zh="返回 Demo" data-aria-label-en="Back to Demo"><span aria-hidden="true">←</span></button>
+            <h1 class="release-detail-title" id="releaseDetailTitle">音游释放</h1>
+          </header>
+          <div class="chapter-line stress-chapter">
+            <span data-zh="02 / 压力现场" data-en="02 / THE PRESSURE SCENE">02 / 压力现场</span>
+            <div class="chapter-progress" aria-label="旅程进度"><i class="active"></i><i class="active"></i><i></i><i></i><i></i></div>
+          </div>
+
+          <div class="stress-copy">
+            <p class="stress-kicker" data-zh="把压力放到这里" data-en="PLACE THE PRESSURE HERE">把压力放到这里</p>
+            <h2 id="nextTitle" data-zh="最近，你的压力来自于哪里？" data-en="Where has your stress been coming from lately?">最近，你的压力来自于哪里？</h2>
+          </div>
+
+          <div class="stress-layout">
+            <div class="stress-source-area" id="stressSourceArea">
+              <div class="stress-source-list" id="stressSourceList" aria-label="选择压力来源">
+                <button type="button" data-stress-source="work"><strong data-zh="工作任务" data-en="Workload">工作任务</strong><small data-zh="项目、会议、截止期" data-en="Projects, meetings, deadlines">项目、会议、截止期</small></button>
+                <button type="button" data-stress-source="workplace"><strong data-zh="职场关系" data-en="Work relationships">职场关系</strong><small data-zh="协作、评价、边界" data-en="Collaboration, feedback, boundaries">协作、评价、边界</small></button>
+                <button type="button" data-stress-source="relationship"><strong data-zh="亲密关系" data-en="Close relationships">亲密关系</strong><small data-zh="沟通、冲突、距离" data-en="Communication, conflict, distance">沟通、冲突、距离</small></button>
+                <button type="button" data-stress-source="family"><strong data-zh="家庭责任" data-en="Family duties">家庭责任</strong><small data-zh="照料、期待、分工" data-en="Care, expectations, roles">照料、期待、分工</small></button>
+                <button type="button" data-stress-source="self"><strong data-zh="对自己的要求" data-en="Self-expectations">对自己的要求</strong><small data-zh="完美、比较、自责" data-en="Perfection, comparison, blame">完美、比较、自责</small></button>
+                <button type="button" data-stress-source="body"><strong data-zh="身体与精力" data-en="Body and energy">身体与精力</strong><small data-zh="睡眠、疼痛、透支" data-en="Sleep, pain, depletion">睡眠、疼痛、透支</small></button>
+                <button type="button" data-stress-source="money"><strong data-zh="金钱与生活" data-en="Money and living">金钱与生活</strong><small data-zh="收入、支出、安全感" data-en="Income, spending, security">收入、支出、安全感</small></button>
+                <button type="button" data-stress-source="uncertainty"><strong data-zh="未来不确定" data-en="Future uncertainty">未来不确定</strong><small data-zh="选择、变化、失控" data-en="Choices, change, control">选择、变化、失控</small></button>
+              </div>
+              <label class="stress-other-field" id="stressOtherField">
+                <span data-zh="其他（选填）" data-en="Something else (optional)">其他（选填）</span>
+                <input id="stressOtherInput" type="text" maxlength="48" autocomplete="off" placeholder="还有什么正压着你？" data-placeholder-zh="还有什么正压着你？" data-placeholder-en="What else is weighing on you?">
+              </label>
+            </div>
+
+            <div class="pressure-field" id="pressureField" hidden>
+              <button class="pressure-reset" id="pressureReset" type="button" aria-label="复原压力强度" title="复原">↻</button>
+              <button class="pressure-sponge" id="pressureSponge" type="button" aria-label="按住柔软织物施加压力再松开" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <svg class="pressure-sponge-svg" viewBox="0 0 400 180" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="spongeTone" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a57d68"/><stop offset=".48" stop-color="#6e4b3e"/><stop offset="1" stop-color="#2d1c18"/></linearGradient>
+                    <pattern id="spongeFibers" width="22" height="16" patternUnits="userSpaceOnUse"><path d="M-4 5 Q5 1 15 5 T34 5 M-3 13 Q7 9 18 13 T38 13" fill="none" stroke="#f4d7c2" stroke-width=".55" opacity=".13"/></pattern>
+                  </defs>
+                  <path class="pressure-sponge-shape pressure-sponge-shape--body" fill="url(#spongeTone)"></path>
+                  <path class="pressure-sponge-shape pressure-sponge-shape--texture" fill="url(#spongeFibers)"></path>
+                  <path class="pressure-sponge-shape pressure-sponge-shape--contour"></path>
+                </svg>
+                <span class="sponge-surface" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="pressure-sponge__label" data-zh="按住，让它承接你的力" data-en="Press and let it hold the weight">按住，让它承接你的力</span>
+                <small id="pressureValue">0</small>
+              </button>
+              <p class="pressure-selection" id="pressureSelection" aria-live="polite" data-zh="尚未确认强度" data-en="No intensity set yet">尚未确认强度</p>
+            </div>
+
+            <div class="stress-response-list" id="responseList" aria-label="最多选择三种常用的压力应对方式" hidden>
+              <button type="button" data-stress-response="fight" aria-pressed="false"><img class="stress-response-figure" src="game-assets/stress-response-fight.webp" alt=""><strong data-zh="战斗" data-en="Fight">战斗</strong><small data-zh="迎上去" data-en="Push back">迎上去</small></button>
+              <button type="button" data-stress-response="flight" aria-pressed="false"><img class="stress-response-figure" src="game-assets/stress-response-flight.webp" alt=""><strong data-zh="逃离" data-en="Flight">逃离</strong><small data-zh="先离开" data-en="Get away">先离开</small></button>
+              <button type="button" data-stress-response="regulate" aria-pressed="false"><img class="stress-response-figure" src="game-assets/stress-response-regulate.webp" alt=""><strong data-zh="调节" data-en="Regulate">调节</strong><small data-zh="先稳住自己" data-en="Ground yourself">先稳住自己</small></button>
+              <button type="button" data-stress-response="fawn" aria-pressed="false"><img class="stress-response-figure" src="game-assets/stress-response-fawn.webp" alt=""><strong data-zh="讨好" data-en="Fawn">讨好</strong><small data-zh="先照顾别人" data-en="Please others">先照顾别人</small></button>
+              <button type="button" data-stress-response="suppress" aria-pressed="false"><img class="stress-response-figure" src="game-assets/stress-response-suppress.webp" alt=""><strong data-zh="压抑" data-en="Suppress">压抑</strong><small data-zh="把感受按下去" data-en="Push it down">把感受按下去</small></button>
+              <button type="button" data-stress-response="connect" aria-pressed="false"><img class="stress-response-figure" src="game-assets/stress-response-connect.webp" alt=""><strong data-zh="求助" data-en="Reach out">求助</strong><small data-zh="找人聊聊" data-en="Talk to someone">找人聊聊</small></button>
+            </div>
+
+            <div class="coping-list" id="copingList" aria-label="选择释放压力的方式" hidden>
+              <button type="button" data-coping-mode="rhythm"><span class="coping-art coping-art--rhythm" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b><b></b><b></b></span><strong data-zh="音游释放" data-en="Rhythm release">音游释放</strong></button>
+              <button type="button" data-coping-mode="breathe"><span class="coping-art coping-art--breathe" aria-hidden="true"><b></b><i></i><i></i><i></i><i></i><i></i></span><strong data-zh="呼吸调整" data-en="Breath regulation">呼吸调整</strong></button>
+              <button type="button" data-coping-mode="shake"><span class="coping-art coping-art--shake" aria-hidden="true"><b></b><i></i><i></i></span><strong data-zh="摇散压力" data-en="Disperse pressure">摇散压力</strong></button>
+              <button type="button" data-coping-mode="seal"><span class="coping-art coping-art--seal" aria-hidden="true"><b></b><i></i></span><strong data-zh="压力寄存" data-en="Store pressure">压力寄存</strong></button>
+              <label class="coping-other-field" for="copingOtherInput"><span data-zh="其他（选填）" data-en="Something else (optional)">其他（选填）</span><input id="copingOtherInput" type="text" maxlength="48" autocomplete="off" placeholder="请许愿~" data-placeholder-zh="请许愿~" data-placeholder-en="Make a wish~"></label>
+            </div>
+
+            <div class="coping-experience" id="copingExperience" data-coping-experience="rhythm" hidden>
+              <div class="experience-head"><span data-zh="剩余压力" data-en="PRESSURE LEFT">剩余压力</span><strong id="experiencePressureValue">0</strong></div>
+              <div class="coping-experience__scene" id="copingExperienceScene" tabindex="0" aria-label="开始压力应对互动">
+                <div class="experience-rhythm" aria-label="四弦琵琶节奏互动">
+                  <div class="rhythm-toolbar">
+                    <div class="rhythm-song"><span data-zh="急曲子" data-en="Quick Tune">急曲子</span><small data-zh="琵琶 · 四弦" data-en="Pipa · four strings">琵琶 · 四弦</small></div>
+                    <label class="rhythm-speed" for="rhythmSpeed"><span data-zh="速度" data-en="SPEED">速度</span><input id="rhythmSpeed" type="range" min="0.65" max="1.15" step="0.05" value="0.80"><output id="rhythmSpeedValue" for="rhythmSpeed">0.80×</output></label>
+                  </div>
+                  <div class="rhythm-stage" id="rhythmStage">
+                    <div class="rhythm-note-field" id="rhythmNoteField" aria-hidden="true"></div>
+                    <strong class="rhythm-judgement" id="rhythmJudgement" aria-live="assertive"></strong>
+                    <p class="rhythm-completion-message" id="rhythmCompletionMessage" aria-live="polite" hidden></p>
+                    <button class="rhythm-lane" type="button" data-rhythm-lane="0" aria-label="第一弦，键盘 D"><i class="rhythm-string"></i><kbd>D</kbd></button>
+                    <button class="rhythm-lane" type="button" data-rhythm-lane="1" aria-label="第二弦，键盘 F"><i class="rhythm-string"></i><kbd>F</kbd></button>
+                    <button class="rhythm-lane" type="button" data-rhythm-lane="2" aria-label="第三弦，键盘 J"><i class="rhythm-string"></i><kbd>J</kbd></button>
+                    <button class="rhythm-lane" type="button" data-rhythm-lane="3" aria-label="第四弦，键盘 K"><i class="rhythm-string"></i><kbd>K</kbd></button>
+                    <div class="rhythm-judge-line" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+                  </div>
+                  <div class="rhythm-feedback" aria-live="polite"><span><strong id="rhythmCombo">0</strong><small data-zh="连击" data-en="COMBO">连击</small></span><p id="rhythmStatus" data-zh="跟着落点轻触四弦" data-en="Tap the four strings as notes land">跟着落点轻触四弦</p></div>
+                </div>
+                <div class="experience-breathe" aria-label="对着麦克风轻轻呼气，让蒲公英种子散开">
+                  <div class="dandelion-field" aria-hidden="true"><div class="dandelion"><span class="dandelion-stem"></span><span class="dandelion-core"></span><span class="dandelion-seeds"></span></div><div class="dandelion"><span class="dandelion-stem"></span><span class="dandelion-core"></span><span class="dandelion-seeds"></span></div><div class="dandelion"><span class="dandelion-stem"></span><span class="dandelion-core"></span><span class="dandelion-seeds"></span></div></div>
+                  <div class="breath-guide"><strong id="dandelionBreathStatus" data-zh="慢慢吸气，再轻轻呼气" data-en="Inhale slowly, then breathe out gently">慢慢吸气，再轻轻呼气</strong><div class="breath-actions"><button class="game-action game-action--secondary" id="dandelionBreathButton" type="button" data-zh="开启麦克风" data-en="Enable microphone">开启麦克风</button><button class="game-action game-action--primary" id="dandelionSimulateButton" type="button" data-zh="按住这里模拟吹气" data-en="Hold here to simulate breath">按住这里模拟吹气</button></div><small data-zh="对着麦克风呼气，或直接按住模拟按钮" data-en="Breathe toward the microphone, or hold the simulation button">对着麦克风呼气，或直接按住模拟按钮</small></div>
+                </div>
+                <div class="experience-shake" aria-label="左右轻轻晃动设备，把凝结的压力摇散">
+                  <div class="dispersal-stage">
+                    <div class="shake-bottle pressure-dispersal-shell" aria-hidden="true">
+                      <svg class="pressure-dispersal-vessel" viewBox="0 0 240 240" role="presentation">
+                        <defs>
+                          <clipPath id="pressureChamberClip"><path d="M58 30 C83 10 112 19 139 15 C171 10 201 25 211 51 C221 76 202 96 209 121 C220 152 211 185 185 205 C158 226 131 214 103 222 C70 231 40 214 28 185 C17 157 33 133 24 107 C14 77 30 49 58 30 Z"></path></clipPath>
+                          <radialGradient id="gelMembraneGradient" cx="29%" cy="18%" r="88%"><stop offset="0" stop-color="#fff3e8" stop-opacity=".72"></stop><stop offset=".26" stop-color="#e9b996" stop-opacity=".54"></stop><stop offset=".62" stop-color="#9b6651" stop-opacity=".56"></stop><stop offset="1" stop-color="#2c1a17" stop-opacity=".88"></stop></radialGradient>
+                          <radialGradient id="gelCoreGradient" cx="43%" cy="38%" r="68%"><stop offset="0" stop-color="#f0c4a0" stop-opacity=".52"></stop><stop offset=".38" stop-color="#b87b5e" stop-opacity=".38"></stop><stop offset=".75" stop-color="#6e4537" stop-opacity=".2"></stop><stop offset="1" stop-color="#251512" stop-opacity=".08"></stop></radialGradient>
+                          <linearGradient id="gelCausticGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff7ef" stop-opacity=".62"></stop><stop offset=".3" stop-color="#e4a77c" stop-opacity=".12"></stop><stop offset=".66" stop-color="#61392e" stop-opacity=".04"></stop><stop offset="1" stop-color="#f1b98f" stop-opacity=".28"></stop></linearGradient>
+                          <linearGradient id="gelEdgeGradient" x1=".08" y1="0" x2=".92" y2="1"><stop offset="0" stop-color="#fff7ef" stop-opacity=".92"></stop><stop offset=".34" stop-color="#e8b995" stop-opacity=".72"></stop><stop offset=".7" stop-color="#74493b" stop-opacity=".88"></stop><stop offset="1" stop-color="#f2c7aa" stop-opacity=".68"></stop></linearGradient>
+                          <filter id="gelSurface" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation=".45" result="soft"></feGaussianBlur><feSpecularLighting in="soft" surfaceScale="7" specularConstant=".36" specularExponent="24" lighting-color="#ffe8d4" result="specular"><fePointLight x="-55" y="-75" z="115"></fePointLight></feSpecularLighting><feComposite in="specular" in2="SourceGraphic" operator="in" result="lit"></feComposite><feBlend in="SourceGraphic" in2="lit" mode="screen"></feBlend></filter>
+                          <filter id="gelRefraction" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".018 .032" numOctaves="2" seed="9" result="noise"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="B"></feDisplacementMap><feGaussianBlur stdDeviation=".3"></feGaussianBlur></filter>
+                          <filter id="gelBloom" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+                        </defs>
+                        <ellipse class="gel-shadow" cx="121" cy="211" rx="76" ry="15"></ellipse>
+                        <path class="gel-membrane" d="M58 30 C83 10 112 19 139 15 C171 10 201 25 211 51 C221 76 202 96 209 121 C220 152 211 185 185 205 C158 226 131 214 103 222 C70 231 40 214 28 185 C17 157 33 133 24 107 C14 77 30 49 58 30 Z" fill="url(#gelMembraneGradient)" filter="url(#gelSurface)"></path>
+                        <path class="gel-inner-core" d="M67 45 C91 29 116 36 140 31 C166 26 191 39 197 61 C203 82 189 100 196 123 C205 150 195 177 174 191 C151 207 128 196 105 204 C78 212 53 197 44 175 C35 152 49 132 41 109 C32 83 44 59 67 45 Z" fill="url(#gelCoreGradient)" filter="url(#gelRefraction)"></path>
+                        <path class="gel-caustic" d="M37 115 C62 91 77 111 98 91 C119 71 138 88 158 67 C178 47 195 58 207 75 C198 98 199 109 206 132 C184 113 168 130 147 113 C124 95 108 117 84 104 C63 93 52 119 37 115 Z" fill="url(#gelCausticGradient)" clip-path="url(#pressureChamberClip)" filter="url(#gelRefraction)"></path>
+                        <g class="gel-microbubbles" clip-path="url(#pressureChamberClip)">
+                          <circle class="gel-microbubble" cx="62" cy="82" r="3.2"></circle><circle class="gel-microbubble" cx="177" cy="68" r="2.1"></circle><circle class="gel-microbubble" cx="154" cy="154" r="3.6"></circle><circle class="gel-microbubble" cx="79" cy="171" r="1.8"></circle><circle class="gel-microbubble" cx="119" cy="52" r="1.5"></circle><circle class="gel-microbubble" cx="190" cy="129" r="1.4"></circle><circle class="gel-microbubble" cx="49" cy="139" r="1.2"></circle><circle class="gel-microbubble" cx="126" cy="191" r="2.3"></circle>
+                        </g>
+                        <g class="pressure-fragments" clip-path="url(#pressureChamberClip)">
+                          <circle class="pressure-fragment" cx="70" cy="164" r="7"></circle><circle class="pressure-fragment" cx="91" cy="184" r="4"></circle><circle class="pressure-fragment" cx="110" cy="151" r="6"></circle><circle class="pressure-fragment" cx="132" cy="176" r="8"></circle><circle class="pressure-fragment" cx="158" cy="153" r="5"></circle><circle class="pressure-fragment" cx="180" cy="181" r="6"></circle><circle class="pressure-fragment" cx="82" cy="132" r="4"></circle><circle class="pressure-fragment" cx="103" cy="118" r="7"></circle><circle class="pressure-fragment" cx="126" cy="137" r="4"></circle><circle class="pressure-fragment" cx="148" cy="113" r="6"></circle><circle class="pressure-fragment" cx="174" cy="128" r="4"></circle><circle class="pressure-fragment" cx="61" cy="104" r="5"></circle><circle class="pressure-fragment" cx="88" cy="89" r="3"></circle><circle class="pressure-fragment" cx="116" cy="94" r="5"></circle><circle class="pressure-fragment" cx="145" cy="76" r="4"></circle><circle class="pressure-fragment" cx="179" cy="94" r="7"></circle><circle class="pressure-fragment" cx="111" cy="61" r="3"></circle><circle class="pressure-fragment" cx="157" cy="50" r="4"></circle>
+                        </g>
+                        <path class="gel-inner-rim" d="M66 42 C91 25 116 32 141 27 C168 23 193 37 201 60 C208 83 192 100 199 123 C209 151 199 179 176 195 C152 212 128 201 103 209 C75 218 48 202 38 177 C28 153 43 132 35 108 C25 81 40 56 66 42 Z"></path>
+                        <path class="dispersal-rim" d="M58 30 C83 10 112 19 139 15 C171 10 201 25 211 51 C221 76 202 96 209 121 C220 152 211 185 185 205 C158 226 131 214 103 222 C70 231 40 214 28 185 C17 157 33 133 24 107 C14 77 30 49 58 30 Z" stroke="url(#gelEdgeGradient)"></path>
+                        <path class="gel-highlight gel-highlight--primary" d="M48 91 C48 58 72 34 105 29 C123 26 140 30 152 27"></path>
+                        <path class="gel-highlight gel-highlight--secondary" d="M185 174 C174 192 153 201 133 201"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="experience-seal"><label for="storePressureText" data-zh="把此刻压着你的那句话写下来" data-en="Write the sentence weighing on you">把此刻压着你的那句话写下来</label><textarea id="storePressureText" maxlength="90" placeholder="写在这里…" data-placeholder-zh="写在这里…" data-placeholder-en="Write it here…"></textarea><button class="game-action game-action--primary" id="storePressureButton" type="button" data-zh="写下并封存" data-en="Write and store">写下并封存</button><div class="storage-envelope" aria-hidden="true"><span></span></div></div>
+                <div class="experience-progress"><i id="copingExperienceProgress"></i></div>
+              </div>
+              <p id="copingExperiencePrompt">跟着落点弹响四弦，速度可以随时调慢。</p>
+            </div>
+
+            <div class="stress-feedback" id="stressFeedback" aria-live="polite" hidden>
+              <p id="stressInstruction" data-zh="" data-en=""></p>
+              <p class="stress-result" id="stressResult"></p>
+            </div>
+          </div>
+
+          <div class="stress-actions">
+            <button class="game-action game-action--secondary" id="stressStepBack" type="button" data-zh="返回" data-en="Back">返回</button>
+            <button class="game-action game-action--primary" id="confirmSources" type="button" disabled data-zh="继续" data-en="Continue">继续</button>
+            <button class="game-action game-action--primary" id="confirmResponses" type="button" hidden disabled data-zh="继续（0/3）" data-en="Continue (0/3)">继续（0/3）</button>
+            <button class="game-action game-action--primary" id="intensityContinue" type="button" hidden disabled data-zh="确认这个强度" data-en="Confirm this intensity">确认这个强度</button>
+            <button class="game-action game-action--primary" id="completeCopingExperience" type="button" hidden data-zh="继续" data-en="Continue">继续</button>
+            <button class="game-action game-action--primary" id="stressContinue" type="button" data-zh="完成体验" data-en="Finish" hidden>完成体验</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="dailyScreen" class="game-screen daily-screen" aria-labelledby="dailyTitle" hidden>
+        <div class="daily-panel" data-daily-phase="food">
+          <div class="chapter-line daily-chapter">
+            <span data-zh="03 / 日常供能" data-en="03 / DAILY ENERGY">03 / 日常供能</span>
+            <div class="chapter-progress" aria-label="旅程进度"><i class="active"></i><i class="active"></i><i class="active"></i><i></i><i></i></div>
+          </div>
+          <section class="daily-phase" id="dailyFoodPhase" data-daily-section="food">
+            <div class="daily-copy"><h2 id="dailyTitle" data-zh="把你常吃、爱吃的，放进这只碗。" data-en="Fill the bowl with what you often eat and enjoy.">把你常吃、爱吃的，放进这只碗。</h2></div>
+            <div class="food-playground">
+              <button class="daily-bowl" id="foodBowl" type="button" aria-label="你的日常餐碗" style="--food-fill:0%">
+                <span class="bowl-vessel" aria-hidden="true"><span class="bowl-fill"></span><i class="bowl-rim"></i><i class="bowl-highlight"></i><span class="bowl-reading"><strong><b id="foodPercent">0</b>%</strong><small data-zh="你的日常餐碗" data-en="Your daily bowl">你的日常餐碗</small></span></span>
+              </button>
+              <div class="food-pantry" id="foodPantry" aria-label="食物选择">
+                <button type="button" data-food-category="meat" data-food-item="肉"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 36c0-13 12-23 27-21 8 1 13 7 12 14-1 10-13 19-25 20-8 1-14-4-14-13Z"/><path d="M25 28c3-4 9-5 12-2s1 8-3 10-10 1-11-2c-1-2 0-4 2-6Z"/><circle cx="45" cy="24" r="3"/></svg><strong data-zh="肉" data-en="Meat">肉</strong></button>
+                <button type="button" data-food-category="egg" data-food-item="蛋"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M45 38c0 11-6 17-14 17s-15-7-15-17c0-12 8-28 15-28s14 17 14 28Z"/><ellipse cx="31" cy="39" rx="7" ry="8"/></svg><strong data-zh="蛋" data-en="Eggs">蛋</strong></button>
+                <button type="button" data-food-category="dairy" data-food-item="奶"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 19h24l5 9v26H15V28l5-9Z"/><path d="M20 19l5-9h14l5 9M15 28h34M25 10v9"/><path d="M31 35c4 4 5 7 2 10-3 2-8 0-8-4 0-2 2-4 6-6Z"/></svg><strong data-zh="奶" data-en="Dairy">奶</strong></button>
+                <button type="button" data-food-category="vegetable" data-food-item="蔬菜"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M31 53V30"/><path d="M31 37C17 37 12 27 14 15c12 1 20 7 17 22ZM32 42c13 0 20-9 19-21-12 0-20 7-19 21Z"/><path d="M23 50c5-4 13-4 19 0"/></svg><strong data-zh="蔬菜" data-en="Vegetables">蔬菜</strong></button>
+                <button type="button" data-food-category="mushroom" data-food-item="菌菇"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 32c1-13 10-22 22-22s21 9 22 22H10Z"/><path d="M25 32v13c0 6-3 9-6 10h26c-4-2-6-5-6-10V32"/><path d="M20 24h1M31 18h1M43 25h1"/></svg><strong data-zh="菌菇" data-en="Mushrooms">菌菇</strong></button>
+                <button type="button" data-food-category="fruit" data-food-item="水果"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 22c-5-7-15-5-19 3-5 11 5 28 18 29 14-1 24-18 19-29-4-8-13-10-18-3Z"/><path d="M32 22c0-7 3-11 8-14M34 16c6-5 12-3 15 2-6 3-11 2-15-2Z"/></svg><strong data-zh="水果" data-en="Fruit">水果</strong></button>
+                <button type="button" data-food-category="staple" data-food-item="米饭"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M11 30h42c-1 15-8 24-21 24S12 45 11 30Z"/><path d="M17 30c2-11 10-17 15-12 4-6 13 1 15 12"/><path d="m23 23 3 2m7-4 2 3m7 0 2 2"/></svg><strong data-zh="米饭" data-en="Rice">米饭</strong></button>
+                <button type="button" data-food-category="staple" data-food-item="面条"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M11 34h42c-2 13-9 20-21 20s-19-7-21-20Z"/><path d="M16 28c4 4 8-4 12 0s8-4 12 0 7-3 10 0M21 9l5 26M43 9l-6 26"/></svg><strong data-zh="面条" data-en="Noodles">面条</strong></button>
+                <button type="button" data-food-category="staple" data-food-item="包子"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 42c0-12 9-23 20-23s20 11 20 23c0 8-7 12-20 12S12 50 12 42Z"/><path d="M32 19c-5 5-7 10-7 16m7-16v16m0-16c5 5 7 10 7 16m-16-9c5 2 8 5 9 9m9-9c-5 2-8 5-9 9"/></svg><strong data-zh="包子" data-en="Buns">包子</strong></button>
+                <div class="food-custom-card"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 44c7-5 9-12 8-24 11 2 18 8 21 18 3-3 5-7 5-12 7 11 3 26-9 29-10 3-20-1-25-11Z"/><path d="M32 27v18m-9-9h18"/></svg><input id="customFoodInput" type="text" maxlength="12" autocomplete="off" placeholder="其他" data-placeholder-zh="其他" data-placeholder-en="Other"><button id="customFoodAdd" type="button" data-zh="加入" data-en="Add">加入</button></div>
+              </div>
+            </div>
+            <div class="daily-actions"><button class="game-action game-action--secondary" id="foodUndo" type="button" disabled data-zh="撤回一份" data-en="Undo one">撤回一份</button><button class="game-action game-action--primary" id="foodContinue" type="button" hidden data-zh="继续" data-en="Continue">继续</button></div>
+          </section>
+
+          <section class="daily-phase" id="dailyMovementPhase" data-daily-section="movement" hidden>
+            <div class="daily-copy"><h2 data-zh="最近一段时间，你通常会做哪些运动？" data-en="Which kinds of movement have been part of your recent days?">最近一段时间，你通常会做哪些运动？</h2></div>
+            <div class="movement-playground">
+              <button class="movement-body" id="movementBody" type="button" aria-label="身体活动容器" style="--movement-fill:0%"><span class="movement-head"></span><span class="movement-torso"></span><span class="movement-reading"><strong><b id="movementPercent">0</b>%</strong><small data-zh="你的活动份量" data-en="Your movement">你的活动份量</small></span></button>
+              <div class="movement-shelf" id="movementShelf">
+                <button type="button" data-movement-type="walk"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M22 10c6 1 9 8 7 16s-8 13-14 10-7-10-3-17c3-6 6-10 10-9Zm22 20c6 1 9 8 7 15s-8 12-14 10-7-10-3-17c3-6 6-9 10-8Z"/><path d="M18 42c4 2 7 5 9 10m10-20c4 2 7 5 9 10"/></svg><strong>散步</strong></button>
+                <button type="button" data-movement-type="stretch"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="14" r="6"/><path d="M32 20v18m0-12L16 13m16 13 16-13M32 38 20 55m12-17 12 17"/></svg><strong>拉伸</strong></button>
+                <button type="button" data-movement-type="run"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="40" cy="12" r="5"/><path d="m35 20-10 11 10 8 7-12m-7 12-13 15m13-15 14 13M27 27l-13 4"/><path d="M9 43h11M5 50h10"/></svg><strong>跑步</strong></button>
+                <button type="button" data-movement-type="strength"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 25v14m28-14v14M12 28v8m40-8v8M18 32h28"/><rect x="20" y="18" width="6" height="28" rx="3"/><rect x="38" y="18" width="6" height="28" rx="3"/></svg><strong>力量</strong></button>
+                <button type="button" data-movement-type="dance"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="35" cy="12" r="5"/><path d="m32 20-7 15 10 5 7-13m-10 5-15-9m18 17-4 16m4-16 13 12M15 16l3 3 4-1"/></svg><strong>跳舞</strong></button>
+                <button type="button" data-movement-type="cycle"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="17" cy="43" r="11"/><circle cx="48" cy="43" r="11"/><path d="m17 43 10-20 9 20H17Zm19 0 12-20H34m-10 0h11m-2-7h8"/></svg><strong>骑行</strong></button>
+                <button type="button" data-movement-type="swim"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="42" cy="20" r="5"/><path d="M12 34c7-7 14-9 22-7l13 8M8 42c6 5 12 5 18 0 6 5 12 5 18 0 5 4 9 4 13 0M8 51c6 5 12 5 18 0 6 5 12 5 18 0 5 4 9 4 13 0"/></svg><strong>游泳</strong></button>
+                <div class="movement-custom-card"><svg class="daily-option-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 35c0-12 8-21 18-21 9 0 16 7 16 16 0 11-8 20-19 20-8 0-15-6-15-15Z"/><path d="M23 33c5-7 12-10 21-8M34 19v12m-6-6h12"/></svg><input id="customMovementInput" type="text" maxlength="12" autocomplete="off" placeholder="其他" data-placeholder-zh="其他" data-placeholder-en="Other"><button id="customMovementAdd" type="button" data-zh="加入" data-en="Add">加入</button></div>
+              </div>
+            </div>
+            <div class="daily-actions"><button class="game-action game-action--secondary" id="movementUndo" type="button" disabled data-zh="撤回一次" data-en="Undo one">撤回一次</button><button class="game-action game-action--secondary" id="movementSkip" type="button" data-zh="我不运动" data-en="I don't exercise">我不运动</button><button class="game-action game-action--primary" id="movementContinue" type="button" hidden data-zh="继续" data-en="Continue">继续</button></div>
+          </section>
+
+          <section class="daily-phase" id="dailySleepPhase" data-daily-section="sleep" hidden>
+            <div class="daily-copy"><h2 data-zh="拨动月亮与太阳，标注你最近的睡眠吧" data-en="Move the moon and sun to mark your recent sleep.">拨动月亮与太阳，标注你最近的睡眠吧</h2><small data-zh="在夜弧上点击，可以标记半夜醒来的时刻。" data-en="Tap the night arc to mark moments you wake up.">在夜弧上点击，可以标记半夜醒来的时刻。</small></div>
+            <div class="sleep-clock">
+              <svg class="sleep-night-arc" id="sleepArc" viewBox="0 0 640 320" role="img" aria-label="可拖动入睡与醒来时间的睡眠夜弧">
+                <defs><linearGradient id="nightArcGlow" x1="0" x2="1"><stop stop-color="#ddc39d"/><stop offset=".5" stop-color="#ece8d9"/><stop offset="1" stop-color="#9eb6d3"/></linearGradient></defs>
+                <path class="sleep-arc-track" id="sleepArcTrack" d="M70 245 Q320 18 570 245"/>
+                <path class="sleep-arc-progress" id="sleepArcProgress" d="M70 245 Q320 18 570 245"/>
+                <g class="sleep-time-ticks" id="sleepTimeTicks" aria-hidden="true"></g>
+                <g id="sleepWakeNodes" aria-hidden="true"></g>
+                <g class="sleep-time-handle sleep-time-handle--bedtime" id="sleepBedtimeHandle" role="slider" tabindex="0" aria-label="入睡时间" aria-valuemin="18:00" aria-valuemax="06:00" aria-valuenow="23:00">
+                  <circle class="sleep-handle-halo" r="25"/><circle class="sleep-handle-dot" r="10"/><text class="sleep-handle-symbol" x="0" y="-17">☾</text><rect class="sleep-handle-label-bg" x="-34" y="18" width="68" height="28" rx="14"/><text class="sleep-handle-label" id="sleepBedtimeValue" x="0" y="37">23:00</text>
+                </g>
+                <g class="sleep-time-handle sleep-time-handle--wake" id="sleepWakeHandle" role="slider" tabindex="0" aria-label="醒来时间" aria-valuemin="04:00" aria-valuemax="12:00" aria-valuenow="07:00">
+                  <circle class="sleep-handle-halo" r="25"/><circle class="sleep-handle-dot" r="10"/><text class="sleep-handle-symbol" x="0" y="-17">☼</text><rect class="sleep-handle-label-bg" x="-34" y="18" width="68" height="28" rx="14"/><text class="sleep-handle-label" id="sleepWakeValue" x="0" y="37">07:00</text>
+                </g>
+              </svg>
+              <input id="sleepBedtime" type="hidden" value="23"><input id="sleepWake" type="hidden" value="7">
+              <div class="sleep-summary"><strong><b id="sleepDuration">8</b> 小时</strong><span id="sleepInterruptionText">夜里没有标记醒来</span></div>
+              <label class="sleep-restoration"><span data-zh="醒来时，身体恢复了多少？" data-en="How restored do you feel on waking?">醒来时，身体恢复了多少？</span><input id="sleepRestoration" type="range" min="0" max="100" value="55"><strong><b id="sleepRestorationValue">55</b>%</strong></label>
+            </div>
+            <div class="daily-actions"><button class="game-action game-action--secondary" id="sleepClearNodes" type="button" data-zh="清除夜醒" data-en="Clear wake-ups">清除夜醒</button><button class="game-action game-action--primary" id="sleepContinue" type="button" data-zh="继续" data-en="Continue">继续</button></div>
+          </section>
+
+          <section class="daily-phase daily-report" id="dailyReportPhase" data-daily-section="report" hidden>
+            <div class="atlas-report-heading"><h2 data-zh="你的身心图鉴" data-en="YOUR BODY–MIND ATLAS">你的身心图鉴</h2></div>
+            <div class="atlas-clue-grid" id="atlasClueGrid" aria-live="polite"></div>
+            <form id="dailyReportForm"><label for="dailyReportEmail" class="sr-only">邮箱</label><input id="dailyReportEmail" name="email" type="email" maxlength="190" autocomplete="email" required placeholder="填写邮箱，接收身心图鉴完整解读" data-placeholder-zh="填写邮箱，接收身心图鉴完整解读" data-placeholder-en="Enter email for the complete atlas interpretation"><label class="daily-report-consent"><input id="dailyReportConsent" type="checkbox" required><span data-zh="我同意保存本次选择，用于生成并发送我的身心图鉴。" data-en="I agree to save these choices to create and send my atlas.">我同意保存本次选择，用于生成并发送我的身心图鉴。</span></label><input class="form-honeypot" name="website" type="text" tabindex="-1" autocomplete="off" hidden aria-hidden="true"><button class="game-action game-action--primary" id="dailyReportSubmit" type="submit" data-zh="接收完整解读" data-en="Receive complete interpretation">接收完整解读</button></form><p id="dailyReportStatus" role="status" aria-live="polite"></p>
+            <div class="daily-saved" id="dailySaved" hidden><span>✓</span><h3 data-zh="你的图鉴正在生成。" data-en="Your atlas is being created.">你的图鉴正在生成。</h3><p data-zh="通常几分钟内会抵达邮箱；无需停留在此页面。" data-en="It usually reaches your inbox within a few minutes; you may close this page.">通常几分钟内会抵达邮箱；无需停留在此页面。</p><a class="game-action game-action--primary" href="index.html" data-zh="完成体验" data-en="Finish">完成体验</a></div>
+          </section>
+
+          <button class="game-action game-action--secondary daily-back" id="dailyBack" type="button" data-zh="返回" data-en="Back">返回</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
